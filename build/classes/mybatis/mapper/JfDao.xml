@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.JfDao">
+	<resultMap type="Jf" id="jf">
+		<id property="id" column="id"/>
+		<result property="yhbh" column="yhbh"/>
+		<result property="jfje" column="jfje"/>
+		<result property="hjje" column="hjje"/>
+	<!-- 	<result property="syje" column="syje"/> -->
+		<result property="time" column="time"/>
+		
+		<result property="yhMessage.xqm" column="xqm" />
+		<result property="yhMessage.yhxm" column="yhxm"/>
+		<result property="yhMessage.ldh" column="ldh"/>
+		<result property="yhMessage.dyh" column="dyh"/>
+		<result property="yhMessage.hh" column="hh"/>
+		<result property="yhMessage.lxdh" column="lxdh" />
+	</resultMap>
+
+	<select id="find" resultMap="jf">
+		select 
+			y.yhxm,y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,
+			j.yhbh,j.jfje,j.hjje,j.time
+		 from 
+		 	k_jfb12 j,dbo.k_yhb1 y
+	</select>
+
+	<insert id="Insert" parameterType="Jf">
+		insert into k_jfb12
+		(id,yhbh,jfje,hjje)
+		values(#{id},#{yhbh},#{jfje},#{hjje})
+	</insert>
+
+	<delete id="delete" parameterType="Jf">
+		delete from k_jfb12
+		where id=#{id}
+	</delete>
+	
+	<update id="update" parameterType="Jf">
+		update k_jfb12 set
+		yhbh=#{yhbh},jfje=#{jfje},hjje=#{hjje},time=#{time}
+		where id=#{id}
+	</update>
+
+</mapper>

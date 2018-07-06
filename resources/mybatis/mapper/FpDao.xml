@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.FpDao">
+	<resultMap type="Fp" id="fp">
+		<id property="id" column="id"/>
+		
+		<result property="fpbh" column="fpbh"/>
+		<result property="yhbh" column="yhbh"/>
+		<result property="xh" column="xh"/>
+		<result property="wz" column="wz"/>
+		<result property="bz" column="bz"/>
+		
+	</resultMap>
+
+	<select id="find" resultMap="fp">
+		select * from k_fpb2
+	</select>
+
+	<insert id="Insert" parameterType="Fp">
+		insert into k_fpb2
+		(fpbh,yhbh, xh, wz,bz)
+		values(#{fpbh},#{yhbh},#{xh},#{wz},#{bz})
+	</insert>
+
+	<delete id="delete" parameterType="Fp">
+		delete from k_fpb2
+		where id=#{id}
+	</delete>
+	
+	<update id="update" parameterType="Fp">
+		update k_fpb2 set
+		fpbh=#{fpbh},yhbh=#{yhbh},xh=#{xh},wz=#{wz}, bz=#{bz}
+		where id=#{id}
+	</update>
+	
+	
+	<!-- public Fp findfpdz(String yhbh) -->
+	<select  id="findfpdz"  resultMap="fp">
+		select fpbh from k_fpb2 where yhbh=#{yhbh}
+	</select>
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.UserDao">
+	<resultMap type="User" id="user">
+		<id property="ID" column="id" />
+		<result property="UserName" column="UserName" />
+		<result property="PassWord" column="Password" />
+		<result property="root" column="root" />
+	</resultMap>
+	
+	<!--查找信息  	 public List<User> find(); -->
+ 	<select id="find" parameterType="User" resultType="User">
+		select * from T_Userlogin
+	</select>
+	
+	<!--插入信息  public void Insert( User user);-->
+	<insert id="addUser" parameterType="User">  
+        insert into T_Userlogin(UserName,Password) values(#{UserName},#{PassWord})  
+    </insert>
+    
+  
+    <!--  删除信息 public int delete(int id)-->
+    <delete id="delete">
+    	delete from T_Userlogin where id=#{ID}
+    </delete>
+    
+    
+    <!-- 根据id查找信息public User findById(int id)  -->
+    <select id="findById"  parameterType="User"  resultMap="user">
+    select ID,UserName,PassWord from T_Userlogin where ID=#{ID}
+    </select>
+    
+    
+    <!--更新信息 public void update(User  user) -->
+    <update id="update" parameterType="User">
+    update T_Userlogin set UserName=#{userName},PassWord=#{passWord} where ID=#{ID}
+    </update>
+    
+    <!--  	验证账号唯一性 -->
+ 	<select id="findUserByNameAndMD5" parameterType="User" resultType="User">
+		select * from T_Userlogin where UserName=#{userName} and PassWord=#{passWord}
+	</select>
+	
+	<!--  	验证账号唯一性 -->
+ 	<select id="findUserByName" parameterType="User" resultType="User">
+		select * from T_Userlogin where username=#{name}
+	</select>
+	
+	<!-- 根据id查询       public User findUserById(int id); -->
+	<select id="findUserById"  parameterType="User" resultMap="user">
+	 select ID,UserName,PassWord from T_Userlogin where ID=#{ID}
+	</select>
+	
+		<select id="addCheck" resultType="int" parameterType="User">
+		select count(*) from T_UserLogin where userName =#{userName}
+	</select>
+	
+	<!-- public int findID(@Param("userName")String userName); -->
+	<select id="findID" parameterType="User" resultType="int">
+	select ID from T_UserLogin where userName =#{userName}
+	</select>
+	
+	<resultMap type="User" id="u">
+		<id property="id" column="ID" />
+		<result property="userName" column="UserName" />
+		<result property="ur.userId" column="user_id" />
+		<result property="ur.roleId" column="role_id" />
+	</resultMap>
+	
+	<select id="findJSName" resultMap="user">
+	select u.ID,u.UserName from T_UserLogin u,user_role urs
+	where u.ID=urs.user_id and urs.role_id=1003
+	</select>
+	
+	 
+</mapper>

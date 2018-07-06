@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.DataHistoryDao">
+	<resultMap type="DataHistory" id="dataHistory">
+		<result property="id" column="id" />
+		<result property="yh_no" column="yh_no" />
+		<result property="mode" column="mode" />
+		<result property="dw" column="dw" />
+		<result property="time_h" column="time_h" />
+		<result property="time_m" column="time_m" />
+		<result property="time_l" column="time_l" />
+		<result property="jf" column="jf" />
+		<result property="temp_set" column="temp_set" />
+		<result property="temp_room" column="temp_room" />
+		<result property="onoff" column="onoff" />
+		<result property="time" column="time" />
+		<result property="js" column="js" />
+	 
+	</resultMap>
+	
+	
+	<!-- public List<DataHistory> find()-->
+	<select id="find"   resultMap="dataHistory"   parameterType="DataHistory">
+		 select time from k_dataHistory
+		
+	</select>
+		
+	 
+
+
+</mapper>

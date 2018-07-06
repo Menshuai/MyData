@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.DjbDao">
+	<resultMap type="Djb" id="djb">
+	
+		<id property="id" column="id"/>
+		<result property="yhlb" column="yhlb"/>
+		<result property="mjdj" column="mjdj"/>
+		<result property="nldj" column="nldj"/>
+		<result property="bz" column="bz"/>
+		
+	</resultMap>
+
+	<select id="find" resultMap="djb">
+		select * from  k_djb7 
+	</select>
+
+	<insert id="Insert" parameterType="Djb">
+		insert into k_djb7
+		(nldj,mjdj,yhlb,bz)
+		values(#{nldj},#{mjdj},#{yhlb},#{bz})
+	</insert>
+
+	<delete id="delete" parameterType="Djb">
+		delete from k_djb7
+		where id=#{id}
+	</delete>
+	
+	<update id="update" parameterType="Djb">
+		update k_djb7 set
+		nldj=#{nldj},mjdj=#{mjdj},yhlb=#{yhlb},bz=#{bz}
+		where id=#{id}
+	</update>
+
+</mapper>

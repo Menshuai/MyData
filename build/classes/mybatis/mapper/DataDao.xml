@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.DataDao">
+	<resultMap type="Data" id="data">
+		<result property="id" column="id" />
+		<result property="fpbh" column="fpbh" />
+		<result property="ms" column="ms" />
+		<result property="dw" column="dw" />
+		<result property="gdtime" column="gdtime" />
+		<result property="zdtime" column="zdtime" />
+		<result property="ddtime" column="ddtime" />
+		<result property="dgdtime" column="dgdtime" />
+		<result property="dzdtime" column="dzdtime" />
+		<result property="dddtime" column="dddtime" />
+		
+		<result property="jf" column="jf" />
+		<result property="sdwd" column="sdwd" />
+		<result property="snwd" column="snwd" />
+		<result property="kg" column="kg" />
+		<result property="bj" column="bj" />
+		<result property="jj" column="jj" />
+		<result property="time" column="time" />
+		<result property="xyydl" column="xyydl" />
+		
+		<result property="yhMessage.id" column="id" />
+		<result property="yhMessage.yhbh" column="yhbh" />
+		<result property="yhMessage.yhxm" column="yhxm"/>
+		<result property="yhMessage.xqm" column="xqm" />
+		<result property="yhMessage.ldh" column="ldh" />
+		<result property="yhMessage.dyh" column="dyh" />
+		<result property="yhMessage.hh" column="hh" />
+		<result property="yhMessage.mj" column="mj" />
+		<result property="yhMessage.fpgs" column="fpgs" />
+		<result property="yhMessage.bz" column="bz" />
+		<result property="yhMessage.yhlx" column="yhlx" />
+		<result property="yhMessage.lxdh" column="lxdh" />
+		
+		<result property="gl.id" column="id" />
+		<result property="gl.xh" column="xh" />
+		<result property="gl.xgkw" column="xgkw" />
+		<result property="gl.xzkw" column="xzkw" />
+		<result property="gl.xdkw" column="xdkw" />
+		<result property="gl.dgkw" column="dgkw" />
+		<result property="gl.dzkw" column="dzkw" />
+		<result property="gl.ddkw" column="ddkw" />
+		<result property="gl.bz" column="bz" />
+		
+		<result property="jzq.id" column="id" />
+		<result property="jzq.jzqnet" column="jzqnet" />
+		<result property="jzq.jzqip" column="jzqip" />
+		<result property="jzq.jzqport" column="jzqport" />
+		<result property="jzq.azdz" column="azdz" />
+	</resultMap>
+	
+	<!-- public List<Data> find()-->
+	<select id="find"   resultMap="data"   parameterType="Data">
+		select 
+		 	da.id,
+		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
+		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
+		 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
+		 	da.fpbh,da.ms,yh.fpgs,yh.lxdh,yh.bz,
+		 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
+		 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
+		 	yh.mj
+		from 
+		 	k_data10  da, 
+		 	k_yhb1  yh, 
+		 	k_fpb2 fp, 
+		 	k_glb6  gl 
+		<!--  where 
+		 	da.fpbh=fp.fpbh   fp.yhbh=yhMessage.yhbh    -->
+		
+	</select>
+		
+	<!-- public Data  findf(String address); -->
+	<select  id="findf"  resultMap="data"   parameterType="Data">
+	select  
+			* 
+	from  
+			k_data10 
+	</select>
+
+
+	<!--根据用户编号更新 public  void updateS(String fpbh) -->
+	 <update  id="updateS" parameterType="Data" >
+	 update 
+	 	 k_data10  
+	 set  
+	 	 ms=#{ms},
+	 	 dw=#{dw},
+	 	 gdtime=#{gdtime},
+	 	 zdtime=#{zdtime},
+	 	 ddtime=#{ddtime},
+	 	 dgdtime=#{dgdtime},
+	 	 dzdtime=#{dzdtime},
+	 	 dddtime=#{dddtime},
+	 	 jf=#{jf},
+	 	 sdwd=#{sdwd},
+	 	 snwd=#{snwd},
+	 	 kg=#{kg},
+	 	 bj=#{bj},
+	 	 jj=#{jj},
+	 	 time=#{time},
+	 	 
+	 where 
+	 	fpbh=#{fpbh}
+	 	
+	 </update>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.YhlbDao">
+	<resultMap type="Yhlb" id="yhlb">
+		<id property="id" column="id"/>
+		
+		<result property="zz" column="zz"/>
+		<result property="sy" column="sy"/>
+		<result property="lzf" column="lzf"/>
+		<result property="qt" column="qt"/>
+		 
+		
+		
+	</resultMap>
+
+	<select id="find" resultMap="yhlb">
+		select * from k_yhlb4
+	</select>
+
+	<insert id="Insert" parameterType="Yhlb">
+		insert into k_yhlb4
+		(zz,sy,lzf,qt)
+		values(#{zz},#{sy},#{lzf},#{qt})
+	</insert>
+
+	<delete id="delete" parameterType="Yhlb">
+		delete from k_yhlb4
+		where id=#{id}
+	</delete>
+	
+	<update id="update" parameterType="Yhlb">
+		update k_yhlb4 set
+		zz=#{zz},sy=#{sy},lzf=#{lzf},qt=#{qt}
+		where id=#{id}
+	</update>
+
+</mapper>

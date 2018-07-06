@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.FpLoginDao">
+	<resultMap type="FpLogin" id="fpLogin">
+		<result property="id" column="id" />
+		<result property="fp_bh" column="fp_bh" />
+		<result property="yh_bh" column="yh_bh" />
+	</resultMap>
+	
+	<!-- public List<FpLogin> find()-->
+	<select id="find"   resultMap="fpLogin"   parameterType="FpLogin">
+	 select * from K_FP_login
+		
+	</select>
+
+</mapper>

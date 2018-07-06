@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.JzqDao">
+	<resultMap type="Jzq" id="jzq">
+		<id property="id" column="id"/>
+		
+		<result property="jzqnet" column="jzqnet"/>
+		<result property="jzqip" column="jzqip"/>
+		<result property="jzqport" column="jzqport"/>
+		<result property="azdz" column="azdz"/>
+		<!-- <result property="yhMessage.xqm" column="xqm" /> -->
+		
+		
+	</resultMap>
+
+	<select id="find" resultMap="jzq">
+		select * from k_jzqb5
+	</select>
+
+	<insert id="Insert" parameterType="Jzq">
+		insert into k_jzqb5
+		(jzqnet,jzqip,Jzqport,azdz)
+		values(#{jzqnet},#{jzqip},#{jzqport},#{azdz})
+	</insert>
+
+	<delete id="delete" parameterType="Jzq">
+		delete from k_jzqb5
+		where id=#{id}
+	</delete>
+	
+	<update id="update" parameterType="Jzq">
+		update k_jzqb5 set
+		jzqnet=#{jzqnet},jzqip=#{jzqip},jzqport=#{jzqport},azdz=#{azdz}
+		where id=#{id}
+	</update>
+	
+	<!-- public Jzq findJzqnet( @Param("jzqip")String jzqip,@Param("port")String port); -->
+	<select id="findJzqnet" resultMap="jzq">
+		select jzqnet from  k_jzqb5 where jzq=#{jzq} and jzqport=#{jzqport}
+	</select>
+	
+	<!-- public void updateIpPort(String ip,Integer port,String jzqnet); -->
+	<update id="updateIpPort" parameterType="Jzq">
+		update k_jzqb5 set jzqport=#{jzqport},jzqip=#{jzqip} where jzqnet=#{jzqnet}
+</update>
+
+
+
+
+
+</mapper>

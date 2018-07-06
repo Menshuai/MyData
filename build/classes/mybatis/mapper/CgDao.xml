@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.CgDao">
+	<resultMap type="Cg" id="cg">
+		<id property="id" column="id"/>
+		
+		<result property="cgbh" column="cgbh"/>
+		<result property="jzqnet" column="jzqnet"/>
+		<result property="azdz" column="azdz"/>
+		<result property="bz" column="bz"/>
+		
+		<result property="jzq.jzqnet" column="jzqnet"/>
+		<result property="jzq.jzqip" column="jzqip"/>
+		<result property="jzq.jzqport" column="jzqport"/>
+		<result property="jzq.azdz" column="azdz"/>
+		
+		<result property="yhMessage.yhbh" column="yhbh"/>
+		<result property="yhMessage.cgbh" column="cgbh"/>
+		<result property="yhMessage.xqm" column="xqm"/>
+		<result property="yhMessage.ldh" column="ldh"/>
+		<result property="yhMessage.dyh" column="dyh"/>
+		<result property="yhMessage.hh" column="hh"/>
+		<result property="yhMessage.fpgs" column="fpgs"/>
+		<result property="yhMessage.mj" column="mj"/>
+		<result property="yhMessage.yhxm" column="yhxm"/>
+		<result property="yhMessage.lxdh" column="lxdh"/>
+		
+		
+	</resultMap>
+
+	<select id="find" resultMap="cg">
+		select 
+			c.cgbh,c.jzqnet,c.azdz,c.bz,
+		 	y.yhbh,y.cgbh,y.xqm,y.ldh,y.dyh,y.hh,y.fpgs,y.mj,y.yhxm,y.lxdh
+		from 
+			k_cgb3 c, dbo.k_yhb1 y
+	</select>
+
+	<insert id="Insert" parameterType="Cg">
+		insert into k_cgb3
+		(cgbh,jzqnet,azdz,bz)
+		values(#{cgbh},#{jzqnet},#{azdz},#{bz})
+	</insert>
+
+
+	<delete id="delete" parameterType="Cg">
+		delete from k_cgb3
+		where id=#{id}
+	</delete>
+	
+	
+	<update id="update" parameterType="Cg">
+		update k_cgb3 set
+		cgbh=#{cgbh},jzqnet=#{jzqnet},azdz=#{azdz},bz=#{bz}
+		where id=#{id}
+	</update>
+
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.RzDao">
+  	<resultMap type="Rz" id="rz">
+		<id property="id" column="id"/>
+		<result property="czr" column="czr"/>
+		<result property="cz" column="cz"/>
+		<result property="czsj" column="czsj"/>
+	</resultMap>
+	  
+	<select id="find" resultMap="rz" parameterType="Rz">
+		select top 500 * from K_RZ order by id desc 
+	</select>
+	
+	<!-- <insert id="Insert" resultMap="rz" parameterType="Rz"  >
+		insert into K_RZ
+		(czr,cz,czsj)
+		values
+		(#{czr},#{cz},#{czsj})
+	</insert> -->
+	
+	<select id="Search" resultMap="rz" parameterType="Rz">
+		select * from K_RZ where cz LIKE #{cz} order by czsj desc 
+	</select>  
+	
+</mapper>
