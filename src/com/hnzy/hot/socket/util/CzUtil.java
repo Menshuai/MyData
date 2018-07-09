@@ -21,7 +21,16 @@ public class CzUtil {
 		}
 		return jia;
 	}
-
+	// 发送 把十六进制数，转换为十进制相加
+	public static int ZHS(String ja) {
+		int jia = 0;
+		for (int i = 4; i < ja.length() - 4; i++) {
+			int j = Integer.parseInt("" + ja.charAt(i) + "" + ja.charAt(i + 1) + "", 16);
+			i++;
+			jia = j + jia;
+		}
+		return jia;
+	}
 	// 接受 把十六进制数，转换为十进制相加
 	public static int FsZh(String ja) {
 		int jia = 0;
@@ -173,6 +182,30 @@ public class CzUtil {
 		// 判断和校验
 		// 把十六进制数，转换为十进制相加
 		int jia = CzUtil.ZH(stringHandler);
+		// 十进制转换为十六进制
+		String hex = Integer.toHexString(jia);
+
+		StringBuffer stringBuffer = new StringBuffer();
+		if (hex != null) {
+			for (int i = 0; i < hex.length(); i++) {
+				char c = hex.charAt(i);
+				if (!Character.isDigit(c)) {
+					stringBuffer.append(Character.toUpperCase(c));
+				} else {
+					stringBuffer.append(c);
+				}
+			}
+		}
+		String sH = stringBuffer.toString();
+		// 截取相加结果后两位
+		String je = null;
+		je = sH.charAt(sH.length() - 2) + "" + sH.charAt(sH.length() - 1);
+		return je;
+	}
+	public static String getJeS(String stringHandler) {
+		// 判断和校验
+		// 把十六进制数，转换为十进制相加
+		int jia = CzUtil.ZHS(stringHandler);
 		// 十进制转换为十六进制
 		String hex = Integer.toHexString(jia);
 
