@@ -15,7 +15,7 @@
 
 	 <script type="text/javascript">
 		window.onload = function() {
-        	window.open("/Data/Home/sjbb.action","Conframe");//返回的是data.jsp页面
+        	window.open("/Data/YhMessageCon/sjbb.action","Conframe");//返回的是data.jsp页面
     	}
 	</script>
 

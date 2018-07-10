@@ -29,6 +29,18 @@ public class Data implements Serializable {
 	private String bj;//报警
 	private String jj;//季节
 	private String time; // 采集时间
+	private String fpdz;
+	
+	
+	
+	public String getFpdz() {
+		return fpdz;
+	}
+
+	public void setFpdz(String fpdz) {
+		this.fpdz = fpdz;
+	}
+
 	/*private String jzqip; // ip地址
 	private int jzqport; // 端口号
 	private String jzqid; // id
@@ -257,9 +269,11 @@ public class Data implements Serializable {
 		return "Data [id=" + id + ", fpbh=" + fpbh + ", ms=" + ms + ", dw=" + dw + ", gdtime=" + gdtime + ", zdtime="
 				+ zdtime + ", ddtime=" + ddtime + ", dgdtime=" + dgdtime + ", dzdtime=" + dzdtime + ", dddtime="
 				+ dddtime + ", jf=" + jf + ", sdwd=" + sdwd + ", snwd=" + snwd + ", kg=" + kg + ", bj=" + bj + ", jj="
-				+ jj + ", time=" + time + ", js=" + js + ", dyydl=" + dyydl + ", fpLogin=" + fpLogin + ", fp=" + fp
-				+ ", yhMessage=" + yhMessage + ", gl=" + gl + ", jzq=" + jzq + "]";
+				+ jj + ", time=" + time + ", fpdz=" + fpdz + ", js=" + js + ", dyydl=" + dyydl + ", fpLogin=" + fpLogin
+				+ ", fp=" + fp + ", yhMessage=" + yhMessage + ", gl=" + gl + ", jzq=" + jzq + "]";
 	}
+
+	 
 
 	 
 

@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hnzy.pds.pojo.YhMessage;
-import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.VillageTreeNodes;
-import com.hnzy.pds.service.DataService;
 import com.hnzy.pds.service.YhMessageService;
- 
  
 import com.hnzy.pds.util.StringUtil;
 
@@ -26,21 +23,18 @@ import com.hnzy.pds.util.StringUtil;
 @RequestMapping("/zz")
 public class ZtreeController {
 	private static final Integer ldh = null;
-	
 	@Autowired
 	private YhMessageService yhMessageService;
-	
-	@Autowired
-	private DataService dataService;
-	
 	private List<YhMessage> list;
-/*	private List<YhMessage> villages;*/
 
+	
+	
+	
+	
 	@RequestMapping("ztree")
 	public String getVillageTreeMenu(HttpServletRequest request) {
 		List<VillageTreeNodes> nodes = new ArrayList<VillageTreeNodes>();
 		List<YhMessage> ldList = this.yhMessageService.findXQ();
-	 
 		//小区 
 		for (int i = 0; i < ldList.size(); i++) {
 			String xqm = ldList.get(i).getXqm();
@@ -52,8 +46,6 @@ public class ZtreeController {
 			YhMessage villageLD = new YhMessage();
 			villageLD.setXqm(xqm);
 			List<YhMessage> lcList = this.yhMessageService.findBOByXQ(villageLD);
-			
-			
 			//楼栋
 			for (int j = 0; j < lcList.size(); j++) {
 				Integer ldhNo = lcList.get(j).getLdh();
@@ -78,7 +70,6 @@ public class ZtreeController {
 				villageLC.setXqm(xqm);
 				villageLC.setId(ldhNo);
 				List<YhMessage> dyhNoList = this.yhMessageService.findCOByXQAndBO(villageLC);
-				
 				//单元
 				for (int k = 0; k < dyhNoList.size(); k++) {
 					Integer dyhNo = dyhNoList.get(k).getDyh();
@@ -130,7 +121,6 @@ public class ZtreeController {
 		request.setAttribute("buf", buf);
 		return "ztree";
 		}
-	
 	/**
 	 * 树形图主页数据查询
 	 * @throws UnsupportedEncodingException 
@@ -139,9 +129,9 @@ public class ZtreeController {
 	public ModelAndView findz(HttpServletRequest request, @Param("xqm") String xqm, @Param("ldh") String ldh,
 			@Param("dyh") String dyh) throws UnsupportedEncodingException  {
 		ModelAndView mav = new ModelAndView();
-		if(xqm!=null){
+		/*if(xqm!=null){
 			xqm= new String(xqm.getBytes("ISO-8859-1"), "utf-8") + "";
-		}
+		}*/
 		 
 		 if(ldh!=null){
 			 ldh = new String(ldh.getBytes("ISO-8859-1"), "utf-8") + "";
@@ -200,7 +190,7 @@ public class ZtreeController {
 
 	public void setList(List<YhMessage> list) {
 		this.list = list;
-	}
-*/
+	}*/
+
 	
 }

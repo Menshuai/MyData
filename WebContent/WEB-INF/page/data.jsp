@@ -57,10 +57,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    {
 				width : 40,
 				align : 'center'
-			}, {
+			}, /* {
 				width : 50,
 				align : 'center'
-			}, {
+			},  */{
 				width : 80,
 				align : 'center'
 			},{
@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead >
 	<tr height="35px" style="background: url(../img/secai.png);" >
 			<th></th>         
-			<th>序号</th>
+			<!-- <th>序号</th> -->
 			<th>用户编号</th>
 			<th>用户姓名</th>
 			<th>小区名称</th>
@@ -203,7 +203,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <th>用户面积</th>
             
             <th>用户电话</th>
-            <th>风盘个数</th>
+            <th>风盘地址</th>
             <th>备注</th>
 	</tr>                    
 	</thead>                      
@@ -212,7 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<c:forEach  var="yh" items="${YhList}" varStatus="status">
 	   <tr <c:if test="${status.index%2==1 }">style="background-color:#eef3fa"</c:if>>	  
 		<td><input type="checkbox" value="${yh.id}" /></td>  
-		<td>${yh.id}</td>	
+		<%-- <td>${yh.yhMessage.id}</td>	 --%>
 		<td>${yh.yhMessage.yhbh}</td>	
 		<td>${yh.yhMessage.yhxm}</td>	
 		<td>${yh.yhMessage.xqm}</td>	
@@ -287,7 +287,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
 		<td>${yh.yhMessage.mj}</td>
 		<td>${yh.yhMessage.lxdh}</td>
-		<td>${yh.yhMessage.fpgs}</td>
+		<td>${yh.yhMessage.fpdz}</td>
 		<td>${yh.yhMessage.bz}</td>
 		<%-- <c:if test="${yh.yhMessage.bz=='1'}">
 		<td>无</td>

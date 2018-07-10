@@ -80,7 +80,7 @@ function add(){
 	var dyh=$("#add input[name=dyh]");
 	
 	var hh=$("#add input[name=hh]");
-	var fpgs=$("#add input[name=fpgs]");
+	var fpdz=$("#add input[name=fpdz]");
 	var mj=$("#add input[name=mj]");
 	var yhlx=$("#add input[name=yhlx]");
 	var yhxm=$("#add input[name=yhxm]");
@@ -88,7 +88,7 @@ function add(){
 	var lxdh=$("#add input[name=lxdh]");
 	var bz=$("#add input[name=bz]");
 		
-	/* if(yhbh.val()==null||yhbh.val()==""||cgbh.val()==null||cgbh.val()==""||xqm.val()==null||xqm.val()==""||ldh.val()==null||ldh.val()==""||dyh.val()==null||dyh.val()==""||hh.val()==null||hh.val()==""||fpgs.val()==null||fpgs.val()==""||mj.val()==null||mj.val()==""||yhlx.val()==null||yhlx.val()==""||yhxm.val()==null||yhxm.val()==""||lxdh.val()==null||lxdh.val()==""||bz.val()==null||bz.val()==""){
+	/* if(yhbh.val()==null||yhbh.val()==""||cgbh.val()==null||cgbh.val()==""||xqm.val()==null||xqm.val()==""||ldh.val()==null||ldh.val()==""||dyh.val()==null||dyh.val()==""||hh.val()==null||hh.val()==""||fpdz.val()==null||fpdz.val()==""||mj.val()==null||mj.val()==""||yhlx.val()==null||yhlx.val()==""||yhxm.val()==null||yhxm.val()==""||lxdh.val()==null||lxdh.val()==""||bz.val()==null||bz.val()==""){
 		 alert('信息不能为空，请填写完整!');
 		return false;
 	} */
@@ -112,7 +112,7 @@ function edit(){
 	var dyh=$("#add input[name=dyh]");
 	
 	var hh=$("#add input[name=hh]");
-	var fpgs=$("#add input[name=fpgs]");
+	var fpdz=$("#add input[name=fpdz]");
 	var mj=$("#add input[name=mj]");
 	var yhlx=$("#add input[name=yhlx]");
 	var yhxm=$("#add input[name=yhxm]");
@@ -123,7 +123,7 @@ function edit(){
 	if(yhbh.val()==null||yhbh.val()==""||cgbh.val()==null||cgbh.val()==""||
 			xqm.val()==null||xqm.val()==""||ldh.val()==null||ldh.val()==""||
 			dyh.val()==null||dyh.val()==""||hh.val()==null||hh.val()==""||
-			fpgs.val()==null||fpgs.val()==""||mj.val()==null||mj.val()==""||
+			fpdz.val()==null||fpdz.val()==""||mj.val()==null||mj.val()==""||
 			yhlx.val()==null||yhlx.val()==""||yhxm.val()==null||yhxm.val()==""||
 			lxdh.val()==null||lxdh.val()==""||bz.val()==null||bz.val()==""){
 		 alert('信息不能为空，请填写完整!');
@@ -208,7 +208,7 @@ function openEditUserPage(){
 	
 	var dyh=ckbs.parent().next().next().next().next().next().text();
 	var hh=ckbs.parent().next().next().next().next().next().next().text();
-	var fpgs=ckbs.parent().next().next().next().next().next().next().next().text();
+	var fpdz=ckbs.parent().next().next().next().next().next().next().next().text();
 	var mj=ckbs.parent().next().next().next().next().next().next().next().next().text();
 	var yhlx=ckbs.parent().next().next().next().next().next().next().next().next().next().text(); 
 	
@@ -223,7 +223,7 @@ function openEditUserPage(){
 	$("#edit_dyh").val(dyh);
 	
 	$("#edit_hh").val(hh);
-	$("#edit_fpgs").val(fpgs);
+	$("#edit_fpdz").val(fpdz);
 	$("#edit_mj").val(mj);
 	$("#edit_yhlx").val(yhlx);
 	
@@ -324,102 +324,7 @@ $(document).ready(
 					});
 		});
 </script> -->
-<!-- <script type="text/javascript">
-//搜索
-function searchInfo() {
-	var cgbh = $('#cgbhId').val();
-	var xqm = $('#xqmId').val();
-	var ldh = $('#ldhId').val();
-	var dyh = $('#dyhId').val();
-	var html = "";
-	$.ajax({
-		url : "Search.action",
-		async : false,
-		dataType : "json",
-		data : {
-			"cgbh" : cgbh,
-			"xqm" : xqm,
-			"ldh" : ldh,
-			"dyh" : dyh,
-		},
-		success : function(data) {
-			$("#users").empty();
-			var d = data.YhList;
-			for (var i = 0; i < d.length; i++) {
-				var yhInfo = d[i].yhbh;
-				var cgbh = d[i].cgbh;
-				var xqm = d[i].xqm;
-				var ldh = d[i].ldh;
-				var dyh = d[i].dyh;
-				var hh = d[i].hh;
-				var fpgs = d[i].fpgs;
-				var mj = d[i].mj;
-				var bu = "";
-				var yhlx = d[i].yhlx;
-				var bz = d[i].bz;
-				var yhxm = d[i].yhxm;
-				var lxdh = d[i].lxdh;
-				var userArea = "";
-				var heatArea = d[i].heatArea;
-				var billway = d[i].billway;
-				var sfjf = d[i].sfjf;
-				var sfqf = d[i].sfqf;
-				var sftr = d[i].sftr;
-				var wcad = d[i].wcad;
-				var azwz = d[i].azwz;
-				var ylfq = d[i].ylfq;
-				var faultInfor ="";
-				var yhfl = d[i].yhfl;
-				var id= d[i].id;
-				if(yhfl==undefined){
-					yhfl='';
-				}
-				if(azwz==undefined){
-					azwz=''
-				}
-				if(ylfq==undefined){
-					ylfq=''
-				}
-				html += "<tr>";
-				html+="<td class='text-center'><input type='checkbox'  value='"+id+"'/></td>";
-				html += "<td class='text-center'>" + yhInfo + "</td>";
-				html += "<td class='text-center'>" + cgbh + "</td>";
-				html += "<td class='text-center'>" + xqm + "</td>";
-				html += "<td class='text-center'>" + ldh+ "</td>";
-				html += "<td class='text-center'>" + dyh + "</td>";
-				html += "<td class='text-center'>" + hh + "</td>";
-				html += "<td class='text-center'>" + fpgs + "</td>";
-				html += "<td class='text-center'>" + mj + "</td>";
-				html += "<td class='text-center'>" + bu + "</td>";
-				html += "<td class='text-center'>" + yhlx + "</td>";
-				html += "<td class='text-center'>" + bz + "</td>";
-				html += "<td class='text-center'>" + yhxm + "</td>";
-				html += "<td class='text-center'>" + lxdh+ "</td>";
-				html += "<td class='text-center'>" + userArea + "</td>";
-				html += "<td class='text-center'>" + heatArea + "</td>";
-				html += "<td class='text-center'>" + billway + "</td>";
-				html += "<td class='text-center'>" + sfjf + "</td>";
-				html += "<td class='text-center'>" + sfqf + "</td>";
-				html += "<td class='text-center'>" + sftr + "</td>";
-				html += "<td class='text-center'>" + wcad + "</td>";
-				html += "<td class='text-center'>" + azwz + "</td>";
-				html += "<td class='text-center'>" + ylfq+ "</td>";
-				html += "<td class='text-center'>" + faultInfor + "</td>";
-				html += "<td class='text-center'>" + yhfl + "</td>";
-				html += "</tr>";
-			}
-			$("#users").append(html);
-		}
-
-	})
-}
-function FormatDate(strTime) {
-	var date = new Date(strTime);
-	return date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
-			+ date.getDate() + " " + date.getHours() + ":"
-			+ date.getMinutes() + ":" + date.getSeconds();
-}
-</script> -->
+ 
 </head>
 <body>
  <div class="panel panel-success">
@@ -429,33 +334,7 @@ function FormatDate(strTime) {
   <button type="button" class="btn btn-success"    onClick="openaddUserPage()" style="background: url(../img/secai.png);">添加</button>&nbsp;&nbsp;
    <button type="button" class="btn btn-success" onClick="openEditUserPage()" style="background: url(../img/secai.png);">修改</button>&nbsp;&nbsp;
 			 <button type="button" class="btn btn-success" onClick="openDeletePage()" style="background: url(../img/secai.png);">删除</button>
-			<%-- 用户类别： 
-			<select id="yhfl" name="yhfl">
-			<option value="">--选择用户类别--</option>
-			<option value="普通用户">普通用户</option>
-			<option value="重点监控">重点监控</option>
-			<option value="特殊情况">特殊情况</option>
-			</select>
-   <button type="button" class="btn btn-success" onClick="yhflSear()">搜索</button>
-   
-   
-   <label for="cgbhId">选择小区</label> <select id="cgbhId"
-				name="cgbh">
-				<c:if test="${!empty yhInfoList }">
-					<option>--选择层管编号--</option>
-					<c:forEach items="${yhInfoList}" var="yhInfolist">
-						<option value="${yhInfolist.cgbh}">${yhInfolist.cgbh}</option>
-					</c:forEach>
-				</c:if>
-			</select> &nbsp;&nbsp;&nbsp; <label for="xqmId">小区名</label> <select
-				name="xqm" id="xqmId">
-				<option value=0>--选择小区名--</option>
-			</select> &nbsp;&nbsp;&nbsp; <label for="ldhId">楼栋号</label> <select
-				name="ldh" id="ldhId">
-				<option value=0>--选择楼栋号--</option>
-			</select> 
-			单元号：<input type="text" name="dyh" id="dyhId" value="${dyh}" /> 
-			<input type="button" onclick="searchInfo()" value="搜索" class="btn btn-success" />--%>
+ 
 			 </div> 
 			 <div class="dwrapper">
 	<table id="fixed_hdr2">
@@ -469,7 +348,7 @@ function FormatDate(strTime) {
 						
 						<th>单元号</th>
 						<th>户号</th>
-						<th>风盘个数</th>
+						<th>风盘地址</th>
 						<th>面积</th>
 						<th>用户类型</th>
 						
@@ -492,7 +371,7 @@ function FormatDate(strTime) {
                                      
                                      <td>${yh.dyh}</td>
                                      <td>${yh.hh}</td>
-                                     <td>${yh.fpgs}</td>
+                                     <td>${yh.fpdz}</td>
                                      <td>${yh.mj}</td>
                                      <td>${yh.yhlx}</td>
                                      
@@ -573,10 +452,10 @@ function FormatDate(strTime) {
 												
 						
 							  <div class="form-group">						
-							<label for="fpgs" class="col-sm-2 col-sm-offset-3 control-label">风盘个数</label>
+							<label for="fpdz" class="col-sm-2 col-sm-offset-3 control-label">风盘地址</label>
 							
 							<div class="col-sm-4">
-								<input id="fpgs" type="text" name="fpgs"
+								<input id="fpdz" type="text" name="fpdz"
 									class="form-control" placeholder="风盘个数" />
 							</div>					
 						</div>
@@ -700,11 +579,11 @@ function FormatDate(strTime) {
 												
 						
 							<div class="form-group">						
-							<label for="edit_fpgs" class="col-sm-2 col-sm-offset-3 control-label">风盘个数</label>
+							<label for="edit_fpdz" class="col-sm-2 col-sm-offset-3 control-label">风盘地址</label>
 							
 							<div class="col-sm-4">
-								<input id="edit_fpgs" type="text" name="fpgs"
-									class="form-control" placeholder="风盘个数" />
+								<input id="edit_fpdz" type="text" name="fpdz"
+									class="form-control" placeholder="风盘地址" />
 							</div>					
 						</div>
 							<div class="form-group">						

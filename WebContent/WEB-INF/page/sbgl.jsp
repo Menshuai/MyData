@@ -394,7 +394,7 @@ function SFs() {
 <tbody id="yhInfo">
 	<c:forEach  var="yh" items="${YhList}" varStatus="status">
 	   <tr <c:if test="${status.index%2==1 }">style="background-color:#eef3fa"</c:if>>	  
-		<td><input type="checkbox" value="${yh.yhMessage.yhbh}${yh.yhMessage.fpgs}" /></td>  
+		<td><input type="checkbox" value="${yh.yhMessage.yhbh}${yh.yhMessage.fpdz}" /></td>  
 		<td>${yh.id}</td>	
 		<td>${yh.yhMessage.yhbh}</td>	
 		<td>${yh.yhMessage.yhxm}</td>	
@@ -470,7 +470,7 @@ function SFs() {
 					pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
 		<td>${yh.yhMessage.mj}</td>
 		<td>${yh.yhMessage.lxdh}</td>
-		<td>${yh.yhMessage.fpgs}</td>
+		<td>${yh.yhMessage.fpdz}</td>
 		<td>${yh.yhMessage.bz}</td>
 		 
 		

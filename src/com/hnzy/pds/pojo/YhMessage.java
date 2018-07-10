@@ -17,7 +17,7 @@ public class YhMessage implements Serializable{
 	
 	private Integer dyh  ;  //单元
 	private Integer hh  ;  //户号
-	private Integer fpgs ;  //风盘个数
+	private Integer fpdz ;  //风盘个数
 	private Double  mj   ;  //面积
 	
 	private String  yhlx ;  //用户类型
@@ -95,11 +95,11 @@ public class YhMessage implements Serializable{
 	public void setMj(Double mj) {
 		this.mj = mj;
 	}
-	public Integer getFpgs() {
-		return fpgs;
+	public Integer getfpdz() {
+		return fpdz;
 	}
-	public void setFpgs(Integer fpgs) {
-		this.fpgs = fpgs;
+	public void setfpdz(Integer fpdz) {
+		this.fpdz = fpdz;
 	}
 	public String getBz() {
 		return bz;
@@ -119,7 +119,7 @@ public class YhMessage implements Serializable{
 	@Override
 	public String toString() {
 		return "YhMessage [id=" + id + ", yhbh=" + yhbh + ", cgbh=" + cgbh + ", xqm=" + xqm + ", ldh=" + ldh + ", dyh="
-				+ dyh + ", hh=" + hh + ", fpgs=" + fpgs + ", mj=" + mj + ", yhlx=" + yhlx + ", yhxm=" + yhxm + ", bz="
+				+ dyh + ", hh=" + hh + ", fpdz=" + fpdz + ", mj=" + mj + ", yhlx=" + yhlx + ", yhxm=" + yhxm + ", bz="
 				+ bz + ", lxdh=" + lxdh + ", cg=" + cg + "]";
 	}
 	 

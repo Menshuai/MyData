@@ -12,13 +12,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<title>用户信息列表</title>
+<title>数据报表</title>
 </head>
+
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="../js/biao.js"></script>
 <link href="../css/main.css" rel="stylesheet" type="text/css" />
 <link href="../css/bootstrap.css" rel="stylesheet">
-	
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="../js/jquery-1.4.4.min.js"></script>
 	<link href="../css/fixed_table_rc.css" type="text/css" rel="stylesheet" media="all" />
 	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet"	/>
@@ -48,7 +49,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <script type="text/javascript">
 	/*页面加载就开始执行js*/
 	$(document).ready(//根据小区获取  楼栋号
-		
 			function() {
 				$("#xqmId").change(
 						function() {
@@ -56,11 +56,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									+ $("#xqmId").val(), function(data) {
 								var dd = data;
 								var d = dd.xqlist;
-								$("#ldhId option:gt(0)").remove();
+								
+							 	$("#ldhId option:gt(0)").remove();
 								$("#dyhId option:gt(0)").remove();
+								 
 								for (var i = 0; i < d.length; i++) {
 									var ldh = d[i].ldh;
-
 									var opt = "<option value='"+ldh+"'>"
 											+ ldh + "</option>"
 									$("#ldhId").append(opt);
@@ -70,12 +71,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 				$("#ldhId").change(//根据小区楼栋号获取  单元号
 						function() {
-							$.get("findYhdyhByBuild.action?build="
+							$.get("findYhdyhByBuild.action?ldh="
 									+ $("#ldhId").val() + "&xqm="
 									+ $("#xqmId").val(), function(data) {
 								var dd = data;
-								var d = dd.cellList;
+								var d = dd.dyhList;
 								$("#dyhId option:gt(0)").remove();
+								
 								for (var i = 0; i < d.length; i++) {
 									var dyh = d[i].dyh;
 									var opt = "<option value='"+dyh+"'>"
@@ -92,14 +94,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var ldh = $('#ldhId').val();
 		var dyh = $('#dyhId').val();
 		var hh = $('#hhId').val();
-		var sfjf = $('#JFStatusId').val();
-		var valTemp1=$('#valTempId1').val();
-		var valTemp2=$('#valTempId2').val();
-		var roomTemp1=$('#roomTempId1').val();
-		var roomTemp2=$('#roomTempId2').val();
-		var famKd=$('#famKdId').val();
-		var recordTime1 = $('#recordTime1').val();
-		var recordTime2 = $('#recordTime2').val();
+		var time1 = $('#time1').val();
+		var time2 = $('#time2').val();
 		var html = "";
 		$.ajax({
 			url : "searchInfo.action",
@@ -110,57 +106,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				"ldh" : ldh,
 				"dyh" : dyh,
 				"hh" : hh,
-				"sfjf" : sfjf,
-				"valTemp1":valTemp1,
-				"valTemp2":valTemp2,
-				"roomTemp1":roomTemp1,
-				"roomTemp2":roomTemp2,
-				"recordTime1":recordTime1,
-				"recordTime2":recordTime2,
-				"famKd":famKd,
+				"time1":time1,
+				"time2":time2,
+				
 			},
 			success : function(data) {
 				$("#SearchId").empty();
-				var d = data.findXqInfoFmHistory;
+				var d = data.findXqInfoHistory;
 				
 				for (var i = 0; i < d.length; i++) {
 					var xqm = d[i].xqm;
 					var ldh = d[i].ldh;
 					var dyh = d[i].dyh;
 					var hh = d[i].hh;
-					var status = d[i].fmHistory.status;
-					var famKd = d[i].fmHistory.famKd;
-					var valTemp = d[i].fmHistory.valTemp;
-					var roomTemp = d[i].fmHistory.roomTemp;
-					var recordTime = FormatDate(d[i].fmHistory.recordTime);
-					var lockSt = d[i].fmHistory.lockSt;
-					var sfjf = d[i].sfjf;
-					var hTemSet = d[i].fmHistory.hTemSet;
-					var mTemSet = d[i].fmHistory.mTemSet;
-					var lTemSet = d[i].fmHistory.lTemSet;
-					var tqyb = d[i].fmHistory.tqyb;
+					var time = FormatDate(d[i].fmHistory.time);
 					html += "<tr>";
 					html += "<td class='text-center'>" + xqm + "</td>";
 					html += "<td class='text-center'>" + ldh + "</td>";
 					html += "<td class='text-center'>" + dyh + "</td>";
 					html += "<td class='text-center'>" + hh + "</td>";
-					if(status=='开'){
-						html += "<td class='text-center'><font color='green'>" + status + "</font></td>";
-					}else{
-						html += "<td class='text-center'>" + status + "</td>";
-					}
-					html += "<td class='text-center'>" + famKd + "</td>";
-					html += "<td class='text-center'>" + valTemp + "</td>";
-					html += "<td class='text-center'>" + roomTemp + "</td>";
-					html += "<td class='text-center'>" + tqyb + "</td>";
-					html += "<td class='text-center' title='"+recordTime+"'>" + recordTime
+					html += "<td class='text-center' title='"+time+"'>" + time
 							+ "</td>";
-					html += "<td class='text-center'>" + sfjf + "</td>";
-					html += "<td class='text-center'>" + hTemSet + "</td>";
-					html += "<td class='text-center'>" + mTemSet + "</td>";
-					html += "<td class='text-center'>" + lTemSet + "</td>";
-					
-
+				
 					html += "</tr>";
 				}
 				$("#SearchId").append(html);
@@ -168,12 +135,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		})
 	}
-	function FormatDate(strTime) {
+	
+	function FormatDate(strTime) {//年月日 时分秒
 		var date = new Date(strTime);
 		return date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
 				+ date.getDate() + " " + date.getHours() + ":"
 				+ date.getMinutes() + ":" + date.getSeconds();
 	}
+	
 </script>
 <script type="text/javascript">
 	//导出
@@ -182,17 +151,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var ldh = $('#ldhId').val();
 		var dyh = $('#dyhId').val();
 		var hh = $('#hhId').val();
-		var sfjf = $('#JFStatusId').val();
-		var valTemp1=$('#valTempId1').val();
-		var valTemp2=$('#valTempId2').val();
-		var roomTemp1=$('#roomTempId1').val();
-		var roomTemp2=$('#roomTempId2').val();
-		var famKd=$('#famKdId').val();
-		var recordTime1 = $('#recordTime1').val();
-		var recordTime2 = $('#recordTime2').val();
+		var time1 = $('#time1').val();
+		var time2 = $('#time2').val();
 		window.open("YhInfodoExportExcel.action?xqm=" + xqm + "&ldh="
 				+ ldh + "&dyh=" + dyh + "&hh=" + hh
-				+ "&sfjf=" + sfjf+ "&valTemp1=" + valTemp1+"&valTemp2=" + valTemp2+"&roomTemp1="+ roomTemp1+"&roomTemp2="+ roomTemp2+"&recordTime1="+ recordTime1+"&recordTime2="+ recordTime2+"&famKd=" + famKd);
+				+"&time1="+ time1+"&time2="+ time2);
 	}
 </script>
 
@@ -312,40 +275,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div class="panel panel-success">
 
-
 <div>
 <!-- style="width:65%; height: 60%; position: absolute; overflow: auto;text-align: center" -->
  <h3>数据报表</h3> &nbsp;&nbsp;&nbsp;
  <div></div>
- 		<label for="xqmId">选择小区</label> 
+ <div class="panel panel-success">
+ 		<label for="xqNameId">选择小区</label> 
  			<select id="xqmId" name="xqm">
-					<option>--选择小区名称--</option>
-					<c:forEach items="${yhInfoList}" var="yhInfolist">
-						<option value="${yhInfolist.xqm}">${yhInfolist.xqm}</option>
+					<option value=0>--选择小区名称--</option>
+					<c:forEach items="${XqNameList}" var="list">
+						<option>${list.xqm}</option>
 					</c:forEach>
 			</select> &nbsp;&nbsp;&nbsp; 
 			
-		<label for="ldhId">楼栋号</label> 
+		<label for="buildNoId">楼栋号</label>
 			<select   name="ldh" id="ldhId">
 				<option value=0>--选择楼栋号--</option>
-			</select> &nbsp;&nbsp;&nbsp; 
+			</select> 
+			&nbsp;&nbsp;&nbsp; 
 			
-		<label for="dyhId">单元号</label> 
+		<label for="cellNoId">单元号</label>
 			<select  name="dyh" id="dyhId">
 				<option value=0>--选择单元号--</option>
 			</select> 
 		&nbsp;&nbsp;&nbsp;
-		户号：<input type="text" name="hh" id="hhId" value="${hh}" /> 
+		
+		户号：<input type="text" name="hh" id="hhId" value="${hh}" size=10px/> 
 				
 		&nbsp;&nbsp;&nbsp;  
 			 
 		  <label for="readMTime">选择时间:</label>
-		  <input type="text" id="recordTime1" name="recordTime1" class="Wdate" onfocus="WdatePicker();" />
-		-<input type="text" id="recordTime2"  name="recordTime2"  class="Wdate" onfocus="WdatePicker();" />	
-			 <input type="button" onclick="searchInfo()" value="搜索" class="btn btn-success" style="background: url(../img/secai.png);"/> 
-			<input type="button" value="导出"class="btn btn-success" onclick="doExportExcel()" style="background: url(../img/secai.png);"/>
+		  <input type="text" id="time1" name="time1" class="Wdate" onfocus="WdatePicker();" />
+			-<input type="text" id="time2"  name="time2"  class="Wdate" onfocus="WdatePicker();" />	
+	<input type="button" onclick="searchInfo()" value="搜索" class="btn btn-success" style="background: url(../img/secai.png);"/> 
+	<input type="button" value="导出" class="btn btn-success" onclick="doExportExcel()" style="background: url(../img/secai.png);"/>
  &nbsp;&nbsp;&nbsp;
  <div></div>
+ <div id="tablediv">
+		<form id="myForm">
+			<div class="dwrapper">
 	<table id="fixed_hdr2"  >
 		<thead >
 	<tr height="35px" style="background: url(../img/secai.png);" >
@@ -462,11 +430,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:if>
 		
 		<td>${yh.time}</td>
-		 <%--  <td><fmt:formatDate value="${yh.time}"
-					pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
+		 
 		<td>${yh.yhMessage.mj}</td>
 		<td>${yh.yhMessage.lxdh}</td>
-		<td>${yh.yhMessage.fpgs}</td>
+		<td>${yh.yhMessage.fpdz}</td>
 		<td>${yh.yhMessage.bz}</td>
 		<%-- <c:if test="${yh.yhMessage.bz=='1'}">
 		<td>无</td>
@@ -475,7 +442,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 </tr>
 	</c:forEach>
   </tbody>
+  		 
 </table>
+</div>
+</form>
+</div>
 </div>
 </div>
 </body>

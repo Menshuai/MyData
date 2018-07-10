@@ -30,7 +30,7 @@
 		<result property="yhMessage.dyh" column="dyh" />
 		<result property="yhMessage.hh" column="hh" />
 		<result property="yhMessage.mj" column="mj" />
-		<result property="yhMessage.fpgs" column="fpgs" />
+		<result property="yhMessage.fpdz" column="fpdz" />
 		<result property="yhMessage.bz" column="bz" />
 		<result property="yhMessage.yhlx" column="yhlx" />
 		<result property="yhMessage.lxdh" column="lxdh" />
@@ -55,11 +55,11 @@
 	<!-- public List<Data> find()-->
 	<select id="find"   resultMap="data"   parameterType="Data">
 		select 
-		 	da.id,
+		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
 		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
 		 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
-		 	da.fpbh,da.ms,yh.fpgs,yh.lxdh,yh.bz,
+		 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
 		 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
 		 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
 		 	yh.mj

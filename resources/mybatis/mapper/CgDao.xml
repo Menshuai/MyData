@@ -20,7 +20,7 @@
 		<result property="yhMessage.ldh" column="ldh"/>
 		<result property="yhMessage.dyh" column="dyh"/>
 		<result property="yhMessage.hh" column="hh"/>
-		<result property="yhMessage.fpgs" column="fpgs"/>
+		<result property="yhMessage.fpdz" column="fpdz"/>
 		<result property="yhMessage.mj" column="mj"/>
 		<result property="yhMessage.yhxm" column="yhxm"/>
 		<result property="yhMessage.lxdh" column="lxdh"/>
@@ -31,7 +31,7 @@
 	<select id="find" resultMap="cg">
 		select 
 			c.cgbh,c.jzqnet,c.azdz,c.bz,
-		 	y.yhbh,y.cgbh,y.xqm,y.ldh,y.dyh,y.hh,y.fpgs,y.mj,y.yhxm,y.lxdh
+		 	y.yhbh,y.cgbh,y.xqm,y.ldh,y.dyh,y.hh,y.fpdz,y.mj,y.yhxm,y.lxdh
 		from 
 			k_cgb3 c, dbo.k_yhb1 y
 	</select>

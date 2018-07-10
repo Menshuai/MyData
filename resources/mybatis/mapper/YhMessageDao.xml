@@ -11,7 +11,7 @@
 		
 		<result property="dyh" column="dyh" />
 		<result property="hh" column="hh" />
-		<result property="fpgs" column="fpgs" />
+		<result property="fpdz" column="fpdz" />
 		<result property="mj" column="mj" />
 		<result property="yhlx" column="yhlx" />
 		
@@ -91,9 +91,9 @@
 	 
 	<insert id="Insert" parameterType="YhMessage">
 		insert into k_yhb1
-		(yhbh,cgbh,xqm,ldh,dyh,hh,fpgs,mj,yhlx,yhxm,lxdh,bz)
+		(yhbh,cgbh,xqm,ldh,dyh,hh,fpdz,mj,yhlx,yhxm,lxdh,bz)
 		values
-		  (#{yhbh},#{cgbh},#{xqm},#{ldh},#{dyh},#{hh},#{fpgs},#{mj},#{yhlx},#{yhxm},#{lxdh},#{bz})
+		  (#{yhbh},#{cgbh},#{xqm},#{ldh},#{dyh},#{hh},#{fpdz},#{mj},#{yhlx},#{yhxm},#{lxdh},#{bz})
  
 	</insert>
 
@@ -106,7 +106,7 @@
 		update k_yhb1 
 		set
 		yhbh=#{yhbh},cgbh=#{cgbh},xqm=#{xqm},ldh=#{ldh},dyh=#{dyh},hh=#{hh},
-		fpgs=#{fpgs},mj=#{mj},yhlx=#{yhlx},
+		fpdz=#{fpdz},mj=#{mj},yhlx=#{yhlx},
 		yhxm=#{yhxm},lxdh=#{lxdh},bz=#{bz}
 		where id=#{id}
 	</update>
@@ -130,28 +130,25 @@
 	select  dyh  from k_yhb1 where yhbh=#{yhbh}
 	</select>
 	 
-	<!-- public List<YhMessage> findXqName(); -->
+	  
+	<!--查找小区名字 public List<YhMessage> findXqName(); -->
 	<select id="findXqName" parameterType="YhMessage"   resultMap="yhMessage">
-		select xqm from k_yhb1
+		select  xqm from k_yhb1 
 	</select>
 	
-	
-	<select id="findYhldhbyXqm" resultMap="yhMessage"
-		parameterType="YhMessage">
+	<!--通过小区 获取楼栋  public List<YhMessage> findYhBuildNObyXqm(String xqm); -->
+	<select id="findYhBuildNObyXqm" resultMap="yhMessage" parameterType="YhMessage">
 		select ldh from k_yhb1 where xqm=#{xqm}
-		group by ldh
 	</select>
-	<select id="findYhdyhByBuild" resultMap="yhMessage"
-		parameterType="YhMessage">
-		select dyh from k_yhb1 where xqm=#{1} and
-		ldh=#{0} group by
-		dyh
+	
+	<!--通过小区楼栋获取单元  public List<YhMessage> findYhCellNOByBuild(int ldh,String xqm); -->
+	<select id="findYhCellNOByBuild" resultMap="yhMessage" parameterType="YhMessage">
+		select dyh from k_yhb1 where xqm=#{xqm} and ldh=#{ldh} 
 	</select>
-		<select id="findYhhhByBuild" resultMap="yhMessage"
-		parameterType="YhMessage">
-		select hh from k_yhb1 where xqm=#{2} and
-		ldh=#{1} and dyh=#{0} group by hh
-	</select>
+	
+	<!-- <select id="findYhhhByBuild" resultMap="yhMessage" parameterType="YhMessage">
+		select hh from k_yhb1 where xqm=#{xqm} and ldh=#{ldh} and dyh=#{dyh} 
+	</select> -->
 	
 	
 	<!-- 搜索 实时数据-->
@@ -161,6 +158,18 @@
 	  from
 			k_yhb1 y, k_data10 d
 	  where 
-			k_yhb1.yhbh=k_data10.yhbh order by time desc
+			k_yhb1.fpdz=k_data10.fpdz 
+		order by time desc
+	</select>
+	
+	<!-- 搜索 实时数据-->
+	<select id="searchHistory" resultMap="yhMessage" parameterType="YhMessage">
+      select 
+			y.xqm,y.ldh,y.dyh,y.hh,ls.time
+	  from
+			k_yhb1 y, k_lssjb11 ls
+	  where 
+			k_yhb1.fpdz=k_lssjb11.fpdz 
+		order by time desc
 	</select>
 </mapper>

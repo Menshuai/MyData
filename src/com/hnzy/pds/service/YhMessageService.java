@@ -71,18 +71,20 @@ public interface YhMessageService {
 	public List<YhMessage> findXqName();
 	
 	//查找用户
-		public List<YhMessage> findYhNameList();
-		//通过小区获取楼栋
-		public List<YhMessage> findYhBuildNObyXqm(String xqm);
-		//通过小区楼栋获取单元
-		public List<YhMessage> findYhCellNOByBuild(int ldh,String xqm);
+	public List<YhMessage> findYhNameList();
+	//通过小区获取楼栋
+	public List<YhMessage> findYhBuildNObyXqm(String xqm);
+	//通过小区楼栋获取单元
+	public List<YhMessage> findYhCellNOByBuild(int ldh,String xqm);
 		
-		 //导出------
-		public void exportExcel(List<YhMessage>yhInfosList,ServletOutputStream outputStream) throws IOException;
+	 //导出------
+	public void exportExcel(List<YhMessage>yhInfosList,ServletOutputStream outputStream) throws IOException;
 		
-		//搜索------
-		public List<YhMessage> searchInfo(@Param("xqm")String xqm,@Param("ldh")int ldh,
-				@Param("dyh")int dyh,@Param("hh")int hh,@Param("time") String time);
+	//搜索------
+	public List<YhMessage> searchInfo(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
+			@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
 		
-		 
+	//历史数据
+		public List<YhMessage> searchHistory(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
+				@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
 }

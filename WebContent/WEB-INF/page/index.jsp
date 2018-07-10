@@ -79,7 +79,7 @@ function tc(){ //安全退出
 					<li><a target="Conframel" href="<%=basePath%>JfController/JfMe.action">缴费管理</a></li>
 					<li><a target="Conframel" href="<%=basePath%>DataController/SbglMe.action">设备管理</a></li>
 					 
-					<li><a target="Conframel" href="<%=basePath%>Home/HomeMe.action">数据报表</a></li>
+					<li><a target="Conframel" href="<%=basePath%>YhMessageCon/HomeMe.action">数据报表</a></li>
 				<%-- 	<li><a target="Conframel" href="<%=basePath%>Repair/RepairMe.action.action">客服管理</a></li> --%>
 					<li><a href="#">客服管理<i class="tip-up"></i></a>
 						<ul class="kidc">							

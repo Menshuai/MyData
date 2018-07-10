@@ -112,15 +112,21 @@ public class YhMessageServiceImpl implements YhMessageService{
 		yhMessageDao.exportExcel(yhInfosList, outputStream);		
 	}
 
-	@Override
-	public List<YhMessage> searchInfo(String xqm, int ldh, int dyh, int hh,  String time) {
-		return yhMessageDao.searchInfo(xqm, ldh, dyh, hh,  time);
-	}
+	 
 
 	@Override
 	public List<YhMessage> findXqName() {
-		// TODO Auto-generated method stub
 		return yhMessageDao.findXqName();
+	}
+
+	@Override
+	public List<YhMessage> searchInfo(String xqm, int ldh, int dyh, int hh, String time1, String time2) {
+		return yhMessageDao.searchInfo(xqm, ldh, dyh, hh, time1, time2);
+	}
+
+	@Override
+	public List<YhMessage> searchHistory(String xqm, int ldh, int dyh, int hh, String time1, String time2) {
+		return yhMessageDao.searchHistory(xqm, ldh, dyh, hh, time1, time2);
 	}
  
 
