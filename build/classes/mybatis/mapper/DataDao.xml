@@ -21,7 +21,8 @@
 		<result property="jj" column="jj" />
 		<result property="time" column="time" />
 		<result property="xyydl" column="xyydl" />
-		
+		<result property="yhbh" column="yhbh" />
+			
 		<result property="yhMessage.id" column="id" />
 		<result property="yhMessage.yhbh" column="yhbh" />
 		<result property="yhMessage.yhxm" column="yhxm"/>
@@ -54,7 +55,7 @@
 	
 	<!-- public List<Data> find()-->
 	<select id="find"   resultMap="data"   parameterType="Data">
-		select 
+	 select 
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
 		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
@@ -62,12 +63,18 @@
 		 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
 		 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
 		 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
+			
 		 	yh.mj
 		from 
 		 	k_data10  da, 
 		 	k_yhb1  yh, 
-		 	k_fpb2 fp, 
+		 	k_fpb2 fp,  
 		 	k_glb6  gl 
+			 
+	   where 
+		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
+		 and  da.fpbh=fp.fpbh 
+			and fp.xh=gl.xh 
 		<!--  where 
 		 	da.fpbh=fp.fpbh   fp.yhbh=yhMessage.yhbh    -->
 		
@@ -106,5 +113,28 @@
 	 where 
 	 	fpbh=#{fpbh}
 	 	
+	 </update>
+	 <update id="updateYhbhF" parameterType="Data">
+	 	 update 
+	 	 k_data10  
+	 set  
+	 	 ms=#{ms},
+	 	 dw=#{dw},
+	 	 gdtime=#{gdtime},
+	 	 zdtime=#{zdtime},
+	 	 ddtime=#{ddtime},
+	 	 dgdtime=#{dgdtime},
+	 	 dzdtime=#{dzdtime},
+	 	 dddtime=#{dddtime},
+	 	 jf=#{jf},
+	 	 sdwd=#{sdwd},
+	 	 snwd=#{snwd},
+	 	 kg=#{kg},
+	 	 bj=#{bj},
+	 	 jj=#{jj},
+	 	 time=#{time}
+	 	 
+	 where 
+	 	yhbh=#{yhbh} and fpdz=#{fpdz}
 	 </update>
 </mapper>

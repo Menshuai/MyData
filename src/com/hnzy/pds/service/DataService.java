@@ -20,5 +20,6 @@ public interface DataService {
 
 	public void updateS(String ms, String dw, double gdg, double zdS, double gdd, double dgdg, double dzdS, double dgdd,
 			String jf, int sdw, int sw, String kg, int bj, String jj, String time);
- 
+	//根据用户编号和风盘地址更新实时数据
+		public void updateYhbhF(Data data);
 }

@@ -29,11 +29,11 @@
 	</resultMap>
 
 	<select id="find" resultMap="cg">
-		select 
+		select distinct
 			c.cgbh,c.jzqnet,c.azdz,c.bz,
-		 	y.yhbh,y.cgbh,y.xqm,y.ldh,y.dyh,y.hh,y.fpdz,y.mj,y.yhxm,y.lxdh
+		 	y.yhbh,y.cgbh
 		from 
-			k_cgb3 c, dbo.k_yhb1 y
+			k_cgb3 c, dbo.k_yhb1 y where c.cgbh=y.cgbh
 	</select>
 
 	<insert id="Insert" parameterType="Cg">

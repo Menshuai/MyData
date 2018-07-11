@@ -53,7 +53,7 @@ public interface YhMessageDao  extends BaseDao<YhMessage>{
 	public YhMessage  findJzq(String cgbh);
 	
 	//根据用户编码 查找楼栋号
-	public   YhMessage  finldh(String  yhbh);
+	public   YhMessage  finldh(@Param("yhbh")String yhbh,@Param("fpdz")String fpdz);
 	
 	//根据用户编码 查找单元号
 	public   YhMessage  findyh(String  yhbh);

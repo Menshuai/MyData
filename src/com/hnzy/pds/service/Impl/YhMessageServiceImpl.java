@@ -80,8 +80,8 @@ public class YhMessageServiceImpl implements YhMessageService{
 	}
 
 	@Override
-	public YhMessage finldh(String yhbh) {
-		return yhMessageDao.finldh(yhbh);
+	public YhMessage finldh(String yhbh,String fpdz) {
+		return yhMessageDao.finldh(yhbh,fpdz);
 	}
 
 	@Override

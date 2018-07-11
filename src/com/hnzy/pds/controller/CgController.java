@@ -69,21 +69,21 @@ public class CgController {
 	 	@ResponseBody
 	 	public JSONObject FsLd(HttpServletRequest request, String ids,String kg,String jf,String jj){
 	   		MapUtilsDf.getMapUtils().add("dg", null);
-	   		YhMessage  ldh=yhMessageService.finldh(ids);//楼栋  
-	 		Integer ldhS=ldh.getLdh();
+	   		YhMessage  dyh=yhMessageService.findyh(ids);//楼栋  
+	 		Integer ldhS=dyh.getLdh();
 	 		String ld=String.valueOf(ldhS);
 	 		if(ld.length()==1){
 	 			ld=0+ld;
 	 		}
 	 		System.out.println("楼栋号"+ld); 
-	 		YhMessage dyh=yhMessageService.findyh(ids);//单元
+//	 		YhMessage dyh=yhMessageService.findyh(ids);//单元
 	 		Integer dyhS=dyh.getDyh();
 	 		String dy=String.valueOf(dyhS);
 	 		if(dy.length()==1){
 	 			dy=0+dy;
 	 		}
 	 		System.out.println("单元号"+dy);
-	 		 String cgbh=ldh.getCgbh();
+	 		 String cgbh=dyh.getCgbh();
 			 System.out.println("cgbh"+cgbh);
 			 
 			 String cg=cgbh.substring(4);
@@ -142,7 +142,7 @@ public class CgController {
 	   	@RequestMapping("SCxZx")
 	 	@ResponseBody
 	 	public JSONObject SCxZx(HttpServletRequest request, String ids,String kg,String jf,String jj){
-	   		YhMessage  ldh=yhMessageService.finldh(ids);//楼栋  
+	   		YhMessage  ldh=yhMessageService.findyh(ids);//楼栋  
 	 		Integer ldhS=ldh.getLdh();
 	 		String ld=String.valueOf(ldhS);
 	 		if(ld.length()==1){
@@ -150,8 +150,8 @@ public class CgController {
 	 		}
 	 		System.out.println("楼栋号"+ld); 
 	 		
-	 		YhMessage dyh=yhMessageService.findyh(ids);//单元
-	 		Integer dyhS=dyh.getDyh();
+//	 		YhMessage dyh=yhMessageService.findyh(ids);//单元
+	 		Integer dyhS=ldh.getDyh();
 	 		String dy=String.valueOf(dyhS);
 	 		if(dy.length()==1){
 	 			dy=0+dy;

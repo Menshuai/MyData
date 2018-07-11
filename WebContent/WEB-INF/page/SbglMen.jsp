@@ -18,11 +18,24 @@
         	window.open("/Data/DataController/dataSbgl.action","Conframe");//返回的是data.jsp页面
     	}
 	</script>
-
+  <script type="text/javascript">
+	  
+	  function yhgl(){// 异常查询
+		    window.open("/Data/DataController/dataSbgl.action","Conframe");
+		} 
+	  function cggl(){// 异常查询
+		    window.open("/Data/Cg/CgfindList.action","Conframe");
+		} 
+	 </script>
 <body><!-- 左边框架小区信息列表 -->
-  <iframe scrolling="no" width="100%"   name="Conframel" id="Conframel" src="/Data/zz/ztree.action" 
+  <!-- <iframe scrolling="no" width="100%"   name="Conframel" id="Conframel" src="/Data/zz/ztree.action" 
     frameborder="0" onload="this.height=0;var fdh=(this.Document?this.Document.body.scrollHeight:this.contentDocument.body.offsetHeight);this.height=(fdh>1700?fdh:1700)">
-    </iframe>
+    </iframe> -->
+    <button  onclick="yhgl()"  type="button" class="btn btn-success btn-block" 
+ 				style="background-image: url('../img/secai.png');border:1px"  type="button" >用户管理</button>   
+ 	 <button  onclick="cggl()"  type="button" class="btn btn-success btn-block" 
+ 				style="background-image: url('../img/secai.png');border:1px"  type="button" >层管管理</button> 
+ 				
 </body>
 	
 </html>
