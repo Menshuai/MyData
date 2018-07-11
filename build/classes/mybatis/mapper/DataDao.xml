@@ -55,7 +55,7 @@
 	
 	<!-- public List<Data> find()-->
 	<select id="find"   resultMap="data"   parameterType="Data">
-	 select 
+	 <!-- select 
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
 		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
@@ -74,7 +74,7 @@
 	   where 
 		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
 		 and  da.fpbh=fp.fpbh 
-			and fp.xh=gl.xh 
+			and fp.xh=gl.xh --> 
 		<!--  where 
 		 	da.fpbh=fp.fpbh   fp.yhbh=yhMessage.yhbh    -->
 		
