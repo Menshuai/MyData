@@ -28,9 +28,11 @@ import com.hnzy.hot.socket.util.MapUtilsDf;
 import com.hnzy.hot.socket.util.Utils;
 import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.Jzq;
+import com.hnzy.pds.pojo.SbSuc;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.DataService;
 import com.hnzy.pds.service.JzqService;
+import com.hnzy.pds.service.SbSucService;
 import com.hnzy.pds.service.YhMessageService;
 
 
@@ -45,6 +47,9 @@ public class ServerHandler2  extends IoHandlerAdapter{
 	private DataService  dataService;
 	@Autowired
 	private YhMessageService yhMessageService;
+	
+	@Autowired
+	private SbSucService sbSucService;
 	boolean sessionmap;
 	String param;
 	
@@ -200,9 +205,9 @@ public class ServerHandler2  extends IoHandlerAdapter{
 				System.out.println("-------web端返回------"+md);
 				SF(base, connc);
 				} else if(md.equals("f0")){
-			 		wxkg(base);
+			 		wxkg(base); //接收微信数据并转发设备指令
 			 	}else if(md.equals("a3")){
-			 		wxfh(base,connc);
+			 		wxfh(base,connc);//微信接收数据
 			 	}
 		}
 		try
@@ -347,6 +352,9 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setYhbh(yhbh);
 			data.setFpdz(fpid);
 			dataService.updateYhbhF(data);
+			dataService.InsertYh(data);
+			
+			
 //		    System.out.println("yhbh+fpid----------"+yhbh+fpid);
 			 // 更新
 //			String Upsql = "update k_data10 set gdtime='" +gdg + "',zdtime='" +zdS + "',ddtime='" +gdd + "',dgdtime='" +dgdg + "',dzdtime='" +dzdS + "',dddtime='" +dgdd + "', "
@@ -601,7 +609,11 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setJj(jj);
 			data.setYhbh(yhbh);
 			data.setFpdz(fpid);
-			dataService.updateYhbhF(data);
+			dataService.updateYhbhF(data);//更新实时表
+			dataService.InsertYh(data);//插入历史表
+			SbSuc sbSuc =new SbSuc();
+			sbSuc.setSbSuc(yhbh);
+			sbSucService.update(sbSuc);
 			//dataService.updateS(ms, dw, gdg, zdS, gdd, dgdg, dzdS, dgdd, Jf, sdw, sw, kg, bj, jj, time);
 			 // 更新
 //			String Upsql = "update k_data10 set gdtime='" +gdg + "',zdtime='" +zdS + "',ddtime='" +gdd + "',dgdtime='" +dgdg + "',dzdtime='" +dzdS + "',dddtime='" +dgdd + "', "

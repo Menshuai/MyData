@@ -22,7 +22,8 @@
 		<result property="time" column="time" />
 		<result property="xyydl" column="xyydl" />
 		<result property="yhbh" column="yhbh" />
-			
+		<result property="fpdz" column="fpdz" />
+		
 		<result property="yhMessage.id" column="id" />
 		<result property="yhMessage.yhbh" column="yhbh" />
 		<result property="yhMessage.yhxm" column="yhxm"/>
@@ -137,4 +138,9 @@
 	 where 
 	 	yhbh=#{yhbh} and fpdz=#{fpdz}
 	 </update>
+	 <insert id="InsertYh" parameterType="Data">
+	 <!-- socket更插入历史热表信息 -->
+     insert into k_lssjb11 (yhbh,fpdz,ms,dw,gdtime,zdtime,ddtime,dgdtime,dzdtime,dddtime,jf,sdwd,snwd,kg,bj,jj,time)values (
+      #{yhbh},#{fpdz},#{ms},#{dw},#{gdtime},#{zdtime},#{ddtime},#{dgdtime},#{dzdtime},#{dddtime},#{jf},#{sdwd},#{snwd},#{kg},#{bj},#{jj},#{time})
+	 </insert>
 </mapper>

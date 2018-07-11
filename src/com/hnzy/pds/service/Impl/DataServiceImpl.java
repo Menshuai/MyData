@@ -37,6 +37,12 @@ public class DataServiceImpl implements DataService{
 		dataDao.updateYhbhF(data);
 	}
 
+	@Override
+	public void InsertYh(Data data)
+	{
+		dataDao.InsertYh(data);
+	}
+
 	 
 
 	 

@@ -18,5 +18,7 @@ public interface DataDao {
 	 
 	//根据用户编号和风盘地址更新实时数据
 	public void updateYhbhF(Data data);
+	//插入历史数据
+	public void InsertYh(Data data);
 	
 }

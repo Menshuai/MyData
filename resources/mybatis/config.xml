@@ -6,6 +6,7 @@
 		<typeAlias type="com.hnzy.pds.pojo.YhMessage" alias="YhMessage" />
 		<typeAlias type="com.hnzy.pds.pojo.Data" alias="Data" />
 		<typeAlias type="com.hnzy.pds.pojo.Fp" alias="Fp" />
+			<typeAlias type="com.hnzy.pds.pojo.SbSuc" alias="SbSuc" />
 		
 	<!-- <typeAlias type="com.hnzy.pds.pojo.Rz" alias="Rz" />
 		<typeAlias type="com.hnzy.pds.pojo.KfInfo" alias="KfInfo" />
