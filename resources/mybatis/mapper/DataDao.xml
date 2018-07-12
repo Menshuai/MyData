@@ -57,6 +57,7 @@
 	<!-- public List<Data> find()-->
 	<select id="find"   resultMap="data"   parameterType="Data">
 		select 
+ 
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
 		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
