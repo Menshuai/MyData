@@ -10,4 +10,5 @@ import com.hnzy.pds.pojo.Rz;
 
 public interface RzDao extends BaseDao<Rz>{
 	public List<Rz> Search(@Param("cz") String cz);
+	public void Insert(Rz rz);
 }

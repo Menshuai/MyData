@@ -97,7 +97,7 @@ public class DataController {
 		 
 		 String cg=cgbh.substring(4);
 		 
-		String ja =ld+dy+"F010B5"+cg+""+idsS+fpdz+"FFFFFFFFFFFF";//起始到结束  01终端
+		String ja =ld+dy+"F010B5"+cg+""+idsS+fpdz+ld+dy+"FFFFFFFF";//起始到结束  01终端
 		log.info("对一户 单个风盘查询操作 ："+ja);
 		YhMessage yhmess=yhMessageService.findJzq(idString);
 		String ip =yhmess.getCg().getJzq().getJzqip();
