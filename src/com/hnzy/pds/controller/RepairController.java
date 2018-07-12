@@ -92,7 +92,7 @@ public class RepairController {
 	
  	 
  	@RequestMapping("/findXqNameList")
- 	public String findXqNameList(HttpServletRequest request,Repair repair,String xqName){
+ 	public String findXqNameList(HttpServletRequest request,Repair repair,String xqm){
  		return "repair";
  	}
 	
@@ -240,37 +240,32 @@ public class RepairController {
 		}
 	 
 		
-	//������Ϣ���밲װ 
+	//申请安装
 		@RequestMapping("/RepairlistS")
 		public String lists(HttpServletRequest request,Repair repair){
-				//Ҽ�����밲װ
-	/*	repairs=repairService.findRepair(1);
+	 	repairs=repairService.findRepair(1);
 		request.setAttribute("XqNameList", repairService.findXqName());
 		request.setAttribute("rep",repairs);
-		request.setAttribute("st",repairService.findState(1));
-		request.setAttribute("list",repairService.findplace());
 		request.setAttribute("sums",repairService.sum(repair,1));
 		request.setAttribute("wjd",repairService.state0(1));
 		request.setAttribute("yjd",repairService.state1(1));
-		request.setAttribute("ywc",repairService.state2(1));*/
-		 
-		return "/repairSqaz";
+		request.setAttribute("ywc",repairService.state2(1)); 
+		return "/Sqaz";
 		
 		}
 		 
-		//申请安装
+		//申请安装  ---添加
 		@RequestMapping(value="InsertRepairS")
 		public String  InsertRepairS(HttpSession session,Repair repair,Rz rz ) throws UnsupportedEncodingException{
 			//����־����Ӳ���
-			/*rz.setCzr((String)session.getAttribute("userName"));//��ȡ������
+			/* rz.setCzr((String)session.getAttribute("userName"));//��ȡ������
 			rz.setCz("���"+repair.getXqName()+"С��"+repair.getBuildNo()+"¥"+repair.getCellNo()+"���ű�������");//��ȡ��������
-			rz.setCzsj(new Date());//��ȡ����ʱ��
+			rz.setCzsj(new Date()); 
 			rzService.insert(rz);*/
-	/*		repair.setType("���밲װ");
-			repair.settJname(new String(((String) session.getAttribute("UserName"))));
-			repair.settJtime(new Date());*/
+	 		repair.setLx("���밲װ");
+			repair.setTjr(new String(((String) session.getAttribute("UserName"))));
+			repair.setTjsj(new Date()); 
 		//	repairService.InsertRepair(repair);
-			//System.out.println("������밲װ-----------------");
 			return "/repairSqaz";
 			
 		}
@@ -328,27 +323,23 @@ public class RepairController {
 					return jsonObject;
 				}
 				
-				//���밲װ---��ѯ
+				//搜索
 				@ResponseBody
 				@RequestMapping("Search2")
-				public JSONObject Search2(HttpServletRequest request,Repair repair,@Param("xqm")String xqm,@Param("buildNo")String buildNo,@Param("cellNo")String cellNo,@Param("houseNo")String houseNo,String fl,@Param("telephone")String telephone) throws UnsupportedEncodingException{
+				public JSONObject Search2(HttpServletRequest request,Repair repair,@Param("xqm")String xqm,@Param("ldh")String ldh,@Param("dyh")String dyh,@Param("hh")String hh,String fl,@Param("lxdh")String lxdh) throws UnsupportedEncodingException{
 					xqm=new String(xqm.getBytes("ISO-8859-1"),"utf-8")+"";
-					buildNo=new String(buildNo.getBytes("ISO-8859-1"),"utf-8")+"";
+					ldh=new String(ldh.getBytes("ISO-8859-1"),"utf-8")+"";
 					JSONObject jsonObject=new JSONObject();
-				//	jsonObject.put("SearchList2",  repairService.Search(xqName, buildNo, cellNo, hh, fl,telephone));
+				 	jsonObject.put("SearchList2",  repairService.Search(xqm, ldh, dyh, hh, fl, lxdh));
 					return jsonObject;
 				}
 				
 				
-			
-				
 				//��������
 				@RequestMapping("/listState1")
 				@ResponseBody
-				public JSONObject listState1(HttpServletRequest request,Repair repair,@Param("place")String place,@Param("hesName")String hesName,@Param("state")String state,@Param("kffl")int kffl) throws UnsupportedEncodingException{		
-					place=new String(place.getBytes("ISO-8859-1"),"utf-8")+"";
-					hesName=new String(hesName.getBytes("ISO-8859-1"),"utf-8")+"";
-					state=new String(state.getBytes("ISO-8859-1"),"utf-8")+"";
+				public JSONObject listState1(HttpServletRequest request,Repair repair,@Param("zt")String zt,@Param("kffl")int kffl) throws UnsupportedEncodingException{		
+					zt=new String(zt.getBytes("ISO-8859-1"),"utf-8")+"";
 					
 					JSONObject json=new JSONObject();
 			/*		repairs= repairService.findByState(place,hesName,state,kffl);
@@ -480,7 +471,6 @@ public class RepairController {
 					place=new String(place.getBytes("ISO-8859-1"),"utf-8")+"";
 					xqName=new String(xqName.getBytes("ISO-8859-1"),"utf-8")+"";
 					buildNo=new String(buildNo.getBytes("ISO-8859-1"),"utf-8")+"";
-					hESName=new String(hESName.getBytes("ISO-8859-1"),"utf-8")+"";
 					yhInfoList=yhInfoService.findYhCellNOByBuildrepair(buildNo, xqName,place,hESName);
 					JSONObject jsonObject=new JSONObject();
 					if(yhInfoList!=null){

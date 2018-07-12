@@ -352,12 +352,10 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setYhbh(yhbh);
 			data.setFpdz(fpid);
 			dataService.updateYhbhF(data);
-<<<<<<< HEAD
-=======
+ 
 			dataService.InsertYh(data);
 			
 			
->>>>>>> 990cc4c6d7a497bab62f519edc682a272acf0df6
 //		    System.out.println("yhbh+fpid----------"+yhbh+fpid);
 			 // 更新
 //			String Upsql = "update k_data10 set gdtime='" +gdg + "',zdtime='" +zdS + "',ddtime='" +gdd + "',dgdtime='" +dgdg + "',dzdtime='" +dzdS + "',dddtime='" +dgdd + "', "
@@ -612,15 +610,11 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setJj(jj);
 			data.setYhbh(yhbh);
 			data.setFpdz(fpid);
-<<<<<<< HEAD
-			dataService.updateYhbhF(data);
-=======
 			dataService.updateYhbhF(data);//更新实时表
 			dataService.InsertYh(data);//插入历史表
 			SbSuc sbSuc =new SbSuc();
 			sbSuc.setSbSuc(yhbh);
 			sbSucService.update(sbSuc);
->>>>>>> 990cc4c6d7a497bab62f519edc682a272acf0df6
 			//dataService.updateS(ms, dw, gdg, zdS, gdd, dgdg, dzdS, dgdd, Jf, sdw, sw, kg, bj, jj, time);
 			 // 更新
 //			String Upsql = "update k_data10 set gdtime='" +gdg + "',zdtime='" +zdS + "',ddtime='" +gdd + "',dgdtime='" +dgdg + "',dzdtime='" +dzdS + "',dddtime='" +dgdd + "', "

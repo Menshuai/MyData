@@ -244,6 +244,9 @@
 	    var date = new Date(strTime);
 	    return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
 	}
+	if(str!=event){
+		 //
+	}
  </script>
  
 	<script>

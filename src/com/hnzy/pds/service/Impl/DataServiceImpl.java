@@ -37,15 +37,13 @@ public class DataServiceImpl implements DataService{
 		dataDao.updateYhbhF(data);
 	}
 
-<<<<<<< HEAD
-=======
+ 
 	@Override
 	public void InsertYh(Data data)
 	{
 		dataDao.InsertYh(data);
 	}
 
->>>>>>> 990cc4c6d7a497bab62f519edc682a272acf0df6
 	 
 
 	 
