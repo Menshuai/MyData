@@ -15,15 +15,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>数据报表</title>
 </head>
 
+	<script src="https://code.jquery.com/jquery.min.js" type="text/javascript"></script><!-- 用到JQUERY的地方，jquery一定是在JS前面加载 -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="../js/biao.js"></script>
 <link href="../css/main.css" rel="stylesheet" type="text/css" />
 <link href="../css/bootstrap.css" rel="stylesheet">
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script type="text/javascript" src="../js/jquery-1.4.4.min.js"></script>
+	<!-- <script type="text/javascript" src="../js/jquery-1.4.4.min.js"></script> -->
 	<link href="../css/fixed_table_rc.css" type="text/css" rel="stylesheet" media="all" />
 	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet"	/>
-	<script src="https://code.jquery.com/jquery.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
 	<script src="https://meetselva.github.io/fixed-table-rows-cols/js/sortable_table.js" type="text/javascript"></script>
 	<script src="../js/fixed_table_rc.js" type="text/javascript"></script>
@@ -50,16 +50,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	/*页面加载就开始执行js*/
 	$(document).ready(//根据小区获取  楼栋号
 			function() {
+					
 				$("#xqmId").change(
 						function() {
 							$.get("findYhldhbyxqm.action?xqm="
 									+ $("#xqmId").val(), function(data) {
+								debugger;
 								var dd = data;
 								var d = dd.xqlist;
-								
 							 	$("#ldhId option:gt(0)").remove();
 								$("#dyhId option:gt(0)").remove();
-								 
 								for (var i = 0; i < d.length; i++) {
 									var ldh = d[i].ldh;
 									var opt = "<option value='"+ldh+"'>"
@@ -77,7 +77,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								var dd = data;
 								var d = dd.dyhList;
 								$("#dyhId option:gt(0)").remove();
-								
 								for (var i = 0; i < d.length; i++) {
 									var dyh = d[i].dyh;
 									var opt = "<option value='"+dyh+"'>"
@@ -90,6 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 <script type="text/javascript">
 	function searchInfo() {
+		debugger;
 		var xqm = $('#xqmId').val();
 		var ldh = $('#ldhId').val();
 		var dyh = $('#dyhId').val();
@@ -98,6 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var time2 = $('#time2').val();
 		var html = "";
 		$.ajax({
+			type:"POST",
 			url : "searchInfo.action",
 			async : false,
 			dataType : "json",
@@ -108,29 +109,74 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				"hh" : hh,
 				"time1":time1,
 				"time2":time2,
-				
 			},
 			success : function(data) {
-				$("#SearchId").empty();
+				$("#yhInfo").empty();
 				var d = data.findXqInfoHistory;
-				
+				alert(d.length);
 				for (var i = 0; i < d.length; i++) {
-					var xqm = d[i].xqm;
-					var ldh = d[i].ldh;
-					var dyh = d[i].dyh;
-					var hh = d[i].hh;
-					var time = FormatDate(d[i].fmHistory.time);
+					var yhbh = d[i].yhMessage.yhbh;
+					alert(d[i].yhMessage.yhbh);
+					var yhxm = d[i].yhMessage.yhxm;
+					var xqm = d[i].yhMessage.xqm;
+					var ldh = d[i].yhMessage.ldh;
+					var dyh = d[i].yhMessage.dyh;
+					var hh = d[i].yhMessage.hh;
+					var js = d[i].js;
+					var fpbh = d[i].fpbh;
+					var ms = d[i].ms;
+					var  dw= d[i].dw;
+					var gdtime = d[i].gdtime;
+					var zdtime = d[i].zdtime;
+					var ddtime = d[i].ddtime;
+					var dgdtime = d[i].dgdtime;
+					var dzdtime = d[i].dzdtime;
+					var dddtime = d[i].dddtime;
+					var jf = d[i].jf;
+					var sdwd = d[i].sdwd;
+					var snwd = d[i].snwd;
+					var kg = d[i].kg;
+					var bj = d[i].bj;
+					var jj = d[i].jj;
+					var time = FormatDate(d[i].time);
+					var mj = d[i].yhMessage.mj;
+					var lxdh = d[i].yhMessage.lxdh;
+					var fpdz = d[i].yhMessage.fpdz;
+					var bz = d[i].yhMessage.bz;
 					html += "<tr>";
+					html += "<td class='text-center'>" + yhbh + "</td>";
+					html += "<td class='text-center'>" + yhxm + "</td>";
 					html += "<td class='text-center'>" + xqm + "</td>";
 					html += "<td class='text-center'>" + ldh + "</td>";
 					html += "<td class='text-center'>" + dyh + "</td>";
+					
 					html += "<td class='text-center'>" + hh + "</td>";
-					html += "<td class='text-center' title='"+time+"'>" + time
-							+ "</td>";
-				
+					html += "<td class='text-center'>" + js + "</td>";
+					html += "<td class='text-center'>" + fpbh + "</td>";
+					html += "<td class='text-center'>" + ms + "</td>";
+					html += "<td class='text-center'>" + dw + "</td>";
+					
+					html += "<td class='text-center'>" + gdtime + "</td>";
+					html += "<td class='text-center'>" + zdtime + "</td>";
+					html += "<td class='text-center'>" + ddtime + "</td>";
+					html += "<td class='text-center'>" + dgdtime + "</td>";
+					html += "<td class='text-center'>" + dztime + "</td>";
+					
+					html += "<td class='text-center'>" + dddtime + "</td>";
+					html += "<td class='text-center'>" + jf + "</td>";
+					html += "<td class='text-center'>" + sdwd + "</td>";
+					html += "<td class='text-center'>" + snwd+ "</td>";
+					html += "<td class='text-center'>" + kg+ "</td>";
+					html += "<td class='text-center'>" + bj+ "</td>";
+					html += "<td class='text-center'>" + jj+ "</td>";
+					html += "<td class='text-center' title='"+time+"'>" + time+ "</td>";
+					html += "<td class='text-center'>" + mj+ "</td>";
+					html += "<td class='text-center'>" + lxdh+ "</td>";
+					html += "<td class='text-center'>" + fpdz+ "</td>";
+					html += "<td class='text-center'>" + bz+ "</td>";
 					html += "</tr>";
 				}
-				$("#SearchId").append(html);
+				$("#yhInfo").append(html);
 			}
 
 		})
@@ -169,10 +215,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    {
 				width : 40,
 				align : 'center'
-			}, {
+			}, /* {
 				width : 50,
 				align : 'center'
-			}, {
+			}, */ {
 				width : 80,
 				align : 'center'
 			},{
@@ -302,15 +348,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		户号：<input type="text" name="hh" id="hhId" value="${hh}" size=10px/> 
 				
-		&nbsp;&nbsp;&nbsp;  
+		&nbsp;&nbsp;&nbsp;
+		  
 			 
-		  <label for="readMTime">选择时间:</label>
-		  <input type="text" id="time1" name="time1" class="Wdate" onfocus="WdatePicker();" />
-			-<input type="text" id="time2"  name="time2"  class="Wdate" onfocus="WdatePicker();" />	
+		<label for="readMTime">选择时间:</label>
+		<input type="text" id="time1" name="time1" class="Wdate" onfocus="WdatePicker();" />
+			- -<input type="text" id="time2"  name="time2"  class="Wdate" onfocus="WdatePicker();" />	
 	<input type="button" onclick="searchInfo()" value="搜索" class="btn btn-success" style="background: url(../img/secai.png);"/> 
 	<input type="button" value="导出" class="btn btn-success" onclick="doExportExcel()" style="background: url(../img/secai.png);"/>
  &nbsp;&nbsp;&nbsp;
- <div></div>
+ 
  <div id="tablediv">
 		<form id="myForm">
 			<div class="dwrapper">
@@ -318,7 +365,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead >
 	<tr height="35px" style="background: url(../img/secai.png);" >
 			<th></th>         
-			<th>序号</th>
+		<!-- 	<th>序号</th> -->
 			<th>用户编号</th>
 			<th>用户姓名</th>
 			<th>小区名称</th>
@@ -350,7 +397,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <th>用户面积</th>
             
             <th>用户电话</th>
-            <th>风盘个数</th>
+            <th>风盘地址</th>
             <th>备注</th>
 	</tr>                    
 	</thead>                      
@@ -359,7 +406,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<c:forEach  var="yh" items="${YhList}" varStatus="status">
 	   <tr <c:if test="${status.index%2==1 }">style="background-color:#eef3fa"</c:if>>	  
 		<td><input type="checkbox" value="${yh.id}" /></td>  
-		<td>${yh.id}</td>	
+		<%-- <td>${yh.id}</td>	 --%>
 		<td>${yh.yhMessage.yhbh}</td>	
 		<td>${yh.yhMessage.yhxm}</td>	
 		<td>${yh.yhMessage.xqm}</td>	

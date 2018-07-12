@@ -7,7 +7,9 @@
 * Licensed under MIT license.
 * http://opensource.org/licenses/MIT
 */
-var num=0,oUl=$("#min_title_list"),hide_nav=$("#Hui-tabNav");
+var num=0
+var oUl=$("#min_title_list")
+var hide_nav=$("#Hui-tabNav");
 
 /*获取顶部选项卡总长度*/
 function tabNavallwidth(){

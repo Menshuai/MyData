@@ -113,7 +113,7 @@
 	
 	<!-- public YhMessage  findJzq(String cgbh) -->
 	<select  id="findJzq" parameterType="YhMessage"   resultMap="yhMessage" >
-	select 
+	select distinct
 		yh.cgbh, cg.cgbh , jzq.jzqip, jzq.jzqport
 	 from   k_yhb1  yh,  k_cgb3  cg,  k_jzqb5  jzq
 	 where yh.cgbh=cg.cgbh  
@@ -122,14 +122,14 @@
 	
 	<!-- public  YhMessage finldh(String  yhbh) -->
 	<select id="finldh" parameterType="YhMessage"   resultMap="yhMessage">
-	select  ldh,cgbh  from k_yhb1 where yhbh=#{yhbh}
+	select  ldh,cgbh,dyh  from k_yhb1 where yhbh=#{yhbh} and fpdz=#{fpdz}
 	</select>
 	
 	<!-- public  YhMessage findyh(String  yhbh) -->
 	<select id="findyh" parameterType="YhMessage"   resultMap="yhMessage">
-	select  dyh  from k_yhb1 where yhbh=#{yhbh}
+	select  distinct ldh,cgbh,dyh from k_yhb1 where yhbh=#{yhbh}
 	</select>
-	 
+
 	  
 	<!--查找小区名字 public List<YhMessage> findXqName(); -->
 	<select id="findXqName" parameterType="YhMessage"   resultMap="yhMessage">
@@ -142,8 +142,8 @@
 	</select>
 	
 	<!--通过小区楼栋获取单元  public List<YhMessage> findYhCellNOByBuild(int ldh,String xqm); -->
-	<select id="findYhCellNOByBuild" resultMap="yhMessage" parameterType="YhMessage">
-		select dyh from k_yhb1 where xqm=#{xqm} and ldh=#{ldh} 
+	<select id="findYhCellNOByBuild" resultMap="yhMessage"><!-- 不写传参类型parameterType的话，前面传递的多个参数默认封装成map，顺序取就行了#{0} 代表第一个参数。 -->
+		select dyh from k_yhb1 where xqm=#{1} and ldh=#{0} 
 	</select>
 	
 	<!-- <select id="findYhhhByBuild" resultMap="yhMessage" parameterType="YhMessage">
@@ -151,25 +151,62 @@
 	</select> -->
 	
 	
-	<!-- 搜索 实时数据-->
+	<!-- 搜索实时数据-->
 	<select id="searchInfo" resultMap="yhMessage" parameterType="YhMessage">
       select 
-			y.xqm,y.ldh,y.dyh,y.hh,d.time
+			*
 	  from
-			k_yhb1 y, k_data10 d
+			k_yhb1 , k_data10 
 	  where 
-			k_yhb1.fpdz=k_data10.fpdz 
-		order by time desc
+			 k_yhb1.yhbh=k_data10.yhbh  and k_yhb1.fpdz=k_data10.fpdz  
+		<if test="xqm!='--选择小区名称--'">
+			and xqm=#{xqm}
+		</if>
+		<if test="ldh!=0">
+			and ldh=#{ldh}
+		</if>
+		<if test="dyh!=0">
+			and dyh=#{dyh}
+		</if>
+		<if test="hh!=0">
+			and hh=#{hh}
+		</if>
+		<if test="time1!=null and time1!=''">
+			and time &gt;= #{time1}
+		</if>
+		<if test="time2!=null and time2!=''">
+			and time &lt;= #{time2}
+		</if>   
+		order by time desc  
 	</select>
 	
-	<!-- 搜索 实时数据-->
+	<!-- 搜索 历史数据-->
 	<select id="searchHistory" resultMap="yhMessage" parameterType="YhMessage">
       select 
-			y.xqm,y.ldh,y.dyh,y.hh,ls.time
+			*
 	  from
-			k_yhb1 y, k_lssjb11 ls
+			k_yhb1 , k_lssjb11 
 	  where 
-			k_yhb1.fpdz=k_lssjb11.fpdz 
-		order by time desc
+			k_yhb1.yhbh=k_lssjb11.yhbh  and k_yhb1.fpdz=k_lssjb11.fpdz
+	 	<if test="xqm!='--选择小区名称--'">
+			and xqm=#{xqm}
+		</if>
+		<if test="ldh!=null and ldh!=''">
+			and ldh=#{ldh}
+		</if>
+		<if test="dyh!=null and dyh!=''">
+			and dyh=#{dyh}
+		</if>
+		<if test="hh!=null and hh!=''">
+			and hh=#{hh}
+		</if>
+		<if test="time1!=null and time1!=''">
+			and time &gt;= #{time1}
+		</if>
+		<if test="time2!=null and time2!=''">
+			and time &lt;= #{time2}
+		</if> 
+		order by time desc  
 	</select>
 </mapper>
+

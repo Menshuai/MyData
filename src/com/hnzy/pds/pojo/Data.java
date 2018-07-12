@@ -30,7 +30,7 @@ public class Data implements Serializable {
 	private String jj;//季节
 	private String time; // 采集时间
 	private String fpdz;
-	
+	private String yhbh;
 	
 	
 	public String getFpdz() {
@@ -85,6 +85,16 @@ public class Data implements Serializable {
 
 	public void setFpLogin(FpLogin fpLogin) {
 		this.fpLogin = fpLogin;
+	}
+
+	public String getYhbh()
+	{
+		return yhbh;
+	}
+
+	public void setYhbh(String yhbh)
+	{
+		this.yhbh = yhbh;
 	}
 
 	public int getId() {

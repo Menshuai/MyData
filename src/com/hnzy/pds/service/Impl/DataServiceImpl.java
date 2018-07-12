@@ -31,6 +31,12 @@ public class DataServiceImpl implements DataService{
 		dataDao.updateS(ms, dw, gdg, zdS, gdd, dgdg, dzdS, dgdd, jf, sdw, sw, kg, bj, jj, time);		
 	}
 
+	@Override
+	public void updateYhbhF(Data data)
+	{
+		dataDao.updateYhbhF(data);
+	}
+
 	 
 
 	 

@@ -197,10 +197,10 @@ function SFs() {
 			    {
 				width : 40,
 				align : 'center'
-			}, {
+			},/*  {
 				width : 50,
 				align : 'center'
-			}, {
+			}, */ {
 				width : 80,
 				align : 'center'
 			},{
@@ -334,15 +334,7 @@ function SFs() {
 	</select>  
 	&nbsp;&nbsp;&nbsp;
 	
-	<!-- 选择风盘地址：
-	<select id="jj">
-		<option value="02">--风盘地址--</option>
-		<option value="00">01</option>
-		<option value="01">02</option>
-		<option value="01">03</option>
-		<option value="01">04</option>
-		<option value="04">05</option>
-	</select>   -->
+	 
 	<!-- <button type="button" class="btn btn-success" onclick="Fs()" style="background: url(../img/secai.png);">发送</button> -->
 	 <button type="button" class="btn btn-success" onclick="DFs()" style="background: url(../img/secai.png);">单风盘操作</button>
 	 <button type="button" class="btn btn-success" onclick="SFs()" style="background: url(../img/secai.png);">对一户所有风盘操作</button>
@@ -354,7 +346,7 @@ function SFs() {
 		<thead >
 	<tr height="35px" style="background: url(../img/secai.png);" >
 			<th></th>         
-			<th>序号</th>
+		<!-- 	<th>序号</th> -->
 			<th>用户编号</th>
 			<th>用户姓名</th>
 			<th>小区名称</th>
@@ -386,7 +378,7 @@ function SFs() {
             <th>用户面积</th>
             
             <th>用户电话</th>
-            <th>风盘个数</th>
+            <th>风盘地址</th>
             <th>备注</th>
 	</tr>                    
 	</thead>                      
@@ -395,7 +387,7 @@ function SFs() {
 	<c:forEach  var="yh" items="${YhList}" varStatus="status">
 	   <tr <c:if test="${status.index%2==1 }">style="background-color:#eef3fa"</c:if>>	  
 		<td><input type="checkbox" value="${yh.yhMessage.yhbh}${yh.yhMessage.fpdz}" /></td>  
-		<td>${yh.id}</td>	
+		<%-- <td>${yh.id}</td>	 --%>
 		<td>${yh.yhMessage.yhbh}</td>	
 		<td>${yh.yhMessage.yhxm}</td>	
 		<td>${yh.yhMessage.xqm}</td>	
@@ -464,10 +456,7 @@ function SFs() {
 		<c:if test="${yh.jj=='01'}">
    		<td>冬季</td>
 		</c:if>
-		
 		<td>${yh.time}</td>
-		 <%--  <td><fmt:formatDate value="${yh.time}"
-					pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
 		<td>${yh.yhMessage.mj}</td>
 		<td>${yh.yhMessage.lxdh}</td>
 		<td>${yh.yhMessage.fpdz}</td>

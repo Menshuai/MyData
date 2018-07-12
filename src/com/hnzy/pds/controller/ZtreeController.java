@@ -26,10 +26,7 @@ public class ZtreeController {
 	@Autowired
 	private YhMessageService yhMessageService;
 	private List<YhMessage> list;
-
-	
-	
-	
+ 
 	
 	@RequestMapping("ztree")
 	public String getVillageTreeMenu(HttpServletRequest request) {
@@ -65,6 +62,7 @@ public class ZtreeController {
 				}
 				nodesLC.setParentId(i + 40);
 				nodesLC.setNodeName(ldhNoNo+"栋楼");
+				
 				nodes.add(nodesLC);
 				YhMessage villageLC = new YhMessage();
 				villageLC.setXqm(xqm);
@@ -106,7 +104,7 @@ public class ZtreeController {
 					}
 					String dyhnO=null;
 					 dyhnO=String.valueOf(dyhNo);
-					 nodesdyhNo.setNodeName(dyhnO+"单元");
+					 nodesdyhNo.setNodeName(dyhnO);
 					nodes.add(nodesdyhNo);
 				}
 			}

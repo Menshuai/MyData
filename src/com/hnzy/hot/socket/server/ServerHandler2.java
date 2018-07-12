@@ -320,22 +320,48 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			Date now = new Date(); 
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			String time = dateFormat.format( now ); 
-			
-		    System.out.println("yhbh+fpid----------"+yhbh+fpid);
+			Data data=new Data();
+			String gdString =String.valueOf(gdg);
+			String ztString=String.valueOf(zdS);
+			String gddString=String.valueOf(gdd);
+			String dgdgString=String.valueOf(dgdg);
+			String dgzgString=String.valueOf(dzdS);
+			String dgddString=String.valueOf(dgdd);
+			String sdwString=String.valueOf(sdw);
+			String swString=String.valueOf(sw);
+			data.setGdtime(gdString);
+			data.setZdtime(ztString);
+			data.setDdtime(gddString);
+			data.setDgdtime(dgdgString);
+			data.setDzdtime(dgzgString);
+			data.setDgdtime(dgddString);
+			data.setJf(Jf);
+			data.setMs(ms);
+			data.setSdwd(sdwString);
+			data.setDw(dw);
+			data.setSnwd(swString);
+			data.setBj(bjs);
+			data.setTime(time);
+			data.setKg(kg);
+			data.setJj(jj);
+			data.setYhbh(yhbh);
+			data.setFpdz(fpid);
+			dataService.updateYhbhF(data);
+//		    System.out.println("yhbh+fpid----------"+yhbh+fpid);
 			 // 更新
-			String Upsql = "update k_data10 set gdtime='" +gdg + "',zdtime='" +zdS + "',ddtime='" +gdd + "',dgdtime='" +dgdg + "',dzdtime='" +dzdS + "',dddtime='" +dgdd + "', "
-					+ "jf='" +Jf + "',"+"sdwd='" +sdw + "',"+"ms='" + ms+ "',"+"dw='" + dw+ "',"
-					+ "snwd='" +sw + "',"+"bj='" +bjs + "',"+"time='" + time+ "',"+"kg='" + kg + "',"+"jj='"+jj 
-							+ "'where yhbh='" + yhbhS + "' and fpdz='"+fpid+"'";
-			System.out.println(Upsql);
-		 	try
-			{
-				ps = connc.prepareStatement(Upsql);
-				rs = ps.executeUpdate();
-			} catch (SQLException e)
-			{
-				e.printStackTrace();
-			} 
+//			String Upsql = "update k_data10 set gdtime='" +gdg + "',zdtime='" +zdS + "',ddtime='" +gdd + "',dgdtime='" +dgdg + "',dzdtime='" +dzdS + "',dddtime='" +dgdd + "', "
+//					+ "jf='" +Jf + "',"+"sdwd='" +sdw + "',"+"ms='" + ms+ "',"+"dw='" + dw+ "',"
+//					+ "snwd='" +sw + "',"+"bj='" +bjs + "',"+"time='" + time+ "',"+"kg='" + kg + "',"+"jj='"+jj 
+//							+ "'where yhbh='" + yhbhS + "' and fpdz='"+fpid+"'";
+//			System.out.println(Upsql);
+//		 	try
+//			{
+//				ps = connc.prepareStatement(Upsql);
+//				rs = ps.executeUpdate();
+//			} catch (SQLException e)
+//			{
+//				e.printStackTrace();
+//			} 
 		}
 	}
 
@@ -549,23 +575,49 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			Date now = new Date(); 
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			String time = dateFormat.format( now ); 
-			
+			Data data=new Data();
+			String gdString =String.valueOf(gdg);
+			String ztString=String.valueOf(zdS);
+			String gddString=String.valueOf(gdd);
+			String dgdgString=String.valueOf(dgdg);
+			String dgzgString=String.valueOf(dzdS);
+			String dgddString=String.valueOf(dgdd);
+			String sdwString=String.valueOf(sdw);
+			String swString=String.valueOf(sw);
+			data.setGdtime(gdString);
+			data.setZdtime(ztString);
+			data.setDdtime(gddString);
+			data.setDgdtime(dgdgString);
+			data.setDzdtime(dgzgString);
+			data.setDgdtime(dgddString);
+			data.setJf(Jf);
+			data.setMs(ms);
+			data.setSdwd(sdwString);
+			data.setDw(dw);
+			data.setSnwd(swString);
+			data.setBj(bjs);
+			data.setTime(time);
+			data.setKg(kg);
+			data.setJj(jj);
+			data.setYhbh(yhbh);
+			data.setFpdz(fpid);
+			dataService.updateYhbhF(data);
 			//dataService.updateS(ms, dw, gdg, zdS, gdd, dgdg, dzdS, dgdd, Jf, sdw, sw, kg, bj, jj, time);
 			 // 更新
-			String Upsql = "update k_data10 set gdtime='" +gdg + "',zdtime='" +zdS + "',ddtime='" +gdd + "',dgdtime='" +dgdg + "',dzdtime='" +dzdS + "',dddtime='" +dgdd + "', "
-					+ "jf='" +Jf + "',"+"sdwd='" +sdw + "',"+"ms='" + ms+ "',"+"dw='" + dw+ "',"
-					+ "snwd='" +sw + "',"+"bj='" +bjs + "',"+"time='" + time+ "',"+"kg='" + kg + "',"+"jj='"+jj 
-							+ "'where yhbh='" + yhbhS + "' and fpdz='"+fpid+"'";
-			System.out.println("Upsql===web--"+Upsql);
+//			String Upsql = "update k_data10 set gdtime='" +gdg + "',zdtime='" +zdS + "',ddtime='" +gdd + "',dgdtime='" +dgdg + "',dzdtime='" +dzdS + "',dddtime='" +dgdd + "', "
+//					+ "jf='" +Jf + "',"+"sdwd='" +sdw + "',"+"ms='" + ms+ "',"+"dw='" + dw+ "',"
+//					+ "snwd='" +sw + "',"+"bj='" +bjs + "',"+"time='" + time+ "',"+"kg='" + kg + "',"+"jj='"+jj 
+//							+ "'where yhbh='" + yhbhS + "' and fpdz='"+fpid+"'";
+//			System.out.println("Upsql===web--"+Upsql);
 			MapUtilsDf.getMapUtils().add("kt", "success");
-		 	try
-			{
-				ps = connc.prepareStatement(Upsql);
-				rs = ps.executeUpdate();
-			} catch (SQLException e)
-			{
-				e.printStackTrace();
-			} 
+//		 	try
+//			{
+//				ps = connc.prepareStatement(Upsql);
+//				rs = ps.executeUpdate();
+//			} catch (SQLException e)
+//			{
+//				e.printStackTrace();
+//			} 
 		}else{
 			MapUtilsDf.getMapUtils().add("kt", "fail");
 		}

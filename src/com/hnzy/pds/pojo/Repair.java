@@ -7,212 +7,116 @@ import java.util.Date;
 public class Repair implements Serializable{
 
 	private int id;
-	private String xqName;
-	private String buildNo;
-	private String cellNo;
-//	private String houseNo;
-	private String cs;
-	private String sh;
-	private String name;
-   
-	private String telephone;
-	private String problem;
-	private String tJname;
-	private Date tJtime;
-	private String jSname;
-
-	private Date jStime;
-	private String wCname;
-	private Date wCtime;
-	private String state;
+	private String xqm;
+	private String ldh;
+	private String dyh;
+ 	private String hh;
+ 	
+	private String yhxm; //用户姓名
+	private String lxdh; //联系电话
+	private String wt;  //问题
+	private String tjr; //提交人
+	private Date tjsj; //提交时间
 	
-
-	//	���޵Ǽ�
-	private String hESName;
-	private String place;
-	private String type;
+	private String jsr; //接收人
+	private Date jssj;//接收时间
+	private String zt; //状态
+	private String lx; //类型
 	
-
-	public String getType()
-	{
-		return type;
-	}
-
-	public void setType(String type)
-	{
-		this.type = type;
-	}
-
-	public String getCs()
-	{
-		return cs;
-	}
-
-	public void setCs(String cs)
-	{
-		this.cs = cs;
-	}
-
-	public String getSh()
-	{
-		return sh;
-	}
-
-	public void setSh(String sh)
-	{
-		this.sh = sh;
-	}
-
-	public String gethESName()
-	{
-		return hESName;
-	}
-
-	public void sethESName(String hESName)
-	{
-		this.hESName = hESName;
-	}
-
-	public String getPlace()
-	{
-		return place;
-	}
-
-	public void setPlace(String place)
-	{
-		this.place = place;
-	}
-
-	/*public HeatESInfo getHea()
-	{
-		return hea;
-	}
-
-	public void setHea(HeatESInfo hea)
-	{
-		this.hea = hea;
-	}*/
-
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getXqName() {
-		return xqName;
+	public String getXqm() {
+		return xqm;
 	}
-
-	public void setXqName(String xqName) {
-		this.xqName = xqName;
+	public void setXqm(String xqm) {
+		this.xqm = xqm;
 	}
-
-
-	public String getCellNo()
-	{
-		return cellNo;
+	public String getLdh() {
+		return ldh;
 	}
-
-	public void setCellNo(String cellNo)
-	{
-		this.cellNo = cellNo;
+	public void setLdh(String ldh) {
+		this.ldh = ldh;
 	}
-
-
-
-	public void setBuildNo(String buildNo)
-	{
-		this.buildNo = buildNo;
+	public String getDyh() {
+		return dyh;
 	}
-
-	public String getName() {
-		return name;
+	public void setDyh(String dyh) {
+		this.dyh = dyh;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public String getHh() {
+		return hh;
 	}
-
-	public String getTelephone() {
-		return telephone;
+	public void setHh(String hh) {
+		this.hh = hh;
 	}
-
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+	public String getYhxm() {
+		return yhxm;
 	}
-
-	public String getProblem() {
-		return problem;
+	public void setYhxm(String yhxm) {
+		this.yhxm = yhxm;
 	}
-
-	public void setProblem(String problem) {
-		this.problem = problem;
+	public String getLxdh() {
+		return lxdh;
 	}
-
-	public String gettJname() {
-		return tJname;
+	public void setLxdh(String lxdh) {
+		this.lxdh = lxdh;
 	}
-
-	public void settJname(String tJname) {
-		this.tJname = tJname;
+	public String getWt() {
+		return wt;
 	}
-
-	public Date gettJtime() {
-		return tJtime;
+	public void setWt(String wt) {
+		this.wt = wt;
 	}
-
-	public void settJtime(Date tJtime) {
-		this.tJtime = tJtime;
+	public String getTjr() {
+		return tjr;
 	}
-
-	public String getjSname() {
-		return jSname;
+	public void setTjr(String tjr) {
+		this.tjr = tjr;
 	}
-
-	public void setjSname(String jSname) {
-		this.jSname = jSname;
+	public Date getTjsj() {
+		return tjsj;
 	}
-
-	public Date getjStime() {
-		return jStime;
+	public void setTjsj(Date tjsj) {
+		this.tjsj = tjsj;
 	}
-
-	public void setjStime(Date jStime) {
-		this.jStime = jStime;
+	
+	public String getJsr() {
+		return jsr;
 	}
-
-	public String getwCname() {
-		return wCname;
+	public void setJsr(String jsr) {
+		this.jsr = jsr;
 	}
-
-	public void setwCname(String wCname) {
-		this.wCname = wCname;
+	public Date getJssj() {
+		return jssj;
 	}
-
-	public Date getwCtime() {
-		return wCtime;
+	public void setJssj(Date jssj) {
+		this.jssj = jssj;
 	}
-
-	public void setwCtime(Date wCtime) {
-		this.wCtime = wCtime;
+	public String getZt() {
+		return zt;
 	}
-
-	public String getState()
-	{
-		return state;
+	public void setZt(String zt) {
+		this.zt = zt;
 	}
-
-	public void setState(String state)
-	{
-		this.state = state;
+	public String getLx() {
+		return lx;
 	}
-
-	public String getBuildNo()
-	{
-		return buildNo;
+	public void setLx(String lx) {
+		this.lx = lx;
 	}
-
+	@Override
+	public String toString() {
+		return "Repair [id=" + id + ", xqm=" + xqm + ", ldh=" + ldh + ", dyh=" + dyh + ", hh=" + hh + ", yhxm=" + yhxm
+				+ ", lxdh=" + lxdh + ", wt=" + wt + ", tjr=" + tjr + ", tjsj=" + tjsj + ", jsr=" + jsr + ", jssj="
+				+ jssj + ", zt=" + zt + ", lx=" + lx + "]";
+	}
+	 
+	 
+	
+  
 
 }

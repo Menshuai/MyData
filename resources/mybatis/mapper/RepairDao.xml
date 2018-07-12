@@ -2,10 +2,216 @@
 <!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
 <mapper namespace="com.hnzy.pds.dao.RepairDao"> 
 	<resultMap type="Repair" id="repair">
-		<id property="id" column="ID" />
+		<id property="id" column="id" />
 		 
 	</resultMap>
 	
+	<!--查找小区 public List<Repair> findXqName() -->
+	<select id="findXqName" resultType="repair">
+		select xqm from k_WX
+	</select>
+	
+	<!--通过小区获取楼栋 public List<YhMessage> findYhBuildNObyXqm(String xqm); -->
+	<select id="findYhBuildNObyXqm" resultType="repair" parameterType="Repair">
+		select ldh from k_WX where xqm=#{xqm}
+	</select>
  
-			
+	<!--通过楼栋获取单元 public List<YhMessage> findYhCellNOByBuild(String ldh,String xqm); -->	
+	<select id="findYhCellNOByBuild" resultType="repair" parameterType="Repair"> 
+		select dyh from k_WX where xqm=#{1} and ldh=#{0}
+	</select>
+	
+	<!--查找  public List<Repair>findRepair(int kffl) -->
+	<select id="findRepair" resultType="repair" parameterType="Repair">
+		select * from k_WX
+	<!-- <if test="kff1==0">
+		and k_WX.Type='故障申报'
+	</if>
+	<if test="kff1==1">
+		and k_WX.Type='申请安装'
+	</if>
+	ORDER BY k_WX.id  desc -->
+	</select>
+	
+	<!-- //搜索
+	public List<Repair> Search(@Param("xqm")String xqm,@Param("ldh")String ldh,
+		@Param("dyh")String dyh,@Param("hh")String hh,@Param("fl")String fl,@Param("lxdh")String lxdh) -->
+		
+	<select id="Search" resultType="repair" parameterType="Repair">
+	 select 
+		 	 *
+		from 
+			k_WX  where 1=1
+           <if test="xqm!=null and xqm!=''">
+           and xqm=#{xqm}
+          </if> -->
+          <if test="ldh!=null and ldh!=''">
+          	and ldh=#{ldh}
+          </if>
+          <if test="dyh!=null and dyh!=''">
+          	and dyh=#{dyh}
+          </if>
+          <if test="hh!=null and hh!=''">
+          	and hh=#{hh}
+          </if>
+          <if test="lxdh!=null and lxdh!=''">
+          	and lxdh=#{lxdh}
+          </if> 
+          <if test="fl==1">
+          	and lx='故障申报'
+          </if>
+           <if test="fl==2">
+          	and lx='申请安装'
+          </if>  
+     </select>
+		
+	<!--查询所有 public int sum(Repair repair,@Param("kffl")int kffl); -->
+	<select id="sum" resultType="int" parameterType="Repair">
+		select count(*) from k_WX where 1=1 and lx='故障申报'
+		<if test="kffl==0">
+			and lx='故障申报'
+		</if>
+		<if test="kffl==1">
+			and lx='申请安装'
+		</if>
+	</select>
+	
+	<!--public int state0(@Param("kffl")int kffl);//未接单  -->
+	<select id="state0" resultType="int" parameterType="Repair">
+		select count(zt) as wjd from k_WX where zt='未接单'
+		<if test="kffl==0">
+			and lx='故障申报'
+		</if>
+		<if test="kffl==1">
+			and lx='申请安装'
+		</if>
+	</select>
+	
+	<!--public int state1(@Param("kffl")int kffl)//已接单  -->
+	<select id="state1" resultType="int" parameterType="Repair">
+		select count(zt) as yjd from k_WX where zt='已接单'
+		<if test="kffl==0">
+			and lx='故障申报'
+		</if>
+		<if test="kffl==1">
+			and lx='申请安装'
+		</if>
+	</select>
+	
+	<!--public int state2(@Param("kffl")int kffl);//已完成 -->
+	<select id="state2" resultType="int" parameterType="Repair">
+		select count(zt) as yjd from k_WX where zt='已完成 '
+		<if test="kffl==0">
+			and lx='故障申报'
+		</if>
+		<if test="kffl==1">
+			and lx='申请安装'
+		</if>
+	</select>
+	
+	<!-- public int sum1(@Param("xqm")String xqm,@Param("ldh")String ldh,
+			@Param("dyh")String dyh,@Param("hh")String hh,@Param("fl")String fl,@Param("lxdh")String lxdh); -->
+		<select id="sum1" resultType="int" >
+				select count(*) from   k_WX  where 1=1
+              <if test="xqm!='--选择小区名称--'">
+               and xqm=#{xqm}
+              </if>
+              <if test="ldh!=0">
+              and ldh=#{ldh}
+              </if>
+              <if test="dyh!=0">
+              	and dyh=#{dyh}
+              </if>
+              <if test="hh!=null and hh!=''">
+              	and hh=#{hh}
+              </if>
+              <if test="lxdh!=null and lxdh!=''">
+              	and lxdh=#{lxdh}
+              </if> 
+              <if test="fl==1">
+              	and lx='故障申报'
+              </if>
+              <if test="fl==2">
+              	and lx='申请安装'
+              </if>
+		</select>
+		<!--public int state00(@Param("xqm")String xqm,@Param("ldh")String ldh,
+			@Param("dyh")String dyh,@Param("hh")String hh,@Param("fl")String fl,@Param("lxdh")String lxdh);  -->
+			<select id="state00" resultType="int">
+				select count(*) from   k_WX  where 1=1
+              <if test="xqm!='--选择小区名称--'">
+               and xqm=#{xqm}
+              </if>
+              <if test="ldh!=0">
+              and ldh=#{ldh}
+              </if>
+              <if test="dyh!=0">
+              	and dyh=#{dyh}
+              </if>
+              <if test="hh!=null and hh!=''">
+              	and hh=#{hh}
+              </if>
+              <if test="lxdh!=null and lxdh!=''">
+              	and lxdh=#{lxdh}
+              </if> 
+              <if test="fl==1">
+              	and lx='故障申报'
+              </if>
+              <if test="fl==2">
+              	and lx='申请安装'
+              </if>
+		</select>
+			<!-- public int state11(@Param("xqm")String xqm,@Param("ldh")String ldh,
+			@Param("dyh")String dyh,@Param("hh")String hh,@Param("fl")String fl,@Param("lxdh")String lxdh); --> 
+			<select id="state11" resultType="int">
+				select count(*) from   k_WX  where 1=1
+              <if test="xqm!='--选择小区名称--'">
+               and xqm=#{xqm}
+              </if>
+              <if test="ldh!=0">
+              and ldh=#{ldh}
+              </if>
+              <if test="dyh!=0">
+              	and dyh=#{dyh}
+              </if>
+              <if test="hh!=null and hh!=''">
+              	and hh=#{hh}
+              </if>
+              <if test="lxdh!=null and lxdh!=''">
+              	and lxdh=#{lxdh}
+              </if> 
+              <if test="fl==1">
+              	and lx='故障申报'
+              </if>
+              <if test="fl==2">
+              	and lx='申请安装'
+              </if>
+		</select>
+		
+		<!-- public int state22(@Param("xqm")String xqm,@Param("ldh")String ldh,
+			@Param("dyh")String dyh,@Param("hh")String hh,@Param("fl")String fl,@Param("lxdh")String lxdh); -->
+			<select id="state22" resultType="int">
+				select count(*) from   k_WX  where 1=1
+              <if test="xqm!='--选择小区名称--'">
+               and xqm=#{xqm}
+              </if>
+              <if test="ldh!=0">
+              and ldh=#{ldh}
+              </if>
+              <if test="dyh!=0">
+              	and dyh=#{dyh}
+              </if>
+              <if test="hh!=null and hh!=''">
+              	and hh=#{hh}
+              </if>
+              <if test="lxdh!=null and lxdh!=''">
+              	and lxdh=#{lxdh}
+              </if> 
+              <if test="fl==1">
+              	and lx ='故障申报'
+              </if>
+              <if test="fl==2">
+              	and lx='申请安装'
+              </if>
+		</select>
 </mapper>

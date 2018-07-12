@@ -73,20 +73,20 @@ public class DataController {
 		//用户编号
 		String idString=ids.substring(0, ids.length()-1);
 		//风盘编号
-		String fpbh=ids.substring(ids.length()-1);
-		System.out.println(idString+"---"+fpbh);
+		String fpdz="0"+ids.substring(ids.length()-1);
+		System.out.println(idString+"---"+fpdz);
 		//用户编号转换为十进制
 		int ids1 = Integer.valueOf(idString); 
 		String idsS = Integer.toHexString(ids1);//16进制     
-	 	YhMessage  ldh=yhMessageService.finldh(idString);//楼栋  
+	 	YhMessage  ldh=yhMessageService.finldh(idString,fpdz);//楼栋  
 		Integer ldhS=ldh.getLdh();
 		String ld=String.valueOf(ldhS);
 		if(ld.length()==1){
 			ld=0+ld;
 		}
 		
-		YhMessage dyh=yhMessageService.findyh(idString);//单元
-		Integer dyhS=dyh.getDyh();
+//		YhMessage dyh=yhMessageService.findyh(idString);//单元
+		Integer dyhS=ldh.getDyh();
 		String dy=String.valueOf(dyhS);
 		if(dy.length()==1){
 			dy=0+dy;
@@ -97,8 +97,8 @@ public class DataController {
 		 
 		 String cg=cgbh.substring(4);
 		 
-		String ja =ld+dy+"F010B5"+cg+""+idsS+"0"+fpbh+"FFFFFFFFFFFF";//起始到结束  01终端
-		
+		String ja =ld+dy+"F010B5"+cg+""+idsS+fpdz+"FFFFFFFFFFFF";//起始到结束  01终端
+		log.info("对一户 单个风盘查询操作 ："+ja);
 		YhMessage yhmess=yhMessageService.findJzq(idString);
 		String ip =yhmess.getCg().getJzq().getJzqip();
 		String port=yhmess.getCg().getJzq().getJzqport();
@@ -136,8 +136,8 @@ public class DataController {
   		//用户编号
   		String idString=ids.substring(0, ids.length()-1);
   		//风盘编号
-  		String fpbh=ids.substring(ids.length()-1);
-  		YhMessage  ldh=yhMessageService.finldh(idString);//楼栋  
+  		 fpdz="0"+ids.substring(ids.length()-1);
+  		YhMessage  ldh=yhMessageService.finldh(idString,fpdz);//楼栋  
 		Integer ldhS=ldh.getLdh();
 		String ld=String.valueOf(ldhS);
 		if(ld.length()==1){
@@ -147,8 +147,8 @@ public class DataController {
 		String cgbh=ldh.getCgbh();
 		String cg=cgbh.substring(4);
 		System.out.println("cg---"+cg);
-		YhMessage dyh=yhMessageService.findyh(idString);//单元
-		Integer dyhS=dyh.getDyh();
+//		YhMessage dyh=yhMessageService.findyh(idString);//单元
+		Integer dyhS=ldh.getDyh();
 		String dy=String.valueOf(dyhS);
 		if(dy.length()==1){
 			dy=0+dy;
@@ -175,12 +175,12 @@ public class DataController {
 		 }
 		 
 		 //空调状态
-		 String ja =ld+dy+"F010B1"+cg+""+idsS+"0"+fpbh+""+""+kg+""+jf+""+jj+"FFFFFF";
+		 String ja =ld+dy+"F010B1"+cg+""+idsS+fpdz+""+""+kg+""+jf+""+jj+"FFFFFF";
 		 System.out.println("ja----"+ja);
 		 // IP地址和端口号
 		 String pt = "/" + ip + ":" + port;
 		 boolean sessionmap = cz(ja, pt);
-		 log.info("风盘操作发送数据："+ja);
+		 log.info("对一户 单个风盘开关计费季节操作 ："+ja);
 		 try {
 		 	Thread.sleep(3000);
 		 } catch (InterruptedException e) {
@@ -211,7 +211,7 @@ public class DataController {
    		//用户编号
   	   String idString=ids.substring(0, ids.length()-1);
    		
-   		YhMessage  ldh=yhMessageService.finldh(idString);//楼栋  
+   		YhMessage  ldh=yhMessageService.findyh(idString);//楼栋  
  		Integer ldhS=ldh.getLdh();
  		String ld=String.valueOf(ldhS);
  		if(ld.length()==1){
@@ -222,8 +222,8 @@ public class DataController {
 		 System.out.println("cgbh"+cgbh);
 		 String cg=cgbh.substring(4);
 		 System.out.println("cg--"+cg);
- 		YhMessage dyh=yhMessageService.findyh(idString);//单元
- 		Integer dyhS=dyh.getDyh();
+// 		YhMessage dyh=yhMessageService.findyh(idString);//单元
+ 		Integer dyhS=ldh.getDyh();
  		String dy=String.valueOf(dyhS);
  		if(dy.length()==1){
  			dy=0+dy;
@@ -258,7 +258,7 @@ public class DataController {
  		 // IP地址和端口号
  		 String pt = "/" + ip + ":" + port;
  		 boolean sessionmap = cz(ja, pt);
- 		 log.info("风盘操作发送数据："+ja);
+ 		 log.info("对一户 所有风盘开关计费季节操作 ："+ja);
  		 try {
  		 	Thread.sleep(3000);
  		 } catch (InterruptedException e) {

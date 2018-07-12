@@ -53,14 +53,14 @@ public interface YhMessageDao  extends BaseDao<YhMessage>{
 	public YhMessage  findJzq(String cgbh);
 	
 	//根据用户编码 查找楼栋号
-	public   YhMessage  finldh(String  yhbh);
+	public   YhMessage  finldh(@Param("yhbh")String yhbh,@Param("fpdz")String fpdz);
 	
 	//根据用户编码 查找单元号
 	public   YhMessage  findyh(String  yhbh);
 	 
 	
 	//查找小区名字
-		public List<YhMessage> findXqName();
+	public List<YhMessage> findXqName();
 		
 	//查找用户
 	public List<YhMessage> findYhNameList();
@@ -71,8 +71,6 @@ public interface YhMessageDao  extends BaseDao<YhMessage>{
 	public List<YhMessage> findYhBuildNObyXqm(String xqm);
 	//通过小区楼栋获取单元----
 	public List<YhMessage> findYhCellNOByBuild(int ldh,String xqm);
-	
-	
 	
 	//获取户号
 	public List<YhMessage> findYhHouseNOByBuildrepair(String hh,String LH,String xqm);

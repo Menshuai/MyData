@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
+ <script type="text/javascript" src="../js/jquery-1.4.4.min.js"></script>
  	<script type="text/javascript" src="../js/static/h-ui.admin/js/H-ui.admin.js"></script>
 <link href="../css/fixed_table_rc.css" type="text/css" rel="stylesheet"	media="all" />
 <link href="../css/bootstrap.css" type="text/css" rel="stylesheet"	/>

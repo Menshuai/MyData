@@ -71,7 +71,7 @@
 </head>
 <body>
 <div class="panel panel-success" style="width: 99%; height: 100%; position: absolute; overflow: auto;">
- <div class="panel-heading">异常查询</div>
+ <div class="panel-heading">查询</div>
 
 <div class="dwrapper">
  模糊查询：<input type="text" id="czId" value="${cz}">
