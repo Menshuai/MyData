@@ -21,6 +21,8 @@
 		<result property="jj" column="jj" />
 		<result property="time" column="time" />
 		<result property="xyydl" column="xyydl" />
+		<result property="yhbh" column="yhbh" />
+		<result property="fpdz" column="fpdz" />
 		
 		<result property="yhMessage.id" column="id" />
 		<result property="yhMessage.yhbh" column="yhbh" />
@@ -54,21 +56,37 @@
 	
 	<!-- public List<Data> find()-->
 	<select id="find"   resultMap="data"   parameterType="Data">
+<<<<<<< HEAD
 		select 
+=======
+	 select 
+		 	yh.id,
+>>>>>>> 990cc4c6d7a497bab62f519edc682a272acf0df6
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
 		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
 		 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
 		 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
 		 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
 		 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
+			
 		 	yh.mj
 		from 
 		 	k_data10  da, 
 		 	k_yhb1  yh, 
 		 	k_fpb2 fp,  
 		 	k_glb6  gl 
+<<<<<<< HEAD
 	   <!--  where 
 		 	  fp.yhbh=yh.yhbh  and   da.fpbh=fp.fpbh  -->  
+=======
+			 
+	   where 
+		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
+		 and  da.fpbh=fp.fpbh 
+			and fp.xh=gl.xh 
+		<!--  where 
+		 	da.fpbh=fp.fpbh   fp.yhbh=yhMessage.yhbh    -->
+>>>>>>> 990cc4c6d7a497bab62f519edc682a272acf0df6
 		
 	</select>
 		
@@ -106,4 +124,32 @@
 	 	fpbh=#{fpbh}
 	 	
 	 </update>
+	 <update id="updateYhbhF" parameterType="Data">
+	 	 update 
+	 	 k_data10  
+	 set  
+	 	 ms=#{ms},
+	 	 dw=#{dw},
+	 	 gdtime=#{gdtime},
+	 	 zdtime=#{zdtime},
+	 	 ddtime=#{ddtime},
+	 	 dgdtime=#{dgdtime},
+	 	 dzdtime=#{dzdtime},
+	 	 dddtime=#{dddtime},
+	 	 jf=#{jf},
+	 	 sdwd=#{sdwd},
+	 	 snwd=#{snwd},
+	 	 kg=#{kg},
+	 	 bj=#{bj},
+	 	 jj=#{jj},
+	 	 time=#{time}
+	 	 
+	 where 
+	 	yhbh=#{yhbh} and fpdz=#{fpdz}
+	 </update>
+	 <insert id="InsertYh" parameterType="Data">
+	 <!-- socket更插入历史热表信息 -->
+     insert into k_lssjb11 (yhbh,fpdz,ms,dw,gdtime,zdtime,ddtime,dgdtime,dzdtime,dddtime,jf,sdwd,snwd,kg,bj,jj,time)values (
+      #{yhbh},#{fpdz},#{ms},#{dw},#{gdtime},#{zdtime},#{ddtime},#{dgdtime},#{dzdtime},#{dddtime},#{jf},#{sdwd},#{snwd},#{kg},#{bj},#{jj},#{time})
+	 </insert>
 </mapper>

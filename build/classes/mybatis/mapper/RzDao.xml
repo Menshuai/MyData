@@ -12,12 +12,12 @@
 		select top 500 * from K_RZ order by id desc 
 	</select>
 	
-	<!-- <insert id="Insert" resultMap="rz" parameterType="Rz"  >
+	<insert id="Insert" parameterType="Rz"  >
 		insert into K_RZ
 		(czr,cz,czsj)
 		values
 		(#{czr},#{cz},#{czsj})
-	</insert> -->
+	</insert> 
 	
 	<select id="Search" resultMap="rz" parameterType="Rz">
 		select * from K_RZ where cz LIKE #{cz} order by czsj desc 

@@ -29,8 +29,5 @@ import com.hnzy.pds.service.RzService;
 	@Override
 	public void insert(Rz rz) {
 		rzdao.Insert(rz);		
-	} 
-
-	 
-
+	}
  }

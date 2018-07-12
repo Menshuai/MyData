@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.SbSucDao">
+	<resultMap type="SbSuc" id="sbSuc">
+		<id property="id" column="id"/>
+		<result property="sbSuc" column="sbSuc"/>
+		<result property="bz" column="bz"/>
+		<result property="time" column="time"/>
+	</resultMap>
+
+	
+	<update id="update" parameterType="SbSuc">
+		update SbSuc set
+		sbSuc=#{sbSuc}
+		where id=1
+	</update>
+</mapper>
