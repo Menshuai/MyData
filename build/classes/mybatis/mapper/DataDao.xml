@@ -56,12 +56,8 @@
 	
 	<!-- public List<Data> find()-->
 	<select id="find"   resultMap="data"   parameterType="Data">
-<<<<<<< HEAD
-		select 
-=======
 	 select 
 		 	yh.id,
->>>>>>> 990cc4c6d7a497bab62f519edc682a272acf0df6
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
 		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
 		 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
@@ -75,19 +71,14 @@
 		 	k_yhb1  yh, 
 		 	k_fpb2 fp,  
 		 	k_glb6  gl 
-<<<<<<< HEAD
 	   <!--  where 
 		 	  fp.yhbh=yh.yhbh  and   da.fpbh=fp.fpbh  -->  
-=======
-			 
 	   where 
 		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
 		 and  da.fpbh=fp.fpbh 
 			and fp.xh=gl.xh 
 		<!--  where 
 		 	da.fpbh=fp.fpbh   fp.yhbh=yhMessage.yhbh    -->
->>>>>>> 990cc4c6d7a497bab62f519edc682a272acf0df6
-		
 	</select>
 		
 	<!-- public Data  findf(String address); -->
