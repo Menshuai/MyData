@@ -39,7 +39,6 @@ public class RepairController {
 	private static final String BuildNo = null;
 	@Autowired
 	private RepairService repairService;
-	 
 	private List<Repair> yhInfoList1;
 	@Autowired
 	private  YhInfoService yhInfoService;
@@ -205,7 +204,11 @@ public class RepairController {
 			
 			@RequestMapping(value="/InsertRepair2")
 			public String  InsertRepair(HttpSession session,Repair repair,Rz rz,HttpServletRequest request ) throws UnsupportedEncodingException{
-				 
+				repairs = repairService.findRepair(0);
+			 	System.out.println("repairs-------"+repairs);
+			    request.setAttribute("XqNameList", repairService.findXqName());
+//				repairService.findplace();
+				 request.setAttribute("jsName", userService.findJSName());  
 			//	request.setAttribute("listPlace", repairService.findplace());
 			/*	request.setAttribute("jsName", userService.findJSName());*/
 				return "add2";

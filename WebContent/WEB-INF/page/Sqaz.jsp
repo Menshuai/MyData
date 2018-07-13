@@ -285,7 +285,7 @@
 </head>
 <body>
 	<div class="panel panel-success" style="border-bottom: null;">
-		<div class="panel-heading" style="background-color: white;border-bottom: 1px white; ">申请安装</div>
+		<div class="panel-heading" style="background-color: white;border-bottom: 1px white; ">申请安装详情</div>
 		<span>
 		&nbsp;&nbsp;&nbsp;
 			选择小区
@@ -334,7 +334,6 @@
 							<th>楼栋号</th>
 							<th>单元号</th>
 							<th>门牌号</th>
-							
 							<th>状态</th>
 							<th>申请安装</th> 
 							<th>提交人</th>
