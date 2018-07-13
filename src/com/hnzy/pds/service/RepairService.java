@@ -1,6 +1,7 @@
 package com.hnzy.pds.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -44,4 +45,11 @@ public interface RepairService {
 	public int state22(@Param("xqm")String xqm,@Param("ldh")String ldh,
 	
 			@Param("dyh")String dyh,@Param("hh")String hh,@Param("fl")String fl,@Param("lxdh")String lxdh);
+
+	//更新
+		public void updateRepair(Repair repair);
+		
+	//chart 搜索
+		public List<Map<String,Object>> chartSearch(@Param("xqm")String xqm,@Param("kffl")int kffl);
+
 }

@@ -214,4 +214,47 @@
               	and lx='申请安装'
               </if>
 		</select>
+		
+		<!--更新 public void updateRepair(Repair repair) -->
+		 
+		 <select id="statePlace0" resultType="Integer">
+		select count(zt) as wjd from k_WX
+			where ='未接单' 
+		<if test="kffl==0">
+			and lx='故障申报'
+		</if>
+		<if test="kffl==1">
+			and lx='申请安装'
+		</if>
+		<if test="xqm!='--选择小区--'">
+			and k_WX.xqm=#{xqm}
+		</if>
+	</select>
+	
+	<select id="statePlace1" resultType="Integer">
+		select count(zt) as yjd from k_WX
+		where zt='已接单'
+		  <if test="kffl==0">
+			and lx='故障申报'
+		</if>
+		<if test="kffl==1">
+			and lx='申请安装'
+		</if>
+		<if test="xqName!='--选择小区--'">
+			and k_WX.xqm=#{xqm}
+		</if>		
+	</select>
+	<select id="statePlace2" resultType="Integer">
+		select count(zt) as ywc from k_WX
+		where zt='已完成' 
+		<if test="kffl==0">
+			and lx='故障申报'
+		</if>
+		<if test="kffl==1">
+			and lx='申请安装'
+		</if>
+		<if test="xqm!='--选择小区--'">
+			and k_WX.xqm=#{xqm}
+		</if>
+	</select>
 </mapper>

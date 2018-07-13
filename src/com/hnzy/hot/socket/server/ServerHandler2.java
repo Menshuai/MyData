@@ -352,6 +352,7 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setYhbh(yhbh);
 			data.setFpdz(fpid);
 			dataService.updateYhbhF(data);
+ 
 			dataService.InsertYh(data);
 			
 			
@@ -609,6 +610,7 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setJj(jj);
 			data.setYhbh(yhbh);
 			data.setFpdz(fpid);
+ 
 //			dataService.updateYhbhF(data);
 			dataService.updateYhbhF(data);//更新实时表
 			dataService.InsertYh(data);//插入历史表

@@ -45,7 +45,7 @@
    <script type="text/javascript">  
 	/*页面加载就开始执行js*/
 	 $(document).ready(function() {
-		$("#placeID").change(
+		/* /* $("#placeID").change(
 		function(){	
 		  $.get("findHes.action?place="+ $("#placeID").val(),function(data) {
 			var dd=data.heslist;
@@ -70,7 +70,7 @@
 							$("#xqNameId").append(opt);//小区
 						}
 						});
-					 });
+					 }); */ 
 		
 		$("#xqNameId").change(//小区
 				function(){	
@@ -117,9 +117,9 @@
 						
 						<!-- 获取所有的处 -->		
 						<div class="form-group">						
-						<label for="place" class="col-sm-2 col-sm-offset-3 control-label">管理处:</label>
-						<div  class="col-sm-4" >
-						<select name="place" id="placeID">
+						<!-- <label for="place" class="col-sm-2 col-sm-offset-3 control-label">管理处:</label>
+						<div  class="col-sm-4" > -->
+						<%-- <select name="place" id="placeID">
 							<option value=>--请选择处--</option>
 								<c:forEach items="${listPlace}" var="list">
 									<option>${list.place}</option>
@@ -127,17 +127,17 @@
 							
 						</select>
 						</div>					
-						</div>			
+						</div>	 --%>		
 						
 						<!-- 根据处获取所有的换热站-->		
-						<div class="form-group">						
+						<!-- <div class="form-group">						
 						<label for="hESName" class="col-sm-2 col-sm-offset-3 control-label">交换站:</label>
 						<div  class="col-sm-4" >
 						<select name="hESName" id="hESNameID"  value="">
 							<option value=0>--请选择交换站--</option>
 						</select>
 						</div>					
-						</div>			
+						</div>	 -->		
 						
 							<!-- 获取所有的小区 -->										
 						<div class="form-group">						
@@ -173,33 +173,33 @@
 						</div>
 						</div>		
 						<!-- 获取层号 -->					
-						<div class="form-group">						
+						<!-- <div class="form-group">						
 							<label for="CS" class="col-sm-2 col-sm-offset-3 control-label">楼层号:</label>
 							
 							<div class="col-sm-4">
 								<input id="CSId" type="text" name="cs" onblur="findcs()"
 									class="form-control" placeholder="cs" />
 							</div>					
-						</div>
+						</div> -->
 						<!-- 获取室号 -->
 						<div class="form-group">						
 							<label for="SH" class="col-sm-2 col-sm-offset-3 control-label">门牌号:</label>
 							
 							<div class="col-sm-4">
-								<input id="SHId" type="text" name="sh"
+								<input id="SHId" type="text" style="width:200px" name="sh"
 									class="form-control" placeholder="sh" />
 							</div>					
 						</div>		
 							<div class="form-group">						
 							<label for="name" class="col-sm-2 col-sm-offset-3 control-label">联系人:</label>
 						<div class="col-sm-4">
-						<input id="name"  type="text" name="name" 
+						<input id="name"  type="text" style="width:200px" name="name" 
 								class="form-control" placeholder="name" >
 						</div>
 						</div>
 						<div class="form-group">						
 							<label for="telephone" class="col-sm-2 col-sm-offset-3 control-label">电话:</label>
-						<div class="col-sm-4"><input id="telephone" type="text" name="telephone" class="form-control" placeholder="telephone" ></div>
+						<div class="col-sm-4"><input id="telephone" type="text" name="telephone" style="width:200px"  class="form-control" placeholder="telephone" ></div>
 						</div>
 						
 						<div class="form-group">	
@@ -219,7 +219,7 @@
 						<div class="form-group">						
 						<label for="problem" class="col-sm-2 col-sm-offset-3 control-label">故障:</label>
 							<div class="col-sm-4">
-							<textarea id="problem"  style="overflow-x: hidden;width:300px;height:100px;" class="form-control" name="problem" placeholder="problem"></textarea>
+							<textarea id="problem"  style="overflow-x: hidden;width:350px;height:230px;" class="form-control" name="problem" placeholder="problem"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -240,8 +240,8 @@
 /*提交  单击事件add()*/
 function add(){
   	 
-	var place=$("#add select[name=place]");
-	var hESName=$("#add select[name=hESName]");
+	/* var place=$("#add select[name=place]");
+	var hESName=$("#add select[name=hESName]"); */
 	
 	var xqName=$("#add select[name=xqName]");
 	var buildNo=$("#add select[name=buildNo]");

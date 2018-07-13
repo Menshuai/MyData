@@ -49,37 +49,15 @@ public interface RepairDao  extends BaseDao<Repair>{
 	
 			@Param("dyh")String dyh,@Param("hh")String hh,@Param("fl")String fl,@Param("lxdh")String lxdh);
 	
+	//更新
+	public void updateRepair(Repair repair);
 	
-	/*public List<Repair> findRepair(@Param("kffl")int kffl );
+	
+	//状态
+	public int statePlace0(@Param("xqm")String xqm,@Param("kffl")int kffl);
+	public int statePlace1(@Param("xqm")String xqm,@Param("kffl")int kffl);
+	public int statePlace2(@Param("xqm")String xqm,@Param("kffl")int kffl);
  
-	public Repair findHes(@Param("xqName") String xqName,@Param("buildNo") String buildNo,
-			@Param("cellNo") String cellNo, @Param("cs") String cs ,@Param("sh") String sh);
- 
-	
-	 
-	 
-	public List<Repair> findByState(@Param("place")String place,@Param("hesName")String hesName,
-			@Param("state")String state,@Param("kffl")int kffl);
-	
-	public List<Repair> findState(@Param("kffl")int kffl);
-	
-	
-	
-	public int sum1(@Param("xqName")String xqName,@Param("buildNo")String buildNo,
-			@Param("cellNo")String cellNo,@Param("sh")String sh,@Param("fl")String fl,@Param("telephone")String telephone);
-	
-	public int state00(@Param("xqName")String xqName,@Param("buildNo")String buildNo,
-	
-			@Param("cellNo")String cellNo,@Param("sh")String sh,@Param("fl")String fl,@Param("telephone")String telephone);
-	
-	public int state11(@Param("xqName")String xqName,@Param("buildNo")String buildNo,
-	
-			@Param("cellNo")String cellNo,@Param("sh")String sh,@Param("fl")String fl,@Param("telephone")String telephone);
-	
-	public int state22(@Param("xqName")String xqName,@Param("buildNo")String buildNo,
-	
-			@Param("cellNo")String cellNo,@Param("sh")String sh,@Param("fl")String fl,@Param("telephone")String telephone);
-	*/
 	
 	
  

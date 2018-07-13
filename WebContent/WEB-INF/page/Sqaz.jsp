@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>申请安装详情</title>
+<title>申请安装</title>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="../js/biao.js"></script>
@@ -47,69 +47,68 @@
 	/*页面加载就开始执行js*/
 	$(document).ready(
 			function() {
-				$("#xqNameId").change(//通过小区获取楼栋
+				$("#xqmId").change(//通过小区获取楼栋
 						function() {
-							$.get("findXqNameList.action?xqName="+ $("#xqNameId").val(), function(data) {
+							$.get("findYhldhbyxqm.action?xqm="+ $("#xqmId").val(), function(data) {
 								var dd = data;
-								var d = dd.BuildNOList;
+								var d = dd.ldhList;
 							
-								$("#buildNoId option:gt(0)").remove();
-								$("#cellNoId option:gt(0)").remove();
+								$("#ldhId option:gt(0)").remove();
+								$("#dyhId option:gt(0)").remove();
 								
 								for (var i = 0; i < d.length; i++) {
-									var buildNo = d[i].buildNo;
-									var opt = "<option value='"+buildNo+"'>"
-											+ buildNo + "</option>"
-									$("#buildNoId").append(opt);
+									var ldh = d[i].ldh;
+									var opt = "<option value='"+ldh+"'>"
+											+ ldh + "</option>"
+									$("#ldhId").append(opt);
 								}
 							});
 						});
 
-				$("#buildNoId").change(//通过楼栋获取单元
+				$("#ldhId").change(//通过楼栋获取单元
 						function() {
-							$.get("findCellNOByBuild.action?buildNo="+ $("#buildNoId").val() + "&xqName="
-									+ $("#xqNameId").val(), function(data) {
+							$.get("findYhdyhByBuild.action?ldh="+ $("#ldhId").val() + "&xqm="
+									+ $("#xqmId").val(), function(data) {
 								var dd = data;
-								var d = dd.cellList;
-								
-								$("#cellNoId option:gt(0)").remove();
-								
+								var d = dd.dyhList;
+								$("#dyhId option:gt(0)").remove();
 								for (var i = 0; i < d.length; i++) {
-									var cellNo = d[i].cellNo;
-									var opt = "<option value='"+cellNo+"'>"
-											+ cellNo + "</option>"
-									$("#cellNoId").append(opt);
+									var dyh = d[i].dyh;
+									var opt = "<option value='"+dyh+"'>"
+											+ dyh + "</option>"
+									$("#dyhId").append(opt);
 								}
 							});
 						});
+				
+				
 			});
 	</script>
-		
 	
 	<script type="text/javascript"> 
-	//搜索按钮   fl=2是申请安装
-	function chaxun() {
-		debugger;
-		var xqName = $('#xqNameId').val();
-		var buildNo = $('#buildNoId').val();
-		var cellNo = $('#cellNoId').val();
-		var houseNo = $('#houseNoId').val();
-		var fl="2"
+	
+	//搜索按钮   
+	function sousuo() {
+		var xqm = $('#xqmId').val();
+		var ldh = $('#ldhId').val();
+		var dyh = $('#dyhId').val();
+		var hh = $('#hhId').val();
+		var lxdh = $('#lxdhId').val();
+		var fl="1"       // fl=1是故障申报
 		var html ="";
 		var sc="";
 		$.ajax({
 			 url : "Search.action",
 			async : false,
 			dataType : "json",  
-		
 			data : {
-				"xqName" : xqName,
-				"buildNo" : buildNo,
-				"cellNo" :cellNo,
-				"houseNo" : houseNo,
+				"xqm" : xqm,
+				"ldh" : ldh,
+				"dyh" :dyh,
+				"hh" : hh,
+				"lxdh" : lxdh,
 				"fl":fl,
 		        },
-		  
 			success : function(data) {
 				$("#stateCount").empty();//总记录id
 				$("#xsInfos").empty();//获取数据id为空
@@ -118,159 +117,122 @@
 				var y=data.ywc;	
 				var w=data.wjd;
 				var z=data.yjd;
-				sc+="<span>  总记录："+c+"条  &nbsp;&nbsp;  未接单："+w+" 条  &nbsp;&nbsp;   已完成："+y+"条 &nbsp;&nbsp;   已接单："+z+"条</span>" 
+				sc+="<span>  总记录："+c+"条  &nbsp;&nbsp;  未接单："+w+" 条  &nbsp;&nbsp;  已完成："+y+"条 &nbsp;&nbsp;   已接单："+z+"条</span>" 
 					for(var i=0;i<d.length;i++){
 						var id=d[i].id;	
-						if(d[i].hea.place==undefined){
-							var place="";
+						alert(d[i].xqm);
+						if(d[i].xqm==undefined){
+							var xqm="";
 						}else{
-							var place=d[i].hea.place;	
+							var xqm=d[i].xqm;
 						}
 						
-						if(d[i].hea.hesName==undefined){
-							var hesName="";
+						if(d[i].ldh==undefined){
+							var ldh="";
 						}else{
-					 		var hesName=d[i].hea.hesName; 
-						}
-						if(d[i].xqName==undefined){
-							var xqName="";
-						}else{
-							var xqName=d[i].xqName;
-						}
-						
-						if(d[i].buildNo==undefined){
-							var buildNo="";
-						}else{
-					 		var buildNo=d[i].buildNo;
+					 		var ldh=d[i].ldh;
 						}
 
-						if(d[i].cellNo==undefined){
-							var cellNo="";
+						if(d[i].dyh==undefined){
+							var dyh="";
 						}else{
-							var cellNo=d[i].cellNo;
+							var dyh=d[i].dyh;
 						}
 
-						if(d[i].houseNo==undefined){
-							var houseNo="";
+						if(d[i].hh==undefined){
+							var hh="";
 						}else{
-							var houseNo=d[i].houseNo;
+							var hh=d[i].hh;
 						}
 
-						if(d[i].cs==undefined){
-							var cs="";
+						if(d[i].zt==undefined){
+							var zt="";
 						}else{
-							var cs =d[i].cs ;
+							var zt=d[i].zt;
 						}
 						
-						if(d[i].sh==undefined){
-							var sh="";
+						if(d[i].wt==wt){
+							var wt="";
 						}else{
-							var sh =d[i].sh ;
+							var wt=d[i].wt;	
+						}
+						
+						if(d[i].lxdh==undefined){
+							var lxdh="";
+						}else{
+							var lxdh=d[i].lxdh;
+						}
+						
+						if(d[i].tjr==undefined){
+							var tjr="";
+						}else{
+							var tjr=d[i].tjr;
 						}
 
-						if(d[i].name==undefined){
-							var name="";
+						if(d[i].tjsj==undefined){
+							var tjsj="";
 						}else{
-							var name=d[i].name;
+		 					var tjsj=FormatDate(d[i].tjsj);
 						}
 						
-						if(d[i].telephone==undefined){
-							var telephone="";
+	 					if(d[i].jsr==undefined){
+							var jsr="";
 						}else{
-							var telephone=d[i].telephone;
+							var jsr=d[i].jsr;	
 						}
 						
-						if(d[i].problem==undefined){
-							var problem="";
+						if(d[i].jssj==undefined){
+							var jssj="";
 						}else{
-							var problem=d[i].problem;	
-						}
-
-						if(d[i].tJname==undefined){
-							var tJname="";
-						}else{
-							var tJname=d[i].tJname;
-						}
-
-						if(d[i].tJtime==undefined){
-							var tJtime="";
-						}else{
-		 					var tJtime=FormatDate(d[i].tJtime);
+							var jssj=FormatDate(d[i].jssj);
 						}
 						
-	 					if(d[i].jSname==undefined){
-							var jSname="";
+						if(d[i].yhxm==undefined){
+							var yhxm="";
 						}else{
-							var jSname=d[i].jSname;	
+							var yhxm= d[i].yhxm;
+						}
+						 
+						if(d[i].lxdh==undefined){
+							var lxdh="";
+						}else{
+							var lxdh= d[i].lxdh;
 						}
 						
-						if(d[i].jStime==undefined){
-							var jStime="";
-						}else{
-							var jStime=FormatDate(d[i].jStime);
-						}
-						
-						if(d[i].wCname==undefined){
-							var wCname="";
-						}else{
-							var wCname=d[i].wCname;
-						}
-						
-						if(d[i].wCtime==undefined){
-							var wCtime="";
-						}else{
-							var wCtime=FormatDate(d[i].wCtime);
-						}
-						
-						if(d[i].state==undefined){
-							var state="";
-						}else{
-							var state=d[i].state; 
-							//alert(state);
-						}
+						 
 						html+="<tr>";
-						if(state=="已完成"){
+						  if(zt=="已完成"){
 							html+="<td><input type='checkbox' value='"+id+"'/></td>";
-							html+="<td  align='center' nowrap='nowrap' title='"+place+"'>"+place+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+xqName+"'>"+xqName+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+buildNo+"'>"+buildNo+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+cellNo+"'>"+cellNo+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+cs+"'>"+cs+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+sh+"'>"+sh+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+state+"'>"+state+"</td>"; 
-							html+="<td align='center' nowrap='nowrap' title='"+problem+"'>"+problem+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+tJname+"'>"+tJname+"</td>";
-		 			 		html+="<td align='center' nowrap='nowrap' title='"+tJtime+"'>"+tJtime+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+jSname+"'>"+jSname+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+jStime+"'>"+jStime+"</td>";
-							html+="<td  align='center' nowrap='nowrap' title='"+wCname+"'>"+wCname+"</td>";
-		 					html+="<td  align='center' nowrap='nowrap' title='"+wCtime+"'>"+wCtime+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+hesName+"'>"+hesName+"</td>"; 
-							html+="<td align='center' nowrap='nowrap' title='"+name+"'>"+name+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+telephone+"'>"+telephone+"</td>";
-						}else{
+							html+="<td align='center' nowrap='nowrap' title='"+xqm+"'>"+xqm+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+ldh+"'>"+ldh+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+dyh+"'>"+dyh+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+hh+"'>"+hh+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+zt+"'>"+zt+"</td>"; 
+							html+="<td align='center' nowrap='nowrap' title='"+wt+"'>"+wt+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+tjr+"'>"+tjr+"</td>";
+		 			 		html+="<td align='center' nowrap='nowrap' title='"+tjsj+"'>"+tjsj+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+jsr+"'>"+jsr+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+jssj+"'>"+jssj+"</td>";
+							html+="<td  align='center' nowrap='nowrap' title='"+yhxm+"'>"+yhxm+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+lxdh+"'>"+lxdh+"</td>";
+						}else{  
 							html+="<td><input type='checkbox' value='"+id+"'/></td>";
-							html+="<td  align='center' nowrap='nowrap' title='"+place+"'>"+place+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+xqName+"'>"+xqName+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+buildNo+"'>"+buildNo+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+cellNo+"'>"+cellNo+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+cs+"'>"+cs+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+sh+"'>"+sh+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+state+"'>"+state+"</td>"; 
-							html+="<td align='center' nowrap='nowrap' title='"+problem+"'>"+problem+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+tJname+"'>"+tJname+"</td>";
-		 			 		html+="<td align='center' nowrap='nowrap' title='"+tJtime+"'>"+tJtime+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+jSname+"'>"+jSname+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+jStime+"'>"+jStime+"</td>";
-							html+="<td  align='center' nowrap='nowrap' title='"+wCname+"'>"+wCname+"</td>";
-		 					html+="<td  align='center' nowrap='nowrap' title='"+wCtime+"'>"+wCtime+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+hesName+"'>"+hesName+"</td>"; 
-							html+="<td align='center' nowrap='nowrap' title='"+name+"'>"+name+"</td>";
-							html+="<td align='center' nowrap='nowrap' title='"+telephone+"'>"+telephone+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+xqm+"'>"+xqm+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+ldh+"'>"+ldh+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+dyh+"'>"+dyh+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+hh+"'>"+hh+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+zt+"'>"+zt+"</td>"; 
+							html+="<td align='center' nowrap='nowrap' title='"+wt+"'>"+wt+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+tjr+"'>"+tjr+"</td>";
+		 			 		html+="<td align='center' nowrap='nowrap' title='"+tjsj+"'>"+tjsj+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+jsr+"'>"+jsr+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+jssj+"'>"+jssj+"</td>";
+							html+="<td  align='center' nowrap='nowrap' title='"+yhxm+"'>"+yhxm+"</td>";
+							html+="<td align='center' nowrap='nowrap' title='"+lxdh+"'>"+lxdh+"</td>";
 							
 						}
 						html+="</tr>";
-					}
+					  }  
 				  $("#stateCount").append(sc);
 				$("#xsInfos").append(html);
 			}
@@ -282,6 +244,9 @@
 	    var date = new Date(strTime);
 	    return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
 	}
+	if(str!=event){
+		 //
+	}
  </script>
  
 	<script>
@@ -291,31 +256,21 @@
 			width: "100%",
 			height: 660,
 			colModal: [
-						{ width: 50, align: 'center' },
-						{ width: 110, align: 'center' },
-						{ width: 120, align: 'center' },
-						{ width: 170, align: 'center' },
-						{ width: 60, align: 'center' },
-					
-						
-						{ width: 60, align: 'center' },
-						{ width: 60, align: 'center' },
-						{ width: 70, align: 'center' },
-						{ width: 125, align: 'center' },
-						{ width: 70, align: 'center' },
-						
-						{ width: 130, align: 'center' },
-						{ width:  60, align: 'center' },
-						{ width: 160, align: 'center' },
-						{ width: 60, align: 'center' },
-						{ width: 130, align: 'center' },
-						
-						{ width: 120, align: 'center' },
-						{ width: 60, align: 'center' },
-						{ width: 90, align: 'center' },
-					
-			
-
+				{ width: 50, align: 'center' },
+			 	{ width: 100, align: 'center' }, 
+				{ width: 80, align: 'center' },
+				{ width: 80, align: 'center' },
+				{ width: 80, align: 'center' },
+				
+				{ width: 80, align: 'center' },
+				{ width: 80, align: 'center' },
+				{ width: 80, align: 'center' },
+				{ width: 150, align: 'center' },
+				{ width: 80, align: 'center' },
+				
+				{ width: 150, align: 'center' },
+				{ width: 80, align: 'center' },
+				{ width: 100, align: 'center' }
 			],
 			sort: true
 		});
@@ -328,148 +283,111 @@
 </script>
 
 </head>
-
 <body>
 	<div class="panel panel-success" style="border-bottom: null;">
-		<div class="panel-heading" style="background-color: white;border-bottom: 1px white; ">申请安装详情</div>
+		<div class="panel-heading" style="background-color: white;border-bottom: 1px white; ">申请安装</div>
 		<span>
 		&nbsp;&nbsp;&nbsp;
 			选择小区
-		<select name="xqName" id="xqNameId" >
-							<option value=0>--请选择小区--</option>
+		<select name="xqm" id="xqmId" >
+							<option value=0>--选择小区名称--</option> 
 								<c:forEach items="${XqNameList}" var="list">
-									<option>${list.xqName}</option>
+									<option>${list.xqm}</option>
 				               </c:forEach>
-							
 		</select>
-		
 		&nbsp;&nbsp;&nbsp;
-		
-		楼栋号<select name="buildNo" id="buildNoId">
+		楼栋号<select name="ldh" id="ldhId">
 			<option value=0>--选择楼栋号--</option>
 		   </select>
-		
 		&nbsp;&nbsp;&nbsp;
-		 
 		单元号
-		<select name="cellNo" id="cellNoId">
+		<select name="dyh" id="dyhId">
 			<option value=0>--选择单元号--</option>
 		</select>
-		 
 		&nbsp;&nbsp;&nbsp;
-		
-		 
-		户号：<input type="text" name="houseNo" id="houseNoId" size=10px value="${houseNo}"  />
-	 
-		
+		户号：<input type="text" name="hh" id="hhId" size=10px value="${hh}"  />
+		&nbsp;&nbsp;&nbsp;
 		<label for="JFStatusId">选择缴费状态</label> 
 		<select id="JFStatusId" name="sfjf">
 			   <option>--选择缴费状态--</option>
 			     <option selected="selected">是</option>
 			     <option>否</option>
 		</select>
-		
-		联系电话：<input type="text" name="telephone" id="houseNoId" size=10px value="${telephone}"  />
-		
-		<input onclick="chaxun()" type="button" class="btn btn-success" style="background-image: url('../img/secai.png');border:1px" value="搜索" /> &nbsp;&nbsp; 
+		&nbsp;&nbsp;&nbsp;
+		联系电话：<input type="text" name="lxdh" id="lxdhId" size=10px value="${lxdh}"  />
+		<input onclick="sousuo()" type="button" class="btn btn-success" 
+			style="background-image: url('../img/secai.png');border:1px" value="搜索" /> &nbsp;&nbsp; 
 		</span>
-		
-		 
+		 &nbsp;&nbsp;&nbsp;
 			<div id="stateCount" style="font-size: 15px;">
 				<span>&nbsp;&nbsp;&nbsp; 总记录：${sums}条  &nbsp;&nbsp;  未接单：${wjd} 条  &nbsp;&nbsp;   已完成：${ywc}条 &nbsp;&nbsp;   已接单：${yjd}条</span>
 		    </div>
 		</div>
 			<div id="tablediv" >
-			
 <form>
 	<div class="dwrapper">
 	<table id="fixed_hdr2">
 	<thead>
 	<tr style="background-image: url('../img/secai.png'); color: white;">
 							<th></th>
-							<th>管理处</th>
-							<th>小区名</th>
+ 							<th>小区名</th>
 							<th>楼栋号</th>
-							<th>单元</th>
+							<th>单元号</th>
+							<th>门牌号</th>
 							
-							<th>楼层</th>
-							<th>门牌</th>
 							<th>状态</th>
-							<th>申请安装</th>
+							<th>申请安装</th> 
 							<th>提交人</th>
-							
 							<th>提交时间</th>
 							<th>接单人</th>
-							<th>接单时间</th>
-							<th>安装人</th>
-							<th>安装时间</th>
 							
-							<th>交换站</th>
+							<th>接单时间</th>
 							<th>联系人</th>
 							<th>联系电话</th>
 	</tr>
 	</thead>
-				
-					<tbody id="xsInfos">
-						<c:forEach var="repa" items="${rep}"  varStatus="status">
-							<tr>
-							<c:choose>
-							<c:when test="${repa.state=='已完成'}">
-							<td bgcolor="#99CCFF"><input type="checkbox" value="${repa.id }" /></td>
-							<td bgcolor="#99CCFF" title="${repa.hea.place}">${repa.hea.place}</td>
-							<td bgcolor="#99CCFF" title="${repa.xqName}">${repa.xqName}</td>
-							<td bgcolor="#99CCFF" title="${repa.buildNo}">${repa.buildNo}</td>
-							<td bgcolor="#99CCFF" title="${repa.cellNo}">${repa.cellNo}</td>
-							
-							<td bgcolor="#99CCFF" title="${repa.cs}">${repa.cs}</td>
-							<td bgcolor="#99CCFF" title="${repa.sh}">${repa.sh}</td>
-							<td bgcolor="#99CCFF" title="${repa.state}">${repa.state}</td>
-							<td bgcolor="#99CCFF" title="${repa.problem}">${repa.problem}</td>
-							<td bgcolor="#99CCFF" title="${repa.tJname}">${repa.tJname}</td>
-							
-							<td bgcolor="#99CCFF" title="<fmt:formatDate value="${repa.tJtime}" pattern="yyyy-MM-dd HH:mm:ss" />">
-								<fmt:formatDate value="${repa.tJtime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-							<td bgcolor="#99CCFF" title="${repa.jSname}">${repa.jSname}</td>
-							<td bgcolor="#99CCFF" title="<fmt:formatDate  value="${repa.jStime}" pattern="yyyy-MM-dd HH:mm:ss" />" ><fmt:formatDate  value="${repa.jStime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-							<td bgcolor="#99CCFF" title="${repa.wCname}">${repa.wCname}</td>
-							<td bgcolor="#99CCFF" title="<fmt:formatDate value="${repa.wCtime}" pattern="yyyy-MM-dd HH:mm:ss" />"><fmt:formatDate value="${repa.wCtime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-							
-							<td bgcolor="#99CCFF" title="${repa.hea.hesName}">${repa.hea.hesName}</td>
-							<td bgcolor="#99CCFF" title="${repa.name}">${repa.name}</td>
-							<td bgcolor="#99CCFF" title="${repa.telephone}">${repa.telephone}</td>
-							
-							</c:when>
-							
-							<c:otherwise>
-								<td><input type="checkbox" value="${repa.id }" /></td>
-								<td title="${repa.hea.place}">${repa.hea.place}</td>
-								<td  title="${repa.xqName}">${repa.xqName}</td>
-								<td  title="${repa.buildNo}">${repa.buildNo}</td>
-								<td title="${repa.cellNo}">${repa.cellNo}</td>
-								<td  title="${repa.cs}">${repa.cs}</td>
-								<td  title="${repa.sh}">${repa.sh}</td>
-								<td  title="${repa.state}">${repa.state}</td>
-								<td  title="${repa.problem}">${repa.problem}</td>
-								<td  title="${repa.tJname}">${repa.tJname}</td>
-								<td title="<fmt:formatDate value="${repa.tJtime}" pattern="yyyy-MM-dd HH:mm:ss" />">
-									<fmt:formatDate value="${repa.tJtime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-								<td  title="${repa.jSname}">${repa.jSname}</td>
-								<td  title="<fmt:formatDate  value="${repa.jStime}" pattern="yyyy-MM-dd HH:mm:ss" />" >
-									<fmt:formatDate  value="${repa.jStime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-								<td  title="${repa.wCname}">${repa.wCname}</td>
-								
-								<td title="<fmt:formatDate value="${repa.wCtime}" pattern="yyyy-MM-dd HH:mm:ss" />">
-									<fmt:formatDate value="${repa.wCtime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-									
-								<td title="${repa.hea.hesName}">${repa.hea.hesName}</td>
-								<td title="${repa.name}">${repa.name}</td>
-								<td  title="${repa.telephone}">${repa.telephone}</td>
-							</c:otherwise> 
-							</c:choose>
-							</tr>
-
-						</c:forEach>
-	  				</tbody>
+		   <tbody id="xsInfos">
+		 	<c:forEach var="repa" items="${rep}"  varStatus="status">
+		 		<tr>
+		 		<c:choose>
+		 	<c:when test="${repa.zt=='已完成'}">
+		 		<td bgcolor="#99CCFF"><input type="checkbox" value="${repa.id}" /></td>
+		 		<td bgcolor="#99CCFF" title="${repa.xqm}">${repa.xqm}</td>
+		 		<td bgcolor="#99CCFF" title="${repa.ldh}">${repa.ldh}</td>
+		 		<td bgcolor="#99CCFF" title="${repa.dyh}">${repa.dyh}</td>
+		 		<td bgcolor="#99CCFF" title="${repa.hh}">${repa.hh}</td>
+		 		<td bgcolor="#99CCFF" title="${repa.zt}">${repa.zt}</td>
+		 		<td bgcolor="#99CCFF" title="${repa.wt}">${repa.wt}</td>
+		 		<td bgcolor="#99CCFF" title="${repa.tjr}">${repa.tjr}</td>
+		 		<td bgcolor="#99CCFF" title="<fmt:formatDate value="${repa.tjsj}" pattern="yyyy-MM-dd HH:mm:ss" />">
+		 			<fmt:formatDate value="${repa.tjsj}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+		 		<td bgcolor="#99CCFF" title="${repa.jsr}">${repa.jsr}</td>
+		 		<td bgcolor="#99CCFF" title="<fmt:formatDate  value="${repa.jssj}" pattern="yyyy-MM-dd HH:mm:ss" />" >
+		 			<fmt:formatDate  value="${repa.jssj}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+		 		<td bgcolor="#99CCFF" title="${repa.yhxm}">${repa.yhxm}</td>
+		 		<td bgcolor="#99CCFF" title="${repa.lxdh}">${repa.lxdh}</td>
+		 	</c:when>
+		 		<c:otherwise>
+					 	<td><input type="checkbox" value="${repa.id}" /></td>
+					 	<td  title="${repa.xqm}">${repa.xqm}</td>
+					 	<td  title="${repa.ldh}">${repa.ldh}</td>
+					 	<td title="${repa.dyh}">${repa.dyh}</td>
+					 	<td  title="${repa.hh}">${repa.hh}</td>
+					 	<td  title="${repa.zt}">${repa.zt}</td>
+					 	<td  title="${repa.wt}">${repa.wt}</td>
+					 	<td  title="${repa.tjr}">${repa.tjr}</td>
+					 	<td title="<fmt:formatDate value="${repa.tjsj}" pattern="yyyy-MM-dd HH:mm:ss" />">
+					 		<fmt:formatDate value="${repa.tjsj}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					 	<td  title="${repa.jsr}">${repa.jsr}</td>
+					 	<td  title="<fmt:formatDate  value="${repa.jssj}" pattern="yyyy-MM-dd HH:mm:ss" />" >
+					 		<fmt:formatDate  value="${repa.jssj}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+				 		<td title="${repa.yhxm}">${repa.yhxm}</td>
+				 		<td  title="${repa.lxdh}">${repa.lxdh}</td>
+				 	</c:otherwise> 
+				 	</c:choose>
+				 	</tr>
+		</c:forEach>
+	  				</tbody>  
 </table>
 </div>
 </form>
