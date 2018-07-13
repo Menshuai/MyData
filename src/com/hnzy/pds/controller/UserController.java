@@ -86,10 +86,10 @@ public class UserController {
 		
 		@RequestMapping("yhzc")
 		public String yhzc(){
-			return "yhzc";//�û�ע��
+			return "yhzc";//
 		} 
 		
-		    //ע��
+		    //
 		        @RequestMapping("regist")  
 		        public String regist(User user,String username,String password){  
 		        	userl= userService.findUserByName(username);
@@ -101,13 +101,12 @@ public class UserController {
 						 return "suceed";  //-->parent.location.href = "me/index.action";
 					} else {
 						msg = PropertyUtil.InformationName;
-						
 					}
 		        	return "yhzc";
 		        }  
 		        
 		        
-		      //�޸�����ҳ��
+		      //修改密码
 		    	@RequestMapping("xgmm")
 		    	public String xgmm(){
 		    		return "xgmm";
@@ -121,19 +120,17 @@ public class UserController {
 		    				String password12=MD5Util.string2MD5(password2);
 		    				if (userl.getPassWord().equals(password11)==false) {
 								if (password11.equals(password12)) {  //password1������   password2ȷ������
-									u.setPassWord(password11);//��Ϊ������
+									u.setPassWord(password11);//
 									u.setID(id);
 									u.setUserName(username);
 									this.userService.updateUse(u);
-									//�޸ĳɹ�
+									// 
 									return "pwdsuccess";  //-->parent.location.href = "user/toLogin.action";//
 								} 
 		    				}
 		    		return "xgmm";
 		    	}
 		    	
-				
-		    		    	
-		    	
+				 
 
 }

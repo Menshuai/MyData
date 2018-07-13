@@ -59,7 +59,6 @@ public class RepairController {
 	 	System.out.println("repairs-------"+repairs);
 	    request.setAttribute("XqNameList", repairService.findXqName());
 		request.setAttribute("rep",repairs);
-		//request.setAttribute("st",repairService.findState(0));
 		request.setAttribute("sums",repairService.sum(repair,0));
 		request.setAttribute("wjd",repairService.state0(0));
 		request.setAttribute("yjd",repairService.state1(0));
@@ -102,6 +101,7 @@ public class RepairController {
 		public JSONObject findYhldhbyxqm(String xqm) throws UnsupportedEncodingException{
 			 xqm=new String(xqm.getBytes("ISO-8859-1"),"utf-8")+"";
 			yhInfoList1=repairService.findYhBuildNObyXqm(xqm);
+			System.out.println("111111111111111111111");
 			JSONObject jsonObject=new JSONObject() ;
 			if(yhInfoList1!=null){
 				jsonObject.put("ldhList", yhInfoList1);
@@ -123,62 +123,59 @@ public class RepairController {
 			}else{
 				jsonObject.put("fail",null);
 			}
-			
 			return jsonObject;
 			}
 		 
 		
 	
-	  //插入                                                       
+	  //添加页面  add                                                       
 			@RequestMapping(value="/InsertRepair")
 			public String  InsertRepair(HttpSession session,Repair repair,Rz rz,HttpServletRequest request,String place,String hESName) throws UnsupportedEncodingException{
-				//����־����Ӳ���
-				/*rz.setCzr((String)session.getAttribute("userName"));//��ȡ������
+				//日志
+				/*rz.setCzr((String)session.getAttribute("userName")); 
 				rz.setCz("���"+repair.getXqName()+"С��"+repair.getBuildNo()+"¥"+repair.getCellNo()+"���ű�������");//��ȡ��������
-				rz.setCzsj(new Date());//��ȡ����ʱ��
+				rz.setCzsj(new Date());
 				rzService.insert(rz);*/
-				/*��ȡ��*/
+				
+				repairs = repairService.findRepair(0);
+			 	System.out.println("repairs-------"+repairs);
+			    request.setAttribute("XqNameList", repairService.findXqName());
 //				repairService.findplace();
-				//request.setAttribute("listPlace", repairService.findplace());
-				/*request.setAttribute("jsName", userService.findJSName());*/
-//				repair.setType("�����걨");
-//				repair.settJname(new String(((String) session.getAttribute("UserName"))));
+				 request.setAttribute("jsName", userService.findJSName()); 
+				 repair.setLx("类型");
+ 			//	repair.setTjr(new String((String) session.getAttribute("yhxm")));
+ 			//	repair.settJname(new String((String) session.getAttribute("yhxm")));
 //				repair.settJtime(new Date());
 //				repairService.InsertRepair(repair);
 				return "add";
 			}	
 			
 			
-			//add���޵Ǽ�   ��ӱ�ҳ���ض�������ҳ��  repairҳ��
+			//add 添加重定向到repair页面
 			@RequestMapping("InsertRe")
-			public String InsertRe(String problem,String name,String jSname,String place,String hESName,String xqName,String buildNo,String cellNo,HttpSession session,Repair repair,Rz rz,HttpServletRequest request) throws UnsupportedEncodingException{
-				place=new String(place.getBytes("ISO-8859-1"),"utf-8")+"";
-				hESName=new String(hESName.getBytes("ISO-8859-1"),"utf-8")+"";
-				xqName=new String(xqName.getBytes("ISO-8859-1"),"utf-8")+"";
-				buildNo=new String(buildNo.getBytes("ISO-8859-1"),"utf-8")+"";
-				jSname=new String(jSname.getBytes("ISO-8859-1"),"utf-8")+"";
-				name=new String(name.getBytes("ISO-8859-1"),"utf-8")+"";
-				problem=new String(problem.getBytes("ISO-8859-1"),"utf-8")+"";
-			//	request.setAttribute("listPlace", repairService.findplace());
-			/*	request.setAttribute("jsName", userService.findJSName());
-				repair.setLdh(ldh);
+			public String InsertRe(String wt,String yhxm,String jsr,String xqm,String ldh,String dyh,HttpSession session,Repair repair,Rz rz,HttpServletRequest request) throws UnsupportedEncodingException{
+				xqm=new String(xqm.getBytes("ISO-8859-1"),"utf-8")+"";
+				ldh=new String(ldh.getBytes("ISO-8859-1"),"utf-8")+"";
+				jsr=new String(jsr.getBytes("ISO-8859-1"),"utf-8")+"";
+				yhxm=new String(yhxm.getBytes("ISO-8859-1"),"utf-8")+"";
+				wt=new String(wt.getBytes("ISO-8859-1"),"utf-8")+"";
+			 	request.setAttribute("jsName", userService.findJSName());
 				
-				repair.setPlace(place);
-				repair.sethESName(hESName);
-				repair.setjSname(jSname);
-				repair.setXqName(xqName);
-				repair.setName(name);
-				repair.setProblem(problem);
-				repair.setType("�����걨");*/
-			//	repair.settJname(new String(((String) session.getAttribute("userName"))));
-			//	repair.settJtime(new Date());
-			//	repairService.InsertRepair(repair);
-				return "redirect:Repairlist.action";//�ض��� ��repair��������ҳ��
+				repair.setXqm(xqm);
+				repair.setLdh(ldh);
+				repair.setDyh(dyh);
+				repair.setYhxm(yhxm);
+				repair.setWt(wt);
+				repair.setLx("类型");
+				repair.setTjr(((String) session.getAttribute("yhxm")));
+				repair.setTjsj(new Date());
+			 //	repairService.InsertRepair(repair);
+				return "redirect:Repairlist.action"; //重定向到repair页面 
 				
 				
 			}
 			
-			//add2 ��װ�Ǽ�  ��ӵǼ�ҳ���ض���
+			//add2  添加 重定向
 			@RequestMapping("InsertRe2")
 			public String InsertRe2(String jSname,String name,String problem,String place,String hESName,String xqName,String buildNo,String cellNo,Repair repair,HttpServletRequest request) throws UnsupportedEncodingException{
 				place=new String(place.getBytes("ISO-8859-1"),"utf-8")+"";
@@ -251,7 +248,6 @@ public class RepairController {
 		request.setAttribute("yjd",repairService.state1(1));
 		request.setAttribute("ywc",repairService.state2(1)); 
 		return "/Sqaz";
-		
 		}
 		 
 		//申请安装  ---添加
@@ -275,14 +271,14 @@ public class RepairController {
 		@RequestMapping(value="updateRepair" )
 		public String updateRepair(HttpSession session,Repair repair,Rz rz){
 			//日志
-			rz.setCzr((String)session.getAttribute("userName"));//��ȡ������
-			rz.setCz("�޸�"+repair.getXqm()+"С��"+repair.getLdh()+"¥"+repair.getDyh()+"��Ԫ"+"���ű�������");//��ȡ��������
+			rz.setCzr((String)session.getAttribute("userName"));
+			rz.setCz("小区名称"+repair.getXqm()+"楼栋号"+repair.getLdh()+"单元号"+repair.getDyh());
 			rz.setCzsj(new Date()); 
 			 
 			//日志
 			repair.setTjr(new String(((String) session.getAttribute("userName"))));
 			repair.setTjsj(new Date());
-				//	repairService.updateRepair(repair);
+				 	repairService.updateRepair(repair);
 					return "redirect:Repairlist.action";
 				}
 				 
@@ -298,7 +294,7 @@ public class RepairController {
 					//�޸�
 					repair.setTjr(new String(((String) session.getAttribute("userName"))));
 					repair.setTjsj(new Date());
-				//	repairService.updateRepair(repair);
+					repairService.updateRepair(repair);
 					return "redirect:RepairlistS.action";	
 				}
 				
@@ -387,7 +383,7 @@ public class RepairController {
 					return jsonObject;
 				}
 				
-			/*	//����С��������ʾ��ͼ
+			 	// chart页面
 				@RequestMapping("chartSearch")
 				@ResponseBody
 				public Map<String, Object>chartSearch(HttpServletResponse response,HttpServletRequest request,@Param("xqName")String xqName,@Param("kffl")int kffl) throws UnsupportedEncodingException{
@@ -411,7 +407,7 @@ public class RepairController {
 			              map.put("wjd", listmap.get(0));
 			             
 					  return map; 
-				}*/
+				} 
 				
 				//��ȡ���е�С��
 				@RequestMapping("findYhNameList")
@@ -446,7 +442,7 @@ public class RepairController {
 					
 				}
 				
-				//����С���ʹ���ȡ----¥����
+				/*//通过小区查找楼栋
 					@RequestMapping("findYhBuildNObyXqName")
 					@ResponseBody
 					public JSONObject findYhBuildNObyXqName(String xqName,String place ,String hESName) throws UnsupportedEncodingException{
@@ -461,14 +457,13 @@ public class RepairController {
 							jsonObject.put("fail", null);
 						}
 						return jsonObject;
-					}	
+					}*/	
 				 
 	
-				//����С��¥���ţ�����ȡ----��Ԫ��
+			/*	//�通过楼栋获取单元
 				@RequestMapping("findYhCellNOByBuild")
 				@ResponseBody
-				public JSONObject findYhCellNOByBuild(@Param("hESName")String hESName,@Param("build")String buildNo,@Param("xqName")String xqName,@Param("place")String place) throws UnsupportedEncodingException{
-					place=new String(place.getBytes("ISO-8859-1"),"utf-8")+"";
+				public JSONObject findYhCellNOByBuild(@Param("build")String buildNo,@Param("xqName")String xqName,@Param("place")String place) throws UnsupportedEncodingException{
 					xqName=new String(xqName.getBytes("ISO-8859-1"),"utf-8")+"";
 					buildNo=new String(buildNo.getBytes("ISO-8859-1"),"utf-8")+"";
 					yhInfoList=yhInfoService.findYhCellNOByBuildrepair(buildNo, xqName,place,hESName);
@@ -480,7 +475,7 @@ public class RepairController {
 					}
 					return jsonObject;
 					
-				}
+				}*/
 				
 				  
 	

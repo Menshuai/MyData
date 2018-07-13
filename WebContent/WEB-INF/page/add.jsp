@@ -45,58 +45,36 @@
    <script type="text/javascript">  
 	/*页面加载就开始执行js*/
 	 $(document).ready(function() {
-		$("#placeID").change(
-		function(){	
-		  $.get("findHes.action?place="+ $("#placeID").val(),function(data) {
-			var dd=data.heslist;
-			$("#hESNameID option:gt(0)").remove();
-			for(var i=0;i<dd.length;i++){
-				var hESName=dd[i].hESName;
-				var opt="<option value='"+hESName+"'>"+hESName+"</option>"
-				$("#hESNameID").append(opt);
-			}
-			});
-		}); 
 		
-		$("#hESNameID").change(//换热站
-				function() {//小区方法
-					$.get("findXqNamebyPlace.action?hESName="+ $("#hESNameID").val()+"&place="+ $("#placeID").val(),function(data) {
-						var dd=data;
-						var d=dd.xqNameList;
-						$("#xqNameId option:gt(0)").remove();
-						for(var i=0;i<d.length;i++){
-							var xqName=d[i].xqName;
-							var opt="<option value='"+xqName+"'>"+xqName+"</option>"
-							$("#xqNameId").append(opt);//小区
-						}
-						});
-					 });
-		
-		$("#xqNameId").change(//小区
+		$("#xqmId").change(//小区
 				function(){	
-				  $.get("findYhBuildNObyXqName.action?xqName="+ $("#xqNameId").val()+"&hESName="+ $("#hESNameID").val()+"&place="+ $("#placeID").val(),function(data) {
-					var d=data.buildNoList; 
-					$("#buildNoId option:gt(0)").remove();
-					$("#cellNoId option:gt(0)").remove();
+				  $.get("findYhldhbyxqm.action?xqm="
+						  + $("#xqmId").val(),function(data) {
+					var d=data.ldhList; 
+					$("#ldhId option:gt(0)").remove();
+					$("#dyhId option:gt(0)").remove();
 					
 					for(var i=0;i<d.length;i++){
-						var buildNo=d[i].lH;
-						var opt="<option value='"+buildNo+"'>"+buildNo+"</option>"
-						$("#buildNoId").append(opt);//楼栋
+						var ldh=d[i].ldh;
+						var opt="<option value='"+ldh+"'>"
+							+ldh+"</option>"
+						$("#ldhId").append(opt);//楼栋
 					}
 					});
 				});
 				
-		$("#buildNoId").change(//楼栋
+		$("#ldhId").change(//楼栋
 		function() {//单元方法
-			$.get("findYhCellNOByBuild.action?buildNo="+ $("#buildNoId").val()+"&xqName="+ $("#xqNameId").val()+"&hESName="+ $("#hESNameID").val()+"&place="+ $("#placeID").val(),function(data) {
+			$.get("findYhdyhByBuild.action?ldh="
+					+ $("#ldhId").val()+"&xqm="
+					+ $("#xqmId").val(),function(data) {
 				var dd=data;
-				var d=dd.cellList;
-				$("#cellNoId option:gt(0)").remove();
+				var d=dd.dyhList;
+				$("#dyhId option:gt(0)").remove();
 				for(var i=0;i<d.length;i++){
-					var cellNo=d[i].dYH;
-					var opt="<option value='"+cellNo+"'>"+cellNo+"</option>"
-					$("#cellNoId").append(opt);//单元
+					var dyh=d[i].dyh;
+					var opt="<option value='"+dyh+"'>"+dyh+"</option>"
+					$("#dyhId").append(opt);//单元
 				}
 				});
 			 });	
@@ -114,117 +92,79 @@
 				<div class="modal-body bg-info">
 					<form class="form form-horizontal" id="Myform" action="InsertRe.action">
 						
-						
-						<!-- 获取所有的处 -->		
+					<!-- 获取所有的小区 -->										
 						<div class="form-group">						
-						<label for="place" class="col-sm-2 col-sm-offset-3 control-label">管理处:</label>
+						<label for="xqmId" class="col-sm-2 col-sm-offset-3 control-label">小区名:</label>
 						<div  class="col-sm-4" >
-						<select name="place" id="placeID">
-							<option value=>--请选择处--</option>
-								<c:forEach items="${listPlace}" var="list">
-									<option>${list.place}</option>
-				               </c:forEach>
-							
-						</select>
-						</div>					
-						</div>			
-						
-						<!-- 根据处获取所有的换热站-->		
-						<div class="form-group">						
-						<label for="hESName" class="col-sm-2 col-sm-offset-3 control-label">交换站:</label>
-						<div  class="col-sm-4" >
-						<select name="hESName" id="hESNameID"  value="">
-							<option value=0>--请选择交换站--</option>
-						</select>
-						</div>					
-						</div>			
-						
-							<!-- 获取所有的小区 -->										
-						<div class="form-group">						
-						<label for="xqName" class="col-sm-2 col-sm-offset-3 control-label">小区名:</label>
-						<div  class="col-sm-4" >
-						<select name="xqName" id="xqNameId">
+						<select name="xqm" id="xqmId">
 							<option value=0>--请选择小区--</option>
-							
-						<%-- 	<c:forEach items="${yhInfoList}" var="list">
-									<option>${list.xqName}</option>
-				               </c:forEach> --%>
-							 
+								<c:forEach items="${XqNameList}" var="list">
+									<option>${list.xqm}</option>
+								</c:forEach>
 						</select>
 						</div>
 					
 						</div>								
 						<!-- 获取楼栋号 -->	
 						<div class="form-group" >
-						<label for="buildNoId" class="col-sm-2 col-sm-offset-3 control-label">楼栋号:</label>
+						<label for="ldhId" class="col-sm-2 col-sm-offset-3 control-label">楼栋号:</label>
 						<div class="col-sm-4">
-						 <select name="buildNo" id="buildNoId" >
+						 <select name="ldh" id="ldhId" >
 							<option value=0>--选择楼栋号--</option>
 						</select>
 						</div>
 						</div>
 						<!-- 获取楼单元号 -->	
 						<div class="form-group">
-						<label for="cellNoId" class="col-sm-2 col-sm-offset-3 control-label">单元号:</label> 
+						<label for="dyhId" class="col-sm-2 col-sm-offset-3 control-label">单元号:</label> 
 						<div class="col-sm-4">
-						<select name="cellNo" id="cellNoId" >
+						<select name="dyh" id="dyhId" >
 							<option value=0>--选择单元号--</option>
 						</select>
 						</div>
 						</div>		
-						<!-- 获取层号 -->					
 						<div class="form-group">						
-							<label for="CS" class="col-sm-2 col-sm-offset-3 control-label">楼层号:</label>
+							<label for="hhId" class="col-sm-2 col-sm-offset-3 control-label">门牌号:</label>
 							
 							<div class="col-sm-4">
-								<input id="CSId" type="text" name="cs" onblur="findcs()"
-									class="form-control" placeholder="cs" />
-							</div>					
-						</div>
-						<!-- 获取室号 -->
-						<div class="form-group">						
-							<label for="SH" class="col-sm-2 col-sm-offset-3 control-label">门牌号:</label>
-							
-							<div class="col-sm-4">
-								<input id="SHId" type="text" name="sh"
-									class="form-control" placeholder="sh" />
+								<input id="hhId" type="text" style="width:200px" name="hh"
+									class="form-control" placeholder="hh" />
 							</div>					
 						</div>		
 							<div class="form-group">						
-							<label for="name" class="col-sm-2 col-sm-offset-3 control-label">联系人:</label>
+							<label for="yhxmId" class="col-sm-2 col-sm-offset-3 control-label">联系人:</label>
 						<div class="col-sm-4">
-						<input id="name"  type="text" name="name" 
-								class="form-control" placeholder="name" >
+						<input id="yhxmId"  type="text"style="width:200px" name="yhxm" 
+								class="form-control" placeholder="yhxm" >
 						</div>
 						</div>
 						<div class="form-group">						
-							<label for="telephone" class="col-sm-2 col-sm-offset-3 control-label">电话:</label>
-						<div class="col-sm-4"><input id="telephone" type="text" name="telephone" class="form-control" placeholder="telephone" ></div>
+							<label for="lxdhId" class="col-sm-2 col-sm-offset-3 control-label">电话:</label>
+						<div class="col-sm-4"><input id="lxdhId" type="text" style="width:200px" name="lxdh" class="form-control" placeholder="telephone" ></div>
 						</div>
 						
-						<div class="form-group">	
-							<label for="jSname" class="col-sm-2 col-sm-offset-3 control-label">接单人:</label>
+						<div class="form-group" >	
+							<label for="jsrId" class="col-sm-2 col-sm-offset-3 control-label">接单人:</label>
 							<div class="col-sm-4">
 							
-						<select name="jSname" id="jSnameId" >
+						<select name="jsr" id="jsrId" >
 							<option value=>--请选择接收人--</option>
 							 <c:forEach items="${jsName}" var="list">
-									<option>${list.userName}</option>
-									
+									<option>${list.yhxm}</option>
 				               </c:forEach> 
 						</select>		
 						</div>
 						</div>
 					
 						<div class="form-group">						
-						<label for="problem" class="col-sm-2 col-sm-offset-3 control-label">故障:</label>
+						<label for="wtId" class="col-sm-2 col-sm-offset-3 control-label">故障:</label>
 							<div class="col-sm-4">
-							<textarea id="problem"  style="overflow-x: hidden;width:300px;height:100px;" class="form-control" name="problem" placeholder="problem"></textarea>
+							<textarea id="wtId"  style="overflow-x: hidden;width:350px;height:230px;" class="form-control" name="wt" placeholder="wt"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-4 col-sm-offset-5">
-							<button type="button" onClick="add()"  class="btn btn-primary btn-sm" >提交</button>
+							<button type="button" onClick="add()"  class="btn btn-primary btn-sm" >提交</button>&nbsp;&nbsp;&nbsp;
 							<button type="reset" class="btn btn-primary btn-sm">重置</button>
 							</div>
 						</div>
@@ -240,40 +180,33 @@
 /*提交  单击事件add()*/
 function add(){
    
-	var place=$("#add select[name=place]");
-	var hESName=$("#add select[name=hESName]");
-	var xqName=$("#add select[name=xqName]");
-	var buildNo=$("#add select[name=buildNo]");
-	var cellNo=$("#add select[name=cellNo]");
- 	var cs=$("#add input[name=cs]");
-	var sh=$("#add input[name=sh]"); 
-	var jSname=$("#add select[name=jSname]");
-	 var name=$("#add input[name=name]"); 
-	var telephone=$("#add input[name=telephone]");
-	var problem=$("#add textarea[name=problem]");
+	/* var place=$("#add select[name=place]");
+	var hESName=$("#add select[name=hESName]"); */
+	var xqm=$("#add select[name=xqm]");
+	var ldh=$("#add select[name=ldh]");
+	var dyh=$("#add select[name=dyh]");
+	var hh=$("#add input[name=hh]"); 
+	var jsr=$("#add select[name=jsr]");
+	var yhxm=$("#add input[name=yhxm]"); 
+	var lxdh=$("#add input[name=lxdh]");
+	var wt=$("#add textarea[name=wt]");
 	
-	var CsId=document.getElementById("CSId").value;
-	  if(isNaN(CsId)){
-			 sAlert('层号必须是数字！');
-			document.getElementById("CSId").value="";
-			return false;
-	 }	
-	var ShId=document.getElementById("SHId").value;
-			 if(isNaN(ShId)){
+	var hhId=document.getElementById("hhId").value;
+			 if(isNaN(hhId)){
 					 sAlert('室号必须是数字！');
-					document.getElementById("SHId").value="";
+					document.getElementById("hhId").value="";
 					return false;
 			 } 
-			 
-	   if(place.val()==null||place.val()==""||hESName.val()==null||hESName.val()==""||jSname.val()==null||jSname.val()==""||xqName.val()==null||xqName.val()==""||buildNo.val()==null||buildNo.val()==""|| cellNo.val()==null||cellNo.val()==""||cs.val()==null||cs.val()==""||sh.val()==null||sh.val()==""||name.val()==null||name.val()==""||telephone.val()==null||telephone.val()==""||problem.val()==null||problem.val()==""){
+	/* 		 
+	   if(jsr.val()==null||jsr.val()==""||xqm.val()==null||xqm.val()==""||ldh.val()==null||ldh.val()==""|| dyh.val()==null||dyh.val()==""||hh.val()==null||hh.val()==""||yhxm.val()==null||yhxm.val()==""||lxdh.val()==null||lxdh.val()==""||wt.val()==null||wt.val()==""){
 		 sAlert('信息不能为空，请填写完整!');
 		return false;
-	}   
+	}  */  
 	
-	var telephone1=document.getElementById("telephone").value;
-	 if(isNaN(telephone1)){
+	var lxdh1=document.getElementById("lxdh").value;
+	 if(isNaN(lxdh1)){
 			 Alert('联系方式请输入数字');
-			document.getElementById("telephone").value="";
+			document.getElementById("lxdh").value="";
 			return false;
 	 }  
 	/*  $("#Myform").submit();  */

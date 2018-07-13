@@ -1,6 +1,10 @@
 package com.hnzy.pds.service.Impl;
  
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,6 +81,22 @@ public class RepairServiceImpl implements RepairService{
 	@Override
 	public int state22(String xqm, String ldh, String dyh, String hh, String fl, String lxdh) {
 		return repairDao.state22(xqm, ldh, dyh, hh, fl, lxdh);
+	}
+
+	@Override
+	public void updateRepair(Repair repair) {
+		repairDao.updateRepair(repair);		
+	}
+
+	@Override
+	public List<Map<String, Object>> chartSearch(String xqm, int kffl) {
+		List<Map<String,Object>> wxList=new ArrayList<Map<String,Object>>();
+		   Map<String,Object> map=new HashMap<String,Object>();
+		   map.put("未接单", repairDao.statePlace0(xqm,kffl));
+		   map.put("已接单", repairDao.statePlace1(xqm,kffl));
+		   map.put("已完成", repairDao.statePlace2(xqm,kffl));
+		   wxList.add(map);
+		return wxList;
 	}
 
  

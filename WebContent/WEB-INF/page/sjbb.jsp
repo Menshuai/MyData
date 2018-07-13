@@ -55,7 +55,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						function() {
 							$.get("findYhldhbyxqm.action?xqm="
 									+ $("#xqmId").val(), function(data) {
-								debugger;
 								var dd = data;
 								var d = dd.xqlist;
 							 	$("#ldhId option:gt(0)").remove();

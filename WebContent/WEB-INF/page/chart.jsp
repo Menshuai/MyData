@@ -23,12 +23,12 @@
 <div align="left">
            <a href="javascript:history.back(-1)">返回</a>
          </div>
-	<label for="xqNameId">小区名称</label> 
-		<select id="xqNameId" name="xqName">
+	<label for="xqmId">小区名称</label> 
+		<select id="xqmId" name="xqm">
 			<c:if test="${!empty yhInfolist }">
 			   <option>--选择小区--</option>
 				<c:forEach items="${yhInfolist}" var="yhList">
-					<option>${yhList.xqName}</option>
+					<option>${yhList.xqm}</option>
 				</c:forEach>
 			</c:if>
 		</select>
@@ -88,10 +88,10 @@
 	});
 	function chaxun() {
 		var arr = [];
-		var xqName = $('#xqNameId').val();
+		var xqm = $('#xqmId').val();
 		$.ajax({
 			type : 'get',
-			url : "chartSearch.action?xqName="+xqName+"&kffl=0",//请求数据的地址
+			url : "chartSearch.action?xqm="+xqm+"&kffl=0",//请求数据的地址
 			beforeSend : function(XMLHttpRequest) {
 				$('#loading').show();
 				$('#contentDIV').hide();

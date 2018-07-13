@@ -10,36 +10,36 @@ import com.hnzy.pds.pojo.User;
 public  interface UserService {
 
 	/**
-	 * µÇÂ¼
+	 * ï¿½ï¿½Â¼
 	 * @param user
 	 */
 	public void regist(User user);
 	
 	
 	   /**
-	    * ²éÕÒĞÅÏ¢
+	    * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	    * @return
 	    */
 		public List<User> find();
 		
 		
 		/**
-		 * @author Administrator ²åÈëÓÃ»§ĞÅÏ¢
+		 * @author Administrator ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ï¢
 		 */
 		public void InsertUser(User user);
 		
 		/**
-		 * @author Administrator É¾³ıÓÃ»§
+		 * @author Administrator É¾ï¿½ï¿½ï¿½Ã»ï¿½
 		 */
 		public void deleteUser(String id);
 
 		/**
-		 * @author Administrator ¸ù¾İid²éÕÒÓÃ‘ôĞÅÏ¢
+		 * @author Administrator ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½ï¿½ï¿½ï¿½Ã‘ï¿½ï¿½ï¿½Ï¢
 		 */
 		public User findById(int id);
 
 		/**
-		 * @author Administrator ¸üĞÂÓÃ»§ĞÅÏ¢
+		 * @author Administrator ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ï¢
 		 */
 		public void updateUse(User user);
 		
@@ -51,7 +51,7 @@ public  interface UserService {
 		 
 		/**
 		 * @author Administrator
-		 *¸ù¾İid²éÑ¯
+		 *ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½Ñ¯
 		 */
 		public User findUserById(int id);
 		

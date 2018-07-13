@@ -91,29 +91,26 @@ function tc(){ //安全退出
 					<li><a target="Conframel" href="<%=basePath%>RzController/RzMe.action">操作日志</a></li>
 					<li><a target="Conframel" href="<%=basePath%>RzController/YccxMe.action">异常查询</a></li>
 					<li><a target="Conframel" href="<%=basePath%>Home/XtszMe.action">系统设置</a></li>
-				 	 
+				 	 <%-- <li><a href="#">用户注册<i class="tip-up"></i></a>
+						<ul class="kidc">							
+							<li><a target="Conframe" onclick="add('用户注册','<%=basePath%>user/yhzc.action','600','300')">用户注册</a></li>
+						</ul>
+					</li> --%>
 				</ul>
 			</div>
 			<div class="bottom_c1 ">
 			
 			</div>
 			<div class="top-nav">
-				 欢迎您！ ${UserName} &nbsp;&nbsp;&nbsp;&nbsp;<a onclick="add('修改密码','<%=basePath%>user/xgmm.action','600','400')">修改密码</a> | <a href="#" onclick="tc()" style="color: white;">安全退出</a>
+			
+										
+				&nbsp;&nbsp;&nbsp;
+			
+				 欢迎您！ ${UserName} &nbsp;&nbsp;&nbsp;&nbsp;<a onclick="add('修改密码','<%=basePath%>user/xgmm.action','600','400')">修改密码</a>| 
+				 <a target="Conframe" onclick="add('用户注册','<%=basePath%>user/yhzc.action','600','300')">用户注册</a>| <a href="#" onclick="tc()" style="color: white;">安全退出</a>
 			</div>
 		</div>
-		<!--头部结束-->
-		
-		<!-- <div id="zhu">
-   		 <div class="zu" ><a href="" >智慧供热平台</a></div>
-   			 <ul>
-      			<li><a href=" ">智能入户管理系统</a></li>
-      			 <li><a href="http://218.29.162.134:8093/RbHotPower/UserCon/index.action">热表集抄管理系统</ a></li>
-      			 <li><a href="http://218.29.162.134:8093/zz/user/toLogin.action">换热站管理系统</ a></li>
-     			 <li><a href="http://218.29.162.134:8093/KFGL/user/index.action">客户服务管理系统</ a></li>
-    		</ul>
-		</div> -->
-		
-		
+		 
 		<!--左边框架开始-->
 		<div class="left_c left">
 			<h1>信息列表</h1>

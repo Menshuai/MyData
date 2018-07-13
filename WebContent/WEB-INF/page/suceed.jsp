@@ -15,7 +15,7 @@
 	</head>
 	<script type="text/javascript">
 	window.onload = function() {
-		parent.location.href = "me/index.action";
+		parent.location.href = "user/index.action";
 		var index = parent.layer.getFrameIndex(window.name);
 		top.layer.close(index);
 	}

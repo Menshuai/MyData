@@ -8,10 +8,10 @@ public class User implements Serializable {
 	private int ID;
 	private String UserName;
 	private String PassWord;
-	private String password1;// 新密码
-	private String password2;// 确认密码
+	private String password1;// 
+	private String password2;// 
 	private Date CreateTime;
-	private int root; // 权限
+	private int root; // 
 
 
 	public User() {

@@ -40,6 +40,7 @@ public class YhMessageController {
 	@Autowired
 	private RzService rzService;
 	
+	
 	//数据报表  左右栏
 	@RequestMapping("/HomeMe")
 	public String SkqMe(){
