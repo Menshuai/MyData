@@ -7,6 +7,7 @@ import javax.servlet.ServletOutputStream;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.Jzq;
 import com.hnzy.pds.pojo.Repair;
 import com.hnzy.pds.pojo.YhMessage;
@@ -78,13 +79,13 @@ public interface YhMessageService {
 	public List<YhMessage> findYhCellNOByBuild(int ldh,String xqm);
 		
 	 //导出------
-	public void exportExcel(List<YhMessage>yhInfosList,ServletOutputStream outputStream) throws IOException;
+	public void exportExcel(List<Data>yhInfosList,ServletOutputStream outputStream) throws IOException;
 		
 	//搜索------
-	public List<YhMessage> searchInfo(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
-			@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
+//	public List<YhMessage> searchInfo(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
+//			@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
 		
 	//历史数据
-		public List<YhMessage> searchHistory(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
-				@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
+//		public List<YhMessage> searchHistory(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
+//				@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
 }

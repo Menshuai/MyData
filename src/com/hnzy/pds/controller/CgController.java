@@ -1,9 +1,13 @@
 package com.hnzy.pds.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +21,10 @@ import com.hnzy.hot.socket.util.CzUtil;
 import com.hnzy.hot.socket.util.MapUtilsDf;
 import com.hnzy.pds.pojo.Cg;
 import com.hnzy.pds.pojo.Data;
+import com.hnzy.pds.pojo.Rz;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.CgService;
+import com.hnzy.pds.service.RzService;
 import com.hnzy.pds.service.YhMessageService;
 
 @Controller
@@ -29,10 +35,11 @@ public class CgController {
 	@Autowired
 	private CgService cgService;
 	private List<Cg> cgs;
-	
+	@Autowired
+	private RzService rzService;
 	@Autowired
 	private YhMessageService yhMessageService;
-
+	private static Log log = LogFactory.getLog(CgController.class);
 	//列表页面
 	@RequestMapping("/CgfindList")
 	public String findList(HttpServletRequest request ){
@@ -63,11 +70,13 @@ public class CgController {
 			cgService.update(cg);
 			return  "redirect:CgfindList.action";
 		}
-		
+		 String kgString="";
+		 String jfString="";
+		 String jjString="";
 		// 所有风盘发送操作---------------------楼栋发送数据 ----------
 	   	@RequestMapping("FsLd")
 	 	@ResponseBody
-	 	public JSONObject FsLd(HttpServletRequest request, String ids,String kg,String jf,String jj){
+	 	public JSONObject FsLd(HttpSession session,HttpServletRequest request, String ids,String kg,String jf,String jj){
 	   		MapUtilsDf.getMapUtils().add("dg", null);
 	   		YhMessage  dyh=yhMessageService.findyh(ids);//楼栋  
 	 		Integer ldhS=dyh.getLdh();
@@ -111,8 +120,30 @@ public class CgController {
 	 		 
 	 		 //发送数据
 	 		 String ja =ld+dy+"F010B1FFF0F0F0FF"+""+kg+""+jf+""+jj+"FFFFFF";
+	 		 log.info("对某栋楼 所有风盘开关计费季节操作发送指令 ："+ja);
 	 		 System.out.println("ja----"+ja);
-	 		 
+	 		 if(kg.equals("00")){
+				 kgString="强关";
+			 }else if(kg.equals("01")){
+				 kgString="自动"; 
+			 }else{
+				 kgString="";  
+			 }
+			 if(jf.equals("00")){
+				 jfString="禁止计费";
+			 }else if(jf.equals("01")){
+				 jfString="允许计费";
+			 }
+			 if(jj.equals("00")){
+				 jjString="夏季";
+			 }else if(jj.equals("01")){
+				 jjString="冬季";
+			 }
+				Rz rz=new Rz();
+				rz.setCz("发送对某栋楼所有风盘开关计费季节操作："+kgString+","+jfString+","+jjString);
+				rz.setCzr((String)session.getAttribute("userName"));
+				rz.setCzsj(new Date());;
+				rzService.insert(rz);
 	 		 // IP地址和端口号
 	 		 String pt = "/" + ip + ":" + port;
 	 		 boolean sessionmap = cz(ja, pt);
@@ -138,10 +169,10 @@ public class CgController {
 	 		  }
 	     	} 
 	   	
-		// 所有风盘发送操作-------------------------所有风盘发送操作 ----------
+		// 某层所有风盘发送操作-------------------------所有风盘发送操作 ----------
 	   	@RequestMapping("SCxZx")
 	 	@ResponseBody
-	 	public JSONObject SCxZx(HttpServletRequest request, String ids,String kg,String jf,String jj){
+	 	public JSONObject SCxZx(HttpSession session,HttpServletRequest request, String ids,String kg,String jf,String jj){
 	   		YhMessage  ldh=yhMessageService.findyh(ids);//楼栋  
 	 		Integer ldhS=ldh.getLdh();
 	 		String ld=String.valueOf(ldhS);
@@ -192,6 +223,30 @@ public class CgController {
 	 		 //发送数据
 	 		 String ja =ld+dy+"F010B1"+cg+"F0F0F0FF"+""+kg+""+jf+""+jj+"FFFFFF";
 	 		 System.out.println("ja----"+ja);
+	 		 log.info("对某层 所有风盘开关计费季节操作发送指令：层管编号："+cg+"，指令---"+ja);
+	 		 System.out.println("ja----"+ja);
+	 		 if(kg.equals("00")){
+				 kgString="强关";
+			 }else if(kg.equals("01")){
+				 kgString="自动"; 
+			 }else{
+				 kgString="";  
+			 }
+			 if(jf.equals("00")){
+				 jfString="禁止计费";
+			 }else if(jf.equals("01")){
+				 jfString="允许计费";
+			 }
+			 if(jj.equals("00")){
+				 jjString="夏季";
+			 }else if(jj.equals("01")){
+				 jjString="冬季";
+			 }
+				Rz rz=new Rz();
+				rz.setCz("发送对某层所有风盘开关计费季节操作,层管编号："+cg +","+kgString+","+jfString+","+jjString);
+				rz.setCzr((String)session.getAttribute("userName"));
+				rz.setCzsj(new Date());;
+				rzService.insert(rz);
 	 		 
 	 		 // IP地址和端口号
 	 		 String pt = "/" + ip + ":" + port;

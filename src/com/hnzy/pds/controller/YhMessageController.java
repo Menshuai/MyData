@@ -39,7 +39,7 @@ public class YhMessageController {
 	private DataService dataService;
 	@Autowired
 	private RzService rzService;
-	
+	public List<Data> YhList;
 	//数据报表  左右栏
 	@RequestMapping("/HomeMe")
 	public String SkqMe(){
@@ -49,7 +49,7 @@ public class YhMessageController {
 	//数据报表
 	@RequestMapping("sjbb")
 	public String sjbb(HttpServletRequest request) {
-		List<Data> YhList=dataService.find();
+		YhList=dataService.find();
 		yhInfoList=yhMessageService.findXqName();
 		request.setAttribute("XqNameList", yhInfoList);
 		request.setAttribute("YhList", YhList);
@@ -141,18 +141,16 @@ public class YhMessageController {
 		@ResponseBody
 		public JSONObject searchInfo(HttpServletRequest request,ModelMap map,@Param("xqm")String xqm,@Param("ldh")int ldh,
 						@Param("dyh")int dyh,@Param("hh")Integer hh,@Param("time1") String time1,@Param("time2") String time2) throws UnsupportedEncodingException{
-			xqm=new String(xqm.getBytes("ISO-8859-1"),"utf-8")+"";
 			JSONObject jsonObject=new JSONObject();
 			//hh为null查询实时表，否则查询历史表
 			if(hh==null){
 				hh=0;
-			    yhInfoList= yhMessageService.searchInfo(xqm, ldh, dyh, hh, time1, time2);
-				jsonObject.put("findXqInfoHistory",yhInfoList);
+//				List<Data> YhList=dataService.find();
+				YhList= dataService.searchInfo(xqm, ldh, dyh, hh, time1, time2);
+				jsonObject.put("findXqInfoHistory",YhList);
 			}else{
-				 yhInfoList= yhMessageService.searchHistory(xqm, ldh, dyh, hh,time1,time2);
-				jsonObject.put("findXqInfoHistory",yhInfoList );
-				System.out.println("yhInfoList"+yhInfoList);
-				System.out.println("yhInfoList"+time1);
+				YhList= dataService.searchHistory(xqm, ldh, dyh, hh,time1,time2);
+				jsonObject.put("findXqInfoHistory",YhList );
 			}
 				return jsonObject;		
 			}
@@ -171,14 +169,14 @@ public class YhMessageController {
 			if(hh==null){
 				 hh=0;
 				 ServletOutputStream outputStream=response.getOutputStream();
-				 yhMessageService.exportExcel(yhMessageService.searchInfo(xqm, ldh, dyh, hh,time1, time2), outputStream);
+				 yhMessageService.exportExcel(dataService.searchInfo(xqm, ldh, dyh, hh, time1, time2), outputStream);
 				 if(outputStream!=null){
 						outputStream.close();
 				}
 						 
 			}else{
 				ServletOutputStream outputStream=response.getOutputStream();
-				yhMessageService.exportExcel(yhMessageService.searchHistory(xqm, ldh, dyh, hh,time1,time2), outputStream);
+				yhMessageService.exportExcel(dataService.searchHistory(xqm, ldh, dyh, hh,time1,time2), outputStream);
 				if(outputStream!=null){
 					outputStream.close();
 				}

@@ -45,7 +45,177 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			background: url(../img/secai.png);
 		}
 	</style>
+	 <script type="text/javascript">
+	/*页面加载就开始执行js*/
+	$(document).ready(//根据小区获取  楼栋号
+			function() {
+					
+				$("#xqmId").change(
+						function() {
+							$.get("findYhldhbyxqm.action?xqm="
+									+ $("#xqmId").val(), function(data) {
+								var dd = data;
+								var d = dd.xqlist;
+							 	$("#ldhId option:gt(0)").remove();
+								$("#dyhId option:gt(0)").remove();
+								for (var i = 0; i < d.length; i++) {
+									var ldh = d[i].ldh;
+									var opt = "<option value='"+ldh+"'>"
+											+ ldh + "</option>"
+									$("#ldhId").append(opt);
+								}
+							});
+						});
+
+				$("#ldhId").change(//根据小区楼栋号获取  单元号
+						function() {
+							$.get("findYhdyhByBuild.action?ldh="
+									+ $("#ldhId").val() + "&xqm="
+									+ $("#xqmId").val(), function(data) {
+								var dd = data;
+								var d = dd.dyhList;
+								$("#dyhId option:gt(0)").remove();
+								for (var i = 0; i < d.length; i++) {
+									var dyh = d[i].dyh;
+									var opt = "<option value='"+dyh+"'>"
+											+ dyh + "</option>"
+									$("#dyhId").append(opt);
+								}
+							});
+						});
+			});
+</script>
+<script type="text/javascript">
+	function searchInfo() {
+		var xqm = $('#xqmId').val();
+		var ldh = $('#ldhId').val();
+		var dyh = $('#dyhId').val();
+		var hh = $('#hhId').val();
+		var html = "";
+		$.ajax({
+			type:"POST",
+			url : "searchInfo.action",
+			async : false,
+			dataType : "json",
+			data : {
+				"xqm" : xqm,
+				"ldh" : ldh,
+				"dyh" : dyh,
+				"hh" : hh,
+			},
+			success : function(data) {
+				$("#yhInfo").empty();
+				var d = data.findXqInfoHistory;
+				for (var i = 0; i < d.length; i++) {
+					var yhbh = d[i].yhMessage.yhbh;
+					var yhxm = d[i].yhMessage.yhxm;
+					var xqm = d[i].yhMessage.xqm;
+					var ldh = d[i].yhMessage.ldh;
+					var dyh = d[i].yhMessage.dyh;
+					var hh = d[i].yhMessage.hh;
+					var js = d[i].js;
+					var fpbh = d[i].fpbh;
+					var ms = d[i].ms;
+					var  dw= d[i].dw;
+					var gdtime = d[i].gdtime;
+					var zdtime = d[i].zdtime;
+					var ddtime = d[i].ddtime;
+					var dgdtime = d[i].dgdtime;
+					var dzdtime = d[i].dzdtime;
+					var dddtime = d[i].dddtime;
+					var jf = d[i].jf;
+					var sdwd = d[i].sdwd;
+					var snwd = d[i].snwd;
+					var kg = d[i].kg;
+					var bj = d[i].bj;
+					var jj = d[i].jj;
+					var time = FormatDate(d[i].time);
+					var mj = d[i].yhMessage.mj;
+					var lxdh = d[i].yhMessage.lxdh;
+					var fpdz = d[i].yhMessage.fpdz;
+					var bz = d[i].yhMessage.bz;
+					html += "<tr>";
+					html += "<td><input type='checkbox' value='"+yhbh+""+fpdz+"'/></td>";
+					html += "<td class='text-center'>" + yhbh + "</td>";
+					html += "<td class='text-center'>" + yhxm + "</td>";
+					html += "<td class='text-center'>" + xqm + "</td>";
+					html += "<td class='text-center'>" + ldh + "</td>";
+					html += "<td class='text-center'>" + dyh + "</td>";
+					
+					html += "<td class='text-center'>" + hh + "</td>";
+					html += "<td class='text-center'>" + js + "</td>";
+					html += "<td class='text-center'>" + fpbh + "</td>";
+					if(ms=="00"){
+						html += "<td class='text-center'>制冷</td>";
+					}
+					if(ms=="01"){
+						html += "<td class='text-center'>制热</td>";
+					}
+					if(ms=="02"){
+						html += "<td class='text-center'>通风</td>";	
+					}
+					if(dw=="01"){
+						html += "<td class='text-center'>低档</td>";	
+					}
+					if(dw=="02"){
+						html += "<td class='text-center'>中档</td>";
+					}
+					if(dw=="03"){
+						html += "<td class='text-center'>高档</td>";
+					}
+					html += "<td class='text-center'>" + gdtime + "</td>";
+					html += "<td class='text-center'>" + zdtime + "</td>";
+					html += "<td class='text-center'>" + ddtime + "</td>";
+					html += "<td class='text-center'>" + dgdtime + "</td>";
+					html += "<td class='text-center'>" + dzdtime + "</td>";
+					
+					html += "<td class='text-center'>" + dddtime + "</td>";
+		
+					if(jf=="00"){
+						html += "<td class='text-center'>禁止计费</td>";
+					}
+					if(jf=="01"){
+						html += "<td class='text-center'>允许计费</td>";
+					}
+					html += "<td class='text-center'>" + sdwd + "</td>";
+					html += "<td class='text-center'>" + snwd+ "</td>";
+					if(kg=="00"){
+						html += "<td class='text-center'>强制关</td>";
+					}
+					if(kg=="01"){
+						html += "<td class='text-center'>自动运行</td>";
+					}
+					if(bj=="00"){
+						html += "<td class='text-center'>正常</td>";
+					}
+					if(bj=="01"){
+						html += "<td class='text-center'>开盖</td>";
+					}
+					if(bj=="03"){
+						html += "<td class='text-center'>盗热嫌疑</td>";
+					}
+					html += "<td class='text-center'>" + jj+ "</td>";
+					html += "<td class='text-center' title='"+time+"'>" + time+ "</td>";
+					html += "<td class='text-center'>" + mj+ "</td>";
+					html += "<td class='text-center'>" + lxdh+ "</td>";
+					html += "<td class='text-center'>" + fpdz+ "</td>";
+					html += "<td class='text-center'>" + bz+ "</td>";
+					html += "</tr>";
+				}
+				$("#yhInfo").append(html);
+			}
+
+		})
+	}
 	
+	function FormatDate(strTime) {//年月日 时分秒
+		var date = new Date(strTime);
+		return date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
+				+ date.getDate() + " " + date.getHours() + ":"
+				+ date.getMinutes() + ":" + date.getSeconds();
+	}
+	
+</script>
 	 <script type="text/javascript">
 	 
 	 //查询状态------------------查询状态-------------------------
@@ -83,7 +253,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if (msg == "0") {
 						alert("失败!");
 					}
-					location.reload()
+					searchInfo();
 				}
 			});
 		}
@@ -128,7 +298,7 @@ function DFs() {
 				if (msg == "0") {
 					alert("失败!");
 				}
-				location.reload()
+				searchInfo();
 			}
 
 		});
@@ -178,7 +348,7 @@ function SFs() {
 				if (msg == "0") {
 					alert("失败!");
 				}
-				location.reload()
+				searchInfo();
 
 			}
 
@@ -306,7 +476,30 @@ function SFs() {
 <!-- style="width:65%; height: 60%; position: absolute; overflow: auto;text-align: center" -->
  <h3>中央空调信息</h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  <div></div>
- 
+ 	<label for="xqNameId">选择小区</label> 
+ 			<select id="xqmId" name="xqm">
+					<option value=0>--选择小区名称--</option>
+					<c:forEach items="${XqNameList}" var="list">
+						<option>${list.xqm}</option>
+					</c:forEach>
+			</select> &nbsp;&nbsp;&nbsp; 
+			
+		<label for="buildNoId">楼栋号</label>
+			<select   name="ldh" id="ldhId">
+				<option value=0>--选择楼栋号--</option>
+			</select> 
+			&nbsp;&nbsp;&nbsp; 
+			
+		<label for="cellNoId">单元号</label>
+			<select  name="dyh" id="dyhId">
+				<option value=0>--选择单元号--</option>
+			</select> 
+		&nbsp;&nbsp;&nbsp;
+		
+		户号：<input type="text" name="hh" id="hhId" value="${hh}" size=10px/> 
+		
+		<input type="button" onclick="searchInfo()" value="搜索" class="btn btn-success" style="background: url(../img/secai.png);"/>
+		<br>
    <button type="button" class="btn btn-success" onclick="cxzt()" style="background: url(../img/secai.png);">查询状态</button>
  
  &nbsp;&nbsp;&nbsp;
@@ -346,7 +539,6 @@ function SFs() {
 		<thead >
 	<tr height="35px" style="background: url(../img/secai.png);" >
 			<th></th>         
-		<!-- 	<th>序号</th> -->
 			<th>用户编号</th>
 			<th>用户姓名</th>
 			<th>小区名称</th>
@@ -356,7 +548,6 @@ function SFs() {
 			<th>户号</th>
 			<th>已用当量</th>
 			<th>风盘编号</th>
-		<!--  ----------------10 -->		
 			<th>模式</th>
             <th>档位</th>
             <th>制冷高档t</th>
@@ -369,7 +560,6 @@ function SFs() {
             
             <th>计费状态</th>
             <th>设定温度</th>
-     <!-- --------------------20 -->        
             <th>室内温度</th>
             <th>远程状态</th>
             <th>报警信息</th>
@@ -396,7 +586,6 @@ function SFs() {
 		<td>${yh.yhMessage.hh}</td>	
 		<td>${yh.js}</td>
 		<td>${yh.fpbh}</td>
-	<!-- -----------------------------10----->
 		<c:if test="${yh.ms =='00'}">
    		<td>制冷</td>
 		</c:if>
@@ -449,7 +638,6 @@ function SFs() {
 		<c:if test="${yh.bj =='03'}">
    		<td>盗热嫌疑</td>
 		</c:if>
-		<!-- ---------------------------20 -->
 		<c:if test="${yh.jj =='00'}">
    		<td>夏季</td>
 		</c:if>
@@ -461,8 +649,6 @@ function SFs() {
 		<td>${yh.yhMessage.lxdh}</td>
 		<td>${yh.yhMessage.fpdz}</td>
 		<td>${yh.yhMessage.bz}</td>
-		 
-		
 	 </tr>
 	</c:forEach>
   </tbody>

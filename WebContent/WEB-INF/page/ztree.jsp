@@ -50,18 +50,18 @@
                         	  var node = sNodes[0].getParentNode();
                         	  if(node==null){
 
-                        		 window.open("/Data/zz/findz.action?xqname="+sNodes[0].name,"Conframe");
+                        		 window.open("/Data/zz/findz.action?xqm="+sNodes[0].name,"Conframe");
                         		
                         	  }else{
                         		  //判断是否有子类 
                         		  var childNodes = treeObj.transformToArray(sNodes);
                         		  if(childNodes.length!=1){
-                        			  window.open("/Data/zz/findz.action?xqname="+node.name+"&build="+sNodes[0].name,"Conframe");
+                        			  window.open("/Data/zz/findz.action?xqm="+node.name+"&ldh="+sNodes[0].name,"Conframe");
                         		  }
                         		  else{
                         			 var parentNode = sNodes[0].getParentNode(); 
                         			 var parentno=parentNode.getParentNode();
-                        			 window.open("/Data/zz/findz.action?xqname="+parentno.name+"&build="+node.name+"&cell="+sNodes[0].name,"Conframe");
+                        			 window.open("/Data/zz/findz.action?xqm="+parentno.name+"&ldh="+node.name+"&dyh="+sNodes[0].name,"Conframe");
                         		  }
                         	  }
                           }

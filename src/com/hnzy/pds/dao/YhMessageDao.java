@@ -8,6 +8,7 @@ import javax.servlet.ServletOutputStream;
 import org.apache.ibatis.annotations.Param;
 
 import com.hnzy.hot.base.BaseDao;
+import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.YhMessage;
  
 
@@ -75,19 +76,14 @@ public interface YhMessageDao  extends BaseDao<YhMessage>{
 	//获取户号
 	public List<YhMessage> findYhHouseNOByBuildrepair(String hh,String LH,String xqm);
 	//导出------
-	public void exportExcel(List<YhMessage>yhInfosList,ServletOutputStream outputStream) throws IOException;
+	public void exportExcel(List<Data>yhInfosList,ServletOutputStream outputStream) throws IOException;
 	
 	//搜索------
-	public List<YhMessage> searchInfo(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
-			@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
+//	public List<YhMessage> searchInfo(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
+//			@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
 	
 	//历史数据
-	public List<YhMessage> searchHistory(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
-			@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
-	
-	
-	
-	
-	
+//	public List<YhMessage> searchHistory(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
+//			@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
 	
 }

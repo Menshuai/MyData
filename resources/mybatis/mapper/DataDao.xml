@@ -80,7 +80,93 @@
 		<!--  where 
 		 	da.fpbh=fp.fpbh   fp.yhbh=yhMessage.yhbh    -->
 	</select>
-		
+			<!-- 搜索实时数据-->
+	<select id="searchInfo" resultMap="data"   parameterType="Data">
+      select 
+		 	yh.id,
+		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
+		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
+		 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
+		 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
+		 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
+		 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
+			
+		 	yh.mj
+		from 
+		 	k_data10  da, 
+		 	k_yhb1  yh, 
+		 	k_fpb2 fp,  
+		 	k_glb6  gl 
+	   <!--  where 
+		 	  fp.yhbh=yh.yhbh  and   da.fpbh=fp.fpbh  -->  
+	   where 
+		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
+		 and  da.fpbh=fp.fpbh 
+			and fp.xh=gl.xh   
+		<if test="xqm!='--选择小区名称--'">
+			and yh.xqm=#{xqm}
+		</if>
+		<if test="ldh!=0">
+			and yh.ldh=#{ldh}
+		</if>
+		<if test="dyh!=0">
+			and yh.dyh=#{dyh}
+		</if>
+		<if test="hh!=0">
+			and yh.hh=#{hh}
+		</if>
+		<if test="time1!=null and time1!=''">
+			and da.time &gt;= #{time1}
+		</if>
+		<if test="time2!=null and time2!=''">
+			and da.time &lt;= #{time2}
+		</if>   
+		order by da.time desc  
+	</select>
+	
+	<!-- 搜索 历史数据-->
+	<select id="searchHistory" resultMap="data"   parameterType="Data">
+     select 
+		 	yh.id,
+		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
+		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
+		 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
+		 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
+		 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
+		 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
+			
+		 	yh.mj
+		from 
+		 	k_data10  da, 
+		 	k_yhb1  yh, 
+		 	k_fpb2 fp,  
+		 	k_glb6  gl 
+	   <!--  where 
+		 	  fp.yhbh=yh.yhbh  and   da.fpbh=fp.fpbh  -->  
+	   where 
+		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
+		    and  da.fpbh=fp.fpbh 
+			and fp.xh=gl.xh 
+	 	<if test="xqm!='--选择小区名称--'">
+			and yh.xqm=#{xqm}
+		</if>
+		<if test="ldh!=null and ldh!=''">
+			and yh.ldh=#{ldh}
+		</if>
+		<if test="dyh!=null and dyh!=''">
+			and yh.dyh=#{dyh}
+		</if>
+		<if test="hh!=null and hh!=0">
+			and yh.hh=#{hh}
+		</if>
+		<if test="time1!=null and time1!=''">
+			and da.time &gt;= #{time1}
+		</if>
+		<if test="time2!=null and time2!=''">
+			and da.time &lt;= #{time2}
+		</if> 
+		order by da.time desc  
+	</select>
 	<!-- public Data  findf(String address); -->
 	<select  id="findf"  resultMap="data"   parameterType="Data">
 	select  

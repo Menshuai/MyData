@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
  
 import com.hnzy.pds.dao.YhMessageDao;
+import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.YhMessageService;
+import com.hnzy.pds.util.ExcelUtilZykt;
 
 @Service("yhMessageService")
 public class YhMessageServiceImpl implements YhMessageService{
@@ -108,8 +110,9 @@ public class YhMessageServiceImpl implements YhMessageService{
 	}
 
 	@Override
-	public void exportExcel(List<YhMessage> yhInfosList, ServletOutputStream outputStream) throws IOException {
-		yhMessageDao.exportExcel(yhInfosList, outputStream);		
+	public void exportExcel(List<Data> yhInfosList, ServletOutputStream outputStream) throws IOException {
+//		yhMessageDao.exportExcel(yhInfosList, outputStream);
+		ExcelUtilZykt.exportExcel(yhInfosList, outputStream);
 	}
 
 	 
@@ -119,20 +122,14 @@ public class YhMessageServiceImpl implements YhMessageService{
 		return yhMessageDao.findXqName();
 	}
 
-	@Override
-	public List<YhMessage> searchInfo(String xqm, int ldh, int dyh, int hh, String time1, String time2) {
-		return yhMessageDao.searchInfo(xqm, ldh, dyh, hh, time1, time2);
-	}
-
-	@Override
-	public List<YhMessage> searchHistory(String xqm, int ldh, int dyh, int hh, String time1, String time2) {
-		return yhMessageDao.searchHistory(xqm, ldh, dyh, hh, time1, time2);
-	}
- 
-
-	 
-
-	
-	
-	
+//	@Override
+//	public List<YhMessage> searchInfo(String xqm, int ldh, int dyh, int hh, String time1, String time2) {
+//		return yhMessageDao.searchInfo(xqm, ldh, dyh, hh, time1, time2);
+//	}
+//
+//	@Override
+//	public List<YhMessage> searchHistory(String xqm, int ldh, int dyh, int hh, String time1, String time2) {
+//		return yhMessageDao.searchHistory(xqm, ldh, dyh, hh, time1, time2);
+//	}
+// 	
 }

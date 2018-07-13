@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hnzy.pds.pojo.YhMessage;
+import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.VillageTreeNodes;
+import com.hnzy.pds.service.DataService;
 import com.hnzy.pds.service.YhMessageService;
  
 import com.hnzy.pds.util.StringUtil;
@@ -26,8 +28,9 @@ public class ZtreeController {
 	@Autowired
 	private YhMessageService yhMessageService;
 	private List<YhMessage> list;
- 
-	
+	@Autowired
+	private DataService dataService;
+	public List<Data> YhList;
 	@RequestMapping("ztree")
 	public String getVillageTreeMenu(HttpServletRequest request) {
 		List<VillageTreeNodes> nodes = new ArrayList<VillageTreeNodes>();
@@ -66,7 +69,7 @@ public class ZtreeController {
 				nodes.add(nodesLC);
 				YhMessage villageLC = new YhMessage();
 				villageLC.setXqm(xqm);
-				villageLC.setId(ldhNo);
+				villageLC.setLdh(ldhNo);
 				List<YhMessage> dyhNoList = this.yhMessageService.findCOByXQAndBO(villageLC);
 				//单元
 				for (int k = 0; k < dyhNoList.size(); k++) {
@@ -127,13 +130,14 @@ public class ZtreeController {
 	public ModelAndView findz(HttpServletRequest request, @Param("xqm") String xqm, @Param("ldh") String ldh,
 			@Param("dyh") String dyh) throws UnsupportedEncodingException  {
 		ModelAndView mav = new ModelAndView();
-		/*if(xqm!=null){
+		if(xqm!=null){
 			xqm= new String(xqm.getBytes("ISO-8859-1"), "utf-8") + "";
-		}*/
-		 
+		}
+		 Integer ldhS =0;
+		 Integer dyhS =0;
 		 if(ldh!=null){
 			 ldh = new String(ldh.getBytes("ISO-8859-1"), "utf-8") + "";
-			 ldh=ldh.substring(0, ldh.length()-2);
+			 ldhS=Integer.valueOf(ldh.substring(0, ldh.length()-2));
 		 }
 
 		 if(dyh!=null){
@@ -144,15 +148,15 @@ public class ZtreeController {
 					 String[] a = dyh.split("\\ ");
 					 for (int i = 0; i<a.length; i++){
 						 //将第一个空格前的字符串取出
-						 dyh=a[0];
+						 dyhS=Integer.valueOf(a[0]);
 					 }
 				 }
 			 }
 		 }
-		 
-		 list = yhMessageService.findZ(xqm, ldh, dyh);
+		 YhList= dataService.searchInfo(xqm, ldhS, dyhS, 0, "", "");
+//		 list = yhMessageService.findZ(xqm, ldh, dyh);
 		 mav.setViewName("data");
-		 mav.addObject("list", list);
+		 mav.addObject("YhList", YhList);
 		 return mav;
 	}
 	
@@ -168,27 +172,4 @@ public class ZtreeController {
 		mav.addObject("list", list);
 		return mav;
 	}
-	
-	 
-
-	
-	/*public List<YhMessage> getVillages() {
-		return villages;
-	}
-
-	public void setVillages(List<YhMessage> villages) {
-		this.villages = villages;
-	}
-
-
-	public List<YhMessage> getList() {
-		return list;
-	}
-
-
-	public void setList(List<YhMessage> list) {
-		this.list = list;
-	}*/
-
-	
 }

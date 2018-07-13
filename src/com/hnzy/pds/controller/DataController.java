@@ -1,15 +1,19 @@
 package com.hnzy.pds.controller;
 
  
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
- 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,9 +24,11 @@ import com.hnzy.hot.socket.util.MapUtilsDf;
 import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.Fp;
 import com.hnzy.pds.pojo.Jzq;
+import com.hnzy.pds.pojo.Rz;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.DataService;
 import com.hnzy.pds.service.FpService;
+import com.hnzy.pds.service.RzService;
 import com.hnzy.pds.service.YhMessageService;
  
 @Controller
@@ -31,17 +37,19 @@ public class DataController {
 	 
 	@Autowired
 	private DataService dataService;
-	
+	@Autowired
+	private RzService rzService;
 	@Autowired
 	private YhMessageService yhMessageService;
-	
+	private List<YhMessage> yhInfoList;
 	@Autowired
 	private FpService fpService;
 	private static Log log = LogFactory.getLog(DataController.class);
-	
+	public List<Data> YhList;
 	//首页
 	@RequestMapping("/data")
 	public String sjbb(HttpServletRequest request)  {
+	
 		List<Data> YhList=dataService.find();
 		request.setAttribute("YhList", YhList);
 		return "/data";  //数据表data.jsp
@@ -50,11 +58,60 @@ public class DataController {
 	//设备管理
 	@RequestMapping("/dataSbgl")
 	public String Sbgl(HttpServletRequest request)  {
+		yhInfoList=yhMessageService.findXqName();
+		request.setAttribute("XqNameList", yhInfoList);
 		List<Data> YhList=dataService.find();
 		request.setAttribute("YhList", YhList);
 		return "/sbgl";//设备管理sbgljsp
 	}
-	
+	//根据小区获取  楼栋号
+			@RequestMapping("findYhldhbyxqm")
+			@ResponseBody
+			public JSONObject findYhldhbyxqm(String xqm) throws UnsupportedEncodingException{
+				 xqm=new String(xqm.getBytes("ISO-8859-1"),"utf-8")+"";
+				yhInfoList=yhMessageService.findYhBuildNObyXqm(xqm);
+				JSONObject jsonObject=new JSONObject() ;
+				if(yhInfoList!=null){
+					jsonObject.put("xqlist", yhInfoList);
+				}else{
+					jsonObject.put("fail", null);
+				}
+				return jsonObject;
+			}
+			
+			//根据楼栋号获取  单元号
+			@RequestMapping("findYhdyhByBuild")
+			@ResponseBody
+			public JSONObject findYhdyhByBuild(@Param("ldh")int ldh,@Param("xqm")String xqm) throws UnsupportedEncodingException{
+				xqm=new String(xqm.getBytes("ISO-8859-1"),"utf-8")+"";
+				yhInfoList=yhMessageService.findYhCellNOByBuild(ldh, xqm);
+				JSONObject jsonObject=new JSONObject();
+				if(yhInfoList!=null){
+					jsonObject.put("dyhList",yhInfoList);
+				}else{
+					jsonObject.put("fail",null);
+				}
+				return jsonObject;
+			}
+			
+			//搜索并显示
+			@RequestMapping("searchInfo")
+			@ResponseBody
+			public JSONObject searchInfo(HttpServletRequest request,ModelMap map,@Param("xqm")String xqm,@Param("ldh")int ldh,
+							@Param("dyh")int dyh,@Param("hh")Integer hh) throws UnsupportedEncodingException{
+				JSONObject jsonObject=new JSONObject();
+				//hh为null查询实时表，否则查询历史表
+				if(hh==null){
+					hh=0;
+//					List<Data> YhList=dataService.find();
+					YhList= dataService.searchInfo(xqm, ldh, dyh, hh, "", "");
+					jsonObject.put("findXqInfoHistory",YhList);
+				}else{
+					YhList= dataService.searchHistory(xqm, ldh, dyh, hh,"","");
+					jsonObject.put("findXqInfoHistory",YhList );
+				}
+					return jsonObject;		
+				}
 	@RequestMapping("/DataMe")
 	public String SkqMe(){
 		return "/DataMen";
@@ -68,7 +125,7 @@ public class DataController {
 	//查询状态------对某一户--------------查询状态-----------------
 	@ResponseBody
 	@RequestMapping("CxState")
-	public JSONObject CxState(HttpServletRequest request, String ids,Data zykt,YhMessage yhMessage){
+	public JSONObject CxState(HttpSession session,HttpServletRequest request, String ids,Data zykt,YhMessage yhMessage){
 		MapUtilsDf.getMapUtils().add("kt", null);
 		//用户编号
 		String idString=ids.substring(0, ids.length()-1);
@@ -99,7 +156,7 @@ public class DataController {
 		 
 //		String ja =ld+dy+"F010B5"+cg+""+idsS+fpdz+"FFFFFFFFFFFF";//起始到结束  01终端
 		String ja =ld+dy+"F010B5"+cg+""+idsS+fpdz+ld+dy+"FFFFFFFF";//起始到结束  01终端
-		log.info("对一户 单个风盘查询操作 ："+ja);
+		log.info("对某户 单个风盘查询操作发送指令 ："+ja);
 		YhMessage yhmess=yhMessageService.findJzq(idString);
 		String ip =yhmess.getCg().getJzq().getJzqip();
 		String port=yhmess.getCg().getJzq().getJzqport();
@@ -107,7 +164,12 @@ public class DataController {
 		String pt = "/" + ip + ":" + port; 
 		System.out.println("pt-------------"+pt);
 		boolean sessionmap = cz(ja, pt);
-		
+		//日志
+		Rz rz=new Rz();
+		rz.setCz("发送对某一户单个风盘查询指令");
+		rz.setCzr((String)session.getAttribute("userName"));
+		rz.setCzsj(new Date());;
+		rzService.insert(rz);
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
@@ -128,11 +190,13 @@ public class DataController {
 			return jsonObject;
 		}
 	} 
-	
+	 String kgString="";
+	 String jfString="";
+	 String jjString="";
 	// ---------------------单个风盘操作---------
   	@RequestMapping("DCxZx")
 	@ResponseBody
-	public JSONObject DCxZx(HttpServletRequest request, String ids,String fpdz,Data zykt,String kg,String jf,String jj){
+	public JSONObject DCxZx(HttpSession session,HttpServletRequest request, String ids,String fpdz,Data zykt,String kg,String jf,String jj){
   		MapUtilsDf.getMapUtils().add("kt", null);
   		//用户编号
   		String idString=ids.substring(0, ids.length()-1);
@@ -181,7 +245,31 @@ public class DataController {
 		 // IP地址和端口号
 		 String pt = "/" + ip + ":" + port;
 		 boolean sessionmap = cz(ja, pt);
-		 log.info("对一户 单个风盘开关计费季节操作 ："+ja);
+		 log.info("对某户单个 风盘开关计费季节操作发送指令 ："+ja);
+			//日志
+	
+		 if(kg.equals("00")){
+			 kgString="强关";
+		 }else if(kg.equals("01")){
+			 kgString="自动"; 
+		 }else{
+			 kgString="";  
+		 }
+		 if(jf.equals("00")){
+			 jfString="禁止计费";
+		 }else if(jf.equals("01")){
+			 jfString="允许计费";
+		 }
+		 if(jj.equals("00")){
+			 jjString="夏季";
+		 }else if(jj.equals("01")){
+			 jjString="冬季";
+		 }
+			Rz rz=new Rz();
+			rz.setCz("对某户单个 风盘开关计费季节操作，风盘地址："+fpdz+"--"+kgString+","+jfString+","+jjString);
+			rz.setCzr((String)session.getAttribute("userName"));
+			rz.setCzsj(new Date());;
+			rzService.insert(rz);
 		 try {
 		 	Thread.sleep(3000);
 		 } catch (InterruptedException e) {
@@ -207,7 +295,7 @@ public class DataController {
  // 所有风盘发送操作-------------------------对一户 所有风盘发送操作 ----------
    	@RequestMapping("SCxZx")
  	@ResponseBody
- 	public JSONObject SCxZx(HttpServletRequest request, String ids,String fpdz,Data zykt,String kg,String jf,String jj){
+ 	public JSONObject SCxZx(HttpSession session,HttpServletRequest request, String ids,String fpdz,Data zykt,String kg,String jf,String jj){
    		MapUtilsDf.getMapUtils().add("dg", null);
    		//用户编号
   	   String idString=ids.substring(0, ids.length()-1);
@@ -259,7 +347,29 @@ public class DataController {
  		 // IP地址和端口号
  		 String pt = "/" + ip + ":" + port;
  		 boolean sessionmap = cz(ja, pt);
- 		 log.info("对一户 所有风盘开关计费季节操作 ："+ja);
+ 		 log.info("对某户 所有风盘开关计费季节操作发送指令 ："+ja);
+ 		 if(kg.equals("00")){
+			 kgString="强关";
+		 }else if(kg.equals("01")){
+			 kgString="自动"; 
+		 }else{
+			 kgString="";  
+		 }
+		 if(jf.equals("00")){
+			 jfString="禁止计费";
+		 }else if(jf.equals("01")){
+			 jfString="允许计费";
+		 }
+		 if(jj.equals("00")){
+			 jjString="夏季";
+		 }else if(jj.equals("01")){
+			 jjString="冬季";
+		 }
+			Rz rz=new Rz();
+			rz.setCz("发送对某一户 所有风盘开关计费季节操作,风盘地址："+fpdz+"--"+kgString+","+jfString+","+jjString);
+			rz.setCzr((String)session.getAttribute("userName"));
+			rz.setCzsj(new Date());;
+			rzService.insert(rz);
  		 try {
  		 	Thread.sleep(3000);
  		 } catch (InterruptedException e) {

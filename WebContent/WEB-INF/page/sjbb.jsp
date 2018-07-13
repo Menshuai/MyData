@@ -55,7 +55,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						function() {
 							$.get("findYhldhbyxqm.action?xqm="
 									+ $("#xqmId").val(), function(data) {
-								debugger;
 								var dd = data;
 								var d = dd.xqlist;
 							 	$("#ldhId option:gt(0)").remove();
@@ -89,7 +88,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 <script type="text/javascript">
 	function searchInfo() {
-		debugger;
 		var xqm = $('#xqmId').val();
 		var ldh = $('#ldhId').val();
 		var dyh = $('#dyhId').val();
@@ -113,10 +111,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			success : function(data) {
 				$("#yhInfo").empty();
 				var d = data.findXqInfoHistory;
-				alert(d.length);
 				for (var i = 0; i < d.length; i++) {
 					var yhbh = d[i].yhMessage.yhbh;
-					alert(d[i].yhMessage.yhbh);
 					var yhxm = d[i].yhMessage.yhxm;
 					var xqm = d[i].yhMessage.xqm;
 					var ldh = d[i].yhMessage.ldh;
@@ -153,21 +149,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					html += "<td class='text-center'>" + hh + "</td>";
 					html += "<td class='text-center'>" + js + "</td>";
 					html += "<td class='text-center'>" + fpbh + "</td>";
-					html += "<td class='text-center'>" + ms + "</td>";
-					html += "<td class='text-center'>" + dw + "</td>";
-					
+					if(ms=="00"){
+						html += "<td class='text-center'>制冷</td>";
+					}
+					if(ms=="01"){
+						html += "<td class='text-center'>制热</td>";
+					}
+					if(ms=="02"){
+						html += "<td class='text-center'>通风</td>";	
+					}
+					if(dw=="01"){
+						html += "<td class='text-center'>低档</td>";	
+					}
+					if(dw=="02"){
+						html += "<td class='text-center'>中档</td>";
+					}
+					if(dw=="03"){
+						html += "<td class='text-center'>高档</td>";
+					}
 					html += "<td class='text-center'>" + gdtime + "</td>";
 					html += "<td class='text-center'>" + zdtime + "</td>";
 					html += "<td class='text-center'>" + ddtime + "</td>";
 					html += "<td class='text-center'>" + dgdtime + "</td>";
-					html += "<td class='text-center'>" + dztime + "</td>";
+					html += "<td class='text-center'>" + dzdtime + "</td>";
 					
 					html += "<td class='text-center'>" + dddtime + "</td>";
-					html += "<td class='text-center'>" + jf + "</td>";
+		
+					if(jf=="00"){
+						html += "<td class='text-center'>禁止计费</td>";
+					}
+					if(jf=="01"){
+						html += "<td class='text-center'>允许计费</td>";
+					}
 					html += "<td class='text-center'>" + sdwd + "</td>";
 					html += "<td class='text-center'>" + snwd+ "</td>";
-					html += "<td class='text-center'>" + kg+ "</td>";
-					html += "<td class='text-center'>" + bj+ "</td>";
+					if(kg=="00"){
+						html += "<td class='text-center'>强制关</td>";
+					}
+					if(kg=="01"){
+						html += "<td class='text-center'>自动运行</td>";
+					}
+					if(bj=="00"){
+						html += "<td class='text-center'>正常</td>";
+					}
+					if(bj=="01"){
+						html += "<td class='text-center'>开盖</td>";
+					}
+					if(bj=="03"){
+						html += "<td class='text-center'>盗热嫌疑</td>";
+					}
 					html += "<td class='text-center'>" + jj+ "</td>";
 					html += "<td class='text-center' title='"+time+"'>" + time+ "</td>";
 					html += "<td class='text-center'>" + mj+ "</td>";
@@ -176,6 +206,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					html += "<td class='text-center'>" + bz+ "</td>";
 					html += "</tr>";
 				}
+				      html+="</tbody>"
+					  html+="</table>";
+					  html+="</div>";
 				$("#yhInfo").append(html);
 			}
 
@@ -212,10 +245,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			width : "100%",
 			height :640,
 			colModal : [ 
-			    {
+				/* {
 				width : 40,
 				align : 'center'
-			}, /* {
+			},  {
 				width : 50,
 				align : 'center'
 			}, */ {
@@ -358,44 +391,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<input type="button" value="导出" class="btn btn-success" onclick="doExportExcel()" style="background: url(../img/secai.png);"/>
  &nbsp;&nbsp;&nbsp;
  
- <div id="tablediv">
-		<form id="myForm">
-			<div class="dwrapper">
+	<div class="dwrapper">
 	<table id="fixed_hdr2"  >
-		<thead >
+	<thead>
 	<tr height="35px" style="background: url(../img/secai.png);" >
-			<th></th>         
-		<!-- 	<th>序号</th> -->
 			<th>用户编号</th>
 			<th>用户姓名</th>
 			<th>小区名称</th>
-			
 			<th>楼栋</th>
 			<th>单元</th>
 			<th>户号</th>
 			<th>已用当量</th>
 			<th>风盘编号</th>
-		<!--  ----------------10 -->		
 			<th>模式</th>
             <th>档位</th>
             <th>制冷高档t</th>
             <th>制冷中档t</th>
             <th>制冷低档t</th>
-            
             <th>制热高档t</th>
             <th>制热中档t</th>
             <th>制热低档t</th>
-            
             <th>计费状态</th>
             <th>设定温度</th>
-     <!-- --------------------20 -->        
             <th>室内温度</th>
             <th>远程状态</th>
             <th>报警信息</th>
             <th>季节</th>
             <th>采集时间</th>
             <th>用户面积</th>
-            
             <th>用户电话</th>
             <th>风盘地址</th>
             <th>备注</th>
@@ -404,9 +427,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
 <tbody id="yhInfo">
 	<c:forEach  var="yh" items="${YhList}" varStatus="status">
-	   <tr <c:if test="${status.index%2==1 }">style="background-color:#eef3fa"</c:if>>	  
-		<td><input type="checkbox" value="${yh.id}" /></td>  
-		<%-- <td>${yh.id}</td>	 --%>
+	   <tr>	  
 		<td>${yh.yhMessage.yhbh}</td>	
 		<td>${yh.yhMessage.yhxm}</td>	
 		<td>${yh.yhMessage.xqm}</td>	
@@ -415,7 +436,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td>${yh.yhMessage.hh}</td>	
 		<td>${yh.js}</td>
 		<td>${yh.fpbh}</td>
-	<!-- -----------------------------10----->
 		<c:if test="${yh.ms =='00'}">
    		<td>制冷</td>
 		</c:if>
@@ -468,31 +488,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<c:if test="${yh.bj =='03'}">
    		<td>盗热嫌疑</td>
 		</c:if>
-		<!-- ---------------------------20 -->
 		<c:if test="${yh.jj =='00'}">
    		<td>夏季</td>
 		</c:if>
 		<c:if test="${yh.jj=='01'}">
    		<td>冬季</td>
 		</c:if>
-		
 		<td>${yh.time}</td>
-		 
 		<td>${yh.yhMessage.mj}</td>
 		<td>${yh.yhMessage.lxdh}</td>
 		<td>${yh.yhMessage.fpdz}</td>
 		<td>${yh.yhMessage.bz}</td>
-		<%-- <c:if test="${yh.yhMessage.bz=='1'}">
-		<td>无</td>
-		</c:if> --%>
-		
 	 </tr>
 	</c:forEach>
   </tbody>
   		 
 </table>
 </div>
-</form>
 </div>
 </div>
 </div>
