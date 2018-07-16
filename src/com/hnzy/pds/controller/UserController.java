@@ -11,16 +11,17 @@ import org.apache.catalina.ant.FindLeaksTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hnzy.pds.pojo.Rz;
 import com.hnzy.pds.pojo.User;
+import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.RzService;
 import com.hnzy.pds.service.UserService;
 import com.hnzy.pds.util.MD5Util;
 import com.hnzy.pds.util.PropertyUtil;
 import com.hnzy.pds.util.StringUtil;
-
-
 
 @Controller
 @RequestMapping("user")
@@ -60,6 +61,14 @@ public class UserController {
 			return "user";
 		}
 		
+		//删除一个用户名 密码
+		@RequestMapping("/deleteUser")
+		@ResponseBody
+		public void delete(@RequestParam("id")String id){
+			userService.deleteUser(id);
+			
+		}
+		
 		@RequestMapping("/login")//�ж� �����Ƿ�Ϊ��
 		public String login(HttpSession session,String username,String password,HttpServletRequest request){
 			if (StringUtil.isNoEmpty(username) && StringUtil.isNoEmpty(password)) {
@@ -70,10 +79,10 @@ public class UserController {
 					request.getSession().setAttribute("UserName", info.getUserName());
 					request.getSession().setAttribute("PassWord", info.getPassWord());
 					request.getSession().setAttribute("ID", info.getID());
-					Rz rz=new Rz();//��־
+					Rz rz=new Rz();
 					rz.setCzr((String)session.getAttribute("UserName"));//��ȡ������
-					rz.setCz("登录成功");            //��ȡ��������
-					rz.setCzsj(new Date());       //��ȡ����ʱ��
+					rz.setCz("登录成功");            
+					rz.setCzsj(new Date());        
 					rzService.insert(rz);
 					
 					return "index";
@@ -89,17 +98,16 @@ public class UserController {
 						
 					 return "login";
 				}
-		
 
 		}
 			
 		
 		@RequestMapping("yhzc")
 		public String yhzc(){
-			return "yhzc";//
+			return "yhzc";
 		} 
 		
-		    //
+		    //注册
 		        @RequestMapping("regist")  
 		        public String regist(User user,String username,String password){  
 		        	userl= userService.findUserByName(username);
@@ -122,7 +130,7 @@ public class UserController {
 		    		return "xgmm";
 		    	}
 		    	
-		    	//��������
+		    	//更新
 		    	@RequestMapping("updapwd")
 		    	public String updapwd(User u,int id,String password1 ,String password2,String username) {
 		    				userl = this.userService.findUserById(id);

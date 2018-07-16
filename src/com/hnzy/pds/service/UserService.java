@@ -1,8 +1,7 @@
 package com.hnzy.pds.service;
 
-import java.io.Serializable;
-import java.util.List;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.hnzy.pds.pojo.User;

@@ -19,7 +19,7 @@ public class Server {
 
         try {
             // 1.创建一个服务器端的 Socket，即 ServerSocket，指定绑定的端，并监听
-            ServerSocket server = new ServerSocket(6000);
+            ServerSocket server = new ServerSocket(6001);
             // 2.调用 accept 方法开始监听，等待客户端连接
             System.out.println("****服务器开始启动，等待客户端上线****");
             Socket socket = server.accept();

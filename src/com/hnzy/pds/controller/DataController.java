@@ -269,7 +269,7 @@ public class DataController {
 			Rz rz=new Rz();
 			rz.setCz("对某户单个 风盘开关计费季节操作，风盘地址："+fpdz+"--"+kgString+","+jfString+","+jjString);
 			rz.setCzr((String)session.getAttribute("UserName"));
-			rz.setCzsj(new Date());;
+			rz.setCzsj(new Date());
 			rzService.insert(rz);
 		 try {
 		 	Thread.sleep(3000);
