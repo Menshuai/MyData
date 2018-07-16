@@ -27,10 +27,12 @@ import com.hnzy.hot.socket.util.MapUtils;
 import com.hnzy.hot.socket.util.MapUtilsDf;
 import com.hnzy.hot.socket.util.Utils;
 import com.hnzy.pds.pojo.Data;
+import com.hnzy.pds.pojo.Fp;
 import com.hnzy.pds.pojo.Jzq;
 import com.hnzy.pds.pojo.SbSuc;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.DataService;
+import com.hnzy.pds.service.FpService;
 import com.hnzy.pds.service.JzqService;
 import com.hnzy.pds.service.SbSucService;
 import com.hnzy.pds.service.YhMessageService;
@@ -52,10 +54,11 @@ public class ServerHandler2  extends IoHandlerAdapter{
 	private SbSucService sbSucService;
 	boolean sessionmap;
 	String param;
-	
+	@Autowired
+	private FpService fpService;
 //	private final static Logger logs = LoggerFactory.getLogger(ServerHandler2.class);
 	// 日志文件
-		private static Log logs = LogFactory.getLog(ServerHandler2.class);
+	private static Log logs = LogFactory.getLog(ServerHandler2.class);
 	ServerSessionMap sessionMap=ServerSessionMap.getInstance();
 	private Integer jzqport;
 	
@@ -339,7 +342,7 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setDdtime(gddString);
 			data.setDgdtime(dgdgString);
 			data.setDzdtime(dgzgString);
-			data.setDgdtime(dgddString);
+			data.setDddtime(dgddString);
 			data.setJf(Jf);
 			data.setMs(ms);
 			data.setSdwd(sdwString);
@@ -351,26 +354,12 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setJj(jj);
 			data.setYhbh(yhbh);
 			data.setFpdz(fpid);
-			dataService.updateYhbhF(data);
- 
-			dataService.InsertYh(data);
+			dataService.updateYhbhF(data);//更新实时表
+			//根据用户编码查找风盘编号
 			
-			
-//		    System.out.println("yhbh+fpid----------"+yhbh+fpid);
-			 // 更新
-//			String Upsql = "update k_data10 set gdtime='" +gdg + "',zdtime='" +zdS + "',ddtime='" +gdd + "',dgdtime='" +dgdg + "',dzdtime='" +dzdS + "',dddtime='" +dgdd + "', "
-//					+ "jf='" +Jf + "',"+"sdwd='" +sdw + "',"+"ms='" + ms+ "',"+"dw='" + dw+ "',"
-//					+ "snwd='" +sw + "',"+"bj='" +bjs + "',"+"time='" + time+ "',"+"kg='" + kg + "',"+"jj='"+jj 
-//							+ "'where yhbh='" + yhbhS + "' and fpdz='"+fpid+"'";
-//			System.out.println(Upsql);
-//		 	try
-//			{
-//				ps = connc.prepareStatement(Upsql);
-//				rs = ps.executeUpdate();
-//			} catch (SQLException e)
-//			{
-//				e.printStackTrace();
-//			} 
+		    Fp fp=fpService.findfpbh(yhbh);
+		    data.setFpbh(fp.getFpbh());
+			dataService.InsertYh(data);//插入历史表
 		}
 	}
 
@@ -505,13 +494,11 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			//用户编码
 			String  yhbh=stringHandler.substring(8, 14);
 			System.out.println("yhbh---------"+yhbh);
-			int yhbhS = Integer.parseInt("" + yhbh + "", 16);
+			String yhbhS = String.valueOf(Integer.parseInt("" + yhbh + "", 16));
 			System.out.println("yhbhS---------"+yhbhS);
 			
 			//风盘地址
 			String  fpid=stringHandler.substring(14, 16);
-//			int Fpid = Integer.parseInt("" + fpid + "", 16);
-//			System.out.println("fpid---------"+Fpid);
 			
 			//风盘模式，00制冷01制热
 			String ms=stringHandler.substring(16,18);
@@ -582,7 +569,8 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		
 			//转换为时间格式   方便地修改日期格式
 			Date now = new Date(); 
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			String time = dateFormat.format( now ); 
 			Data data=new Data();
 			String gdString =String.valueOf(gdg);
@@ -598,7 +586,7 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setDdtime(gddString);
 			data.setDgdtime(dgdgString);
 			data.setDzdtime(dgzgString);
-			data.setDgdtime(dgddString);
+			data.setDddtime(dgddString);
 			data.setJf(Jf);
 			data.setMs(ms);
 			data.setSdwd(sdwString);
@@ -608,14 +596,18 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setTime(time);
 			data.setKg(kg);
 			data.setJj(jj);
-			data.setYhbh(yhbh);
+			data.setYhbh(yhbhS);
 			data.setFpdz(fpid);
- 
+			System.out.println("time----------"+time);
 //			dataService.updateYhbhF(data);
 			dataService.updateYhbhF(data);//更新实时表
+			 Fp fp=fpService.findfpbh(yhbhS);
+			data.setFpbh(fp.getFpbh());
 			dataService.InsertYh(data);//插入历史表
 			SbSuc sbSuc =new SbSuc();
 			sbSuc.setSbSuc(yhbh);
+			
+			
 			sbSucService.update(sbSuc);
 			//dataService.updateS(ms, dw, gdg, zdS, gdd, dgdg, dzdS, dgdd, Jf, sdw, sw, kg, bj, jj, time);
 			 // 更新
@@ -670,48 +662,6 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		}else{
 			MapUtilsDf.getMapUtils().add("dg", "fail");
 		}
-			//楼栋号
-//			String  ldh=stringHandler.substring(6, 8);
-//			int ldhS = Integer.parseInt("" + ldh + "", 16);
-//			System.out.println("ldh---------"+ldh);
-//			
-//			//单元号
-//			String  dyh=stringHandler.substring(8, 10);
-//			int dyhS = Integer.parseInt("" + dyh + "", 16);
-//			System.out.println("dyh---------"+dyh);
-//			
-//			//层号
-//			String ch=stringHandler.substring(10,12);
-//			System.out.println("ch------"+ch);
-//			
-//			//用户编码
-//			String yhbh=stringHandler.substring(12,18);
-//			int yhbhS = Integer.parseInt("" + yhbh + "", 16);
-//			System.out.println("yhbh------"+yhbh);
-//	   
-//		
-//			//转换为时间格式   方便地修改日期格式
-//			Date now = new Date(); 
-//			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//			String time = dateFormat.format( now ); 
-//			System.out.println("--------时time："+time); 
-		
-			//dataService.updateS(ms, dw, gdg, zdS, gdd, dgdg, dzdS, dgdd, Jf, sdw, sw, kg, bj, jj, time);
-			
-//			 // 更新
-//			String Upsql = "update k_data10 set ldh='" +ldh + "',dyh='" +dyh
-//							+ "'where yhbh='" + yhbh + "'";
-//			System.out.println("-------输出sql语句---"+Upsql); 
-//		 	try
-//			{
-//				ps = connc.prepareStatement(Upsql);
-//				rs = ps.executeUpdate();
-//			} catch (SQLException e)
-//			{
-//				e.printStackTrace();
-//			} 
-			
-			
 		}
 	//long value;
 	

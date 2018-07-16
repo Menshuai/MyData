@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hnzy.hot.socket.server.ServerHandler2;
 import com.hnzy.hot.socket.server.ServerSessionMap;
 import com.hnzy.hot.socket.util.CzUtil;
 import com.hnzy.hot.socket.util.MapUtilsDf;
@@ -167,7 +168,7 @@ public class DataController {
 		//日志
 		Rz rz=new Rz();
 		rz.setCz("发送对某一户单个风盘查询指令");
-		rz.setCzr((String)session.getAttribute("userName"));
+		rz.setCzr((String)session.getAttribute("UserName"));
 		rz.setCzsj(new Date());;
 		rzService.insert(rz);
 		try {
@@ -267,7 +268,7 @@ public class DataController {
 		 }
 			Rz rz=new Rz();
 			rz.setCz("对某户单个 风盘开关计费季节操作，风盘地址："+fpdz+"--"+kgString+","+jfString+","+jjString);
-			rz.setCzr((String)session.getAttribute("userName"));
+			rz.setCzr((String)session.getAttribute("UserName"));
 			rz.setCzsj(new Date());;
 			rzService.insert(rz);
 		 try {
@@ -367,7 +368,7 @@ public class DataController {
 		 }
 			Rz rz=new Rz();
 			rz.setCz("发送对某一户 所有风盘开关计费季节操作,风盘地址："+fpdz+"--"+kgString+","+jfString+","+jjString);
-			rz.setCzr((String)session.getAttribute("userName"));
+			rz.setCzr((String)session.getAttribute("UserName"));
 			rz.setCzsj(new Date());;
 			rzService.insert(rz);
  		 try {

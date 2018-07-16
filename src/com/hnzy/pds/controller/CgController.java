@@ -141,7 +141,7 @@ public class CgController {
 			 }
 				Rz rz=new Rz();
 				rz.setCz("发送对某栋楼所有风盘开关计费季节操作："+kgString+","+jfString+","+jjString);
-				rz.setCzr((String)session.getAttribute("userName"));
+				rz.setCzr((String)session.getAttribute("UserName"));
 				rz.setCzsj(new Date());;
 				rzService.insert(rz);
 	 		 // IP地址和端口号
@@ -243,8 +243,8 @@ public class CgController {
 				 jjString="冬季";
 			 }
 				Rz rz=new Rz();
-				rz.setCz("发送对某层所有风盘开关计费季节操作,层管编号："+cg +","+kgString+","+jfString+","+jjString);
-				rz.setCzr((String)session.getAttribute("userName"));
+				rz.setCz("发送对某层所有风盘开关计费季节操作,层管编号："+kgString+","+jfString+","+jjString);
+				rz.setCzr((String)session.getAttribute("UserName"));
 				rz.setCzsj(new Date());;
 				rzService.insert(rz);
 	 		 

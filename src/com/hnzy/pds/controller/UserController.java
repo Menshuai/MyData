@@ -1,18 +1,20 @@
 package com.hnzy.pds.controller;
 
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.ant.FindLeaksTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import com.hnzy.pds.pojo.Rz;
 import com.hnzy.pds.pojo.User;
-
+import com.hnzy.pds.service.RzService;
 import com.hnzy.pds.service.UserService;
 import com.hnzy.pds.util.MD5Util;
 import com.hnzy.pds.util.PropertyUtil;
@@ -25,12 +27,13 @@ import com.hnzy.pds.util.StringUtil;
 public class UserController {
 	@Autowired
 	private UserService userService;
-	
+	@Autowired
+	private RzService rzService;
 	
 	
 	private String msg;
 	private  User  userl;
-	
+	private List<User>   user;
 	//
 		@RequestMapping("/toLogin")
 		public String tologin(){
@@ -49,6 +52,13 @@ public class UserController {
 			return"index";
 		}
 		
+		//用户列表
+		@RequestMapping("findYh")
+		public String findYh(HttpServletRequest request){
+			user=userService.find();
+			request.setAttribute("user",user);
+			return "user";
+		}
 		
 		@RequestMapping("/login")//�ж� �����Ƿ�Ϊ��
 		public String login(HttpSession session,String username,String password,HttpServletRequest request){
@@ -60,11 +70,11 @@ public class UserController {
 					request.getSession().setAttribute("UserName", info.getUserName());
 					request.getSession().setAttribute("PassWord", info.getPassWord());
 					request.getSession().setAttribute("ID", info.getID());
-//					Rz rz=new Rz();//��־
-//					rz.setCzr((String)session.getAttribute("userName"));//��ȡ������
-//					rz.setCz("��¼�ɹ�");            //��ȡ��������
-//					rz.setCzsj(new Date());       //��ȡ����ʱ��
-//					rzService.insert(rz);
+					Rz rz=new Rz();//��־
+					rz.setCzr((String)session.getAttribute("UserName"));//��ȡ������
+					rz.setCz("登录成功");            //��ȡ��������
+					rz.setCzsj(new Date());       //��ȡ����ʱ��
+					rzService.insert(rz);
 					
 					return "index";
 					

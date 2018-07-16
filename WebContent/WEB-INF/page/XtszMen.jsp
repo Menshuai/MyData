@@ -15,14 +15,14 @@
 	 <script type="text/javascript">
 
 	window.onload = function() {//项目名      controler类名  方法名
-        window.open("/Data/RzController/Yccx.action","Conframe");
+        window.open("/Data/user/findYh.action","Conframe");
     }
 	</script>
 	
 	  <script type="text/javascript">
 	  
 	  function yhgl(){//用户管理
-		    window.open("/Data/RzController/Yccx.action","Conframe");
+		    window.open("/Data/user/findYh.action","Conframe");
 		} 
 	  
 	   function qxgl(){ //权限管理 

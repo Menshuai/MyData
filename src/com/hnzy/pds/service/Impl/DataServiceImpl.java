@@ -64,7 +64,7 @@ public class DataServiceImpl implements DataService{
 	public List<Data> searchHistory(String xqm, int ldh, int dyh, int hh, String time1, String time2)
 	{
 		// TODO Auto-generated method stub
-		return dataDao.searchInfo(xqm, ldh, dyh, hh, time1, time2);
+		return dataDao.searchHistory(xqm, ldh, dyh, hh, time1, time2);
 	}
 
 }
