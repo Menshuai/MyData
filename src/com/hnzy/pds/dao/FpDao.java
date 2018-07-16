@@ -5,5 +5,5 @@ import com.hnzy.pds.pojo.Fp;
 
 public interface FpDao extends BaseDao<Fp>{
 
-	public Fp findfpdz(String yhbh);
+	public Fp findfpbh(String yhbh);
 }

@@ -32,9 +32,9 @@ public interface FpService {
 	public void update(Fp fp);
 	
 	/**
-	 * 根据用户编号查询风盘地址
+	 * 根据用户编号查询风盘编号
 	 * @param yhbh
 	 * @return
 	 */
-	public Fp findfpdz(String yhbh);
+	public Fp findfpbh(String yhbh);
 }

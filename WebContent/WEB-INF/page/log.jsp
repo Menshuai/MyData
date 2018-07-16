@@ -51,12 +51,10 @@
 		$('#fixed_hdr2').fxdHdrCol({
 			fixedCols: 0,
 			width: "100%",
-			height: 600,
+			height: 800,
 			colModal: [
-			{ width: 80, align: 'center' },
-			{ width: 100, align: 'center' },
 			{ width: 130, align: 'center' },
-			{ width: 200, align: 'center' },
+			{ width: 500, align: 'center' },
 			{ width: 200, align: 'center' }
 			],
 			sort: true
@@ -79,8 +77,6 @@
 	<table id="fixed_hdr2">
 	<thead>
 	<tr style="background: url(../img/secai.png);">
-						<th></th>
-						<th>序号</th>
 						<th>操作人</th>
 						<th>操作内容</th>
 						<th>操作时间</th>
@@ -89,8 +85,6 @@
 				<tbody>
 					<c:forEach  var="log" items="${log}" varStatus="status">
 								<tr <c:if test="${status.index%2==1 }">style="background-color:#eef3fa"</c:if>>
-								<td><input type="checkbox" value="${log.id}" /></td>
-								    <td>${log.id}</td>
                                      <td>${log.czr}</td>
 									<td>${log.cz}</td>
 									<td><fmt:formatDate value="${log.czsj}"

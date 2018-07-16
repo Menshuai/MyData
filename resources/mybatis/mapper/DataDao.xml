@@ -56,8 +56,7 @@
 	
 	<!-- public List<Data> find()-->
 	<select id="find"   resultMap="data"   parameterType="Data">
-		select 
- 
+		select top 500
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
 		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
@@ -85,7 +84,7 @@
 	</select>
 			<!-- 搜索实时数据-->
 	<select id="searchInfo" resultMap="data"   parameterType="Data">
-      select 
+      select top 500
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
 		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
@@ -129,7 +128,7 @@
 	
 	<!-- 搜索 历史数据-->
 	<select id="searchHistory" resultMap="data"   parameterType="Data">
-     select 
+     select top 500
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
 		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
@@ -140,7 +139,7 @@
 			
 		 	yh.mj
 		from 
-		 	k_data10  da, 
+		 	k_lssjb11  da, 
 		 	k_yhb1  yh, 
 		 	k_fpb2 fp,  
 		 	k_glb6  gl 
@@ -153,13 +152,13 @@
 	 	<if test="xqm!='--选择小区名称--'">
 			and yh.xqm=#{xqm}
 		</if>
-		<if test="ldh!=null and ldh!=''">
+		<if test="ldh!=0">
 			and yh.ldh=#{ldh}
 		</if>
-		<if test="dyh!=null and dyh!=''">
+		<if test="dyh!=0">
 			and yh.dyh=#{dyh}
 		</if>
-		<if test="hh!=null and hh!=0">
+		<if test="hh!=0">
 			and yh.hh=#{hh}
 		</if>
 		<if test="time1!=null and time1!=''">
@@ -229,7 +228,7 @@
 	 </update>
 	 <insert id="InsertYh" parameterType="Data">
 	 <!-- socket更插入历史热表信息 -->
-     insert into k_lssjb11 (yhbh,fpdz,ms,dw,gdtime,zdtime,ddtime,dgdtime,dzdtime,dddtime,jf,sdwd,snwd,kg,bj,jj,time)values (
-      #{yhbh},#{fpdz},#{ms},#{dw},#{gdtime},#{zdtime},#{ddtime},#{dgdtime},#{dzdtime},#{dddtime},#{jf},#{sdwd},#{snwd},#{kg},#{bj},#{jj},#{time})
+     insert into k_lssjb11 (fpbh,yhbh,fpdz,ms,dw,gdtime,zdtime,ddtime,dgdtime,dzdtime,dddtime,jf,sdwd,snwd,kg,bj,jj,time)values (
+      #{fpbh},#{yhbh},#{fpdz},#{ms},#{dw},#{gdtime},#{zdtime},#{ddtime},#{dgdtime},#{dzdtime},#{dddtime},#{jf},#{sdwd},#{snwd},#{kg},#{bj},#{jj},#{time})
 	 </insert>
 </mapper>

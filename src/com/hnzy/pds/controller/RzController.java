@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.Rz;
+import com.hnzy.pds.service.DataService;
 import com.hnzy.pds.service.RzService;
 
   
@@ -19,7 +21,8 @@ public class RzController {
 	
 	@Autowired
 	private RzService rzService;
-  
+	@Autowired
+	private DataService dataService;
 	/*@RequestMapping("rzList")
 	public String RzList(){
 		return "Rz";
@@ -36,7 +39,9 @@ public class RzController {
 	}
 	
 	@RequestMapping("Yccx")
-	public String Yccx(){
+	public String Yccx(HttpServletRequest request){
+		List<Data> YhList=dataService.find();
+		request.setAttribute("YhList", YhList);
 		return "Yccx";
 	}
 	

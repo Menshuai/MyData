@@ -39,12 +39,16 @@ public class YhMessageController {
 	private DataService dataService;
 	@Autowired
 	private RzService rzService;
+<<<<<<< HEAD
  
 	public List<Data> YhList;
  
 	
 	
 	
+=======
+	public List<Data> YhList;
+>>>>>>> 495e094272e9d8ec4d2ec66ee1a8ab72c63f5ce0
 	//数据报表  左右栏
 	@RequestMapping("/HomeMe")
 	public String SkqMe(){
@@ -191,7 +195,7 @@ public class YhMessageController {
 			//日志
 			Rz rz=new Rz();
 			rz.setCz("导出:小区名称："+xqm+",楼栋号："+ldh+",单元号："+dyh);
-			rz.setCzr((String)session.getAttribute("userName"));
+			rz.setCzr((String)session.getAttribute("UserName"));
 			rz.setCzsj(new Date());;
 			rzService.insert(rz);
 				}

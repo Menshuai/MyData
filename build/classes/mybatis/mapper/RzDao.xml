@@ -9,7 +9,7 @@
 	</resultMap>
 	  
 	<select id="find" resultMap="rz" parameterType="Rz">
-		select top 500 * from K_RZ order by id desc 
+		select top 500 * from K_RZ order by czsj desc 
 	</select>
 	
 	<insert id="Insert" parameterType="Rz"  >
@@ -20,7 +20,7 @@
 	</insert> 
 	
 	<select id="Search" resultMap="rz" parameterType="Rz">
-		select * from K_RZ where cz LIKE #{cz} order by czsj desc 
+		select top 500 * from K_RZ where cz LIKE #{cz} order by czsj desc 
 	</select>  
 	
 </mapper>

@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			margin: 10px auto;
 		}
 		
-		.ft_container table tr {
+		#Trcolor {
 			background: url(../img/secai.png);
 		}
 	</style>
@@ -141,8 +141,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					html += "<td class='text-center'>" + xqm + "</td>";
 					html += "<td class='text-center'>" + ldh + "</td>";
 					html += "<td class='text-center'>" + dyh + "</td>";
-					
 					html += "<td class='text-center'>" + hh + "</td>";
+					html += "<td class='text-center'>" + fpdz+ "</td>";
 					html += "<td class='text-center'>" + js + "</td>";
 					html += "<td class='text-center'>" + fpbh + "</td>";
 					if(ms=="00"){
@@ -153,6 +153,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 					if(ms=="02"){
 						html += "<td class='text-center'>通风</td>";	
+					}
+					if(dw=="00"){
+						html += "<td class='text-center'>停止</td>";	
 					}
 					if(dw=="01"){
 						html += "<td class='text-center'>低档</td>";	
@@ -198,7 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					html += "<td class='text-center' title='"+time+"'>" + time+ "</td>";
 					html += "<td class='text-center'>" + mj+ "</td>";
 					html += "<td class='text-center'>" + lxdh+ "</td>";
-					html += "<td class='text-center'>" + fpdz+ "</td>";
+				
 					html += "<td class='text-center'>" + bz+ "</td>";
 					html += "</tr>";
 				}
@@ -362,15 +365,12 @@ function SFs() {
 		$('#fixed_hdr2').fxdHdrCol({
 			fixedCols : 0,
 			width : "100%",
-			height :640,
+			height :600,
 			colModal : [ 
 			    {
 				width : 40,
 				align : 'center'
-			},/*  {
-				width : 50,
-				align : 'center'
-			}, */ {
+			}, {
 				width : 80,
 				align : 'center'
 			},{
@@ -379,7 +379,6 @@ function SFs() {
 			},{
 				width : 80,
 				align : 'center'
-				//-------------5-----
 			},{
 				width : 60,
 				align : 'center'
@@ -393,9 +392,11 @@ function SFs() {
 				width : 70,
 				align : 'center'
 			},{
+				width : 70,
+				align : 'center'
+			},{
 				width : 80,
 				align : 'center'
-					//-----------10-------
 			}, {
 				width : 60,
 				align : 'center'
@@ -411,7 +412,6 @@ function SFs() {
 			}, {
 				width : 80,
 				align : 'center'
-					//----------15-------
 			},
 			{
 				width : 80,
@@ -428,7 +428,6 @@ function SFs() {
 			}, {
 				width : 80,
 				align : 'center'
-					//---------------20-----	
 			}, {
 				width : 80,
 				align : 'center'
@@ -452,16 +451,10 @@ function SFs() {
 			},{
 				width : 100,
 				align : 'center'
-			}, {
-				width : 80,
-				align : 'center'
-			} ,{
+			},{
 				width : 60,
 				align : 'center'
-			}/*  ,{
-				width : 60,
-				align : 'center'
-			}  */
+			}
 			],
 			sort : true
 		});
@@ -478,7 +471,7 @@ function SFs() {
  <div></div>
  	<label for="xqNameId">选择小区</label> 
  			<select id="xqmId" name="xqm">
-					<option value=0>--选择小区名称--</option>
+					<option value="--选择小区名称--">--选择小区名称--</option>
 					<c:forEach items="${XqNameList}" var="list">
 						<option>${list.xqm}</option>
 					</c:forEach>
@@ -528,7 +521,6 @@ function SFs() {
 	&nbsp;&nbsp;&nbsp;
 	
 	 
-	<!-- <button type="button" class="btn btn-success" onclick="Fs()" style="background: url(../img/secai.png);">发送</button> -->
 	 <button type="button" class="btn btn-success" onclick="DFs()" style="background: url(../img/secai.png);">单风盘操作</button>
 	 <button type="button" class="btn btn-success" onclick="SFs()" style="background: url(../img/secai.png);">对一户所有风盘操作</button>
 	<div></div>
@@ -537,15 +529,15 @@ function SFs() {
  &nbsp;&nbsp;&nbsp;
 	<table id="fixed_hdr2"  >
 		<thead >
-	<tr height="35px" style="background: url(../img/secai.png);" >
+	<tr id="Trcolor" height="35px">
 			<th></th>         
 			<th>用户编号</th>
 			<th>用户姓名</th>
 			<th>小区名称</th>
-			
 			<th>楼栋</th>
 			<th>单元</th>
 			<th>户号</th>
+		    <th>风盘地址</th>
 			<th>已用当量</th>
 			<th>风盘编号</th>
 			<th>模式</th>
@@ -553,11 +545,9 @@ function SFs() {
             <th>制冷高档t</th>
             <th>制冷中档t</th>
             <th>制冷低档t</th>
-            
             <th>制热高档t</th>
             <th>制热中档t</th>
             <th>制热低档t</th>
-            
             <th>计费状态</th>
             <th>设定温度</th>
             <th>室内温度</th>
@@ -568,7 +558,7 @@ function SFs() {
             <th>用户面积</th>
             
             <th>用户电话</th>
-            <th>风盘地址</th>
+
             <th>备注</th>
 	</tr>                    
 	</thead>                      
@@ -584,6 +574,7 @@ function SFs() {
 		<td>${yh.yhMessage.ldh}</td>
 		<td>${yh.yhMessage.dyh}</td>	
 		<td>${yh.yhMessage.hh}</td>	
+		<td>${yh.yhMessage.fpdz}</td>
 		<td>${yh.js}</td>
 		<td>${yh.fpbh}</td>
 		<c:if test="${yh.ms =='00'}">
@@ -647,7 +638,6 @@ function SFs() {
 		<td>${yh.time}</td>
 		<td>${yh.yhMessage.mj}</td>
 		<td>${yh.yhMessage.lxdh}</td>
-		<td>${yh.yhMessage.fpdz}</td>
 		<td>${yh.yhMessage.bz}</td>
 	 </tr>
 	</c:forEach>

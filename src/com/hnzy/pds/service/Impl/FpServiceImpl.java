@@ -38,9 +38,9 @@ public class FpServiceImpl implements  FpService{
 	}
 
 	@Override
-	public Fp findfpdz(String yhbh) {
+	public Fp findfpbh(String yhbh) {
 		// TODO Auto-generated method stub
-		return fpDao.findfpdz(yhbh);
+		return fpDao.findfpbh(yhbh);
 	}
 
 }

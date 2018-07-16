@@ -1,6 +1,7 @@
 package com.hnzy.pds.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Data implements Serializable {
 
@@ -220,12 +221,14 @@ public class Data implements Serializable {
 		this.bj = bj;
 	}
 
-	public String getTime() {
+	public String getTime()
+	{
 		return time;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
+	public void setTime(String time2)
+	{
+		this.time = time2;
 	}
 
 	public String getJs() {

@@ -35,7 +35,7 @@
 	
 	
 	<!-- public Fp findfpdz(String yhbh) -->
-	<select  id="findfpdz"  resultMap="fp">
+	<select  id="findfpbh"  resultMap="fp">
 		select fpbh from k_fpb2 where yhbh=#{yhbh}
 	</select>
 </mapper>
