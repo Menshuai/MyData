@@ -32,6 +32,5 @@
     </iframe> -->
     <button  onclick="Rz()"  type="button" class="btn btn-success btn-block" 
  			style="background-image: url('../img/secai.png');border:1px" type="button" >操作日志</button>
-</body>
-	
+</body>	
 </html>

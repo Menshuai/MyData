@@ -140,7 +140,7 @@
 						</div>
 						<div class="form-group">						
 							<label for="lxdhId" class="col-sm-2 col-sm-offset-3 control-label">电话:</label>
-						<div class="col-sm-4"><input id="lxdhId" type="text" style="width:200px" name="lxdh" class="form-control" placeholder="telephone" ></div>
+						<div class="col-sm-4"><input id="lxdhId" type="text" style="width:200px" name="lxdh" class="form-control" placeholder="lxdh" ></div>
 						</div>
 						
 						<div class="form-group" >	
@@ -159,7 +159,7 @@
 						<div class="form-group">						
 						<label for="wtId" class="col-sm-2 col-sm-offset-3 control-label">故障:</label>
 							<div class="col-sm-4">
-							<textarea id="wtId"  style="overflow-x: hidden;width:350px;height:230px;" class="form-control" name="wt" placeholder="wt"></textarea>
+							<textarea id="wtId"  style="overflow-x: hidden;width:350px;height:230px;" class="form-control" name="wt" placeholder="请输入问题" ></textarea>
 							</div>
 						</div>
 						<div class="form-group">
