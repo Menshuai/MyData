@@ -12,7 +12,7 @@
 <html>
 <head>
 
-    <title>智能锁闭阀管理登录系统</title>
+    <title>中央空调能耗监控及计费系统</title>
     <link rel="stylesheet" type="text/css" href="../css/base.css" />
     <link rel="stylesheet" type="text/css" href="../css/admin-all.css" />
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
@@ -28,7 +28,7 @@
     </div>
 <form action="login.action" id="myform" method="post">
     <div class="row-fluid">
-        <h1>智能锁闭阀管理登录系统</h1>
+        <h1>中央空调能耗监控及计费系统</h1>
         <p>
             <label>帐&nbsp;&nbsp;&nbsp;号：<input type="text" id="username" name="username" /></label>
         </p>
