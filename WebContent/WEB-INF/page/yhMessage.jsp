@@ -333,9 +333,9 @@ $(document).ready(
  <div id="top">
   <button type="button" class="btn btn-success"    onClick="openaddUserPage()" style="background: url(../img/secai.png);">添加</button>&nbsp;&nbsp;
    <button type="button" class="btn btn-success" onClick="openEditUserPage()" style="background: url(../img/secai.png);">修改</button>&nbsp;&nbsp;
-			 <button type="button" class="btn btn-success" onClick="openDeletePage()" style="background: url(../img/secai.png);">删除</button>
+	<button type="button" class="btn btn-success" onClick="openDeletePage()" style="background: url(../img/secai.png);">删除</button>
  
-			 </div> 
+ </div> 
 			 <div class="dwrapper">
 	<table id="fixed_hdr2">
 	<thead>

@@ -18,11 +18,16 @@
         insert into T_Userlogin(UserName,Password) values(#{UserName},#{PassWord})  
     </insert>
     
+    <!-- public void deleteUser(String id); -->
+    <delete id="deleteUser">
+    	delete from T_Userlogin where id=#{ID}
+    </delete>
   
     <!--  删除信息 public int delete(int id)-->
     <delete id="delete">
     	delete from T_Userlogin where id=#{ID}
     </delete>
+    
     
     
     <!-- 根据id查找信息public User findById(int id)  -->

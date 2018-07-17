@@ -39,7 +39,17 @@ public class YhMessageController {
 	private DataService dataService;
 	@Autowired
 	private RzService rzService;
+<<<<<<< HEAD
 	public List<Data> YhList;
+=======
+ 
+ 
+	public List<Data> YhList;
+ 
+	
+	
+ 
+>>>>>>> 15ff1afd5eb257b94da42bc568273e6a244636bd
 	//数据报表  左右栏
 	@RequestMapping("/HomeMe")
 	public String SkqMe(){

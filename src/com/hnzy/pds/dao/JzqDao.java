@@ -12,5 +12,5 @@ public interface JzqDao extends BaseDao<Jzq>{
 	
 	
 	//更新ip port
-	public void updateIpPort(String jzqip,Integer jzqport,String jzqnet);
+	public void updateIpPort(@Param("jzqip") String jzqip,@Param("jzqport") Integer jzqport, @Param("jzqnet") String jzqnet);
 }
