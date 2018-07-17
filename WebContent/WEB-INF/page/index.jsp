@@ -64,7 +64,8 @@ function add(title, url, w, h){
 
 
 function tc(){ //安全退出
-	window.open("<%=basePath%>user/toLogin.action");
+<%-- 	window.open("<%=basePath%>user/toLogin.action"); --%>
+	window.location='<%=basePath%>user/toLogin.action';
 }
 
 </script>

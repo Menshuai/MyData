@@ -39,12 +39,9 @@ public class YhMessageController {
 	private DataService dataService;
 	@Autowired
 	private RzService rzService;
- 
- 
 	public List<Data> YhList;
- 
-	
-	
+  
+  
  
 	//数据报表  左右栏
 	@RequestMapping("/HomeMe")

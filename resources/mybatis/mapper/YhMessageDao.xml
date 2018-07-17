@@ -133,17 +133,17 @@
 	  
 	<!--查找小区名字 public List<YhMessage> findXqName(); -->
 	<select id="findXqName" parameterType="YhMessage"   resultMap="yhMessage">
-		select  xqm from k_yhb1 
+		select  distinct xqm from k_yhb1 
 	</select>
 	
 	<!--通过小区 获取楼栋  public List<YhMessage> findYhBuildNObyXqm(String xqm); -->
 	<select id="findYhBuildNObyXqm" resultMap="yhMessage" parameterType="YhMessage">
-		select ldh from k_yhb1 where xqm=#{xqm}
+		select distinct ldh from k_yhb1 where xqm=#{xqm}
 	</select>
 	
 	<!--通过小区楼栋获取单元  public List<YhMessage> findYhCellNOByBuild(int ldh,String xqm); -->
 	<select id="findYhCellNOByBuild" resultMap="yhMessage"><!-- 不写传参类型parameterType的话，前面传递的多个参数默认封装成map，顺序取就行了#{0} 代表第一个参数。 -->
-		select dyh from k_yhb1 where xqm=#{1} and ldh=#{0} 
+		select  distinct dyh from k_yhb1 where xqm=#{1} and ldh=#{0} 
 	</select>
 </mapper>
 

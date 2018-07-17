@@ -119,7 +119,7 @@ public class CgController {
 	 		 }
 	 		 
 	 		 //发送数据
-	 		 String ja =ld+dy+"F010B1FFF0F0F0FF"+""+kg+""+jf+""+jj+"FFFFFF";
+	 		 String ja =ld+dy+"F010B1FFF0F0F0FF"+""+kg+""+jf+""+jj+ld+dy+"FF";
 	 		 log.info("对某栋楼 所有风盘开关计费季节操作发送指令 ："+ja);
 	 		 System.out.println("ja----"+ja);
 	 		 if(kg.equals("00")){
@@ -221,7 +221,7 @@ public class CgController {
 	 		 }
 	 		 
 	 		 //发送数据
-	 		 String ja =ld+dy+"F010B1"+cg+"F0F0F0FF"+""+kg+""+jf+""+jj+"FFFFFF";
+	 		 String ja =ld+dy+"F010B1"+cg+"F0F0F0FF"+""+kg+""+jf+""+jj+ld+dy+"FF";
 	 		 System.out.println("ja----"+ja);
 	 		 log.info("对某层 所有风盘开关计费季节操作发送指令：层管编号："+cg+"，指令---"+ja);
 	 		 System.out.println("ja----"+ja);
