@@ -12,7 +12,7 @@
 <html>
 <head>
 
-    <title>智能锁闭阀管理登录系统</title>
+    <title>中央空调计费系统</title>
     <link rel="stylesheet" type="text/css" href="../css/base.css" />
     <link rel="stylesheet" type="text/css" href="../css/admin-all.css" />
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />

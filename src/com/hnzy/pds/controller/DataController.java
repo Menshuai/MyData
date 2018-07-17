@@ -241,7 +241,7 @@ public class DataController {
 		 }
 		 
 		 //空调状态
-		 String ja =ld+dy+"F010B1"+cg+""+idsS+fpdz+""+""+kg+""+jf+""+jj+"FFFFFF";
+		 String ja =ld+dy+"F010B1"+cg+""+idsS+fpdz+""+kg+""+jf+""+jj+ld+dy+"FF";
 		 System.out.println("ja----"+ja);
 		 // IP地址和端口号
 		 String pt = "/" + ip + ":" + port;
@@ -343,7 +343,7 @@ public class DataController {
  		 }
  		 //空调状态
  // 	 String ja =ld+dy+"F010B1"+cg+""+idsS+"FF"+""+kg+""+jf+""+jj+"FFFFFF"; 
- 		 String ja =ld+dy+"F010B1"+cg+""+idsS+"FF"+""+kg+""+jf+""+jj+"FFFFFF";
+ 		 String ja =ld+dy+"F010B1"+cg+""+idsS+"FF"+""+kg+""+jf+""+jj+ld+dy+"FF";
  		 System.out.println("ja----"+ja);
  		 // IP地址和端口号
  		 String pt = "/" + ip + ":" + port;
