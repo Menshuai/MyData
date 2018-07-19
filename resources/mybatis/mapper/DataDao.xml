@@ -73,18 +73,20 @@
 	     where 
 		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz
 		 	and  da.fpbh=fp.fpbh 
-		 	and fp.xh=gl.xh   
-		 	k_glb6  gl  
+		 	and fp.xh=gl.xh   order by da.time desc
+		 	
+		 	
+		 	<!-- k_glb6  gl  
 			 
 	   where 
 		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
 		 and  da.fpbh=fp.fpbh 
-			and fp.xh=gl.xh 
+			and fp.xh=gl.xh  -->
 		<!--  where 
 		 	da.fpbh=fp.fpbh   fp.yhbh=yhMessage.yhbh    -->
 		
 	</select>
-			<!-- 搜索实时数据-->
+	<!-- 搜索实时数据-->
 	<select id="searchInfo" resultMap="data"   parameterType="Data">
       select distinct top 500
 		 	yh.id,
@@ -127,8 +129,10 @@
 		</if>   
 		order by da.time desc  
 	</select>
-		<select id="findData" resultMap="data"   parameterType="Data" >
-	select * from k_data10 where yhbh=#{yhbh} and fpdz=#{fpdz}
+	
+	
+	<select id="findData" resultMap="data"   parameterType="Data" >
+		select * from k_data10 where yhbh=#{yhbh} and fpdz=#{fpdz}
 	</select>
 	<!-- 搜索 历史数据-->
 	<select id="searchHistory" resultMap="data"   parameterType="Data">
@@ -172,6 +176,7 @@
 		</if> 
 		order by da.time desc  
 	</select>
+	
 	<!-- public Data  findf(String address); -->
 	<select  id="findf"  resultMap="data"   parameterType="Data">
 	select  
@@ -206,6 +211,7 @@
 	 	fpbh=#{fpbh}
 	 	
 	 </update>
+	 
 	 <update id="updateYhbhF" parameterType="Data">
 	 	 update 
 	 	 k_data10  
@@ -229,6 +235,7 @@
 	 where 
 	 	yhbh=#{yhbh} and fpdz=#{fpdz}
 	 </update>
+	 
 	 <insert id="InsertYh" parameterType="Data">
 	 <!-- socket更插入历史热表信息 -->
      insert into k_lssjb11 (fpbh,yhbh,fpdz,ms,dw,gdtime,zdtime,ddtime,dgdtime,dzdtime,dddtime,jf,sdwd,snwd,kg,bj,jj,time)values (

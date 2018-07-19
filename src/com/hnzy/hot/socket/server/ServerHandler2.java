@@ -686,7 +686,7 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			dataService.InsertYh(data);//插入历史表
 			SbSuc sbSuc =new SbSuc();
 			sbSuc.setSbSuc(yhbhS);
-			
+ 			
 			sbSucService.update(sbSuc);
 			 System.out.println("11111111111----------" );
 			//dataService.updateS(ms, dw, gdg, zdS, gdd, dgdg, dzdS, dgdd, Jf, sdw, sw, kg, bj, jj, time);
