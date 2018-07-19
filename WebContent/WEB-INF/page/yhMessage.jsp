@@ -456,7 +456,7 @@ $(document).ready(
 							
 							<div class="col-sm-4">
 								<input id="fpdz" type="text" name="fpdz"
-									class="form-control" placeholder="风盘个数" />
+									class="form-control" placeholder="风盘地址" />
 							</div>					
 						</div>
 							<div class="form-group">						

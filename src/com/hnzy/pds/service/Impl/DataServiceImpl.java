@@ -67,4 +67,10 @@ public class DataServiceImpl implements DataService{
 		return dataDao.searchHistory(xqm, ldh, dyh, hh, time1, time2);
 	}
 
+	@Override
+	public Data findData(String yhbh, String fpdz)
+	{
+		return dataDao.findData(yhbh, fpdz);
+	}
+
 }

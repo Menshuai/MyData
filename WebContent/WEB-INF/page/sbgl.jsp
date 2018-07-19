@@ -377,7 +377,7 @@ function SFs() {
 				width : 80,
 				align : 'center'
 			},{
-				width : 80,
+				width : 145,
 				align : 'center'
 			},{
 				width : 60,
