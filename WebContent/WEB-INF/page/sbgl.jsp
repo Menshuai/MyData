@@ -24,8 +24,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet"	/>
 	<script src="https://code.jquery.com/jquery.min.js" type="text/javascript"></script>
 	
-	<script src="https://meetselva.github.io/fixed-table-rows-cols/js/sortable_table.js" type="text/javascript"></script>
+	<!-- <script src="https://meetselva.github.io/fixed-table-rows-cols/js/sortable_table.js" type="text/javascript"></script> -->
 	<script src="../js/fixed_table_rc.js" type="text/javascript"></script>
+	<script src="../js/sortable_table.js" type="text/javascript"></script>
 	<style>
 		html, body {
 			font-family: Arial,​​sans-serif;
@@ -377,7 +378,7 @@ function SFs() {
 				width : 80,
 				align : 'center'
 			},{
-				width : 80,
+				width : 120,
 				align : 'center'
 			},{
 				width : 60,

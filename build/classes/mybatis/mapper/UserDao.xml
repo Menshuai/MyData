@@ -19,7 +19,7 @@
     </insert>
     
     <!-- public void deleteUser(String id); -->
-    <delete id="deleteUser">
+    <delete id="deleteUser" parameterType="User">
     	delete from T_Userlogin where id=#{ID}
     </delete>
   

@@ -35,17 +35,17 @@
 	
 	<!--查找小区名 public List<YhMessage> findXQN(); -->
 	<select id="findXQN"  resultMap="yhMessage"  parameterType="YhMessage">
-	select distinct xqm from k_yhb1b 
+	select distinct xqm from k_yhb1 
 	</select>
 	
 	 <!--根据小区  查询楼栋 public List<YhMessage> findLDH(@Param("xqm")String xqm); -->
 	<select  id="findLDH"   resultMap="yhMessage"  parameterType="YhMessage">
-	select DISTINCT ldh from   k_yhb1b  where xqm=#{xqm}
+	select DISTINCT ldh from   k_yhb1  where xqm=#{xqm}
 	</select>
 	
 	<!--根据小区楼栋 查询单元    public List<YhMessage> findyhlx(@Param("xqm")String xqm,@Param("ldh")String ldh); -->
 	<select id="findyhlx"  resultMap="yhMessage"  parameterType="YhMessage" >
-		select DISTINCT dyh from  k_yhb1b  where xqm=#{xqm} and ldh=#{ldh}
+		select DISTINCT dyh from  k_yhb1  where xqm=#{xqm} and ldh=#{ldh}
 	</select>
 	
 	<!--public List<YhMessage> find()  -->

@@ -56,7 +56,7 @@
 	
 	<!-- public List<Data> find()-->
 	<select id="find"   resultMap="data"   parameterType="Data">
-		select top 500
+		select distinct top 500
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
 		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
@@ -64,27 +64,20 @@
 		 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
 		 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
 		 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
-			
 		 	yh.mj
 		from 
 		 	k_data10  da, 
 		 	k_yhb1  yh, 
 		 	k_fpb2 fp,  
 		 	k_glb6  gl 
-	   <!--  where 
-		 	  fp.yhbh=yh.yhbh  and   da.fpbh=fp.fpbh  -->  
-			 
-	   where 
-		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
-		 and  da.fpbh=fp.fpbh 
-			and fp.xh=gl.xh 
-		<!--  where 
-		 	da.fpbh=fp.fpbh   fp.yhbh=yhMessage.yhbh    -->
-		
+	     where 
+		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz
+		 	and  da.fpbh=fp.fpbh 
+		 	and fp.xh=gl.xh   
 	</select>
 			<!-- 搜索实时数据-->
 	<select id="searchInfo" resultMap="data"   parameterType="Data">
-      select top 500
+      select distinct top 500
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
 		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
@@ -128,7 +121,7 @@
 	
 	<!-- 搜索 历史数据-->
 	<select id="searchHistory" resultMap="data"   parameterType="Data">
-     select top 500
+     select distinct top 500
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
 		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
@@ -136,7 +129,6 @@
 		 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
 		 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
 		 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
-			
 		 	yh.mj
 		from 
 		 	k_lssjb11  da, 

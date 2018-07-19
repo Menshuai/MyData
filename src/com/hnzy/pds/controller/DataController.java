@@ -132,7 +132,7 @@ public class DataController {
 		String idString=ids.substring(0, ids.length()-1);
 		//风盘编号
 		String fpdz="0"+ids.substring(ids.length()-1);
-		System.out.println(idString+"---"+fpdz);
+		System.out.println(idString+"-------"+fpdz);
 		//用户编号转换为十进制
 		int ids1 = Integer.valueOf(idString); 
 		String idsS = Integer.toHexString(ids1);//16进制     
@@ -151,7 +151,7 @@ public class DataController {
 		}
 		
 		 String cgbh=ldh.getCgbh();
-		 System.out.println("cgbh"+cgbh);
+		 System.out.println("cgbh-----"+cgbh);
 		 
 		 String cg=cgbh.substring(4);
 		 
@@ -211,7 +211,9 @@ public class DataController {
 		}
 		System.out.println("楼栋号"+ld); 
 		String cgbh=ldh.getCgbh();
+		System.out.println("cgbh-----"+cgbh);
 		String cg=cgbh.substring(4);
+		 
 		System.out.println("cg---"+cg);
 //		YhMessage dyh=yhMessageService.findyh(idString);//单元
 		Integer dyhS=ldh.getDyh();
@@ -219,7 +221,7 @@ public class DataController {
 		if(dy.length()==1){
 			dy=0+dy;
 		}
-		System.out.println("单元号"+dy);
+		System.out.println("单元号---"+dy);
   		// 把FmID转换为int类型      ids为用户编码   
 		 int ids1 = Integer.valueOf(idString);
 		 String idsS = Integer.toHexString(ids1);//转换为十六进制  用户编码

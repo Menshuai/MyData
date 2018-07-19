@@ -200,12 +200,11 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			}/*else if(md.equals("b5")){
 				jzqCx(base, connc,clientIp);
 			}*/else if(md.equals("a1")){//对某一户的单个风盘
-				System.out.println("-------web端返回------"+md);
+				System.out.println("-------web端返回--a1-----"+md);
 				//中央空调
 				sbfs(base, connc);
-				}
-		 	else if(md.equals("0a")){//对某一户的所有风盘返回
-				System.out.println("-------web端返回------"+md);
+				}else if(md.equals("0a")){//对某一户的所有风盘返回
+				System.out.println("-------web端返回--0a----"+md);
 				SF(base, connc);
 				} else if(md.equals("f0")){
 			 		wxkg(base); //接收微信数据并转发设备指令
@@ -514,9 +513,9 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			System.out.println(gdgJS);
 			double gdg=jsMin(gdgJS);
 			System.out.println("gdg------"+gdg);
+			
 			//中档运行时间
 			String zdSS=stringHandler.substring(26,32);
-			
 			int zdSJS = Integer.parseInt("" + zdSS + "", 16);
 			double zdS=jsMin(zdSJS);
 			System.out.println("zdS------"+zdS);
@@ -555,10 +554,12 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			String swS=stringHandler.substring(60,62);
 			int sw = Integer.parseInt("" + swS + "", 16);
 			System.out.println("室内温度 --------"+swS);
+			System.out.println("室内温度十六进制"+sw);
 			
 			// 远程开关
 			String kg=stringHandler.substring(62,64);
 			System.out.println("远程开关-----------"+kg);//FF
+			
 			//报警
 			String bjs=stringHandler.substring(64,66);
 			System.out.println("报警信息 --------"+bjs);
@@ -569,7 +570,7 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		
 			//转换为时间格式   方便地修改日期格式
 			Date now = new Date(); 
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 //			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			String time = dateFormat.format( now ); 
 			Data data=new Data();
@@ -605,10 +606,10 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setFpbh(fp.getFpbh());
 			dataService.InsertYh(data);//插入历史表
 			SbSuc sbSuc =new SbSuc();
-			sbSuc.setSbSuc(yhbh);
-			
+			sbSuc.setSbSuc(yhbhS);
 			
 			sbSucService.update(sbSuc);
+			 System.out.println("11111111111----------" );
 			//dataService.updateS(ms, dw, gdg, zdS, gdd, dgdg, dzdS, dgdd, Jf, sdw, sw, kg, bj, jj, time);
 			 // 更新
 //			String Upsql = "update k_data10 set gdtime='" +gdg + "',zdtime='" +zdS + "',ddtime='" +gdd + "',dgdtime='" +dgdg + "',dzdtime='" +dzdS + "',dddtime='" +dgdd + "', "

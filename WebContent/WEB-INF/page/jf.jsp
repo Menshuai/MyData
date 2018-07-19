@@ -45,7 +45,7 @@
 			colModal: [
 			{ width: 50, align: 'center' },
 			{ width: 70, align: 'center' },
-			{ width: 90, align: 'center' },
+			{ width: 120, align: 'center' },
 			{ width: 65, align: 'center' },
 			{ width: 65, align: 'center' },
 			

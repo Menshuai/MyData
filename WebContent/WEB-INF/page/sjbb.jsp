@@ -255,7 +255,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				width : 80,
 				align : 'center'
 			},{
-				width : 80,
+				width : 120,
 				align : 'center'
 				//-------------5-----
 			},{
