@@ -33,4 +33,5 @@ public interface DataService {
 				//历史数据
 				public List<Data> searchHistory(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
 						@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
+				public Data findData(@Param("yhbh")String yhbh,@Param("fpdz")String fpdz);
 }

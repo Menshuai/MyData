@@ -33,5 +33,11 @@
 		zz=#{zz},sy=#{sy},lzf=#{lzf},qt=#{qt}
 		where id=#{id}
 	</update>
+	<!-- 获取当前月份 -->
+<select id="findYf">
+</select>
+<!-- 更新当前月份 -->
+<update id="updateYf">
 
+</update>
 </mapper>

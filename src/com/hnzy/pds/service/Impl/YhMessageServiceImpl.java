@@ -93,43 +93,38 @@ public class YhMessageServiceImpl implements YhMessageService{
 
 	@Override
 	public List<YhMessage> findYhNameList() {
-		// TODO Auto-generated method stub
 		return yhMessageDao.findYhNameList();
 	}
 
 	@Override
 	public List<YhMessage> findYhBuildNObyXqm(String xqm) {
-		// TODO Auto-generated method stub
 		return yhMessageDao.findYhBuildNObyXqm(xqm);
 	}
 
 	@Override
 	public List<YhMessage> findYhCellNOByBuild(int ldh, String xqm) {
-		// TODO Auto-generated method stub
 		return yhMessageDao.findYhCellNOByBuild(ldh, xqm);
 	}
 
 	@Override
 	public void exportExcel(List<Data> yhInfosList, ServletOutputStream outputStream) throws IOException {
-//		yhMessageDao.exportExcel(yhInfosList, outputStream);
 		ExcelUtilZykt.exportExcel(yhInfosList, outputStream);
 	}
-
-	 
-
 	@Override
 	public List<YhMessage> findXqName() {
 		return yhMessageDao.findXqName();
 	}
 
-//	@Override
-//	public List<YhMessage> searchInfo(String xqm, int ldh, int dyh, int hh, String time1, String time2) {
-//		return yhMessageDao.searchInfo(xqm, ldh, dyh, hh, time1, time2);
-//	}
-//
-//	@Override
-//	public List<YhMessage> searchHistory(String xqm, int ldh, int dyh, int hh, String time1, String time2) {
-//		return yhMessageDao.searchHistory(xqm, ldh, dyh, hh, time1, time2);
-//	}
-// 	
+	@Override
+	public int findYf()
+	{
+		//获取月份
+		return yhMessageDao.findYf();
+	}
+
+	@Override
+	public void updateYf(int yf)
+	{
+		yhMessageDao.updateYf(yf);
+	} 	
 }

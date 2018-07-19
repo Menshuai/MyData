@@ -1,7 +1,9 @@
 package com.hnzy.pds.controller;
 
+import java.util.Date;
 import java.util.List;
 
+import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -37,6 +39,36 @@ public class ZdCb
 			boolean sessionmap = cz(zl, pt);
 		}
 		}
+	
+	
+	public void XgYf(){
+		//从数据库用户表查询当前月份 默认第一个月为零以后每月加一
+		int yf=yhMessageService.findYf();
+		 Date date=new Date();
+		int month=date.getMonth()+1;
+		if(month==6&&yf!=0){
+			yf=yf+1;
+		}else if(month==7){
+			yf=yf+1;
+		}else if(month==8){
+			yf=yf+1;
+		}else if(month==9){
+			yf=yf+1;
+		}else if(month==11){
+			yf=yf+1;
+		}else if(month==12){
+			yf=yf+1;
+		}else if(month==1){
+			yf=yf+1;
+		}else if(month==2){
+			yf=yf+1;
+		}else if(month==3){
+			yf=yf+1;
+		}
+	   //更新用户表当前月份
+		yhMessageService.updateYf(yf);
+	}
+	
 		
 		// 抽取相同部分
 					public boolean cz(String ja, String pt) {

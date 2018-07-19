@@ -16,7 +16,7 @@ public interface DataDao {
 	//根据用户编号更新
 	public void updateS(String ms, String dw, double gdg, double zdS, double gdd, double dgdg, double dzdS, double dgdd,
 			String jf, int sdw, int sw, String kg, int bj, String jj, String time);
-	 
+	public Data findData(@Param("yhbh")String yhbh,@Param("fpdz")String fpdz);
 	//根据用户编号和风盘地址更新实时数据
 	public void updateYhbhF(Data data);
 	//插入历史数据

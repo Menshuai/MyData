@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -80,7 +81,10 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		 logs.info("服务器打开了的连接，Session ID为" + session.getRemoteAddress() + session.getId());
 		 SocketAddress remoteAddress = (SocketAddress) session.getRemoteAddress();
 		 String clientIp = remoteAddress.toString();
+		 //判断连接的ip是否为空
 		 
+		 if(clientIp!=null){
+			 
 		 sessionMap.add(clientIp, session);
 		 int port = 0;
 		 String Ip = null;
@@ -156,9 +160,9 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			byte[] bQg = CzUtil.jm(SetQgID);
 			// 给所有区管发送数据
 			sessionMap.sendMessage(keys, bQg);
-        }
+          }
         	DatabaseUtil.close(rst, ps, connc);   //关闭连接对象
-
+		 }
 	}
 	/**
 	 * 当实现IOHandlerer的类抛出异常时调用
@@ -178,8 +182,7 @@ public class ServerHandler2  extends IoHandlerAdapter{
 	@Override
 	public void messageReceived(IoSession session, Object message)
 	{
-		SocketAddress remoteAddress = (SocketAddress) session.getRemoteAddress();
-		String clientIp = remoteAddress.toString();
+		
 		DatabaseUtil dbUtil = DatabaseUtil.getInstance(); 
 		Connection connc = dbUtil.getConnection(); 
 		byte[] base = (byte[]) message;
@@ -196,6 +199,8 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			// 开关阀门，批量开关
 		   if (md.equals("05"))// 查询状态01
 			{
+			   SocketAddress remoteAddress = (SocketAddress) session.getRemoteAddress();
+				String clientIp = remoteAddress.toString();
 				jzqCx(base, connc,clientIp);
 			}/*else if(md.equals("b5")){
 				jzqCx(base, connc,clientIp);
@@ -247,21 +252,27 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			//用户编码
 			String  yhbh=stringHandler.substring(8, 14);
 			System.out.println("yhbh---------"+yhbh);
-			int yhbhS = Integer.parseInt("" + yhbh + "", 16);
+			String yhbhS = String.valueOf(Integer.parseInt("" + yhbh + "", 16));
 			System.out.println("yhbhS---------"+yhbhS);
 			
 			 
 			//风盘地址
 			String  fpid=stringHandler.substring(14, 16);
-//			int Fpid = Integer.parseInt("" + fpid + "", 16);
-//			System.out.println("fpid---------"+Fpid);
-			
+			//根据用户编码和风盘地址查找用户
+			Data findData=dataService.findData(yhbhS, fpid);
+			System.out.println("--fpid-"+fpid);
 			//风盘模式，00制冷01制热
 			String ms=stringHandler.substring(16,18);
-			System.out.println("ms------"+ms);
 			
+			if(ms.equals("FF")){
+				ms=findData.getMs();
+			}
+			System.out.println("ms------"+ms);
 			//档位
 			String dw=stringHandler.substring(18,20);
+			if(dw.equals("FF")){
+				dw=findData.getDw();
+			}
 			System.out.println("dw------"+dw);
 			//高档运行时间高           00停止 01低档 02中档03高档
 			String gdgS=stringHandler.substring(20,26);
@@ -300,27 +311,53 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			
 			//计费模式             00计费01允许计费
 			String Jf=stringHandler.substring(56,58);
+			System.out.println("Jf-------------"+Jf);
+			if(Jf.equals("FF")){
+				Jf=findData.getJf();
+			}
 			System.out.println("计费模式-------"+Jf );
+			
 			
 			//设定温度
 			String sdwS=stringHandler.substring(58,60);
+			System.out.println("sdwS-------------"+sdwS);
+			if(sdwS.equals("FF")){
+				sdwS=findData.getSdwd();
+			}
 			int sdw = Integer.parseInt("" + sdwS + "", 16);
 			System.out.println("设定温度----------"+sdwS);
 			
 			//室内温度 实时温度
 			String swS=stringHandler.substring(60,62);
+			System.out.println("swS-------------"+swS);
+			if(swS.equals("FF")){
+				swS=findData.getSnwd();
+			}
 			int sw = Integer.parseInt("" + swS + "", 16);
+			
 			System.out.println("室内温度 --------"+swS);
 			
 			// 远程开关
 			String kg=stringHandler.substring(62,64);
 			System.out.println("远程开关-----------"+kg);//FF
+			if(kg.equals("FF")){
+				kg=findData.getKg();
+			}
+			System.out.println("远程开关-----------"+kg);//FF
+			System.out.println("kg-------------"+kg);
 			//报警
 			String bjs=stringHandler.substring(64,66);
+			System.out.println("远程开关-----------"+bjs);//FF
+			if(bjs.equals("FF")){
+				bjs=findData.getBj();
+			}
 			System.out.println("报警信息 --------"+bjs);
 			
 			//季节
 			String jj=stringHandler.substring(66,68);
+			if(jj.equals("FF")){
+				jj=findData.getJj();
+			}
 			System.out.println("季节 --------"+jj);
 		
 			//转换为时间格式   方便地修改日期格式
@@ -351,12 +388,12 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setTime(time);
 			data.setKg(kg);
 			data.setJj(jj);
-			data.setYhbh(yhbh);
+			data.setYhbh(yhbhS);
 			data.setFpdz(fpid);
 			dataService.updateYhbhF(data);//更新实时表
 			//根据用户编码查找风盘编号
 			
-		    Fp fp=fpService.findfpbh(yhbh);
+		    Fp fp=fpService.findfpbh(yhbhS);
 		    data.setFpbh(fp.getFpbh());
 			dataService.InsertYh(data);//插入历史表
 		}
@@ -364,14 +401,14 @@ public class ServerHandler2  extends IoHandlerAdapter{
 
 	private void wxkg(byte[] base)
 	{
-		logs.info("中央空调微信开关接收数据：" + Utils.bytesToHexString(base));
+		logs.info("中央空调微信开关接收数据---------------------------：" + Utils.bytesToHexString(base));
 		// 接收数据
 		String stringH = Utils.bytesToHexString(base);
 		// 转换为大写
 		String stringHandler = CzUtil.Uppercase(stringH).toString();
 		// 截取效验数据
 		String jy = CzUtil.getJy(stringHandler);
-	 
+		
 		// 判断开始和结束
 		String start = null;
 		String end = null;
@@ -396,6 +433,15 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			String port=yhmess.getCg().getJzq().getJzqport();
 			// IP地址和端口号
 			String pt = "/" + ip + ":" + port; 
+			logs.info("微信接收数据+pt：" + pt);
+			logs.info("微信接收数据：" + stringHandler);
+			
+			 try {
+				 	Thread.sleep(3000);
+				 } catch (InterruptedException e) {
+				 	e.printStackTrace();
+				 }
+			 
 			System.out.println("pt-------------"+pt);
 			String[] keys = new String[] { pt };
 			System.out.println("------stringHandler----"+stringHandler);
@@ -496,15 +542,24 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			String yhbhS = String.valueOf(Integer.parseInt("" + yhbh + "", 16));
 			System.out.println("yhbhS---------"+yhbhS);
 			
+			 
 			//风盘地址
 			String  fpid=stringHandler.substring(14, 16);
-			
+			//根据用户编码和风盘地址查找用户
+			Data findData=dataService.findData(yhbhS, fpid);
+			System.out.println("--fpid-"+fpid);
 			//风盘模式，00制冷01制热
 			String ms=stringHandler.substring(16,18);
-			System.out.println("ms------"+ms);
 			
+			if(ms.equals("FF")){
+				ms=findData.getMs();
+			}
+			System.out.println("ms------"+ms);
 			//档位
 			String dw=stringHandler.substring(18,20);
+			if(dw.equals("FF")){
+				dw=findData.getDw();
+			}
 			System.out.println("dw------"+dw);
 			//高档运行时间高           00停止 01低档 02中档03高档
 			String gdgS=stringHandler.substring(20,26);
@@ -543,29 +598,53 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			
 			//计费模式             00计费01允许计费
 			String Jf=stringHandler.substring(56,58);
+			if(Jf.equals("FF")){
+				Jf=findData.getJf();
+			}
 			System.out.println("计费模式-------"+Jf );
-			
+		
 			//设定温度
 			String sdwS=stringHandler.substring(58,60);
+			System.out.println("sdwS---"+sdwS);
+			if(sdwS.equals("FF")){
+				sdwS=findData.getSdwd();
+			}
 			int sdw = Integer.parseInt("" + sdwS + "", 16);
 			System.out.println("设定温度----------"+sdwS);
 			
 			//室内温度 实时温度
 			String swS=stringHandler.substring(60,62);
+			System.out.println("swS---"+swS);
+			if(swS.equals("FF")){
+				swS=findData.getSnwd();
+			}
 			int sw = Integer.parseInt("" + swS + "", 16);
+			
 			System.out.println("室内温度 --------"+swS);
 			System.out.println("室内温度十六进制"+sw);
 			
 			// 远程开关
 			String kg=stringHandler.substring(62,64);
+			System.out.println("kg---"+kg);
+			if(kg.equals("FF")){
+				kg=findData.getKg();
+			}
 			System.out.println("远程开关-----------"+kg);//FF
 			
 			//报警
 			String bjs=stringHandler.substring(64,66);
+			System.out.println("bjs---"+bjs);
+			if(bjs.equals("FF")){
+				bjs=findData.getBj();
+			}
 			System.out.println("报警信息 --------"+bjs);
 			
 			//季节
 			String jj=stringHandler.substring(66,68);
+			System.out.println("jj---"+jj);
+			if(jj.equals("FF")){
+				jj=findData.getJj();
+			}
 			System.out.println("季节 --------"+jj);
 		
 			//转换为时间格式   方便地修改日期格式
@@ -656,9 +735,11 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		
 		// 判断和校验
 		String je = CzUtil.getJe(stringHandler);
-		
+		System.out.println(je);
+		System.out.println(jy);
 		if (start.equals("F0") && end.equals("FF") && je.equals("" + jy + ""))
 		{
+			System.out.println("-------------success--");
 			MapUtilsDf.getMapUtils().add("dg", "success");
 		}else{
 			MapUtilsDf.getMapUtils().add("dg", "fail");

@@ -53,13 +53,13 @@
 		<result property="jzq.jzqport" column="jzqport" />
 		<result property="jzq.azdz" column="azdz" />
 	</resultMap>
-	
+
 	<!-- public List<Data> find()-->
 	<select id="find"   resultMap="data"   parameterType="Data">
 		select distinct top 500
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
-		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
+		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  +da.dgdtime*gl.dgkw+ da.dzdtime*gl.dzkw +da.dddtime*gl.ddkw js ,
 		 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
 		 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
 		 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
@@ -74,6 +74,15 @@
 		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz
 		 	and  da.fpbh=fp.fpbh 
 		 	and fp.xh=gl.xh   
+		 	k_glb6  gl  
+			 
+	   where 
+		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
+		 and  da.fpbh=fp.fpbh 
+			and fp.xh=gl.xh 
+		<!--  where 
+		 	da.fpbh=fp.fpbh   fp.yhbh=yhMessage.yhbh    -->
+		
 	</select>
 			<!-- 搜索实时数据-->
 	<select id="searchInfo" resultMap="data"   parameterType="Data">
@@ -118,7 +127,9 @@
 		</if>   
 		order by da.time desc  
 	</select>
-	
+		<select id="findData" resultMap="data"   parameterType="Data" >
+	select * from k_data10 where yhbh=#{yhbh} and fpdz=#{fpdz}
+	</select>
 	<!-- 搜索 历史数据-->
 	<select id="searchHistory" resultMap="data"   parameterType="Data">
      select distinct top 500
