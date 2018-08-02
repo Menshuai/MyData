@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.RoleDao">
+	<resultMap type="Role" id="role">
+		<id property="id" column="id"></id>
+		<id property="name" column="name"></id>
+		<id property="createTime" column="createTime"></id>
+		<id property="lastEditTime" column="lastEditTime"></id>
+	
+	<collection property="users" ofType="User">
+   	 	<id property="id" column="uid"/>
+    	<result property="userName" column="uname"/>
+    </collection>
+	</resultMap>
+	
+	<resultMap type="Role" id="role1">
+		<id property="id" column="rid"></id>
+		<id property="name" column="rname"></id>
+		<id property="createTime" column="createTime"></id>
+		<id property="lastEditTime" column="lastEditTime"></id>
+		
+		
+	
+	<collection property="users" ofType="User">
+   	 	<id property="ID" column="uid"/>
+    	<result property="userName" column="uname"/>
+    </collection>
+   
+	</resultMap>
+	
+	 <resultMap type="UserRole" id="userRole">
+   	 	<id property="id" column="id"/>
+    	<id property="userId" column="user_id"/>
+    	<id property="roleId" column="role_id"/>
+    	<id property="createTime" column="createTime"></id>
+		<id property="lastEditTime" column="lastEditTime"></id>
+    </resultMap>
+	
+	
+	
+	<resultMap type="User" id="findUserByURid">
+		<result property="userName" column="uname" />
+ 	</resultMap>
+	
+	<!--查出所有角色  public List<Role> findAllRole() -->
+	<select id="findAllRole" resultType="Role"  parameterType="Role">
+		select
+			id,NAME,createTime
+		from
+			 k_role
+	</select>
+	
+	<!--添加一个角色     public void save(Role role); -->
+	<insert id="save" parameterType="Role">
+		insert into 
+				k_role(name,createTime,lastEditTime)
+		values
+				(#{name},#{createTime},#{lastEditTime})
+	</insert>
+	
+	
+	<!-- 修改  public void edit(Role role) -->
+	<update  id="edit" parameterType="Role">
+		UPDATE k_role
+		<set>
+			<if test="name!=null">
+				NAME=#{name},
+			</if>
+			lastEditTime=#{lastEditTime}
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	
+	<!-- 删除 public void delete(String id) -->
+	<delete id="delete"  >
+		delete from k_role where id=#{ID}
+	</delete>
+	
+	<!--查询某个角色下的所有用户  public List<User> findUsers(String id) -->
+	<select id="findUsers" parameterType="String" resultMap="findUserByURid">
+	SELECT 
+ 			tul.UserName as uname
+ 		FROM
+			user_role as ur,
+			T_UserLogin as tul
+		WHERE
+			ur.user_id=tul.ID
+		AND
+			ur.role_id=#{id}
+	</select>
+	
+	<delete id="delURole" parameterType="Role">
+ 		DELETE 
+ 			FROM 
+ 				user_role 
+ 		WHERE 
+ 				user_id=#{id}
+ 	</delete>
+ 	
+ 	<insert id="addURole" parameterType="Role"  >
+ 	    INSERT INTO 
+ 			user_role(user_id,role_id) 
+ 			VALUES(#{user_id},#{role_id})
+ 	</insert>
+	 <select id="findRoleId" resultMap="role1" parameterType="java.lang.String">
+	     SELECT  
+			xu.id uid,
+			xu.UserName uname,
+			xr.id rid,
+			xr.NAME rname
+		FROM 
+			T_UserLogin as xu,
+			user_role as xur,
+			k_role as xr
+		WHERE 
+			xu.id=xur.user_id
+ 		AND
+			xur.role_id=xr.id
+		AND
+			xu.id=#{id,jdbcType=VARCHAR}
+ 	</select>
+	
+	  
+	
+</mapper>

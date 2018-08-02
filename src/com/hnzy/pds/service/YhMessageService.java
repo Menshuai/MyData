@@ -14,7 +14,6 @@ import com.hnzy.pds.pojo.YhMessage;
 
 public interface YhMessageService {
 	
-
 	public List<YhMessage> find();
 	
 	public List<YhMessage> findXQ();
@@ -90,6 +89,7 @@ public interface YhMessageService {
 //				@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
 	//查找月份
 	public int  findYf();
+	
 	//更新当前月份
-		public void updateYf(int yf);
+	public void updateYf(int yf);
 }

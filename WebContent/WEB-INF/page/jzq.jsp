@@ -203,15 +203,7 @@
 									
 							</div>
 						</div>
-						<!-- <div class="form-group">
-							<label for="edit_jzqnet"
-								class="col-sm-2 col-sm-offset-3 control-label">本地端口</label>
-							<div class="col-sm-4">
-								<input id="edit_jzqnet" type="text" name="jzqnet"
-									class="form-control" placeholder="本地端口"/>
-									
-							</div>
-						</div> -->
+					
 								<div class="form-group">
 							<label for="edit_jzqip"
 								class="col-sm-2 col-sm-offset-3 control-label">集中器IP</label>
@@ -228,37 +220,7 @@
 									class="form-control" placeholder="集中器端口" />
 							</div>
 						</div>
-							<!-- <div class="form-group">
-							<label for="edit_status"	class="col-sm-2 col-sm-offset-3 control-label">连接状态</label>
-
-							<div class="col-sm-4">
-
-									<select id="edit_status" name="status" class="form-control" placeholder="连接状态" >
-										<option value=0>离线</option>
-										<option value=1>在线</option>
-									</select>
-									
-							</div>
-						</div> -->
-					
-							<!-- 	<div class="form-group">
-							<label for="edit_xqName"
-								class="col-sm-2 col-sm-offset-3 control-label">小区名称</label>
-							<div class="col-sm-4">
-								<input id="edit_xqName" type="text" name="xqName"
-									class="form-control" placeholder="小区名称" />
-								
-							</div>
-						</div> -->
-						<!-- <div class="form-group">
-							<label for="edit_hesName"
-								class="col-sm-2 col-sm-offset-3 control-label">换热站名称</label>
-							<div class="col-sm-4">
-								<input id="edit_hesName" type="text" name="hesName"
-									class="form-control" placeholder="换热站名称" />
-								
-							</div>
-						</div> -->
+										
 								<div class="form-group">
 							<label for="edit_azdz"
 								class="col-sm-2 col-sm-offset-3 control-label">安装位置</label>
@@ -270,14 +232,6 @@
 							</div>
 						</div>
 							
-						<!-- <div class="form-group">
-							<label for="edit_remark"
-								class="col-sm-2 col-sm-offset-3 control-label">备注</label>
-							<div class="col-sm-4">
-								<input id="edit_remark" type="text" name="remark"
-									class="form-control" placeholder="备注" />
-							</div>
-						</div> -->
 						<div class="form-group">
 							<div class="col-sm-4 col-sm-offset-5">
 								<button type="button" onclick="edit()" class="btn btn-primary btn-sm">提交</button>

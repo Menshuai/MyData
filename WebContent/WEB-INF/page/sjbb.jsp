@@ -201,7 +201,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(bj=="03"){
 						html += "<td class='text-center'>盗热嫌疑</td>";
 					}
-					html += "<td class='text-center'>" + jj+ "</td>";
+					if(jj=="00"){
+						html += "<td class='text-center'>夏季</td>";
+					}
+					if(jj=="01"){
+						html += "<td class='text-center'>冬季</td>";
+					}
+					 
 					html += "<td class='text-center' title='"+time+"'>" + time+ "</td>";
 					html += "<td class='text-center'>" + mj+ "</td>";
 					html += "<td class='text-center'>" + lxdh+ "</td>";
@@ -491,7 +497,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td>${yh.time}</td>
 		<td>${yh.yhMessage.mj}</td>
 		<td>${yh.yhMessage.lxdh}</td>
-	
 		<td>${yh.yhMessage.bz}</td>
 	 </tr>
 	</c:forEach>

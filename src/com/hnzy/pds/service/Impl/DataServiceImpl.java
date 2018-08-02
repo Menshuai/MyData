@@ -73,4 +73,9 @@ public class DataServiceImpl implements DataService{
 		return dataDao.findData(yhbh, fpdz);
 	}
 
+	@Override
+	public List<Data> Search(String bj) {
+		return dataDao.Search(bj);
+	}
+
 }

@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class Home {
  
 	 
-		//用户管理
+		/*//用户管理
 		@RequestMapping("/Yhgl")
 		public String yhgl(){
 			return "yhgl";
-		}
+		}*/
 		
-		//角色管理
+	/*	//角色管理
 		@RequestMapping("/RoleGl")
 		public String RoleGl(){
 			return "Rolegl";
-		}
+		}*/
 		 
 		
 		//报修

@@ -2,9 +2,14 @@ package com.hnzy.pds.pojo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 public class User implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int ID;
 	private String UserName;
 	private String PassWord;
@@ -12,6 +17,56 @@ public class User implements Serializable {
 	private String password2;// 
 	private Date CreateTime;
 	private int root; // 
+	private List<Menu> menus;
+	private List<Role> roles;
+	 
+	private List<UserRole> ur;
+	
+	
+	public User(int iD, String userName, String passWord, String password1, String password2, Date createTime, int root,
+			List<Menu> menus, List<Role> roles, List<UserRole> ur) {
+		super();
+		ID = iD;
+		UserName = userName;
+		PassWord = passWord;
+		this.password1 = password1;
+		this.password2 = password2;
+		CreateTime = createTime;
+		this.root = root;
+		this.menus = menus;
+		this.roles = roles;
+		this.ur = ur;
+	}
+
+
+	public List<Menu> getMenus() {
+		return menus;
+	}
+
+
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+
+	public List<UserRole> getUr() {
+		return ur;
+	}
+
+
+	public void setUr(List<UserRole> ur) {
+		this.ur = ur;
+	}
 
 
 	public User() {
@@ -44,6 +99,12 @@ public class User implements Serializable {
 	}
 
 	 
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
 
 	public int getID() {
 		return ID;
@@ -147,5 +208,6 @@ public class User implements Serializable {
 		return "User [ID=" + ID + ", UserName=" + UserName + ", PassWord=" + PassWord + ", password1=" + password1
 				+ ", password2=" + password2 + ", CreateTime=" + CreateTime + ", root=" + root + "]";
 	}
+	
 
 }

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.pds.dao.MenuDao">
+	<resultMap type="Menu" id="menu">
+		<id property="id" column="id" />
+		<result property="name" column="NAME" />
+		<result property="pid" column="pid" />
+		<result property="url" column="url" />
+	</resultMap>
+	
+		<resultMap type="Menu" id="roleMenu">
+		<id property="id" column="mid" />
+		<result property="name" column="mname" />
+		<collection property="role" ofType="Role">
+			<id property="id" column="rid" />
+			<result property="name" column="rname" />
+		</collection>
+	</resultMap>
+
+	<resultMap type="Menu" id="findAllResult">
+		<id property="id" column="fid" />
+		<result property="name" column="fname" />
+		<result property="url" column="furl" />
+		<result property="pid" column="pid" />
+		<collection property="childMenus" column="fid" ofType="Menu">
+			<id property="id" column="cid" />
+			<result property="name" column="cname" />
+			<result property="url" column="curl" />
+		</collection>
+	</resultMap>
+	
+	<!--添加 public int addURole(RoleMenu userRole) -->
+	<insert id="addURole" parameterType="RoleMenu">
+		insert into
+			 role_menu(role_id,menu_id)
+		values(#{roleId},#{menuId})
+	</insert>
+	
+	<!--删除 public int delURole(String id) -->
+	<delete id="delURole"  parameterType="RoleMenu">
+		delete 
+		from 
+			role_menu 
+		where  role_id=#{id}
+	</delete>
+	
+	<!--根据角色的id查询该用户的菜单  public List<Menu> findMenuByRId(Integer id) -->
+	<select id="findMenuByRId"   parameterType="int"   resultMap="findAllResult">
+		SELECT
+			a.id fid,
+			a. NAME fname,
+			b.id cid,
+			b. NAME cname
+		FROM
+			(SELECT
+				xm.*
+			FROM
+				k_role xr,
+				role_menu xrm,
+				k_menu xm
+		WHERE
+			xr.id = xrm.role_id
+			AND xm.id = xrm.menu_id
+			AND xr.id = #{id}) a
+		LEFT JOIN 
+			(SELECT
+				xm.*
+				FROM
+				k_role xr,
+				role_menu xrm,
+				k_menu xm
+		WHERE
+			xr.id = xrm.role_id
+			AND xm.id = xrm.menu_id
+			AND xr.id = #{id}) b ON a.id = b.pid
+		WHERE
+			a.pid =- 1
+	</select>
+	
+	<!-- 查询所有菜单 -->
+	<select id="find" resultMap="findAllResult">
+	SELECT
+		m1.id fid,
+		m1. NAME fname,
+		m1.url furl,
+
+		m2.id cid,
+		m2. NAME cname,
+		m2.url curl
+	FROM
+		k_menu m1
+	LEFT JOIN k_menu m2 ON m1.id = m2.pid
+	WHERE
+		m1.pid =-1
+	</select>
+</mapper>

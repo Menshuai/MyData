@@ -117,10 +117,10 @@
 				var y=data.ywc;	
 				var w=data.wjd;
 				var z=data.yjd;
-				sc+="<span>  总记录："+c+"条  &nbsp;&nbsp;  未接单："+w+" 条  &nbsp;&nbsp;  已完成："+y+"条 &nbsp;&nbsp;   已接单："+z+"条</span>" 
+				sc+="<span> 总记录："+c+"条  &nbsp;&nbsp; 未接单："+w+" 条  &nbsp;&nbsp; 已完成："+y+"条 &nbsp;&nbsp; 已接单："+z+"条</span>" 
 					for(var i=0;i<d.length;i++){
 						var id=d[i].id;	
-						alert(d[i].xqm);
+					 
 						if(d[i].xqm==undefined){
 							var xqm="";
 						}else{
@@ -257,7 +257,7 @@
 			height: 660,
 			colModal: [
 				{ width: 50, align: 'center' },
-			 	{ width: 100, align: 'center' }, 
+			 	{ width: 120, align: 'center' }, 
 				{ width: 80, align: 'center' },
 				{ width: 80, align: 'center' },
 				{ width: 80, align: 'center' },
@@ -335,7 +335,7 @@
 							<th>单元号</th>
 							<th>门牌号</th>
 							<th>状态</th>
-							<th>异常</th> 
+							<th>故障</th> 
 							<th>提交人</th>
 							<th>提交时间</th>
 							<th>接单人</th>

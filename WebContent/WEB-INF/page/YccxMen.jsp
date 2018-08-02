@@ -14,15 +14,15 @@
 <script src="../js/jquery-1.11.1.min.js" type="text/javascript"></script> 
 	 <script type="text/javascript">
 
-	window.onload = function() {//项目名      controler类名  方法名
-        window.open("/Data/RzController/Yccx.action","Conframe");
+	window.onload = function() {//项目名      controler类名    方法名
+        window.open("/Data/DataController/Yccx.action","Conframe");
     }
 	</script>
 	
 	  <script type="text/javascript">
 	  
 	  function yccx(){// 异常查询
-		    window.open("/Data/RzController/Yccx.action","Conframe");
+		    window.open("/Data/DataController/Yccx.action","Conframe");
 		} 
 	   
 	 </script>

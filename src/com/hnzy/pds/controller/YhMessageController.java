@@ -192,7 +192,8 @@ public class YhMessageController {
 			rz.setCzr((String)session.getAttribute("UserName"));
 			rz.setCzsj(new Date());;
 			rzService.insert(rz);
-				}
+			
+		}
 				
 	
 }

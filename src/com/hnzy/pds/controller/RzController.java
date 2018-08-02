@@ -21,8 +21,8 @@ public class RzController {
 	
 	@Autowired
 	private RzService rzService;
-	@Autowired
-	private DataService dataService;
+/*	@Autowired
+	private DataService dataService;*/
 	/*@RequestMapping("rzList")
 	public String RzList(){
 		return "Rz";
@@ -33,7 +33,7 @@ public class RzController {
 		return "RzMen";
 	}
 	
-	@RequestMapping("YccxMe")
+	/*@RequestMapping("YccxMe")
 	public String Yc(){
 		return "YccxMen";
 	}
@@ -44,7 +44,7 @@ public class RzController {
 		request.setAttribute("YhList", YhList);
 		return "Yccx";
 	}
-	
+	*/
 	
 	//搜索
 	@RequestMapping("Search")

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
 <mapper namespace="com.hnzy.pds.dao.UserDao">
 	<resultMap type="User" id="user">
-		<id property="ID" column="id" />
+		<id property="ID" column="ID" />
 		<result property="UserName" column="UserName" />
 		<result property="PassWord" column="Password" />
 		<result property="root" column="root" />
@@ -24,10 +24,9 @@
     </delete>
   
     <!--  删除信息 public int delete(int id)-->
-    <delete id="delete">
+    <delete id="delete" parameterType="User">
     	delete from T_Userlogin where id=#{ID}
     </delete>
-    
     
     
     <!-- 根据id查找信息public User findById(int id)  -->
@@ -74,7 +73,7 @@
 	
 	<select id="findJSName" resultMap="user">
 	select u.ID,u.UserName from T_UserLogin u,user_role urs
-	where u.ID=urs.user_id and urs.role_id=1003
+	where u.ID=urs.user_id and urs.role_id=1002
 	</select>
 	
 	 

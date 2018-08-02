@@ -27,9 +27,9 @@ public interface RepairService {
 			@Param("dyh")String dyh,@Param("hh")String hh,@Param("fl")String fl,@Param("lxdh")String lxdh);
 
 	public int sum(Repair repair,@Param("kffl")int kffl);
-	public int state0(@Param("kffl")int kffl);//未接单
-	public int state1(@Param("kffl")int kffl);//已接单
-	public int state2(@Param("kffl")int kffl);//已完成
+	public int statewjd(@Param("kffl")int kffl);//未接单
+	public int stateyjd(@Param("kffl")int kffl);//已接单
+	public int stateywc(@Param("kffl")int kffl);//已完成
 	
 	public int sum1(@Param("xqm")String xqm,@Param("ldh")String ldh,
 			@Param("dyh")String dyh,@Param("hh")String hh,@Param("fl")String fl,@Param("lxdh")String lxdh);
@@ -46,10 +46,15 @@ public interface RepairService {
 	
 			@Param("dyh")String dyh,@Param("hh")String hh,@Param("fl")String fl,@Param("lxdh")String lxdh);
 
-	//更新
+		//更新
 		public void updateRepair(Repair repair);
 		
-	//chart 搜索
+		//添加
+		public void InsertRepair(Repair repair);
+		
+		//chart 搜索
 		public List<Map<String,Object>> chartSearch(@Param("xqm")String xqm,@Param("kffl")int kffl);
 
+		//
+		public List<Repair> findState(@Param("kffl")int kffl);
 }

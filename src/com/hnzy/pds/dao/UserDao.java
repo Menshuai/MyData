@@ -11,41 +11,41 @@ public  interface UserDao {
 	
 	/**
 	 * @author Administrator
-	 *¸ù¾Ýid²éÑ¯
+	 *ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½Ñ¯
 	 */
-	public User findUserById(int id);
+	public User findUserById( int id);
 	
 	/**
-	 * ×¢²á
+	 * ×¢ï¿½ï¿½
 	 * @param user
 	 */
 	
 	public void addUser(User user);
 	
    /**
-    * ²éÕÒÐÅÏ¢
+    * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     * @return
     */
 	public List<User> find();
 	
 	
 	/**
-	 * @author   ²åÈëÐÅÏ¢
+	 * @author   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 */
 	public void Insert( User user);
 	
 	/**
-	 * @author Administrator É¾³ý
+	 * @author Administrator É¾ï¿½ï¿½
 	 */
 	public int delete(int id);
 
 	/**
-	 * @author Administrator ¸ù¾Ýid²éÕÒÐÅÏ¢
+	 * @author Administrator ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 */
-	public User findById(int id);
+	public User findById(@Param("ID")int id);
 
 	/**
-	 * @author Administrator ¸üÐÂÐÅÏ¢update
+	 * @author Administrator ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢update
 	 * 
 	 */
 	public void update(User  user);

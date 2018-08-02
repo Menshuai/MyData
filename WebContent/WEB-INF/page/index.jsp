@@ -84,13 +84,13 @@ function tc(){ //安全退出
 				<%-- 	<li><a target="Conframel" href="<%=basePath%>Repair/RepairMe.action.action">客服管理</a></li> --%>
 					<li><a href="#">客服管理<i class="tip-up"></i></a>
 						<ul class="kidc">							
-							<li><a target="Conframel" href="<%=basePath%>Repair/RepairMe.action.action">保修登记</a></li>
+							<li><a target="Conframel" href="<%=basePath%>Repair/RepairMe.action.action">报修登记</a></li>
 							<li><a target="Conframel" href="<%=basePath%>Repair/SqazMe.action.action">申请安装</a></li>
 						</ul>  
 					</li>  
 						 
 					<li><a target="Conframel" href="<%=basePath%>RzController/RzMe.action">操作日志</a></li>
-					<li><a target="Conframel" href="<%=basePath%>RzController/YccxMe.action">异常查询</a></li>
+					<li><a target="Conframel" href="<%=basePath%>DataController/YccxMe.action">异常查询</a></li>
 					<li><a target="Conframel" href="<%=basePath%>Home/XtszMe.action">系统设置</a></li>
 				 	 <%-- <li><a href="#">用户注册<i class="tip-up"></i></a>
 						<ul class="kidc">							

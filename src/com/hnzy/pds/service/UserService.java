@@ -31,6 +31,7 @@ public  interface UserService {
 		 * @author Administrator ɾ���û�
 		 */
 		public void deleteUser(String id);
+		public void delete(String id);
 
 		/**
 		 * @author Administrator ����id�����Ñ���Ϣ
@@ -57,4 +58,7 @@ public  interface UserService {
 		public List<User> findJSName();
 		
 		public int findID(@Param("userName")String userName);
+
+
+		 
 }

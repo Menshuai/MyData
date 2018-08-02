@@ -26,7 +26,7 @@
 		} 
 	  
 	   function qxgl(){ //权限管理 
-		    window.open("/Data/Home/RoleGl.action","Conframe");
+		    window.open("/Data/roleController/RoleGl.action","Conframe");
 		}  
 	   
 	 </script>

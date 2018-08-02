@@ -41,7 +41,7 @@
 		$('#fixed_hdr2').fxdHdrCol({
 			fixedCols: 0,
 			width: "100%",
-			height: 550,
+			height: 800,
 			colModal: [
 			{ width: 50, align: 'center' },
 			{ width: 100, align: 'center' },

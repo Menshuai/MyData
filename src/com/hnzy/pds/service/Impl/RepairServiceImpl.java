@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,18 +50,18 @@ public class RepairServiceImpl implements RepairService{
 	}
 
 	@Override
-	public int state0(int kffl) {
-		return repairDao.state0(kffl);
+	public int statewjd(int kffl) {
+		return repairDao.statewjd(kffl);
 	}
 
 	@Override
-	public int state1(int kffl) {
-		return repairDao.state1(kffl);
+	public int stateyjd(int kffl) {
+		return repairDao.stateyjd(kffl);
 	}
 
 	@Override
-	public int state2(int kffl) {
-		return repairDao.state2(kffl);
+	public int stateywc(int kffl) {
+		return repairDao.stateywc(kffl);
 	}
 
 	@Override
@@ -97,6 +98,16 @@ public class RepairServiceImpl implements RepairService{
 		   map.put("已完成", repairDao.statePlace2(xqm,kffl));
 		   wxList.add(map);
 		return wxList;
+	}
+
+	@Override
+	public List<Repair> findState(int kffl) {
+		return repairDao.findState(kffl);
+	}
+
+	@Override
+	public void InsertRepair(Repair repair) {
+		repairDao.Insert(repair);		
 	}
 
  

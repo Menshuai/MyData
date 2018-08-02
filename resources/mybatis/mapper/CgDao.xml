@@ -28,8 +28,8 @@
 		
 	</resultMap>
 
-	<select id="find" resultMap="cg">
-		select distinct
+	<select id="find" resultMap="cg" parameterType="Cg">
+		select distinct  
 			c.cgbh,c.jzqnet,c.azdz,c.bz,
 		 	y.yhbh,y.cgbh
 		from 
