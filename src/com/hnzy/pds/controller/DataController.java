@@ -1,11 +1,14 @@
 package com.hnzy.pds.controller;
 
  
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
@@ -44,6 +47,7 @@ public class DataController {
 	private FpService fpService;
 	private static Log log = LogFactory.getLog(DataController.class);
 	public List<Data> YhList;
+	public List<Data> BjList;//报警
 	//首页
 	@RequestMapping("/data")
 	public String sjbb(HttpServletRequest request)  {
@@ -62,41 +66,94 @@ public class DataController {
 		request.setAttribute("YhList", YhList);
 		return "/sbgl";//设备管理sbgljsp
 	}
+	
+	
 	//根据小区获取  楼栋号
-			@RequestMapping("findYhldhbyxqm")
-			@ResponseBody
-			public JSONObject findYhldhbyxqm(String xqm) throws UnsupportedEncodingException{
-				 xqm=new String(xqm.getBytes("ISO-8859-1"),"utf-8")+"";
-				yhInfoList=yhMessageService.findYhBuildNObyXqm(xqm);
-				JSONObject jsonObject=new JSONObject() ;
-				if(yhInfoList!=null){
-					jsonObject.put("xqlist", yhInfoList);
-				}else{
-					jsonObject.put("fail", null);
-				}
-				return jsonObject;
+		@RequestMapping("findYhldhbyxqm")
+		@ResponseBody
+		public JSONObject findYhldhbyxqm(String xqm) throws UnsupportedEncodingException{
+			 xqm=new String(xqm.getBytes("ISO-8859-1"),"utf-8")+"";
+			yhInfoList=yhMessageService.findYhBuildNObyXqm(xqm);
+			JSONObject jsonObject=new JSONObject() ;
+			if(yhInfoList!=null){
+				jsonObject.put("xqlist", yhInfoList);
+			}else{
+				jsonObject.put("fail", null);
+			}
+			return jsonObject;
+		}
+		
+		//根据楼栋号获取  单元号
+		@RequestMapping("findYhdyhByBuild")
+		@ResponseBody
+		public JSONObject findYhdyhByBuild(@Param("ldh")int ldh,@Param("xqm")String xqm) throws UnsupportedEncodingException{
+			xqm=new String(xqm.getBytes("ISO-8859-1"),"utf-8")+"";
+			yhInfoList=yhMessageService.findYhCellNOByBuild(ldh, xqm);
+			JSONObject jsonObject=new JSONObject();
+			if(yhInfoList!=null){
+				jsonObject.put("dyhList",yhInfoList);
+			}else{
+				jsonObject.put("fail",null);
+			}
+			return jsonObject;
+		}
+		
+		//异常查询  首页 左边框架
+		@RequestMapping("YccxMe")
+		public String Yc(){
+				return "YccxMen";
 			}
 			
-			//根据楼栋号获取  单元号
-			@RequestMapping("findYhdyhByBuild")
-			@ResponseBody
-			public JSONObject findYhdyhByBuild(@Param("ldh")int ldh,@Param("xqm")String xqm) throws UnsupportedEncodingException{
-				xqm=new String(xqm.getBytes("ISO-8859-1"),"utf-8")+"";
-				yhInfoList=yhMessageService.findYhCellNOByBuild(ldh, xqm);
-				JSONObject jsonObject=new JSONObject();
-				if(yhInfoList!=null){
-					jsonObject.put("dyhList",yhInfoList);
-				}else{
-					jsonObject.put("fail",null);
-				}
-				return jsonObject;
-			}
+		//异常查询
+		@RequestMapping("Yccx")
+		public String Yccx(HttpServletRequest request){
+			List<Data> YhList=dataService.find();
+			request.setAttribute("YhList", YhList);
+			return "Yccx";
+		}
+		
+		//异常查询中的  搜索按钮
+		@RequestMapping("Search")
+		@ResponseBody
+		 public JSONObject Search(HttpServletRequest request,@Param("bj")String bj) throws UnsupportedEncodingException{
+			bj=new String(bj.getBytes("ISO-8859-1"),"UTF-8")+"";
+			JSONObject jsonObject=new JSONObject();
+				BjList=dataService.Search(bj);
+				jsonObject.put("BjList",BjList);
+			 return jsonObject;
+		 }
+		
+		//导出
+		@RequestMapping("YhInfodoExportExcel")
+		public void  YhInfodoExportExcel(YhMessage yhInfo,HttpSession session,HttpServletResponse response,@Param("xqm")String xqm,
+				  @Param("bj") String bj) throws IOException{
+		 /*	xqm=new String(xqm.getBytes("ISO-8859-1"),"utf-8")+"";*/
+			bj=new String(bj.getBytes("ISO-8859-1"),"utf-8")+"";
+			//告诉浏览器要弹出的文档类型
+			response.setContentType("application/x-execl");
+			//告诉浏览器这个文档作为附件给别人下载（放置浏览器不兼容，文件要编码）
+			response.setHeader("Content-Disposition", "attachment;filename="+new String("报警信息列表.xls".getBytes(),"ISO-8859-1"));
+			//获取输出流
+			 ServletOutputStream outputStream=response.getOutputStream();
+			 yhMessageService.exportExcel(dataService.Search(bj), outputStream);
+			 if(outputStream!=null){
+				outputStream.close();
+			 }
+		 	//日志
+		/*	Rz rz=new Rz();
+			rz.setCz("导出:小区名称："+xqm+",楼栋号："+ldh+",单元号："+dyh);
+			rz.setCzr((String)session.getAttribute("UserName"));
+			rz.setCzsj(new Date());;
+			rzService.insert(rz); */
+		}
 			
+		
 			//搜索并显示
 			@RequestMapping("searchInfo")
 			@ResponseBody
 			public JSONObject searchInfo(HttpServletRequest request,ModelMap map,@Param("xqm")String xqm,@Param("ldh")int ldh,
 							@Param("dyh")int dyh,@Param("hh")Integer hh) throws UnsupportedEncodingException{
+<<<<<<< HEAD
 				JSONObject jsonObject=new JSONObject();
 				//hh为null查询实时表，否则查询历史表
 				if(hh==null){
@@ -121,6 +178,31 @@ public class DataController {
 	}
 	String fpdz;
 	String idString;
+=======
+			JSONObject jsonObject=new JSONObject();
+			//hh为null查询实时表，否则查询历史表
+			if(hh==null){
+				hh=0;
+				YhList= dataService.searchInfo(xqm, ldh, dyh, hh, "", "");
+				jsonObject.put("findXqInfoHistory",YhList);
+			}else{
+				YhList= dataService.searchHistory(xqm, ldh, dyh, hh,"","");
+				jsonObject.put("findXqInfoHistory",YhList );
+			}
+				return jsonObject;		
+			}
+			
+			@RequestMapping("/DataMe")
+			public String SkqMe(){
+				return "/DataMen";
+			}
+			
+			@RequestMapping("/SbglMe")
+			public String DataMe(){
+				return "/SbglMen";
+			}
+				 
+>>>>>>> 6663d06acdc8a01730243b2451b4e3b0acf19e43
 	//查询状态------对某一户--------------查询状态-----------------
 	@ResponseBody
 	@RequestMapping("CxState")

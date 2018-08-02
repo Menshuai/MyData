@@ -1,15 +1,19 @@
-package com.hnzy.pds.dao;
+package com.hnzy.pds.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
 
 public class UserRole implements Serializable{
 
-	private Integer id;//ÓÃ»§-½ÇÉ«±íµÄÖ÷¼üID
-	private String userId;//ÓÃ»§±íµÄÖ÷¼üID
-	private String roleId;//½ÇÉ«±íµÄÖ÷¼üID
-	private Date createTime;//´´½¨Ê±¼ä
-	private Date lastEditTime;//×îºóÐÞ¸ÄÊ±¼ä
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;//ï¿½Ã»ï¿½-ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
+	private String user_id;//ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
+	private String role_id;//ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
+	private Date createTime;//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	private Date lastEditTime;//ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½Ê±ï¿½ï¿½
 	
 	
 	public UserRole() {
@@ -18,14 +22,14 @@ public class UserRole implements Serializable{
 	public UserRole(Integer id, String userId, String roleId, Date createTime, Date lastEditTime) {
 		super();
 		this.id = id;
-		this.userId = userId;
-		this.roleId = roleId;
+		this.user_id = userId;
+		this.role_id = roleId;
 		this.createTime = createTime;
 		this.lastEditTime = lastEditTime;
 	}
 	@Override
 	public String toString() {
-		return "UserRole [id=" + id + ", userId=" + userId + ", roleId=" + roleId + ", createTime=" + createTime
+		return "UserRole [id=" + id + ", userId=" + user_id + ", roleId=" + role_id + ", createTime=" + createTime
 				+ ", lastEditTime=" + lastEditTime + "]";
 	}
 	public Integer getId() {
@@ -35,16 +39,16 @@ public class UserRole implements Serializable{
 		this.id = id;
 	}
 	public String getUserId() {
-		return userId;
+		return user_id;
 	}
 	public void setUserId(String userId) {
-		this.userId = userId;
+		this.user_id = userId;
 	}
 	public String getRoleId() {
-		return roleId;
+		return role_id;
 	}
 	public void setRoleId(String roleId) {
-		this.roleId = roleId;
+		this.role_id = roleId;
 	}
 	public Date getCreateTime() {
 		return createTime;

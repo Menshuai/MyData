@@ -13,7 +13,8 @@ import com.hnzy.pds.dao.YhMessageDao;
 import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.YhMessageService;
-import com.hnzy.pds.util.ExcelUtilZykt;
+import com.hnzy.pds.util.ExcelUtilBj;
+
 
 @Service("yhMessageService")
 public class YhMessageServiceImpl implements YhMessageService{
@@ -108,7 +109,7 @@ public class YhMessageServiceImpl implements YhMessageService{
 
 	@Override
 	public void exportExcel(List<Data> yhInfosList, ServletOutputStream outputStream) throws IOException {
-		ExcelUtilZykt.exportExcel(yhInfosList, outputStream);
+		ExcelUtilBj.exportExcel(yhInfosList, outputStream);
 	}
 	@Override
 	public List<YhMessage> findXqName() {

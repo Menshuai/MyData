@@ -3,13 +3,9 @@ package com.hnzy.pds.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-
 import com.hnzy.hot.base.BaseDao;
- 
 import com.hnzy.pds.pojo.Repair;
  
-
-
 public interface RepairDao  extends BaseDao<Repair>{
  
 	//查找小区
@@ -30,9 +26,9 @@ public interface RepairDao  extends BaseDao<Repair>{
 	
 	//
 	public int sum(Repair repair,@Param("kffl")int kffl);
-	public int state0(@Param("kffl")int kffl);//未接单
-	public int state1(@Param("kffl")int kffl);//已接单
-	public int state2(@Param("kffl")int kffl);//已完成
+	public int statewjd(@Param("kffl")int kffl);//未接单
+	public int stateyjd(@Param("kffl")int kffl);//已接单
+	public int stateywc(@Param("kffl")int kffl);//已完成
 	
 	public int sum1(@Param("xqm")String xqm,@Param("ldh")String ldh,
 			@Param("dyh")String dyh,@Param("hh")String hh,@Param("fl")String fl,@Param("lxdh")String lxdh);
@@ -52,13 +48,15 @@ public interface RepairDao  extends BaseDao<Repair>{
 	//更新
 	public void updateRepair(Repair repair);
 	
+	//添加
+	public void InsertRepair(Repair repair);
 	
 	//状态
 	public int statePlace0(@Param("xqm")String xqm,@Param("kffl")int kffl);
 	public int statePlace1(@Param("xqm")String xqm,@Param("kffl")int kffl);
 	public int statePlace2(@Param("xqm")String xqm,@Param("kffl")int kffl);
- 
+	//
+	public List<Repair> findrepair();
 	
-	
- 
+	public List<Repair> findState(@Param("kffl")int kffl);
 }

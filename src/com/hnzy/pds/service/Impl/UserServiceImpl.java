@@ -1,12 +1,13 @@
 package com.hnzy.pds.service.Impl;
 
-import java.io.Serializable;
+ 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.hnzy.pds.controller.UserController;
 import com.hnzy.pds.dao.UserDao;
 import com.hnzy.pds.pojo.User;
 import com.hnzy.pds.service.UserService;
@@ -17,7 +18,7 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDao userDao;
 	
-	 
+	private final static Logger logger = Logger.getLogger(UserServiceImpl .class);
 	@Override
 	public List<User> find() {
 		return userDao.find();
@@ -81,6 +82,22 @@ public class UserServiceImpl implements UserService{
 	public int findID(String userName) {
 		return userDao.findID(userName);
 	}
+
+	@Override
+	public void delete(String id) {
+		try {
+			int result=userDao.delete(Integer.parseInt(id));
+			if(result>0){
+				logger.info("删除成功一条，ID为:"+id);
+			}
+		} catch (Exception e) {
+			logger.info("删除失败！:"+e);
+		}
+		
+	}
+
+	 
+	 
 
 	
 

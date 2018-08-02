@@ -52,10 +52,8 @@
 							$.get("findYhldhbyxqm.action?xqm="+ $("#xqmId").val(), function(data) {
 								var dd = data;
 								var d = dd.ldhList;
-							
 								$("#ldhId option:gt(0)").remove();
 								$("#dyhId option:gt(0)").remove();
-								
 								for (var i = 0; i < d.length; i++) {
 									var ldh = d[i].ldh;
 									var opt = "<option value='"+ldh+"'>"
@@ -120,7 +118,6 @@
 				sc+="<span>  总记录："+c+"条  &nbsp;&nbsp;  未接单："+w+" 条  &nbsp;&nbsp;  已完成："+y+"条 &nbsp;&nbsp;   已接单："+z+"条</span>" 
 					for(var i=0;i<d.length;i++){
 						var id=d[i].id;	
-						alert(d[i].xqm);
 						if(d[i].xqm==undefined){
 							var xqm="";
 						}else{
@@ -306,6 +303,7 @@
 		</select>
 		&nbsp;&nbsp;&nbsp;
 		户号：<input type="text" name="hh" id="hhId" size=10px value="${hh}"  />
+		
 		&nbsp;&nbsp;&nbsp;
 		<label for="JFStatusId">选择缴费状态</label> 
 		<select id="JFStatusId" name="sfjf">
@@ -313,8 +311,10 @@
 			     <option selected="selected">是</option>
 			     <option>否</option>
 		</select>
+		
 		&nbsp;&nbsp;&nbsp;
 		联系电话：<input type="text" name="lxdh" id="lxdhId" size=10px value="${lxdh}"  />
+		
 		<input onclick="sousuo()" type="button" class="btn btn-success" 
 			style="background-image: url('../img/secai.png');border:1px" value="搜索" /> &nbsp;&nbsp; 
 		</span>
@@ -335,7 +335,7 @@
 							<th>单元号</th>
 							<th>门牌号</th>
 							<th>状态</th>
-							<th>申请安装</th> 
+							<th>故障</th> 
 							<th>提交人</th>
 							<th>提交时间</th>
 							<th>接单人</th>
@@ -356,7 +356,7 @@
 		 		<td bgcolor="#99CCFF" title="${repa.dyh}">${repa.dyh}</td>
 		 		<td bgcolor="#99CCFF" title="${repa.hh}">${repa.hh}</td>
 		 		<td bgcolor="#99CCFF" title="${repa.zt}">${repa.zt}</td>
-		 		<td bgcolor="#99CCFF" title="${repa.wt}">${repa.wt}</td>
+		 		<td bgcolor="#99CCFF" title="${repa.lx}">${repa.lx}</td>
 		 		<td bgcolor="#99CCFF" title="${repa.tjr}">${repa.tjr}</td>
 		 		<td bgcolor="#99CCFF" title="<fmt:formatDate value="${repa.tjsj}" pattern="yyyy-MM-dd HH:mm:ss" />">
 		 			<fmt:formatDate value="${repa.tjsj}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
@@ -373,7 +373,7 @@
 					 	<td title="${repa.dyh}">${repa.dyh}</td>
 					 	<td  title="${repa.hh}">${repa.hh}</td>
 					 	<td  title="${repa.zt}">${repa.zt}</td>
-					 	<td  title="${repa.wt}">${repa.wt}</td>
+					 	<td  title="${repa.lx}">${repa.lx}</td>
 					 	<td  title="${repa.tjr}">${repa.tjr}</td>
 					 	<td title="<fmt:formatDate value="${repa.tjsj}" pattern="yyyy-MM-dd HH:mm:ss" />">
 					 		<fmt:formatDate value="${repa.tjsj}" pattern="yyyy-MM-dd HH:mm:ss" /></td>

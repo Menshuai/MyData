@@ -24,15 +24,24 @@ public interface DataDao {
 	//插入实时表
 	public void InsertYhSSb(Data data);
 	//数据报表搜索------
-		public List<Data> searchInfo(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
+	public List<Data> searchInfo(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
 				@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
-		//历史数据
-		public List<Data> searchHistory(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
+	//历史数据
+	public List<Data> searchHistory(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
 				@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
+<<<<<<< HEAD
 		//获取计算用户当量，金额
 		public Data findYh(@Param("yhbh")String yhbh,@Param("fpdz")Integer fpdz);
 		
 		//更新用户费用信息
 		public void updateJf(Data data);
 		
+=======
+	
+	
+	
+	//异常查询 搜索
+	public List<Data> Search(@Param("bj") String bj);
+	
+>>>>>>> 6663d06acdc8a01730243b2451b4e3b0acf19e43
 }

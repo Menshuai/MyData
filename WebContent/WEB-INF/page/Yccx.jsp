@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<title>数据报表</title>
+<title>异常查询</title>
 </head>
 
 	<script src="https://code.jquery.com/jquery.min.js" type="text/javascript"></script><!-- 用到JQUERY的地方，jquery一定是在JS前面加载 -->
@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			background: url(../img/secai.png);
 		}
 	</style>
- <script type="text/javascript">
+<!--  <script type="text/javascript">
 	/*页面加载就开始执行js*/
 	$(document).ready(//根据小区获取  楼栋号
 			function() {
@@ -85,32 +85,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							});
 						});
 			});
-</script>
+</script> -->
 <script type="text/javascript">
 	function searchInfo() {
-		var xqm = $('#xqmId').val();
-		var ldh = $('#ldhId').val();
-		var dyh = $('#dyhId').val();
-		var hh = $('#hhId').val();
-		var time1 = $('#time1').val();
-		var time2 = $('#time2').val();
+		var bj = $('#bjId').val();
 		var html = "";
 		$.ajax({
 			type:"POST",
-			url : "searchInfo.action",
+			url : "Search.action",
 			async : false,
 			dataType : "json",
 			data : {
-				"xqm" : xqm,
-				"ldh" : ldh,
-				"dyh" : dyh,
-				"hh" : hh,
-				"time1":time1,
-				"time2":time2,
+				"bj" : bj,
 			},
 			success : function(data) {
 				$("#yhInfo").empty();
-				var d = data.findXqInfoHistory;
+				var d = data.BjList;
 				for (var i = 0; i < d.length; i++) {
 					var yhbh = d[i].yhMessage.yhbh;
 					var yhxm = d[i].yhMessage.yhxm;
@@ -201,11 +191,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(bj=="03"){
 						html += "<td class='text-center'>盗热嫌疑</td>";
 					}
-					html += "<td class='text-center'>" + jj+ "</td>";
+					if(jj=="00"){
+						html += "<td class='text-center'>夏季</td>";
+					}
+					if(jj=="01"){
+						html += "<td class='text-center'>冬季</td>";
+					}
 					html += "<td class='text-center' title='"+time+"'>" + time+ "</td>";
 					html += "<td class='text-center'>" + mj+ "</td>";
 					html += "<td class='text-center'>" + lxdh+ "</td>";
-					
 					html += "<td class='text-center'>" + bz+ "</td>";
 					html += "</tr>";
 				}
@@ -229,15 +223,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	//导出
 	function doExportExcel() {
-		var xqm = $('#xqmId').val();
+		/* var xqm = $('#xqmId').val();
 		var ldh = $('#ldhId').val();
-		var dyh = $('#dyhId').val();
-		var hh = $('#hhId').val();
-		var time1 = $('#time1').val();
-		var time2 = $('#time2').val();
-		window.open("YhInfodoExportExcel.action?xqm=" + xqm + "&ldh="
-				+ ldh + "&dyh=" + dyh + "&hh=" + hh
-				+"&time1="+ time1+"&time2="+ time2);
+		var dyh = $('#dyhId').val(); */
+		var bj = $('#bjId').val();
+		 window.open("YhInfodoExportExcel.action?bj=" + bj );  
 	}
 </script>
 
@@ -348,43 +338,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div>
 <!-- style="width:65%; height: 60%; position: absolute; overflow: auto;text-align: center" -->
- <h3>数据报表</h3> &nbsp;&nbsp;&nbsp;
+ <h3>异常查询</h3> &nbsp;&nbsp;&nbsp;
  <div></div>
  <div class="panel panel-success">
- 		<%-- <label for="xqNameId">选择小区</label> 
- 			<select id="xqmId" name="xqm">
-					<option value="--选择小区名称--">--选择小区名称--</option>
-					<c:forEach items="${XqNameList}" var="list">
-						<option>${list.xqm}</option>
-					</c:forEach>
-			</select> &nbsp;&nbsp;&nbsp; 
-			
-		<label for="buildNoId">楼栋号</label>
-			<select   name="ldh" id="ldhId">
-				<option value=0>--选择楼栋号--</option>
-			</select> 
-			&nbsp;&nbsp;&nbsp; 
-			
-		<label for="cellNoId">单元号</label>
-			<select  name="dyh" id="dyhId">
-				<option value=0>--选择单元号--</option>
-			</select> 
-		&nbsp;&nbsp;&nbsp;
+ 
+ 报警信息：
+ <select id="bjId" name="bj"  style="width:100px" >
+ 	<option  value=00>--正常--</option>
+  	<option  value=01>--开盖--</option>
+   	<option  value=03>--盗热嫌疑--</option>
+ </select>
+ 
+<%-- 报警信息：<input type="text" name="bj" id="bjId" value="${BjList}" size=10px />  --%>
 		
-		户号：<input type="text" name="hh" id="hhId" value="${hh}" size=10px/> 
-				
-		&nbsp;&nbsp;&nbsp;
-		  
-			 
-		<label for="readMTime">选择时间:</label>
-		<input type="text" id="time1" name="time1" class="Wdate" onfocus="WdatePicker();" />
-			- -<input type="text" id="time2"  name="time2"  class="Wdate" onfocus="WdatePicker();" />	 --%>
-			
-			已用当量：<input type="text" name="hh" id="hhId" value="${hh}" size=10px/> 	
 	<input type="button" onclick="searchInfo()" value="搜索" class="btn btn-success" style="background: url(../img/secai.png);"/> 
 	<input type="button" value="导出" class="btn btn-success" onclick="doExportExcel()" style="background: url(../img/secai.png);"/>
  &nbsp;&nbsp;&nbsp;
- 
 	<div class="dwrapper">
 	<table id="fixed_hdr2"  >
 	<thead>
@@ -486,13 +455,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<c:if test="${yh.jj =='00'}">
    		<td>夏季</td>
 		</c:if>
-		<c:if test="${yh.jj=='01'}">
+		<c:if test="${yh.jj =='01'}">
    		<td>冬季</td>
 		</c:if>
 		<td>${yh.time}</td>
 		<td>${yh.yhMessage.mj}</td>
 		<td>${yh.yhMessage.lxdh}</td>
-	
 		<td>${yh.yhMessage.bz}</td>
 	 </tr>
 	</c:forEach>

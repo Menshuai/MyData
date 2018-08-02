@@ -150,7 +150,7 @@
 						<select name="jsr" id="jsrId" >
 							<option value=>--请选择接收人--</option>
 							 <c:forEach items="${jsName}" var="list">
-									<option>${list.yhxm}</option>
+									<option>${list.userName}</option>
 				               </c:forEach> 
 						</select>		
 						</div>
@@ -164,7 +164,7 @@
 						</div>
 						<div class="form-group">
 							<div class="col-sm-4 col-sm-offset-5">
-							<button type="button" onClick="add()"  class="btn btn-primary btn-sm" >提交</button>&nbsp;&nbsp;&nbsp;
+							<button type="submit" onClick="add()" name="submit" class="btn btn-primary btn-sm" >提交</button>&nbsp;&nbsp;&nbsp;
 							<button type="reset" class="btn btn-primary btn-sm">重置</button>
 							</div>
 						</div>
@@ -179,9 +179,6 @@
 
 /*提交  单击事件add()*/
 function add(){
-   
-	/* var place=$("#add select[name=place]");
-	var hESName=$("#add select[name=hESName]"); */
 	var xqm=$("#add select[name=xqm]");
 	var ldh=$("#add select[name=ldh]");
 	var dyh=$("#add select[name=dyh]");
@@ -209,51 +206,11 @@ function add(){
 			document.getElementById("lxdh").value="";
 			return false;
 	 }  
-	/*  $("#Myform").submit();  */
-  $("#add form").submit();
-	  /* document.Myform.submit(); */
+	 
+	 $("#add form").submit();
+	  
 }
 
 </script>
-
-
-<!-- <script type="text/javascript">
-//数据不允许为空     提交：onclick=edit()
-function edit(){
-		var jSname=$("#edit select[name=jSname]");
-		var cs=$("#edit input[name=cs]");
-		var sh=$("#edit input[name=sh]");
-		var name=$("#edit input[name=name]");
-		var telephone=$("#edit input[name=telephone]");
-		var problem=$("#edit textarea[name=problem]");
-		if(jSname.val()==null||jSname.val()==""||sh.val()==null||sh.val()==""||cs.val()==null||cs.val()==""||name.val()==null||name.val()==""||telephone.val()==null||telephone.val()==""||problem.val()==null||problem.val()==""){
-			 sAlert('信息不能为空，请填写完整!');
-			return false;
-		}
-		var css=document.getElementById("edit_cs").value;
-		 if(isNaN(css)){
-				 sAlert('层号必须是数字！');
-				document.getElementById("edit_cs").value="";
-				return false;
-		 }
-			var shs=document.getElementById("edit_sh").value;
-			 if(isNaN(shs)){
-					 sAlert('室号必须是数字！');
-					document.getElementById("edit_sh").value="";
-					return false;
-			 }
-		 var telephone1=document.getElementById("edit_telephone").value;
-		 if(isNaN(telephone1)){
-				 sAlert('联系方式请输入数字');
-				document.getElementById("edit_telephone").value="";
-				return false;
-		 }
-		$("#edit form").submit();
-		}
-
-</script> -->
-
-
-
-
+ 
 </html>

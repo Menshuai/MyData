@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>报修模块故障报警</title>
+<title>图表分析</title>
 </head>
 <script type="text/javascript" src="../js/bootstrap.js"></script>
 <script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
@@ -86,6 +86,8 @@
 				//调用查询，加载数据
 			chaxun();
 	});
+			
+			
 	function chaxun() {
 		var arr = [];
 		var xqm = $('#xqmId').val();
@@ -104,9 +106,7 @@
 				chart.series[0].setData(data.data);//数据填充到highcharts上面 
 				
 			},
-			/* error : function(e) {
-				alert("不好意思，请要访问的图标跑到火星去了。。。。");
-			} */
+			  
 		});
 	};
 		</script>

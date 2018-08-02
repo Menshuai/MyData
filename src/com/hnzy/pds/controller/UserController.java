@@ -2,20 +2,29 @@ package com.hnzy.pds.controller;
 
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+<<<<<<< HEAD
+=======
+import org.apache.log4j.Logger;
+>>>>>>> 6663d06acdc8a01730243b2451b4e3b0acf19e43
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
+import com.hnzy.pds.pojo.Role;
 import com.hnzy.pds.pojo.Rz;
 import com.hnzy.pds.pojo.User;
-import com.hnzy.pds.pojo.YhMessage;
+import com.hnzy.pds.service.RoleService;
 import com.hnzy.pds.service.RzService;
 import com.hnzy.pds.service.UserService;
 import com.hnzy.pds.util.MD5Util;
@@ -29,12 +38,16 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private RzService rzService;
+	@Autowired
+	private RoleService roleService;
 	
+	private final static Logger logger = Logger.getLogger(UserController.class);
 	
 	private String msg;
 	private  User  userl;
 	private List<User>   user;
-	//
+	
+	//注册
 		@RequestMapping("/toLogin")
 		public String tologin(){
 			List<User> user=userService.find();
@@ -46,29 +59,76 @@ public class UserController {
 		return "toMen";
 		}
 		
-		
+		//首页
 		@RequestMapping("/index")
 		public String index(){
 			return"index";
 		}
 		
 		//用户列表
-		@RequestMapping("findYh")
+		@RequestMapping("/findYh")
 		public String findYh(HttpServletRequest request){
 			user=userService.find();
 			request.setAttribute("user",user);
 			return "user";
 		}
 		
+		 
+				
+		//获取用户角色，与角色列表
+	 	@ResponseBody
+		@RequestMapping("getAmend")
+		public String getAmend(String id){
+		//查询用户角色
+		List<Role> userRole=roleService.findRoleId(id);
+		//查询所有角色
+		List<Role> roleAll=roleService.findAllRole();
+		//定义一个map集合，并添加数据
+		HashMap<String,String> map=new HashMap<String,String>();
+		if(userRole==null){
+			for(Role role:roleAll){
+				map.put(role.getId().toString(),"0");
+			}
+		}else{
+			for(Role role:roleAll){
+				for(Role uRole: userRole){
+					if(uRole.getId().equals(role.getId())){
+						map.put(role.getId().toString(),uRole.getId().toString());
+						break;
+					}else{
+						map.put(role.getId().toString(),"0");
+					}
+				}
+							
+			}
+		}
+		//返回JSON数据
+		JSONObject json=new JSONObject();
+		json.put("map", map);
+		json.put("roles",roleAll);
+		return json.toJSONString();
+	}
+	 	
+	 	//修改角色并返回到用户页面
+	 	@RequestMapping("amend")
+	 	public String editrole(HttpServletRequest request,@RequestParam(value="id", required = false )String id){
+	 		String[] roleId= request.getParameterValues("userRoleList");
+	 		
+	 		roleService.editURole(roleId, id);
+	 		return "redirect:findYh.action";
+	 	}
+		
 		//删除一个用户名 密码
 		@RequestMapping("/deleteUser")
 		@ResponseBody
-		public void delete(@RequestParam("id")String id){
-			userService.deleteUser(id);
+		public void deleteUser(@RequestParam("id")String id){
+			logger.info("接收到的userID为:"+id);
+			userService.delete(id);
 			
 		}
+		 
 		
-		@RequestMapping("/login")//�ж� �����Ƿ�Ϊ��
+		@RequestMapping("/login")
 		public String login(HttpSession session,String username,String password,HttpServletRequest request){
 			if (StringUtil.isNoEmpty(username) && StringUtil.isNoEmpty(password)) {
 				password=MD5Util.string2MD5(password);

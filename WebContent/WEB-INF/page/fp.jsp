@@ -63,7 +63,8 @@
  <div class="panel-heading">风盘信息</div>
  <div class="panel-body">
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add" style="background: url(../img/secai.png);">添加</button>&nbsp;&nbsp;
-   <button type="button" class="btn btn-success"
+ 
+ <button type="button" class="btn btn-success"
 				onClick="openEditUserPage()" style="background: url(../img/secai.png);">修改</button>&nbsp;&nbsp;
 <button type="button" class="btn btn-success" onClick="openDeletePage()" style="background: url(../img/secai.png);">删除</button>
 			<hr />

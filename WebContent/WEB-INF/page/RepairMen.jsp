@@ -42,7 +42,7 @@
  				style="background-image: url('../img/secai.png');border:1px" type="button" >报修详情</button>
  				
  <button  onclick="sqaz()"  type="button" class="btn btn-success btn-block" 
- 				style="background-image: url('../img/secai.png');border:1px" type="button" >保修登记</button>
+ 				style="background-image: url('../img/secai.png');border:1px" type="button" >报修登记</button>
  				
    <button  onclick="tbfx()"  type="button" class="btn btn-success btn-block" 
  				style="background-image: url('../img/secai.png');border:1px" type="button" >图表分析</button>    

@@ -277,4 +277,31 @@
       #{fpbh},#{yhbh},#{fpdz},#{ms},#{dw},#{gdtime},#{zdtime},#{ddtime},#{dgdtime},#{dzdtime},#{dddtime},#{jf},#{sdwd},#{snwd},
       #{kg},#{bj},#{jj},#{time},#{yydl} ,#{syje} ,#{yyje} ,#{jbf} , #{nlf} )
 	 </insert>
+	 
+	 <!-- 异常查询 搜索 public List<Data> Search(@Param("bj") String bj) -->
+	 <select id="Search" resultMap="data"   parameterType="Data">
+    	select distinct top 500
+			 	yh.id,
+			 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
+			 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
+			 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
+			 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
+			 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
+			 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
+				
+		 		yh.mj
+		from 
+		 		k_data10  da, 
+		 		k_yhb1  yh, 
+		 		k_fpb2 fp,  
+		 		k_glb6  gl 
+ 
+	   where 
+		 	  	yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
+			 and  da.fpbh=fp.fpbh 
+			 and fp.xh=gl.xh 
+			  <if test="bj!=null and bj!=''" >
+			and da.bj=#{bj}
+			</if>  
+	</select>
 </mapper>
