@@ -89,7 +89,8 @@ public interface YhMessageService {
 //		public List<YhMessage> searchHistory(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
 //				@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
 	//查找月份
-	public int  findYf();
+	public int  findYf(String yhbhS);
+	public int findyf();
 	//更新当前月份
 		public void updateYf(int yf);
 }

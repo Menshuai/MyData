@@ -42,7 +42,7 @@
 		$('#fixed_hdr2').fxdHdrCol({
 			fixedCols: 0,
 			width: "100%",
-			height: 700,
+			height: 550,
 			colModal: [
 			{ width: 50, align: 'center' },
 			{ width: 70, align: 'center' },
@@ -76,6 +76,7 @@
 //数据不允许为空
 
 function add(){
+	debugger;
 	var yhm=$("#add input[name=yhm]");
 	var xqm=$("#add select[name=xqm]");
 	var ldh=$("#add select[name=ldh]");
@@ -124,44 +125,30 @@ function add(){
 
 //修改时数据不能为空
 function edit(){
-	var yhbh=document.getElementById("edit_yhbh").value;
-	var jfje=document.getElementById("jfjeId").value;
-	var hjje=document.getElementById("edit_hjje").value;
-	var syje=document.getElementById("edit_syje").value;
-	var yyje=document.getElementById("edit_yyje").value;
-	if(jfje==null&&jfje==""){
+	var yhName=$("#edit input[name=yhName]");
+	var xqName=$("#edit input[name=xqName]");
+	var buildNo=$("#edit input[name=buildNo]");
+	var cellNo=$("#edit input[name=cellNo]");
+	var houseNo=$("#edit input[name=houseNo]");
+	var jfje=$("#edit input[name=jfje]");
+	if(jfje.val()==null){
 		 sAlert('信息不能为空，请填写完整!');
 		return false;
 	}
+	var jfje=document.getElementById("jfje").value;
+/* 	var n="^\+?[1-9][0-9]*$";
+	if(!n.test(jfje)){
+       alert('请输入正整数')
+     document.getElementById("edit_houseNo").value="";
+	} */
+	
 	  if(isNaN(jfje)){
 			
-			 sAlert('缴费金额必须是数字！');
+			 sAlert('户号必须是数字！');
 			document.getElementById("edit_houseNo").value="";
 			return;
 	 }
-	$.ajax({
-		type:"post",
-		url:"update.action",//获取json数据
-		dataType:"json",
-		data : {
-			"yhbh" : yhbh,
-			"jfje" : jfje,
-			"hjje" : hjje,
-			"syje" : syje,
-			"yyje" : yyje,
-			"jfje" : jfje,
-		},
-		success:function(data){
-			debugger;
-			var d=data.fail;
-			if(d=="fail"){
-			alert(d);
-			}
-			searchInfo();
-		},
-	})
-	$("#edit").modal("hide");
-	/* $("#edit form").submit(); */
+	$("#edit form").submit();
 }
 
 
@@ -175,6 +162,7 @@ function openaddUserPage(){
 			var d=dd.xqlist;
 			$("#xqmId option:gt(0)").remove();
 			for(var i=0;i<d.length;i++){
+				debugger;
 				var xqm=d[i].xqm;
 				var opt="<option value='"+xqm+"'>"+xqm+"</option>";
 				$("#xqmIdS").append(opt);
@@ -285,7 +273,7 @@ function openDeletePage(){
 				type : "post",
 				success : function() {
 					$("#deleteUser").modal("hide");
-					window.location.href="JFfindList.action";
+					window.location.href="findYhInfo.action";
 				}
 			});		
 		});
@@ -339,9 +327,11 @@ function searchInfo() {
 	var ldh = $('#ldhId').val();
 	var dyh = $('#dyhId').val();
 	var hh = $('#hhId').val();
+	var time1 = $('#time1').val();
+	var time2 = $('#time2').val();
 	var html = "";
 	$.ajax({
-		url : "Search.action",
+		url : "SearchHistory.action",
 		async : false,
 		dataType : "json",
 		data : {
@@ -349,9 +339,12 @@ function searchInfo() {
 			"ldh" : ldh,
 			"dyh" : dyh,
 			"hh" : hh,
+			"time1" : time1,
+			"time2" : time2,
 		},
 		success : function(data) {
 			$("#users").empty();
+			debugger;
 			var d = data.jfs;
 			for (var i = 0; i < d.length; i++) {
 				var id=d[i].id;
@@ -397,6 +390,7 @@ function FormatDate(strTime) {
 			+ date.getMinutes();
 }
 </script>
+
 <script type="text/javascript">
 	//导出
 	function doExportExcel() {
@@ -404,8 +398,11 @@ function FormatDate(strTime) {
 		var ldh = $('#ldhId').val();
 		var dyh = $('#dyhId').val();
 		var hh = $('#hhId').val();
-		window.open("JfExportExcel.action?xqm=" + xqm + "&ldh="
-				+ ldh + "&dyh=" + dyh + "&hh=" + hh);
+		var time1 = $('#time1').val();
+		var time2 = $('#time2').val();
+		window.open("JfHistoryExportExcel.action?xqm=" + xqm + "&ldh="
+				+ ldh + "&dyh=" + dyh + "&hh=" + hh
+				+"&time1="+ time1+"&time2="+ time2);
 	}
 </script>
 </head>
@@ -435,14 +432,11 @@ function FormatDate(strTime) {
 		&nbsp;&nbsp;&nbsp;
 		
 		户号：<input type="text" name="hh" id="hhId" value="${hh}" size=10px/> 
-		<!-- <label for="readMTime">选择时间:</label>
+		<label for="readMTime">选择时间:</label>
 		<input type="text" id="time1" name="time1" class="Wdate" onfocus="WdatePicker();" />
-			- -<input type="text" id="time2"  name="time2"  class="Wdate" onfocus="WdatePicker();" /> -->	
+			- -<input type="text" id="time2"  name="time2"  class="Wdate" onfocus="WdatePicker();" />	
 		<input type="button" onclick="searchInfo()" value="搜索" class="btn btn-success" style="background: url(../img/secai.png);"/>
-		 <button type="button" class="btn btn-success" onClick="openaddUserPage()" style="background: url(../img/secai.png);">添加</button>&nbsp;&nbsp;
-        <button type="button" class="btn btn-success" onClick="openEditUserPage()" style="background: url(../img/secai.png);">缴费</button>&nbsp;&nbsp;
-		 <button type="button" class="btn btn-success" onClick="openDeletePage()" style="background: url(../img/secai.png);">删除</button>
-		 <input type="button" value="导出" class="btn btn-success" onclick="doExportExcel()" style="background: url(../img/secai.png);"/>
+	 <input type="button" value="导出" class="btn btn-success" onclick="doExportExcel()" style="background: url(../img/secai.png);"/>
          &nbsp;&nbsp;&nbsp;
 	<div class="dwrapper">
 	<table id="fixed_hdr2">
@@ -487,224 +481,5 @@ function FormatDate(strTime) {
 			</div>
 </div>
 </div>
-<!-- 添加用户开始 ----------------------------------------------------------------->
-<div class="modal fade" id="add">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header bg-primary">
-					<h4 class="text-center" style="padding: 0; margin: 0;">添加用户</h4>
-				</div>
-				<div class="modal-body bg-info">
-					<form class="form form-horizontal" action="add.action" method="post">
-						<div class="form-group">						
-							<label for="yhm" class="col-sm-2 col-sm-offset-3 control-label">用户名</label>
-							
-							<div class="col-sm-4">
-								<input id="yhm" type="text" name="yhm"
-									class="form-control" placeholder="用户名" />
-							</div>					
-						</div>
-												
-						<div class="form-group">						
-						<label for="xqmIdS" class="col-sm-2 col-sm-offset-3 control-label">小区名</label>
-							
-							
-						<select name="xqm" id="xqmIdS">
-						<option value=-1>--选择小区名--</option>
-						</select>								
-						</div>								
-							
-						<div class="form-group" >
-							
-						<label for="ldhS" class="col-sm-2 col-sm-offset-3 control-label">楼栋号</label>
-						 <select name="ldh" id="ldhIdS">
-							<option value=0>--选择楼栋号--</option>
-						</select>
-						</div>
-						
-						<div class="form-group">
-						<label for="dyhS" class="col-sm-2 col-sm-offset-3 control-label">单元号</label> 
-						<select name="dyh" id="dyhIdS">
-							<option value=0>--选择单元号--</option>
-						</select>
-						</div>	
-						
-											
-						<div class="form-group">						
-							<label for="hh" class="col-sm-2 col-sm-offset-3 control-label">户号</label>
-							
-							<div class="col-sm-4">
-								<input id="hh" type="text" name="hh"
-									class="form-control" placeholder="户号" />
-							</div>					
-						</div>
-							<div class="form-group">						
-							<label for="yhbh" class="col-sm-2 col-sm-offset-3 control-label">用户编号</label>
-							
-							<div class="col-sm-4">
-								<input id="yhbh" type="text" name="yhbh"
-									class="form-control" placeholder="用户编号" />
-							</div>					
-						</div>
-						
-							<div class="form-group">						
-							<label for="lxdh" class="col-sm-2 col-sm-offset-3 control-label">联系方式</label>
-							
-							<div class="col-sm-4">
-								<input id="lxdh" type="text" name="lxdh"
-									class="form-control" placeholder="联系电话" />
-							</div>					
-						</div>
-							<div class="form-group">						
-							<label for="jfje" class="col-sm-2 col-sm-offset-3 control-label">缴费金额</label>
-							
-							<div class="col-sm-4">
-								<input id="jfje" type="text" name="jfje"
-									class="form-control" placeholder="缴费金额" />
-							</div>					
-						</div>
-							<div class="form-group">						
-							<label for="hjje" class="col-sm-2 col-sm-offset-3 control-label">合计金额</label>
-							
-							<div class="col-sm-4">
-								<input id="hjje" type="text" name="hjje"
-									class="form-control" placeholder="合计金额" />
-							</div>					
-						</div>
-						<div class="form-group">
-							<div class="col-sm-4 col-sm-offset-5">
-							<button type="button" onclick="add()" class="btn btn-primary btn-sm">提交</button>
-								<button type="reset" class="btn btn-primary btn-sm">重置</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-<!-- 添加用户结束 -------------------------------------------------- -->
-<!---------------------------修改页面开始 --------------------------------------------------------- -->
-	<div class="modal fade bs-example-modal-sm" id="edit">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header bg-primary">
-					<h4 class="text-center" style="padding: 0; margin: 0;">修改业主信息</h4>
-				</div>
-				<div class="modal-body bg-info">
-					<form class="form form-horizontal" action="update.action" method="post">
-					 <input type="hidden" id="edit_id" name="id" />
-						
-						<div class="form-group">						
-							<label for="edit_yhName" class="col-sm-2 col-sm-offset-3 control-label">用户名</label>
-							
-							<div class="col-sm-4">
-								<input id="edit_yhName" type="text" name="yhName"
-									class="form-control" placeholder="用户名"  readonly="readonly"/>
-							</div>					
-						</div>
-						
-						
-						<div class="form-group">						
-							<label for="edit_xqName" class="col-sm-2 col-sm-offset-3 control-label">小区名</label>
-							
-							<div class="col-sm-4">
-								<input id="edit_xqName" type="text" name="xqName"
-									class="form-control" placeholder="小区名" readonly="readonly"/>
-							</div>					
-						</div>
-						
-						<div class="form-group">
-							<label for="edit_buildNo" class="col-sm-2 col-sm-offset-3 control-label">楼栋号</label>
-							<div class="col-sm-4">
-								<input id="edit_buildNo" type="text" name="buildNo"
-									class="form-control" placeholder="楼栋号" readonly="readonly"/>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="edit_cellNo" class="col-sm-2 col-sm-offset-3 control-label">单元号</label>
-							<div class="col-sm-4">
-								<input id="edit_cellNo" type="text" name="cellNo"
-									class="form-control" placeholder="单元号" readonly="readonly"/>
-							</div>
-						</div>
-						<div class="form-group">						
-							<label for="edit_houseNo" class="col-sm-2 col-sm-offset-3 control-label">户号</label>
-							
-							<div class="col-sm-4">
-								<input id="edit_houseNo" type="text" name="houseNo"
-									class="form-control" placeholder="户号" readonly="readonly"/>
-							</div>					
-						</div>
-							<div class="form-group">						
-							<label for="edit_yhbh" class="col-sm-2 col-sm-offset-3 control-label">用户编号</label>
-							
-							<div class="col-sm-4">
-								<input id="edit_yhbh" type="text" name="yhbh"
-									class="form-control" placeholder="用户编号" readonly="readonly"/>
-							</div>					
-						</div>
-							<div class="form-group">						
-							<label for="edit_lxdz" class="col-sm-2 col-sm-offset-3 control-label">联系地址</label>
-							
-							<div class="col-sm-4">
-								<input id="edit_lxdz" type="text" name="lxdz"
-									class="form-control" placeholder="联系地址" readonly="readonly"/>
-							</div>					
-						</div>
-						<div class="form-group">						
-							<label for="edit_jfje" class="col-sm-2 col-sm-offset-3 control-label">缴费金额</label>
-							
-							<div class="col-sm-4">
-								<input id="jfjeId" type="text" name="jfje"
-									class="form-control" placeholder="缴费金额"/>
-							</div>					
-						</div>
-							<div class="form-group">						
-							<label for="edit_hjje" class="col-sm-2 col-sm-offset-3 control-label">合计金额</label>
-							
-							<div class="col-sm-4">
-								<input id="edit_hjje" type="text" name="hjje"
-									class="form-control" placeholder="合计金额"   readonly="readonly" />
-							</div>					
-						</div>
-						<input id="edit_yyje" type="hidden"  name="yyje"
-									class="form-control" />
-						<input id="edit_syje" type="hidden"  name="syje"
-									class="form-control" />
-						<div class="form-group">
-							<div class="col-sm-4 col-sm-offset-5">
-								<button type="button" onclick="edit()" class="btn btn-primary btn-sm">提交</button>
-								<button type="reset" class="btn btn-primary btn-sm">重置</button>
-							</div>
-						</div>
-
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!---------------------------修改页面结束 --------------------------------------------------------- -->
-
-	<!---------------------------删除页面开始 --------------------------------------------------------- -->
-	<div class="modal fade bs-example-modal-sm" id="deleteUser">
-		<div class="modal-dialog">
-			<div class="modal-content">
-			<form action="">
-				<div class="modal-header bg-primary">
-					<h4 class="text-center" style="padding: 0; margin: 0;">删除用户</h4>
-				</div>
-				<div class="modal-body bg-info">
-					<div class="row">
-						<div class="col-sm-7 col-sm-offset-3"></div>
-					</div>
-				</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!---------------------------删除页面结束 --------------------------------------------------------- -->
-</div>
-
-
 </body>
 </html>

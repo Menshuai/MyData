@@ -43,15 +43,6 @@ public class DataServiceImpl implements DataService{
 	{
 		dataDao.InsertYh(data);
 	}
- 
-
-	  
- 
-	/*@Override
-	public void updateS(String fpbh) {
-		dataDao.updateS(fpbh);
-		
-	}*/
 
 	@Override
 	public List<Data> searchInfo(String xqm, int ldh, int dyh, int hh, String time1, String time2)
@@ -68,9 +59,26 @@ public class DataServiceImpl implements DataService{
 	}
 
 	@Override
-	public Data findData(String yhbh, String fpdz)
+	public Data findData(String yhbh, Integer fpdz)
 	{
 		return dataDao.findData(yhbh, fpdz);
 	}
 
+	@Override
+	public Data findYh(String yhbh, Integer fpdz)
+	{
+		return dataDao.findYh(yhbh, fpdz);
+	}
+
+	@Override
+	public void updateJf(Data datajf)
+	{
+		dataDao.updateJf(datajf);
+	}
+
+	@Override
+	public void InsertYhSSb(Data data)
+	{
+		dataDao.InsertYhSSb(data);
+	}
 }

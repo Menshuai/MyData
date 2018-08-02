@@ -13,6 +13,18 @@
 		<result property="dzdtime" column="dzdtime" />
 		<result property="dddtime" column="dddtime" />
 		
+		<result property="yydl" column="yydl" />
+		<result property="syje" column="syje" />
+		<result property="yyje" column="yyje" />
+		<result property="jbf" column="jbf" />
+		<result property="nlf" column="nlf" />
+		<result property="yf" column="yf" />
+		
+		<result property="yydlS" column="yydlS" />
+		<result property="syjeS" column="syjeS" />
+		<result property="jbfS" column="jbfS" />
+		<result property="nlfS" column="nlfS" />
+		
 		<result property="jf" column="jf" />
 		<result property="sdwd" column="sdwd" />
 		<result property="snwd" column="snwd" />
@@ -53,18 +65,44 @@
 		<result property="jzq.jzqport" column="jzqport" />
 		<result property="jzq.azdz" column="azdz" />
 	</resultMap>
-
+    <select id="findYh"  resultMap="data"   parameterType="Data">
+  		select distinct
+ 	         da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw
+            +da.dgdtime*gl.dgkw+ da.dzdtime*gl.dzkw +da.dddtime*gl.ddkw as yydlS,
+		 	(da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw
+            +da.dgdtime*gl.dgkw+ da.dzdtime*gl.dzkw +da.dddtime*gl.ddkw)* dj.nldj +
+	        yh.yf*yh.mj*dj.mjdj  as yyjeS,
+	        (da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw
+            +da.dgdtime*gl.dgkw+ da.dzdtime*gl.dzkw +da.dddtime*gl.ddkw)* dj.nldj as nlfS,
+		 	yh.yf*yh.mj*dj.mjdj  as jbfS,yh.yf
+		from 
+		 	k_data10  da, 
+		 	k_yhb1  yh, 
+		 	k_fpb2 fp,  
+		 	k_glb6  gl,
+			K_djb7 dj 
+	    where 
+		 	  	yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
+		 		and  da.fpbh=fp.fpbh 
+				and fp.xh=gl.xh and dj.yhlb=yh.yhlx and yh.yhlx=dj.yhlb
+		 		and yh.yhbh=#{yhbh} and yh.fpdz=#{fpdz}
+   </select>
+   
+   <update id="updateJf" parameterType="Data">
+       update k_data10 
+       set yydl=#{yydl} , syje=#{syje} , yyje=#{yyje} , jbf=#{jbf} , nlf=#{nlf} 
+       where yhbh=#{yhbh} and fpdz=#{fpdz}
+   </update>
 	<!-- public List<Data> find()-->
 	<select id="find"   resultMap="data"   parameterType="Data">
 		select distinct top 500
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
-		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  +da.dgdtime*gl.dgkw+ da.dzdtime*gl.dzkw +da.dddtime*gl.ddkw js ,
-		 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
+		 	da.yydl,
 		 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
 		 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
 		 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
-		 	yh.mj
+		 	yh.mj,yh.yf
 		from 
 		 	k_data10  da, 
 		 	k_yhb1  yh, 
@@ -73,30 +111,17 @@
 	     where 
 		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz
 		 	and  da.fpbh=fp.fpbh 
-		 	and fp.xh=gl.xh   order by da.time desc
-		 	
-		 	
-		 	<!-- k_glb6  gl  
-			 
-	   where 
-		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
-		 and  da.fpbh=fp.fpbh 
-			and fp.xh=gl.xh  -->
-		<!--  where 
-		 	da.fpbh=fp.fpbh   fp.yhbh=yhMessage.yhbh    -->
-		
+		 	and fp.xh=gl.xh   order by yh.hh asc
 	</select>
 	<!-- 搜索实时数据-->
 	<select id="searchInfo" resultMap="data"   parameterType="Data">
       select distinct top 500
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
-		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
-		 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
+		 	da.yydl,
 		 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
 		 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
 		 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
-			
 		 	yh.mj
 		from 
 		 	k_data10  da, 
@@ -139,8 +164,7 @@
      select distinct top 500
 		 	yh.id,
 		 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
-		 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
-		 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
+		    da.yydl,
 		 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
 		 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
 		 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
@@ -238,7 +262,19 @@
 	 
 	 <insert id="InsertYh" parameterType="Data">
 	 <!-- socket更插入历史热表信息 -->
-     insert into k_lssjb11 (fpbh,yhbh,fpdz,ms,dw,gdtime,zdtime,ddtime,dgdtime,dzdtime,dddtime,jf,sdwd,snwd,kg,bj,jj,time)values (
-      #{fpbh},#{yhbh},#{fpdz},#{ms},#{dw},#{gdtime},#{zdtime},#{ddtime},#{dgdtime},#{dzdtime},#{dddtime},#{jf},#{sdwd},#{snwd},#{kg},#{bj},#{jj},#{time})
+     insert into k_lssjb11 (fpbh,yhbh,fpdz,ms,dw,gdtime,zdtime,ddtime,dgdtime,dzdtime,dddtime,jf,sdwd,snwd,kg,bj,jj,time,
+     yydl,syje,yyje,jbf ,nlf
+     )values (
+      #{fpbh},#{yhbh},#{fpdz},#{ms},#{dw},#{gdtime},#{zdtime},#{ddtime},#{dgdtime},#{dzdtime},#{dddtime},#{jf},#{sdwd},#{snwd},
+      #{kg},#{bj},#{jj},#{time},#{yydl} ,#{syje} ,#{yyje} ,#{jbf} , #{nlf} )
+	 </insert>
+
+	 <insert id="InsertYhSSb" parameterType="Data">
+	 <!-- socket更插入历史热表信息 -->
+     insert into k_data10 (fpbh,yhbh,fpdz,ms,dw,gdtime,zdtime,ddtime,dgdtime,dzdtime,dddtime,jf,sdwd,snwd,kg,bj,jj,time,
+     yydl,syje,yyje,jbf ,nlf
+     )values (
+      #{fpbh},#{yhbh},#{fpdz},#{ms},#{dw},#{gdtime},#{zdtime},#{ddtime},#{dgdtime},#{dzdtime},#{dddtime},#{jf},#{sdwd},#{snwd},
+      #{kg},#{bj},#{jj},#{time},#{yydl} ,#{syje} ,#{yyje} ,#{jbf} , #{nlf} )
 	 </insert>
 </mapper>

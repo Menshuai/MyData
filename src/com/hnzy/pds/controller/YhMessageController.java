@@ -19,13 +19,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hnzy.pds.pojo.Data;
+import com.hnzy.pds.pojo.Fp;
+import com.hnzy.pds.pojo.Jf;
 import com.hnzy.pds.pojo.Rz;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.DataService;
+import com.hnzy.pds.service.FpService;
+import com.hnzy.pds.service.JfService;
 import com.hnzy.pds.service.RzService;
 import com.hnzy.pds.service.YhMessageService;
+import com.sun.org.apache.xpath.internal.operations.And;
 
 @Controller
 @RequestMapping("/YhMessageCon")
@@ -39,6 +45,10 @@ public class YhMessageController {
 	private DataService dataService;
 	@Autowired
 	private RzService rzService;
+	@Autowired
+	private JfService jfService;
+	@Autowired
+	private FpService fpService;
 	public List<Data> YhList;
   
   
@@ -75,10 +85,73 @@ public class YhMessageController {
 		return "/yhMessage";
 	}
 	
+	@RequestMapping("/findfp")
+	@ResponseBody
+	public JSONObject findfp(){
+		JSONObject jsonObject=new JSONObject();
+		List<Fp> fps=fpService.findfp();
+		jsonObject.put("fps",fps);
+		return jsonObject;
+	}
+	
+	
 	//添加用户信息
 		@RequestMapping(value="/InsertYhMessage",method=RequestMethod.POST)
-		public String Insert(HttpServletRequest request,YhMessage yhMessage){
-			yhMessageService.Insert(yhMessage);
+		public String Insert(HttpServletRequest request,YhMessage yhMessage,String fpxh,String fpbh,String wz,String fpbz){
+			if(fpxh!=null && fpbh!=null && wz!=null){
+			Integer fpgs=yhMessage.getfpdz();
+		    for(int i=1;i<=fpgs;i++){
+		    	Integer fpdz=Integer.valueOf("0"+i);
+		    	yhMessage.setfpdz(fpdz);
+		    	//添加用户信息
+		    	yhMessageService.Insert(yhMessage);
+		    	//添加缴费实时信息
+		    	Jf jf=new Jf();
+		    	jf.setGetime("");
+		    	jf.setHjje(0);
+		    	jf.setJfje(0);
+		    	jf.setSyje(0);
+		    	jf.setYhbh(yhMessage.getYhbh());
+		    	jf.setYyje(0);
+		    	jf.setUserName("");
+		    	jf.setTime("");
+		    	jfService.Insert(jf);
+		    	//添加风盘表
+		    	Fp fp =new  Fp();
+		    	fp.setFpbh(fpbh);
+		    	fp.setYhbh(yhMessage.getYhbh());
+		    	fp.setBz(fpbz);
+		    	fp.setXh(fpxh);
+		    	fp.setWz(wz);
+		    	fpService.Insert(fp);
+		    	//添加实时表
+		    	Data data=new Data();
+		    	data.setFpbh(fpbh);
+		    	data.setYhbh(yhMessage.getYhbh());
+		    	data.setFpdz(fpdz);
+		    	data.setGdtime("0");
+		    	data.setZdtime("0");
+		    	data.setDddtime("0");
+		    	data.setJf("00");
+		    	data.setSdwd("");
+		    	data.setSnwd("");
+		    	data.setKg("00");
+		    	data.setMs("00");
+		    	data.setDw("00");
+		    	data.setBj("00");
+		    	data.setJj("00");
+		    	data.setTime("");
+		    	data.setYydl(0);
+		    	data.setSyje(0);
+		    	data.setYyje(0);
+		    	data.setJbf(0);
+		    	data.setNlf(0);
+		    	data.setGdtime("0");
+		    	data.setDzdtime("0");
+		    	data.setZdtime("0");
+		    	dataService.InsertYhSSb(data);
+		    }
+			}
 			return "redirect:yhfindList.action";
 		}
 		

@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,25 +17,25 @@ import org.apache.mina.core.future.IoFutureListener;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hnzy.hot.socket.util.CzUtil;
 import com.hnzy.hot.socket.util.DatabaseUtil;
-import com.hnzy.hot.socket.util.MapUtils;
 import com.hnzy.hot.socket.util.MapUtilsDf;
 import com.hnzy.hot.socket.util.Utils;
 import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.Fp;
+import com.hnzy.pds.pojo.Jf;
 import com.hnzy.pds.pojo.Jzq;
 import com.hnzy.pds.pojo.SbSuc;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.DataService;
 import com.hnzy.pds.service.FpService;
+import com.hnzy.pds.service.JfService;
 import com.hnzy.pds.service.JzqService;
 import com.hnzy.pds.service.SbSucService;
 import com.hnzy.pds.service.YhMessageService;
+
 
 
 public class ServerHandler2  extends IoHandlerAdapter{
@@ -50,14 +49,14 @@ public class ServerHandler2  extends IoHandlerAdapter{
 	private DataService  dataService;
 	@Autowired
 	private YhMessageService yhMessageService;
-	
+	@Autowired
+	public JfService jfServce;
 	@Autowired
 	private SbSucService sbSucService;
 	boolean sessionmap;
 	String param;
 	@Autowired
 	private FpService fpService;
-//	private final static Logger logs = LoggerFactory.getLogger(ServerHandler2.class);
 	// 日志文件
 	private static Log logs = LogFactory.getLog(ServerHandler2.class);
 	ServerSessionMap sessionMap=ServerSessionMap.getInstance();
@@ -80,11 +79,9 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		
 		 logs.info("服务器打开了的连接，Session ID为" + session.getRemoteAddress() + session.getId());
 		 SocketAddress remoteAddress = (SocketAddress) session.getRemoteAddress();
+		 if(remoteAddress!=null){
 		 String clientIp = remoteAddress.toString();
 		 //判断连接的ip是否为空
-		 
-		 if(clientIp!=null){
-			 
 		 sessionMap.add(clientIp, session);
 		 int port = 0;
 		 String Ip = null;
@@ -125,42 +122,7 @@ public class ServerHandler2  extends IoHandlerAdapter{
         			+ "' where jzqip='" + Ip + "'";
         	ps = connc.prepareStatement(sql);
         	rs = ps.executeUpdate();
-        	
-        	String date = "F00A0100AAAAAAAA";
-        	String jString = CzUtil.jyh(date);//先转换为十进制相加  在转换为十六进制
-        	String mString = date + "" + jString + "" + "FF";
-        	// 解码
-        	byte[] b = CzUtil.jm(mString);
-        	String[] keys = new String[]
-        	{ clientIp };
-        	logs.info("集中器ID存在发送数据" + mString);
-        	// 发送数据
-        	sessionMap.sendMessage(keys, b);
-        } else{
-			String mString = "F00A0100AAAAAAAAA3FF";
-			// 解码
-			byte[] b = CzUtil.jm(mString);
-			String[] keys = new String[]
-			{ clientIp };
-			logs.info("集中器ID不存在发送数据" + mString);
-			// 发送数据
-			sessionMap.sendMessage(keys, b);
-			try
-			{
-				Thread.sleep(2000);
-	
-			} catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-			// 当动态IP和端口号连接是发送查找区管地址指令
-			String SetQgID = "F00A0500AAAAAAAAB4FF";// 改为区管地址 F0 0A 05 00 AA AA
-													// AA AA XX FF
-			// 解码
-			byte[] bQg = CzUtil.jm(SetQgID);
-			// 给所有区管发送数据
-			sessionMap.sendMessage(keys, bQg);
-          }
+        }
         	DatabaseUtil.close(rst, ps, connc);   //关闭连接对象
 		 }
 	}
@@ -197,14 +159,12 @@ public class ServerHandler2  extends IoHandlerAdapter{
 				md = stringMR.substring(4, 6);
 			}
 			// 开关阀门，批量开关
-		   if (md.equals("05"))// 查询状态01
+		   if (md.equals("0c"))// 查询状态01
 			{
 			   SocketAddress remoteAddress = (SocketAddress) session.getRemoteAddress();
 				String clientIp = remoteAddress.toString();
 				jzqCx(base, connc,clientIp);
-			}/*else if(md.equals("b5")){
-				jzqCx(base, connc,clientIp);
-			}*/else if(md.equals("a1")){//对某一户的单个风盘
+			}else if(md.equals("a1")){//对某一户的单个风盘
 				System.out.println("-------web端返回--a1-----"+md);
 				//中央空调
 				sbfs(base, connc);
@@ -226,6 +186,14 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		}
 	}
 	
+	private void jzqid()
+	{
+		
+		
+		
+		
+	}
+
 	private void wxfh(byte[] base,Connection connc)
 	{
 		logs.info("中央空调微信接收数据：" + Utils.bytesToHexString(base));
@@ -258,8 +226,9 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			 
 			//风盘地址
 			String  fpid=stringHandler.substring(14, 16);
+			Integer fpdz=Integer.valueOf(fpid);
 			//根据用户编码和风盘地址查找用户
-			Data findData=dataService.findData(yhbhS, fpid);
+			Data findData=dataService.findData(yhbhS, fpdz);
 			System.out.println("--fpid-"+fpid);
 			//风盘模式，00制冷01制热
 			String ms=stringHandler.substring(16,18);
@@ -362,7 +331,7 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		
 			//转换为时间格式   方便地修改日期格式
 			Date now = new Date(); 
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String time = dateFormat.format( now ); 
 			Data data=new Data();
 			String gdString =String.valueOf(gdg);
@@ -389,12 +358,57 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setKg(kg);
 			data.setJj(jj);
 			data.setYhbh(yhbhS);
-			data.setFpdz(fpid);
+			data.setFpdz(fpdz);
 			dataService.updateYhbhF(data);//更新实时表
-			//根据用户编码查找风盘编号
+			//根据用户编号和风盘地址更新，实时表计算，已用当量，基本费，能量费，已用金额
+			Data find=dataService.findYh(yhbhS,fpdz);
+			//更具用户编号，查找用户的合计金额
+			Jf findzje=jfServce.findzje(yhbhS);
+			//已用金额
+			Double yyje=find.getYyjeS();
+			//能量费
+			double nlf=find.getNlfS();
+			//基本费
+			double jbf=find.getJbfS();
+			//已用当量
+			double yydl=find.getYydlS();
+			//缴费表中总金额
+			double hjje=findzje.getHjje();
+			//剩余金额
+//			double syje=hjje-yyje;
+			double syje=sub(hjje, yyje);
+			//更新实时表缴费信息
+			Data datajf=new Data();
+			datajf.setYyje(yyje);
+			datajf.setNlf(nlf);
+			datajf.setSyje(syje);
+			datajf.setJbf(jbf);
+			datajf.setYydl(yydl);
+			datajf.setYhbh(yhbhS);
+			datajf.setFpdz(fpdz);
 			
-		    Fp fp=fpService.findfpbh(yhbhS);
-		    data.setFpbh(fp.getFpbh());
+			//根据用户编号和风盘地址，更新用户缴费信息
+			dataService.updateJf(datajf);
+			//更新缴费表缴费信息
+			Jf jfJs=new Jf();
+			jfJs.setYhbh(yhbhS);//根据用户编号更新缴费表信息
+			jfJs.setYyje(yyje);//更新缴费表已用金额
+			jfJs.setSyje(syje);//剩余金额
+			jfJs.setGetime(time);//缴费信息更新时间
+			
+			jfServce.updateJf(jfJs);
+			
+			Fp fp=fpService.findfpbh(yhbhS);
+			data.setFpbh(fp.getFpbh());
+			
+			//根据实时表查找月份
+			int yf=yhMessageService.findYf(yhbhS);
+			data.setYydl(yydl);
+			data.setYyje(yyje);
+			data.setSyje(syje);
+			data.setNlf(nlf);
+			data.setJbf(jbf);
+			data.setYf(yf);
 			dataService.InsertYh(data);//插入历史表
 		}
 	}
@@ -462,7 +476,6 @@ public class ServerHandler2  extends IoHandlerAdapter{
 	public void jzqCx(byte[] base, Connection connc,String clientIp)
 	{
 		 logs.info("集中器查询状态接收数据：" + Utils.bytesToHexString(base));
-		 String jzqip = null;
 		 
 		 String[] ipPortString = clientIp.split(":");
 		 String IP = ipPortString[0];
@@ -470,7 +483,7 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		 String[] ip = IP.split("/");
 		 Integer port = Integer.valueOf(ipPortString[1]);
 		 String Ip = ip[1];
-		 SimpleDateFormat Sdate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		 SimpleDateFormat Sdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		 // 获取发送的时间
 		 String time = Sdate.format(new Date());
 		 
@@ -481,7 +494,7 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		 String stringHandler = CzUtil.Uppercase(stringH).toString();
 		 
 		 // 截取jzqnet
-		 String jzqnet = stringHandler.substring(8, 16);
+		 String jzqnet = stringHandler.substring(6, 8);
 		 
 		 // 截取效验数据
 		 String jy = CzUtil.getJy(stringHandler);
@@ -496,16 +509,16 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		 System.out.println("校验数据jy-----"+jy);
 		 if (start.equals("F0") && end.equals("FF") && je.equals("" + jy + ""))//开始F0       结束FF校验数据3A
 		 {
+			 
 		 	//根据集中器IP和端口号查找集中器ID
-		 	Jzq jzq=jzqService.findJzqnet(jzqip, jzqport);
+		 	Jzq jzq=jzqService.findJzqnet(Ip, port);
 		 	// 如果集中器ID不为空
-		 	jzqService.updateIpPort(jzqip, jzqport, jzqnet);
-		 	MapUtils.getMapUtils().add("jzq", "success");
+		 	if(jzq==null){
+		 	jzqService.updateIpPort(Ip, port, jzqnet);
 		 	logs.info("集中器查询状态成功接收数据：" + stringHandler);
+		 	}
 		 }
-		MapUtils.getMapUtils().add("jzq", "fail");
-	 
-}
+	}
 
 	
 	/**
@@ -545,8 +558,9 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			 
 			//风盘地址
 			String  fpid=stringHandler.substring(14, 16);
+			Integer fpdz=Integer.valueOf(fpid);
 			//根据用户编码和风盘地址查找用户
-			Data findData=dataService.findData(yhbhS, fpid);
+			Data findData=dataService.findData(yhbhS, fpdz);
 			System.out.println("--fpid-"+fpid);
 			//风盘模式，00制冷01制热
 			String ms=stringHandler.substring(16,18);
@@ -649,8 +663,7 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		
 			//转换为时间格式   方便地修改日期格式
 			Date now = new Date(); 
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String time = dateFormat.format( now ); 
 			Data data=new Data();
 			String gdString =String.valueOf(gdg);
@@ -677,34 +690,63 @@ public class ServerHandler2  extends IoHandlerAdapter{
 			data.setKg(kg);
 			data.setJj(jj);
 			data.setYhbh(yhbhS);
-			data.setFpdz(fpid);
-			System.out.println("time----------"+time);
-//			dataService.updateYhbhF(data);
+			data.setFpdz(fpdz);
 			dataService.updateYhbhF(data);//更新实时表
-			 Fp fp=fpService.findfpbh(yhbhS);
+			
+			//根据用户编号和风盘地址更新，实时表计算，已用当量，基本费，能量费，已用金额
+			Data find=dataService.findYh(yhbhS,fpdz);
+			//更具用户编号，查找用户的合计金额
+			Jf findzje=jfServce.findzje(yhbhS);
+			//已用金额
+			Double yyje=find.getYyjeS();
+			//能量费
+			double nlf=find.getNlfS();
+			//基本费
+			double jbf=find.getJbfS();
+			//已用当量
+			double yydl=find.getYydlS();
+			//缴费表中总金额
+			double hjje=findzje.getHjje();
+			//剩余金额
+//			double syje=hjje-yyje;
+			double syje=sub(hjje, yyje);
+			//更新实时表缴费信息
+			Data datajf=new Data();
+			datajf.setYyje(yyje);
+			datajf.setNlf(nlf);
+			datajf.setSyje(syje);
+			datajf.setJbf(jbf);
+			datajf.setYydl(yydl);
+			datajf.setYhbh(yhbhS);
+			datajf.setFpdz(fpdz);
+			
+			//根据用户编号和风盘地址，更新用户缴费信息
+			dataService.updateJf(datajf);
+			//更新缴费表缴费信息
+			Jf jfJs=new Jf();
+			jfJs.setYhbh(yhbhS);//根据用户编号更新缴费表信息
+			jfJs.setYyje(yyje);//更新缴费表已用金额
+			jfJs.setSyje(syje);//剩余金额
+			jfJs.setGetime(time);//缴费信息更新时间
+			
+			jfServce.updateJf(jfJs);
+			
+			Fp fp=fpService.findfpbh(yhbhS);
 			data.setFpbh(fp.getFpbh());
+			
+			//根据实时表查找月份
+			int yf=yhMessageService.findYf(yhbhS);
+			data.setYydl(yydl);
+			data.setYyje(yyje);
+			data.setSyje(syje);
+			data.setNlf(nlf);
+			data.setJbf(jbf);
+			data.setYf(yf);
 			dataService.InsertYh(data);//插入历史表
 			SbSuc sbSuc =new SbSuc();
 			sbSuc.setSbSuc(yhbhS);
- 			
 			sbSucService.update(sbSuc);
-			 System.out.println("11111111111----------" );
-			//dataService.updateS(ms, dw, gdg, zdS, gdd, dgdg, dzdS, dgdd, Jf, sdw, sw, kg, bj, jj, time);
-			 // 更新
-//			String Upsql = "update k_data10 set gdtime='" +gdg + "',zdtime='" +zdS + "',ddtime='" +gdd + "',dgdtime='" +dgdg + "',dzdtime='" +dzdS + "',dddtime='" +dgdd + "', "
-//					+ "jf='" +Jf + "',"+"sdwd='" +sdw + "',"+"ms='" + ms+ "',"+"dw='" + dw+ "',"
-//					+ "snwd='" +sw + "',"+"bj='" +bjs + "',"+"time='" + time+ "',"+"kg='" + kg + "',"+"jj='"+jj 
-//							+ "'where yhbh='" + yhbhS + "' and fpdz='"+fpid+"'";
-//			System.out.println("Upsql===web--"+Upsql);
 			MapUtilsDf.getMapUtils().add("kt", "success");
-//		 	try
-//			{
-//				ps = connc.prepareStatement(Upsql);
-//				rs = ps.executeUpdate();
-//			} catch (SQLException e)
-//			{
-//				e.printStackTrace();
-//			} 
 		}else{
 			MapUtilsDf.getMapUtils().add("kt", "fail");
 		}
@@ -796,5 +838,9 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		sessionMap.remove(session);
 		logs.info("关闭当前session：" + session.getId() + session.getRemoteAddress() + "..已移除");
 	}
-
+	public static double sub(double d1,double d2){ 
+	    BigDecimal bd1 = new BigDecimal(Double.toString(d1)); 
+	    BigDecimal bd2 = new BigDecimal(Double.toString(d2)); 
+	    return bd1.subtract(bd2).doubleValue(); 
+	} 
 }

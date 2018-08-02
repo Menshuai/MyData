@@ -78,21 +78,25 @@ public class CgController {
 	 	@ResponseBody
 	 	public JSONObject FsLd(HttpSession session,HttpServletRequest request, String ids,String kg,String jf,String jj){
 	   		MapUtilsDf.getMapUtils().add("dg", null);
-	   		YhMessage  dyh=yhMessageService.findyh(ids);//楼栋  
-	 		Integer ldhS=dyh.getLdh();
+	   		Cg cgxx=cgService.findLdDyByCg(ids);
+	   		
+	   		
+	   		
+//	   		YhMessage  dyh=yhMessageService.findyh(ids);//楼栋  
+	 		Integer ldhS=cgxx.getYhMessage().getLdh();
 	 		String ld=String.valueOf(ldhS);
 	 		if(ld.length()==1){
 	 			ld=0+ld;
 	 		}
 	 		System.out.println("楼栋号"+ld); 
 //	 		YhMessage dyh=yhMessageService.findyh(ids);//单元
-	 		Integer dyhS=dyh.getDyh();
+	 		Integer dyhS=cgxx.getYhMessage().getDyh();
 	 		String dy=String.valueOf(dyhS);
 	 		if(dy.length()==1){
 	 			dy=0+dy;
 	 		}
 	 		System.out.println("单元号"+dy);
-	 		 String cgbh=dyh.getCgbh();
+	 		 String cgbh=cgxx.getCgbh();
 			 System.out.println("cgbh"+cgbh);
 			 
 			 String cg=cgbh.substring(4);
@@ -102,10 +106,19 @@ public class CgController {
 	 		 int ids1 = Integer.valueOf(ids.trim());
 	 		 String idsS = Integer.toHexString(ids1);//转换为十六进制  用户编码
 	 		 System.out.println("idsS---------"+idsS);
-	 		 YhMessage yhmess=yhMessageService.findJzq(ids);
-	 		 String ip =yhmess.getCg().getJzq().getJzqip();
+//	 		 YhMessage yhmess=yhMessageService.findJzq(ids);
+	 		 
+	 		Cg Cgjzq=cgService.findJzqByCg(cgbh);
+//	 		 String ip =yhmess.getCg().getJzq().getJzqip();
+	 		String ip =Cgjzq.getJzq().getJzqip();
 	 		 System.out.println("jzqip----------"+ip);
-	 		 String port=yhmess.getCg().getJzq().getJzqport();
+	 		 
+//	 		 String port=yhmess.getCg().getJzq().getJzqport();
+	 		 String port=Cgjzq.getJzq().getJzqport();
+	 		 
+//	 		 String ip =yhmess.getCg().getJzq().getJzqip();
+	 		 System.out.println("jzqip----------"+ip);
+//	 		 String port=yhmess.getCg().getJzq().getJzqport();
 	 		 System.out.println("jzqport----------"+port);
 	 		 
 	 		 if(kg.equals("02")){
@@ -173,8 +186,11 @@ public class CgController {
 	   	@RequestMapping("SCxZx")
 	 	@ResponseBody
 	 	public JSONObject SCxZx(HttpSession session,HttpServletRequest request, String ids,String kg,String jf,String jj){
-	   		YhMessage  ldh=yhMessageService.findyh(ids);//楼栋  
-	 		Integer ldhS=ldh.getLdh();
+	   		MapUtilsDf.getMapUtils().add("dg", null);
+//	   		YhMessage  ldh=yhMessageService.findyh(ids);//楼栋  
+	   		Cg cgxx=cgService.findLdDyByCg(ids);
+	   		
+	 		Integer ldhS=cgxx.getYhMessage().getLdh();
 	 		String ld=String.valueOf(ldhS);
 	 		if(ld.length()==1){
 	 			ld=0+ld;
@@ -182,13 +198,13 @@ public class CgController {
 	 		System.out.println("楼栋号"+ld); 
 	 		
 //	 		YhMessage dyh=yhMessageService.findyh(ids);//单元
-	 		Integer dyhS=ldh.getDyh();
+	 		Integer dyhS=cgxx.getYhMessage().getDyh();
 	 		String dy=String.valueOf(dyhS);
 	 		if(dy.length()==1){
 	 			dy=0+dy;
 	 		}
 	 		System.out.println("单元号"+dy);
-	 		 String cgbh=ldh.getCgbh();
+	 		 String cgbh=cgxx.getCgbh();
 			 System.out.println("cgbh"+cgbh);
 			 
 			 String cg=cgbh.substring(4);
@@ -203,11 +219,15 @@ public class CgController {
 	 		 String fpdzs=fp.getFpbh();
 	 		 System.out.println("fpdzs---------"+fpdzs);//风盘地址
 	 		 */
-	 		 YhMessage yhmess=yhMessageService.findJzq(ids);
-	 		 String ip =yhmess.getCg().getJzq().getJzqip();
+//	 		 YhMessage yhmess=yhMessageService.findJzq(ids);
+	 		 
+	 		Cg Cgjzq=cgService.findJzqByCg(cgbh);
+//	 		 String ip =yhmess.getCg().getJzq().getJzqip();
+	 		String ip =Cgjzq.getJzq().getJzqip();
 	 		 System.out.println("jzqip----------"+ip);
 	 		 
-	 		 String port=yhmess.getCg().getJzq().getJzqport();
+//	 		 String port=yhmess.getCg().getJzq().getJzqport();
+	 		 String port=Cgjzq.getJzq().getJzqport();
 	 		 System.out.println("jzqport----------"+port);
 	 		 
 	 		 if(kg.equals("02")){
@@ -280,8 +300,6 @@ public class CgController {
 	 				int jia = CzUtil.FsZh(ja);
 	 				// 十进制转换为十六进制
 	 				String hex = Integer.toHexString(jia);
-	 			 
-	 				
 	 				// 截取相加结果后两位
 	 				String je = null;
 	 				for (int j = 0; j < hex.length() - 1; j++) {

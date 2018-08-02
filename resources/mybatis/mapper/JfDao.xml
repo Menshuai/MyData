@@ -6,9 +6,11 @@
 		<result property="yhbh" column="yhbh"/>
 		<result property="jfje" column="jfje"/>
 		<result property="hjje" column="hjje"/>
-	<!-- 	<result property="syje" column="syje"/> -->
+	    <result property="syje" column="syje"/> 
 		<result property="time" column="time"/>
-		
+		<result property="yyje" column="yyje"/> 
+		<result property="getime" column="getime"/> 
+		<result property="userName" column="userName"/>
 		<result property="yhMessage.xqm" column="xqm" />
 		<result property="yhMessage.yhxm" column="yhxm"/>
 		<result property="yhMessage.ldh" column="ldh"/>
@@ -16,19 +18,27 @@
 		<result property="yhMessage.hh" column="hh"/>
 		<result property="yhMessage.lxdh" column="lxdh" />
 	</resultMap>
-
+	<!-- 更新用户费用 -->
+	<update id="updateJf" parameterType="Jf">
+	update k_jfb12 set syje=#{syje} ,yyje=#{yyje} ,getime=#{getime} where yhbh=#{yhbh} 
+	</update>
+	<!-- 根据用户编码查找用户合计金额 -->
+	<select id="findzje" resultMap="jf">
+	select hjje from k_jfb12 where yhbh=#{yhbh} 
+	</select>
 	<select id="find" resultMap="jf">
-		select 
-			y.yhxm,y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,
-			j.yhbh,j.jfje,j.hjje,j.time
+		select distinct j.id,
+			y.yhxm,y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,j.userName,
+			j.yhbh,j.jfje,j.hjje,j.time,j.yyje,j.syje
 		 from 
-		 	k_jfb12 j,dbo.k_yhb1 y
+		 	k_jfb12 j,k_yhb1 y
+		 	 	where j.yhbh=y.yhbh order by hh asc
 	</select>
 
 	<insert id="Insert" parameterType="Jf">
 		insert into k_jfb12
-		(id,yhbh,jfje,hjje)
-		values(#{id},#{yhbh},#{jfje},#{hjje})
+		(yhbh,jfje,hjje,time,yyje,syje,userName,getime)
+		values(#{yhbh},#{jfje},#{hjje},#{time},#{yyje},#{syje},#{userName},#{getime})
 	</insert>
 
 	<delete id="delete" parameterType="Jf">
@@ -36,10 +46,64 @@
 		where id=#{id}
 	</delete>
 	
-	<update id="update" parameterType="Jf">
+	<update id="updateJfHjje" parameterType="Jf">
 		update k_jfb12 set
-		yhbh=#{yhbh},jfje=#{jfje},hjje=#{hjje},time=#{time}
-		where id=#{id}
+		jfje=#{jfje},hjje=#{hjje},time=#{time},userName=#{userName}
+		where yhbh=#{yhbh}
 	</update>
-
+    <insert id="InsertJfHistory" parameterType="Jf">
+    insert into k_jfbHistory (yhbh,jfje,hjje,syje,yyje,time,userName)
+     values (#{yhbh},#{jfje},#{hjje},#{syje},#{yyje},#{time},#{userName})
+    </insert>
+    <select id="Sear" parameterType="Jf" resultMap="jf">
+    select distinct top 500 y.yhxm,y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,
+			j.yhbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,j.userName
+	 from k_jfb12 j,k_yhb1 y
+	  where j.yhbh=y.yhbh 
+	  <if test="xqm!='--选择小区名称--'">
+			and y.xqm=#{xqm}
+		</if>
+		<if test="ldh!=0">
+			and y.ldh=#{ldh}
+		</if>
+		<if test="dyh!=0">
+			and y.dyh=#{dyh}
+		</if>
+		<if test="hh!=null and hh!=''">
+			and y.hh=#{hh}
+		</if>
+    </select>
+    <select id="JffindHistory" resultMap="jf">
+    	select distinct
+			y.yhxm,y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,j.userName,
+			j.yhbh,j.jfje,j.hjje,j.time,j.yyje,j.syje
+		 from 
+		 	k_jfbHistory j,k_yhb1 y
+		 	 	where j.yhbh=y.yhbh
+    </select>
+    <select id="JffindHistorySear" resultMap="jf" parameterType="Jf">
+     select distinct  top 500 y.yhxm,y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,
+			j.yhbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,j.userName
+	 from k_jfbHistory j,k_yhb1 y
+	  where j.yhbh=y.yhbh 
+	  <if test="xqm!='--选择小区名称--'">
+			and y.xqm=#{xqm}
+		</if>
+		<if test="ldh!=0">
+			and y.ldh=#{ldh}
+		</if>
+		<if test="dyh!=0">
+			and y.dyh=#{dyh}
+		</if>
+		<if test="hh!=null and hh!=''">
+			and y.hh=#{hh}
+		</if>
+		<if test="time1!=null and time1!=''">
+			and j.time &gt;= #{time1}
+		</if>
+		<if test="time2!=null and time2!=''">
+			and j.time &lt;= #{time2}
+		</if> 
+		    order by j.time desc  
+    </select>
 </mapper>

@@ -43,4 +43,10 @@ public class FpServiceImpl implements  FpService{
 		return fpDao.findfpbh(yhbh);
 	}
 
+	@Override
+	public List<Fp> findfp()
+	{
+		return fpDao.findfp();
+	}
+
 }

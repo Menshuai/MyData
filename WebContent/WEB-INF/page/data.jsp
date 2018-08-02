@@ -23,8 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="../css/fixed_table_rc.css" type="text/css" rel="stylesheet" media="all" />
 	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet"	/>
 	<script src="https://code.jquery.com/jquery.min.js" type="text/javascript"></script>
-	
-	<!-- <script src="https://meetselva.github.io/fixed-table-rows-cols/js/sortable_table.js" type="text/javascript"></script> -->
 	<script src="../js/fixed_table_rc.js" type="text/javascript"></script>
 	<script src="../js/sortable_table.js" type="text/javascript"></script>
 	<style>
@@ -58,14 +56,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    {
 				width : 40,
 				align : 'center'
-			}, /* {
-				width : 50,
-				align : 'center'
-			},  */{
-				width : 80,
+			},{
+				width : 100,
 				align : 'center'
 			},{
-				width : 80,
+				width : 100,
 				align : 'center'
 			},{
 				width : 120,
@@ -149,10 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			} ,{
 				width : 60,
 				align : 'center'
-			}/*  ,{
-				width : 60,
-				align : 'center'
-			}  */
+			}
 			],
 			sort : true
 		});
@@ -165,14 +157,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div>
 <!-- style="width:65%; height: 60%; position: absolute; overflow: auto;text-align: center" -->
- <h3>首页信息</h3> &nbsp;&nbsp;&nbsp;
- <div></div>
+ <div class="panel panel-success">
+  <div class="panel-heading">首页信息</div>
  &nbsp;&nbsp;&nbsp;
 	<table id="fixed_hdr2"  >
 		<thead >
 	<tr height="35px" style="background: url(../img/secai.png);" >
 			<th></th>         
-			<!-- <th>序号</th> -->
 			<th>用户编号</th>
 			<th>用户姓名</th>
 			<th>小区名称</th>
@@ -220,7 +211,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td>${yh.yhMessage.ldh}</td>
 		<td>${yh.yhMessage.dyh}</td>	
 		<td>${yh.yhMessage.hh}</td>	
-		<td>${yh.js}</td>
+		<td>${yh.yydl}</td>
 		<td>${yh.fpbh}</td>
 	<!-- -----------------------------10----->
 		<c:if test="${yh.ms =='00'}">
@@ -284,21 +275,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:if>
 		
 		<td>${yh.time}</td>
-		 <%--  <td><fmt:formatDate value="${yh.time}"
-					pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
 		<td>${yh.yhMessage.mj}</td>
 		<td>${yh.yhMessage.lxdh}</td>
 		<td>${yh.yhMessage.fpdz}</td>
 		<td>${yh.yhMessage.bz}</td>
-		<%-- <c:if test="${yh.yhMessage.bz=='1'}">
-		<td>无</td>
-		</c:if> --%>
-		
 	 </tr>
 	</c:forEach>
   </tbody>
 </table>
 </div>
-
+</div>
 </body>
 </html>

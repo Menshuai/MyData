@@ -30,24 +30,133 @@ public class Data implements Serializable {
 	private String bj;//报警
 	private String jj;//季节
 	private String time; // 采集时间
-	private String fpdz;
+	private int fpdz;
 	private String yhbh;
-	
-	
-	public String getFpdz() {
+	private double  yydl;//已用当量
+	private double syje;//剩余金额
+	private double yyje;//已用金额
+	private double jbf;//基本费
+	private double nlf;//能量费
+    private double yydlS;
+    private double yyjeS;
+    private double nlfS;
+    private double jbfS;
+    private int yf;//月份
+    
+    
+	public int getYf()
+	{
+		return yf;
+	}
+
+	public void setYf(int yf)
+	{
+		this.yf = yf;
+	}
+
+	public double getYydlS()
+	{
+		return yydlS;
+	}
+
+	public void setYydlS(double yydlS)
+	{
+		this.yydlS = yydlS;
+	}
+
+	public double getYyjeS()
+	{
+		return yyjeS;
+	}
+
+	public void setYyjeS(double yyjeS)
+	{
+		this.yyjeS = yyjeS;
+	}
+
+	public double getNlfS()
+	{
+		return nlfS;
+	}
+
+	public void setNlfS(double nlfS)
+	{
+		this.nlfS = nlfS;
+	}
+
+	public double getJbfS()
+	{
+		return jbfS;
+	}
+
+	public void setJbfS(double jbfS)
+	{
+		this.jbfS = jbfS;
+	}
+
+
+	public double getNlf()
+	{
+		return nlf;
+	}
+
+	public void setNlf(double nlf)
+	{
+		this.nlf = nlf;
+	}
+
+	public double getYydl()
+	{
+		return yydl;
+	}
+
+	public void setYydl(double yydl)
+	{
+		this.yydl = yydl;
+	}
+
+	public double getSyje()
+	{
+		return syje;
+	}
+
+	public void setSyje(double syje)
+	{
+		this.syje = syje;
+	}
+
+
+
+	public double getYyje()
+	{
+		return yyje;
+	}
+
+	public void setYyje(double yyje)
+	{
+		this.yyje = yyje;
+	}
+
+	public double getJbf()
+	{
+		return jbf;
+	}
+
+	public void setJbf(double jbf)
+	{
+		this.jbf = jbf;
+	}
+
+	public int getFpdz()
+	{
 		return fpdz;
 	}
 
-	public void setFpdz(String fpdz) {
+	public void setFpdz(int fpdz)
+	{
 		this.fpdz = fpdz;
 	}
-
-	/*private String jzqip; // ip地址
-	private int jzqport; // 端口号
-	private String jzqid; // id
-*/
-	private String js; // 计算数据 计算夏季冷量 已用当量值（时间*风盘高速） da.time_h*fp.C_h 
-	 private String dyydl;      //冬季已用当量
+	private String dyydl;      //冬季已用当量
 	private FpLogin fpLogin; // 风盘注册表
 	private Fp fp;// 风盘参数表
 	private YhMessage yhMessage;// 用户表
@@ -230,15 +339,6 @@ public class Data implements Serializable {
 	{
 		this.time = time2;
 	}
-
-	public String getJs() {
-		return js;
-	}
-
-	public void setJs(String js) {
-		this.js = js;
-	}
-
 	
 	public String getDyydl() {
 		return dyydl;
@@ -276,28 +376,4 @@ public class Data implements Serializable {
 	public void setMs(String ms) {
 		this.ms = ms;
 	}
-
-	@Override
-	public String toString() {
-		return "Data [id=" + id + ", fpbh=" + fpbh + ", ms=" + ms + ", dw=" + dw + ", gdtime=" + gdtime + ", zdtime="
-				+ zdtime + ", ddtime=" + ddtime + ", dgdtime=" + dgdtime + ", dzdtime=" + dzdtime + ", dddtime="
-				+ dddtime + ", jf=" + jf + ", sdwd=" + sdwd + ", snwd=" + snwd + ", kg=" + kg + ", bj=" + bj + ", jj="
-				+ jj + ", time=" + time + ", fpdz=" + fpdz + ", js=" + js + ", dyydl=" + dyydl + ", fpLogin=" + fpLogin
-				+ ", fp=" + fp + ", yhMessage=" + yhMessage + ", gl=" + gl + ", jzq=" + jzq + "]";
-	}
-
-	 
-
-	 
-
-	 
-
-	 
-
-	 
-
-	 
-
-	
-
 }

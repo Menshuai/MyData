@@ -36,7 +36,7 @@
 	
 	<!-- public Jzq findJzqnet( @Param("jzqip")String jzqip,@Param("port")String port); -->
 	<select id="findJzqnet" resultMap="jzq">
-		select jzqnet from  k_jzqb5 where jzq=#{jzq} and jzqport=#{jzqport}
+		select jzqnet from  k_jzqb5 where jzqip=#{jzqip} and jzqport=#{jzqport}
 	</select>
 	
 	<!-- public void updateIpPort(String ip,Integer port,String jzqnet); -->

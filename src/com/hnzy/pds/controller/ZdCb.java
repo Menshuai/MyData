@@ -21,13 +21,18 @@ public class ZdCb
 		yhMessages=yhMessageService.find();
 		for(int i=0;i<yhMessages.size();i++){
 			String yhbh=yhMessages.get(i).getYhbh();
+			System.out.println("====----------yhbh--"+yhbh);
 			String yhbhS = Integer.toHexString(Integer.valueOf(yhbh));//16进制     
 			String cgbh=yhMessages.get(i).getCgbh();
 			String cg=cgbh.substring(cgbh.length()-2);
 			String zgb=cgbh.substring(0,cgbh.length()-2);
 			Integer ld=yhMessages.get(i).getLdh();
 			Integer dyh=yhMessages.get(i).getDyh();
-			Integer fpdz=yhMessages.get(i).getfpdz();
+			String fpdz=yhMessages.get(i).getfpdz().toString();
+			Integer fp=yhMessages.get(i).getfpdz();
+			if(fp>9){
+				fpdz=Integer.toHexString(fp);
+			}
 			String zl=zgb+"F010B5"+cg+yhbhS+"0"+fpdz+"0"+ld+"0"+dyh+"FFFFFFFF";
 			System.out.println("zl------"+zl);
 			YhMessage yhmess=yhMessageService.findJzq(yhbh);
@@ -43,7 +48,7 @@ public class ZdCb
 	
 	public void XgYf(){
 		//从数据库用户表查询当前月份 默认第一个月为零以后每月加一
-		int yf=yhMessageService.findYf();
+		int yf=yhMessageService.findyf();
 		 Date date=new Date();
 		int month=date.getMonth()+1;
 		if(month==6&&yf!=0){
@@ -68,7 +73,6 @@ public class ZdCb
 	   //更新用户表当前月份
 		yhMessageService.updateYf(yf);
 	}
-	
 		
 		// 抽取相同部分
 					public boolean cz(String ja, String pt) {

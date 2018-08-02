@@ -118,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var ldh = d[i].yhMessage.ldh;
 					var dyh = d[i].yhMessage.dyh;
 					var hh = d[i].yhMessage.hh;
-					var js = d[i].js;
+					var js = d[i].yydl;
 					var fpbh = d[i].fpbh;
 					var ms = d[i].ms;
 					var  dw= d[i].dw;
@@ -345,12 +345,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 <body > 
 
-<div class="panel panel-success">
-
 <div>
 <!-- style="width:65%; height: 60%; position: absolute; overflow: auto;text-align: center" -->
- <h3>数据报表</h3> &nbsp;&nbsp;&nbsp;
- <div></div>
+ <div class="panel panel-success">
+ <div class="panel-heading">数据报表</div>
  <div class="panel panel-success">
  		<label for="xqNameId">选择小区</label> 
  			<select id="xqmId" name="xqm">
@@ -428,7 +426,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td>${yh.yhMessage.dyh}</td>	
 		<td>${yh.yhMessage.hh}</td>	
 		<td>${yh.yhMessage.fpdz}</td>
-		<td>${yh.js}</td>
+		<td>${yh.yydl}</td>
 		<td>${yh.fpbh}</td>
 		<c:if test="${yh.ms =='00'}">
    		<td>制冷</td>

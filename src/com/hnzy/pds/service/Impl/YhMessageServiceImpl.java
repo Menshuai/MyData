@@ -116,15 +116,21 @@ public class YhMessageServiceImpl implements YhMessageService{
 	}
 
 	@Override
-	public int findYf()
+	public int findYf(String yhbhS)
 	{
 		//获取月份
-		return yhMessageDao.findYf();
+		return yhMessageDao.findYf(yhbhS);
 	}
 
 	@Override
 	public void updateYf(int yf)
 	{
 		yhMessageDao.updateYf(yf);
+	}
+
+	@Override
+	public int findyf()
+	{
+		return yhMessageDao.findyf();
 	} 	
 }

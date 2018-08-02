@@ -74,32 +74,31 @@
 //数据不允许为空   添加
 function add(){
 	var yhbh=$("#add input[name=yhbh]");
-	var cgbh=$("#add select[name=cgbh]");
-	var xqm=$("#add select[name=xqm]");
-	var ldh=$("#add select[name=ldh]");
+	var cgbh=$("#add input[name=cgbh]");
+	var xqm=$("#add input[name=xqm]");
+	var ldh=$("#add input[name=ldh]");
 	var dyh=$("#add input[name=dyh]");
 	
 	var hh=$("#add input[name=hh]");
 	var fpdz=$("#add input[name=fpdz]");
 	var mj=$("#add input[name=mj]");
-	var yhlx=$("#add input[name=yhlx]");
 	var yhxm=$("#add input[name=yhxm]");
 	
 	var lxdh=$("#add input[name=lxdh]");
 	var bz=$("#add input[name=bz]");
-		
-	/* if(yhbh.val()==null||yhbh.val()==""||cgbh.val()==null||cgbh.val()==""||xqm.val()==null||xqm.val()==""||ldh.val()==null||ldh.val()==""||dyh.val()==null||dyh.val()==""||hh.val()==null||hh.val()==""||fpdz.val()==null||fpdz.val()==""||mj.val()==null||mj.val()==""||yhlx.val()==null||yhlx.val()==""||yhxm.val()==null||yhxm.val()==""||lxdh.val()==null||lxdh.val()==""||bz.val()==null||bz.val()==""){
+	var yhlx = $("input[name='yhlx']:checked").val();
+	alert(yhlx)
+
+ if(yhbh.val()==null||yhbh.val()==""||cgbh.val()==null||cgbh.val()==""||xqm.val()==null||xqm.val()==""||ldh.val()==null||ldh.val()==""||dyh.val()==null||dyh.val()==""||hh.val()==null||hh.val()==""||fpdz.val()==null||fpdz.val()==""||mj.val()==null||mj.val()==""||yhlx==null||yhlx==""||yhxm.val()==null||yhxm.val()==""||lxdh.val()==null||lxdh.val()==""||bz.val()==null||bz.val()==""){
 		 alert('信息不能为空，请填写完整!');
 		return false;
-	} */
-	/* var dyh1=document.getElementById("dyh").value;
-	 if(isNaN(dyh1)){
-			
-			 sAlert('单元号必须是数字！');
-			document.getElementById("dyh").value="";
+	} 
+	var fpgs=document.getElementById("fpgs").value;
+	 if(!isNaN(fpdz)){
+			 sAlert('风盘个数必须是数字！');
+			document.getElementById("fpgs").value="";
 			return;
-	 } */
-	
+	 } 
 	$("#add form").submit();
 }
 
@@ -144,49 +143,20 @@ function edit(){
   function openaddUserPage(){
 	$.ajax({
 		type:"post",
-		url:"InsertYhMessage.action",//获取json数据
+		url:"findfp.action",//获取json数据
 		dataType:"json",
 		success:function(data){
 			var dd=data;
-			var d=dd.yhInfolist;
-			$("#cgbhId option:gt(0)").remove();
+			var d=dd.fps;
+			$("#fpxhId option:gt(0)").remove();
 			for(var i=0;i<d.length;i++){
-				var cgbh=d[i].cgbh;
-				var opt="<option value='"+cgbh+"'>"+cgbh+"</option>";
-				$("#cgbhId").append(opt);
+				var xh=d[i].xh;
+				var opt=xh+": <input type='radio' name='fpxh' value='"+xh+"'/>";
+				$("#fpxhId").append(opt);
 				
 			}
 		},
 	})
-	
-/*   $("#cgbhId").change(
-	function(){	
-	  $.get("findYhxqmbycgbh.action?cgbh="+ $("#cgbhId").val(),function(data) {
-		var dd=data;
-		var d=dd.xqlist;
-		$("#xqmId option:gt(0)").remove();
-		$("#ldhId option:gt(0)").remove();
-		for(var i=0;i<d.length;i++){
-			var xqm=d[i].xqm;
-			var opt="<option value='"+xqm+"'>"+xqm+"</option>"
-			$("#xqmId").append(opt);
-		}
-		});
-	}); */
-	
-/* 	$("#xqmId").change(
-			function() {
-				$.get("findYhldhByBuild.action?build="+ $("#xqmId").val()+"&cgbh="+ $("#cgbhId").val(),function(data) {
-					var dd=data;
-					var d=dd.cellList;
-					$("#ldhId option:gt(0)").remove();
-					for(var i=0;i<d.length;i++){
-						var ldh=d[i].ldh;
-						var opt="<option value='"+ldh+"'>"+ldh+"</option>"
-						$("#ldhId").append(opt);
-					}
-					});
-				 }); */
 	$("#add").modal({keyboard:false});
 	
 }  
@@ -274,57 +244,6 @@ function openDeletePage(){
 		$("#deleteUser").modal({keyboard:false});
 	}
 </script>
-
-<!--搜索  -->
-<!-- <script type="text/javascript">
-  function yhflSear(){
-		var yhfl = $('#yhfl').val();
-		window.location="yhflSear.action?yhfl="+yhfl
-  }
-
-</script> -->
-<!-- <script type="text/javascript">
-/*页面加载就开始执行js*/
-$(document).ready(
-	
-		function() {
-			$("#cgbhId").change(
-					function() {
-						$.get("findYhxqmbycgbh.action?cgbh="
-								+ $("#cgbhId").val(), function(data) {
-							var dd = data;
-							var d = dd.xqlist;
-							$("#xqmId option:gt(0)").remove();
-							$("#ldhId option:gt(0)").remove();
-							for (var i = 0; i < d.length; i++) {
-								var xqm = d[i].xqm;
-
-								var opt = "<option value='"+xqm+"'>"
-										+ xqm + "</option>"
-								$("#xqmId").append(opt);
-							}
-						});
-					});
-
-			$("#xqmId").change(
-					function() {
-						$.get("findYhldhByBuild.action?build="
-								+ $("#xqmId").val() + "&cgbh="
-								+ $("#cgbhId").val(), function(data) {
-							var dd = data;
-							var d = dd.cellList;
-							$("#ldhId option:gt(0)").remove();
-							for (var i = 0; i < d.length; i++) {
-								var ldh = d[i].ldh;
-								var opt = "<option value='"+ldh+"'>"
-										+ ldh + "</option>"
-								$("#ldhId").append(opt);
-							}
-						});
-					});
-		});
-</script> -->
- 
 </head>
 <body>
  <div class="panel panel-success">
@@ -367,15 +286,11 @@ $(document).ready(
                                      <td>${yh.cgbh}</td>
                                       <td>${yh.xqm}</td>
                                      <td>${yh.ldh}</td>
-                                     
-                                     
                                      <td>${yh.dyh}</td>
                                      <td>${yh.hh}</td>
                                      <td>${yh.fpdz}</td>
                                      <td>${yh.mj}</td>
                                      <td>${yh.yhlx}</td>
-                                     
-                                    
                                      <td>${yh.yhxm}</td>
                                      <td>${yh.lxdh}</td>
                                       <td>无</td>
@@ -452,11 +367,11 @@ $(document).ready(
 												
 						
 							  <div class="form-group">						
-							<label for="fpdz" class="col-sm-2 col-sm-offset-3 control-label">风盘地址</label>
+							<label for="fpdz" class="col-sm-2 col-sm-offset-3 control-label">风盘个数</label>
 							
 							<div class="col-sm-4">
-								<input id="fpdz" type="text" name="fpdz"
-									class="form-control" placeholder="风盘地址" />
+								<input id="fpgs" type="text" name="fpdz"
+									class="form-control" placeholder="风盘个数" />
 							</div>					
 						</div>
 							<div class="form-group">						
@@ -473,10 +388,36 @@ $(document).ready(
 							<label for="yhlx" class="col-sm-2 col-sm-offset-3 control-label">用户类型</label>
 							
 							<div class="col-sm-4">
-								<input id="yhlx" type="text" name="yhlx"
-									class="form-control" placeholder="用户类型" />
+								<!-- <input id="yhlx" type="text" name="yhlx"
+									class="form-control" placeholder="用户类型" /> -->
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;住宅：<input type="radio" name="yhlx" value="01"/>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商用    ：<input type="radio" name="yhlx" value="02"/>
+							      &nbsp;廉租房： <input type="radio" name="yhlx" value="03" />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他： <input type="radio" name="yhlx" value="04" />
 							</div>					
 						</div>
+						<!-- 风盘信息添加 -->
+						<div class="form-group">						
+							<label for="fpbh" class="col-sm-2 col-sm-offset-3 control-label">风盘编号</label>
+							
+							<div class="col-sm-4">
+								<input id="fpbh" type="text" name="fpbh"
+									class="form-control" placeholder="风盘编号" />
+							</div>					
+						</div>
+							<div class="form-group">						
+							<label for="fpxhId" class="col-sm-2 col-sm-offset-3 control-label">风盘型号</label>
+								<div class="col-sm-4" id="fpxhId">
+							</div>	
+							</div>	
+							<div class="form-group">						
+							<label for="wz" class="col-sm-2 col-sm-offset-3 control-label">风盘安装位置</label>
+							
+							<div class="col-sm-4">
+								<input id="wz" type="text" name="wz"
+									class="form-control" placeholder="风盘安装位置" />
+							</div>					
+						</div>	
 							
 							<div class="form-group">						
 							<label for="yhxm" class="col-sm-2 col-sm-offset-3 control-label">用户姓名</label>
@@ -494,9 +435,16 @@ $(document).ready(
 									class="form-control" placeholder="联系电话" />
 							</div>					
 						</div>
-				
+					   <div class="form-group">						
+							<label for="fpbz" class="col-sm-2 col-sm-offset-3 control-label">风盘备注</label>
+							
+							<div class="col-sm-4">
+								<input id="fpbz" type="text" name="fpbz"
+									class="form-control" placeholder="风盘备注" />
+							</div>					
+						</div>
 						<div class="form-group">						
-							<label for="bz" class="col-sm-2 col-sm-offset-3 control-label">备&nbsp;&nbsp;&nbsp;注</label>
+							<label for="bz" class="col-sm-2 col-sm-offset-3 control-label">用户备注</label>
 							
 							<div class="col-sm-4">
 								<input id="bz" type="text" name="bz"
@@ -509,11 +457,12 @@ $(document).ready(
 								<button type="reset" class="btn btn-primary btn-sm">重置</button>
 							</div>
 						</div>
+				
 					</form>
 				</div>
 			</div>
 		</div>
-	</div>
+		</div>
 <!-- 添加用户结束 -------------------------------------------------- -->
 <!---------------------------修改页面开始 --------------------------------------------------------- -->
 	<div class="modal fade bs-example-modal-sm" id="edit">

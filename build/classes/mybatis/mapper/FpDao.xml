@@ -38,4 +38,9 @@
 	<select  id="findfpbh"  resultMap="fp">
 		select fpbh from k_fpb2 where yhbh=#{yhbh}
 	</select>
+	
+	<select id="findfp"  resultMap="fp">
+	select distinct xh from k_fpb2
+	</select>
+	
 </mapper>

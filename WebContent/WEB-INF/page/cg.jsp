@@ -223,7 +223,8 @@
 				<tbody id="cginfo">
 					<c:forEach  var="cg" items="${cg}" varStatus="status">
 								<tr <c:if test="${status.index%2==1 }">style="background-color:#eef3fa"</c:if>>
-									<td ><input type="checkbox" value="${cg.yhMessage.yhbh}" /></td>
+								<%-- 	<td ><input type="checkbox" value="${cg.yhMessage.yhbh}" /></td> --%>
+									<td ><input type="checkbox" value="${cg.cgbh}" /></td>
 								<%-- 	<td>${cg.yhMessage.yhbh}</td> --%>
 									<td>${cg.cgbh}</td>
                              <%--         <td>${cg.yhMessage.xqm}</td>

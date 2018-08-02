@@ -26,8 +26,26 @@ public class YhMessage implements Serializable{
 	private String  bz    ;     //备注
 	
 	private String  lxdh  ;  //联系电话
-	
 	private Cg cg;
+	private int yf;
+	
+	
+	public int getYf()
+	{
+		return yf;
+	}
+	public void setYf(int yf)
+	{
+		this.yf = yf;
+	}
+	public Integer getFpdz()
+	{
+		return fpdz;
+	}
+	public void setFpdz(Integer fpdz)
+	{
+		this.fpdz = fpdz;
+	}
 	
 	public Cg getCg() {
 		return cg;

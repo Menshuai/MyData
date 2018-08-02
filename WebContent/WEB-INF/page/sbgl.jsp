@@ -23,8 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="../css/fixed_table_rc.css" type="text/css" rel="stylesheet" media="all" />
 	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet"	/>
 	<script src="https://code.jquery.com/jquery.min.js" type="text/javascript"></script>
-	
-	<!-- <script src="https://meetselva.github.io/fixed-table-rows-cols/js/sortable_table.js" type="text/javascript"></script> -->
 	<script src="../js/fixed_table_rc.js" type="text/javascript"></script>
 	<script src="../js/sortable_table.js" type="text/javascript"></script>
 	<style>
@@ -114,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var ldh = d[i].yhMessage.ldh;
 					var dyh = d[i].yhMessage.dyh;
 					var hh = d[i].yhMessage.hh;
-					var js = d[i].js;
+					var js = d[i].yydl;
 					var fpbh = d[i].fpbh;
 					var ms = d[i].ms;
 					var  dw= d[i].dw;
@@ -136,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var fpdz = d[i].yhMessage.fpdz;
 					var bz = d[i].yhMessage.bz;
 					html += "<tr>";
-					html += "<td><input type='checkbox' value='"+yhbh+""+fpdz+"'/></td>";
+					html += "<td class='text-center'><input  type='checkbox' value='"+yhbh+""+fpdz+"'/></td>";
 					html += "<td class='text-center'>" + yhbh + "</td>";
 					html += "<td class='text-center'>" + yhxm + "</td>";
 					html += "<td class='text-center'>" + xqm + "</td>";
@@ -469,7 +467,8 @@ function SFs() {
 
 <div>
 <!-- style="width:65%; height: 60%; position: absolute; overflow: auto;text-align: center" -->
- <h3>中央空调信息</h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <div class="panel panel-success">
+ <div class="panel-heading">设备管理</div>
  <div></div>
  	<label for="xqNameId">选择小区</label> 
  			<select id="xqmId" name="xqm">
@@ -568,8 +567,7 @@ function SFs() {
 <tbody id="yhInfo">
 	<c:forEach  var="yh" items="${YhList}" varStatus="status">
 	   <tr <c:if test="${status.index%2==1 }">style="background-color:#eef3fa"</c:if>>	  
-		<td><input type="checkbox" value="${yh.yhMessage.yhbh}${yh.yhMessage.fpdz}" /></td>  
-		<%-- <td>${yh.id}</td>	 --%>
+		<td align="center"><input type="checkbox" value="${yh.yhMessage.yhbh}${yh.yhMessage.fpdz}" /></td>  
 		<td>${yh.yhMessage.yhbh}</td>	
 		<td>${yh.yhMessage.yhxm}</td>	
 		<td>${yh.yhMessage.xqm}</td>	
@@ -577,7 +575,7 @@ function SFs() {
 		<td>${yh.yhMessage.dyh}</td>	
 		<td>${yh.yhMessage.hh}</td>	
 		<td>${yh.yhMessage.fpdz}</td>
-		<td>${yh.js}</td>
+		<td>${yh.yydl}</td>
 		<td>${yh.fpbh}</td>
 		<c:if test="${yh.ms =='00'}">
    		<td>制冷</td>
@@ -646,6 +644,6 @@ function SFs() {
   </tbody>
 </table>
 </div>
-
+</div>
 </body>
 </html>

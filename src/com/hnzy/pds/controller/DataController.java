@@ -18,13 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hnzy.hot.socket.server.ServerHandler2;
 import com.hnzy.hot.socket.server.ServerSessionMap;
 import com.hnzy.hot.socket.util.CzUtil;
 import com.hnzy.hot.socket.util.MapUtilsDf;
 import com.hnzy.pds.pojo.Data;
-import com.hnzy.pds.pojo.Fp;
-import com.hnzy.pds.pojo.Jzq;
 import com.hnzy.pds.pojo.Rz;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.DataService;
@@ -122,17 +119,28 @@ public class DataController {
 	public String DataMe(){
 		return "/SbglMen";
 	}
-	 
+	String fpdz;
+	String idString;
 	//查询状态------对某一户--------------查询状态-----------------
 	@ResponseBody
 	@RequestMapping("CxState")
 	public JSONObject CxState(HttpSession session,HttpServletRequest request, String ids,Data zykt,YhMessage yhMessage){
 		MapUtilsDf.getMapUtils().add("kt", null);
 		//用户编号
-		String idString=ids.substring(0, ids.length()-1);
+		System.out.println(ids);
+		if(ids.length()==10){
+			 idString=ids.substring(0, ids.length()-2);
+			//风盘编号
+			String	fp=Integer.toHexString(Integer.valueOf(ids.substring(ids.length()-2)));
+			 fpdz="0"+fp;
+			 System.out.println("fpdz--"+fpdz);
+		}else{
+		//用户编号
+		 idString=ids.substring(0, ids.length()-1);
 		//风盘编号
-		String fpdz="0"+ids.substring(ids.length()-1);
-		System.out.println(idString+"-------"+fpdz);
+		 fpdz="0"+ids.substring(ids.length()-1);
+		System.out.println(idString+"---"+fpdz);
+		}
 		//用户编号转换为十进制
 		int ids1 = Integer.valueOf(idString); 
 		String idsS = Integer.toHexString(ids1);//16进制     
@@ -143,7 +151,6 @@ public class DataController {
 			ld=0+ld;
 		}
 		
-//		YhMessage dyh=yhMessageService.findyh(idString);//单元
 		Integer dyhS=ldh.getDyh();
 		String dy=String.valueOf(dyhS);
 		if(dy.length()==1){
@@ -151,13 +158,13 @@ public class DataController {
 		}
 		
 		 String cgbh=ldh.getCgbh();
-		 System.out.println("cgbh-----"+cgbh);
+		 System.out.println("cgbh"+cgbh);
 		 
 		 String cg=cgbh.substring(4);
 		 
 //		String ja =ld+dy+"F010B5"+cg+""+idsS+fpdz+"FFFFFFFFFFFF";//起始到结束  01终端
 		String ja =ld+dy+"F010B5"+cg+""+idsS+fpdz+ld+dy+"FFFFFFFF";//起始到结束  01终端
-		log.info("对某户 单个风盘查询操作发送指令 ："+ja);
+		log.info("对某户 楼栋号："+ldhS+"单元号："+dyhS+"风盘地址:"+fpdz+"单个风盘查询操作发送指令 ："+ja);
 		YhMessage yhmess=yhMessageService.findJzq(idString);
 		String ip =yhmess.getCg().getJzq().getJzqip();
 		String port=yhmess.getCg().getJzq().getJzqport();
@@ -195,15 +202,31 @@ public class DataController {
 	 String jfString="";
 	 String jjString="";
 	// ---------------------单个风盘操作---------
+	 String	fp;
+	 String fpbh;
   	@RequestMapping("DCxZx")
 	@ResponseBody
 	public JSONObject DCxZx(HttpSession session,HttpServletRequest request, String ids,String fpdz,Data zykt,String kg,String jf,String jj){
   		MapUtilsDf.getMapUtils().add("kt", null);
-  		//用户编号
-  		String idString=ids.substring(0, ids.length()-1);
-  		//风盘编号
-  		 fpdz="0"+ids.substring(ids.length()-1);
-  		YhMessage  ldh=yhMessageService.finldh(idString,fpdz);//楼栋  
+  		
+		if(ids.length()==10){
+			 idString=ids.substring(0, ids.length()-2);
+			 System.out.println("idString--"+idString);
+//			 Integer idString=Integer.valueOf(ids.substring(1, ids.length()-1));
+			//风盘编号
+			 fpbh=ids.substring(ids.length()-2);
+				fp=Integer.toHexString(Integer.valueOf(ids.substring(ids.length()-2)));
+			 fpdz="0"+fp;
+			 System.out.println("fpdz--"+fpdz);
+		}else{
+		//用户编号
+		 idString=ids.substring(0, ids.length()-1);
+		//风盘编号
+		 fpdz="0"+ids.substring(ids.length()-1);
+		 fpbh=fpdz;
+		}
+ 
+  		YhMessage  ldh=yhMessageService.finldh(idString,fpbh);//楼栋  
 		Integer ldhS=ldh.getLdh();
 		String ld=String.valueOf(ldhS);
 		if(ld.length()==1){
@@ -211,17 +234,14 @@ public class DataController {
 		}
 		System.out.println("楼栋号"+ld); 
 		String cgbh=ldh.getCgbh();
-		System.out.println("cgbh-----"+cgbh);
 		String cg=cgbh.substring(4);
-		 
 		System.out.println("cg---"+cg);
-//		YhMessage dyh=yhMessageService.findyh(idString);//单元
 		Integer dyhS=ldh.getDyh();
 		String dy=String.valueOf(dyhS);
 		if(dy.length()==1){
 			dy=0+dy;
 		}
-		System.out.println("单元号---"+dy);
+		System.out.println("单元号"+dy);
   		// 把FmID转换为int类型      ids为用户编码   
 		 int ids1 = Integer.valueOf(idString);
 		 String idsS = Integer.toHexString(ids1);//转换为十六进制  用户编码
@@ -269,7 +289,7 @@ public class DataController {
 			 jjString="冬季";
 		 }
 			Rz rz=new Rz();
-			rz.setCz("对某户单个 风盘开关计费季节操作，风盘地址："+fpdz+"--"+kgString+","+jfString+","+jjString);
+			rz.setCz("对某户单个 风盘开关计费季节操作，楼栋号："+ldhS+"单元号："+dyhS+"风盘地址："+fpdz+"--"+kgString+","+jfString+","+jjString);
 			rz.setCzr((String)session.getAttribute("UserName"));
 			rz.setCzsj(new Date());
 			rzService.insert(rz);
@@ -301,8 +321,21 @@ public class DataController {
  	public JSONObject SCxZx(HttpSession session,HttpServletRequest request, String ids,String fpdz,Data zykt,String kg,String jf,String jj){
    		MapUtilsDf.getMapUtils().add("dg", null);
    		//用户编号
-  	   String idString=ids.substring(0, ids.length()-1);
-   		
+		if(ids.length()==10){
+			 idString=ids.substring(0, ids.length()-2);
+			 System.out.println("idString--"+idString);
+			//风盘编号
+			String	fp=Integer.toHexString(Integer.valueOf(ids.substring(ids.length()-2)));
+			 fpdz="0"+fp;
+			 System.out.println("fpdz--"+fpdz);
+		}else{
+		//用户编号
+		 idString=ids.substring(0, ids.length()-1);
+		//风盘编号
+		 fpdz="0"+ids.substring(ids.length()-1);
+		System.out.println(idString+"---"+fpdz);
+		}
+  	   
    		YhMessage  ldh=yhMessageService.findyh(idString);//楼栋  
  		Integer ldhS=ldh.getLdh();
  		String ld=String.valueOf(ldhS);
@@ -314,7 +347,6 @@ public class DataController {
 		 System.out.println("cgbh"+cgbh);
 		 String cg=cgbh.substring(4);
 		 System.out.println("cg--"+cg);
-// 		YhMessage dyh=yhMessageService.findyh(idString);//单元
  		Integer dyhS=ldh.getDyh();
  		String dy=String.valueOf(dyhS);
  		if(dy.length()==1){
@@ -344,13 +376,12 @@ public class DataController {
  		 	jj="FF";
  		 }
  		 //空调状态
- // 	 String ja =ld+dy+"F010B1"+cg+""+idsS+"FF"+""+kg+""+jf+""+jj+"FFFFFF"; 
  		 String ja =ld+dy+"F010B1"+cg+""+idsS+"FF"+""+kg+""+jf+""+jj+ld+dy+"FF";
  		 System.out.println("ja----"+ja);
  		 // IP地址和端口号
  		 String pt = "/" + ip + ":" + port;
  		 boolean sessionmap = cz(ja, pt);
- 		 log.info("对某户 所有风盘开关计费季节操作发送指令 ："+ja);
+ 		 log.info("对某户 所有风盘开关计费季节操作，楼栋号:"+ldhS+"单元号："+dyhS+",发送指令 ："+ja);
  		 if(kg.equals("00")){
 			 kgString="强关";
 		 }else if(kg.equals("01")){

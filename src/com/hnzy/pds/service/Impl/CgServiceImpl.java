@@ -37,4 +37,16 @@ public class CgServiceImpl implements CgService{
 		
 	}
 
+	@Override
+	public Cg findLdDyByCg(String cgbh)
+	{
+		return cgDao.findLdDyByCg(cgbh);
+	}
+
+	@Override
+	public Cg findJzqByCg(String cgbh)
+	{
+		return cgDao.findJzqByCg(cgbh);
+	}
+
 }

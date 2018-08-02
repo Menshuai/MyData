@@ -29,19 +29,28 @@
 	</resultMap>
 
 	<select id="find" resultMap="cg">
-		select distinct
+	select distinct cg.azdz,cg.bz,cg.cgbh,cg.jzqnet from k_yhb1 yh ,k_cgb3 cg where yh.cgbh=yh.cgbh
+		<!-- select distinct
 			c.cgbh,c.jzqnet,c.azdz,c.bz,
 		 	y.yhbh,y.cgbh
 		from 
-			k_cgb3 c, dbo.k_yhb1 y where c.cgbh=y.cgbh
+			k_cgb3 c, dbo.k_yhb1 y where c.cgbh=y.cgbh -->
 	</select>
-
+	<!-- 根据层管编号查找楼栋号单元号 -->
+	<select id="findLdDyByCg" parameterType="Cg" resultMap="cg" >
+	select distinct yh.ldh,yh.dyh ,cg.azdz,cg.bz,cg.cgbh,cg.jzqnet from k_yhb1 yh ,k_cgb3 cg where yh.cgbh=yh.cgbh and cg.cgbh=#{cgbh}
+	</select>
+	<!-- 根据层管查找集中器IP和端口号 -->
+	<select id="findJzqByCg" parameterType="Cg" resultMap="cg">
+	select distinct jzq.jzqip ,jzq.jzqport from k_jzqb5 jzq,k_cgb3 cg where jzq.jzqnet=cg.jzqnet and cg.cgbh=#{cgbh}
+	</select>
+	
 	<insert id="Insert" parameterType="Cg">
 		insert into k_cgb3
 		(cgbh,jzqnet,azdz,bz)
 		values(#{cgbh},#{jzqnet},#{azdz},#{bz})
 	</insert>
-
+   
 
 	<delete id="delete" parameterType="Cg">
 		delete from k_cgb3

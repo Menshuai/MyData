@@ -8,7 +8,7 @@
 		<result property="cgbh" column="cgbh" />
 		<result property="xqm" column="xqm" />
 		<result property="ldh" column="ldh" />
-		
+		<result property="yf" column="yf"/>
 		<result property="dyh" column="dyh" />
 		<result property="hh" column="hh" />
 		<result property="fpdz" column="fpdz" />
@@ -114,7 +114,7 @@
 	<!-- public YhMessage  findJzq(String cgbh) -->
 	<select  id="findJzq" parameterType="YhMessage"   resultMap="yhMessage" >
 	select distinct
-		yh.cgbh, cg.cgbh , jzq.jzqip, jzq.jzqport
+		 cg.cgbh , jzq.jzqip, jzq.jzqport
 	 from   k_yhb1  yh,  k_cgb3  cg,  k_jzqb5  jzq
 	 where yh.cgbh=cg.cgbh  
 	 and   cg.jzqnet=jzq.jzqnet and yh.yhbh=#{cgbh}
@@ -144,6 +144,15 @@
 	<!--通过小区楼栋获取单元  public List<YhMessage> findYhCellNOByBuild(int ldh,String xqm); -->
 	<select id="findYhCellNOByBuild" resultMap="yhMessage"><!-- 不写传参类型parameterType的话，前面传递的多个参数默认封装成map，顺序取就行了#{0} 代表第一个参数。 -->
 		select  distinct dyh from k_yhb1 where xqm=#{1} and ldh=#{0} 
+	</select>
+	<select id="findYf" resultType="Integer" >
+	select distinct yf from k_yhb1 where yhbh=#{yhbh}
+	</select>
+	<insert id="updateYf" parameterType="YhMessage">
+	update k_yhb1 set yf=#{yf} 
+	</insert>
+	<select id="findyf" resultType="Integer" >
+	select distinct yf from k_yhb1
 	</select>
 </mapper>
 
