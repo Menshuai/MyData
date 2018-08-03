@@ -3,14 +3,10 @@
 <mapper namespace="com.hnzy.pds.dao.YhlbDao">
 	<resultMap type="Yhlb" id="yhlb">
 		<id property="id" column="id"/>
-		
 		<result property="zz" column="zz"/>
 		<result property="sy" column="sy"/>
 		<result property="lzf" column="lzf"/>
 		<result property="qt" column="qt"/>
-		 
-		
-		
 	</resultMap>
 
 	<select id="find" resultMap="yhlb">
@@ -33,12 +29,15 @@
 		zz=#{zz},sy=#{sy},lzf=#{lzf},qt=#{qt}
 		where id=#{id}
 	</update>
+	
 	<!-- 获取当前月份 -->
-<select id="findYf">
-select distinct yf from k_yhb1
-</select>
-<!-- 更新当前月份 -->
-<update id="updateYf">
-update k_yhb1 set yf=#{yf}
-</update>
+	<select id="findYf">
+	select distinct yf from k_yhb1
+	</select>
+	
+	<!-- 更新当前月份 -->
+	<update id="updateYf">
+		update k_yhb1 set yf=#{yf}
+	</update>
+	
 </mapper>

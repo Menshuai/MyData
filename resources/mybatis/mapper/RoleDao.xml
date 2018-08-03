@@ -18,14 +18,10 @@
 		<id property="name" column="rname"></id>
 		<id property="createTime" column="createTime"></id>
 		<id property="lastEditTime" column="lastEditTime"></id>
-		
-		
-	
-	<collection property="users" ofType="User">
-   	 	<id property="ID" column="uid"/>
-    	<result property="userName" column="uname"/>
-    </collection>
-   
+		<collection property="users" ofType="User">
+	   	 	<id property="ID" column="uid"/>
+	    	<result property="userName" column="uname"/>
+	    </collection>
 	</resultMap>
 	
 	 <resultMap type="UserRole" id="userRole">
@@ -35,8 +31,6 @@
     	<id property="createTime" column="createTime"></id>
 		<id property="lastEditTime" column="lastEditTime"></id>
     </resultMap>
-	
-	
 	
 	<resultMap type="User" id="findUserByURid">
 		<result property="userName" column="uname" />
@@ -57,7 +51,6 @@
 		values
 				(#{name},#{createTime},#{lastEditTime})
 	</insert>
-	
 	
 	<!-- 修改  public void edit(Role role) -->
 	<update  id="edit" parameterType="Role">
@@ -104,6 +97,7 @@
  			user_role(user_id,role_id) 
  			VALUES(#{user_id},#{role_id})
  	</insert>
+ 	
 	 <select id="findRoleId" resultMap="role1" parameterType="java.lang.String">
 	     SELECT  
 			xu.id uid,

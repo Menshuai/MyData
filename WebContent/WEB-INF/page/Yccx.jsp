@@ -46,46 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			background: url(../img/secai.png);
 		}
 	</style>
-<!--  <script type="text/javascript">
-	/*页面加载就开始执行js*/
-	$(document).ready(//根据小区获取  楼栋号
-			function() {
-					
-				$("#xqmId").change(
-						function() {
-							$.get("findYhldhbyxqm.action?xqm="
-									+ $("#xqmId").val(), function(data) {
-								var dd = data;
-								var d = dd.xqlist;
-							 	$("#ldhId option:gt(0)").remove();
-								$("#dyhId option:gt(0)").remove();
-								for (var i = 0; i < d.length; i++) {
-									var ldh = d[i].ldh;
-									var opt = "<option value='"+ldh+"'>"
-											+ ldh + "</option>"
-									$("#ldhId").append(opt);
-								}
-							});
-						});
-
-				$("#ldhId").change(//根据小区楼栋号获取  单元号
-						function() {
-							$.get("findYhdyhByBuild.action?ldh="
-									+ $("#ldhId").val() + "&xqm="
-									+ $("#xqmId").val(), function(data) {
-								var dd = data;
-								var d = dd.dyhList;
-								$("#dyhId option:gt(0)").remove();
-								for (var i = 0; i < d.length; i++) {
-									var dyh = d[i].dyh;
-									var opt = "<option value='"+dyh+"'>"
-											+ dyh + "</option>"
-									$("#dyhId").append(opt);
-								}
-							});
-						});
-			});
-</script> -->
+ 
 <script type="text/javascript">
 	function searchInfo() {
 		var bj = $('#bjId').val();
@@ -108,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var ldh = d[i].yhMessage.ldh;
 					var dyh = d[i].yhMessage.dyh;
 					var hh = d[i].yhMessage.hh;
-					var js = d[i].js;
+					var js = d[i].yydl;
 					var fpbh = d[i].fpbh;
 					var ms = d[i].ms;
 					var  dw= d[i].dw;
@@ -239,10 +200,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			height :640,
 			colModal : [ 
 			 {
-				width : 80,
+				width : 100,
 				align : 'center'
 			},{
-				width : 80,
+				width : 120,
 				align : 'center'
 			},{
 				width : 120,
@@ -398,7 +359,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td>${yh.yhMessage.dyh}</td>	
 		<td>${yh.yhMessage.hh}</td>	
 		<td>${yh.yhMessage.fpdz}</td>
-		<td>${yh.js}</td>
+		<td>${yh.yydl}</td>
 		<td>${yh.fpbh}</td>
 		<c:if test="${yh.ms =='00'}">
    		<td>制冷</td>

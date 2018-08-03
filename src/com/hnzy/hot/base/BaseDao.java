@@ -3,7 +3,6 @@ package com.hnzy.hot.base;
 import java.io.Serializable;
 import java.util.List;
 
-import com.hnzy.pds.pojo.FmHistory;
 
 public interface BaseDao<T extends Serializable> {
 	/**

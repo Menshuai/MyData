@@ -14,7 +14,7 @@
 		<result property="temp_room" column="temp_room" />
 		<result property="onoff" column="onoff" />
 		<result property="time" column="time" />
-		<result property="js" column="js" />
+		<result property="yydl" column="yydl" />
 	 
 	</resultMap>
 	

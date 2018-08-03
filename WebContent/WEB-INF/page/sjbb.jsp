@@ -252,19 +252,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#fixed_hdr2').fxdHdrCol({
 			fixedCols : 0,
 			width : "100%",
-			height :640,
+			height :670,
 			colModal : [ 
 			 {
 				width : 80,
 				align : 'center'
 			},{
-				width : 80,
+				width : 120,
 				align : 'center'
 			},{
 				width : 120,
-				width : 145,
 				align : 'center'
-				//-------------5-----
+			 
 			},{
 				width : 60,
 				align : 'center'
@@ -272,7 +271,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				width : 60,
 				align : 'center'
 			},{
-				width : 60,
+				width : 70,
 				align : 'center'
 			},{
 				width : 70,

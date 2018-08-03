@@ -31,7 +31,6 @@
 		<result property="cg.azdz" column="azdz" />  
 		 
 	</resultMap>
-	 
 	
 	<!--查找小区名 public List<YhMessage> findXQN(); -->
 	<select id="findXQN"  resultMap="yhMessage"  parameterType="YhMessage">
@@ -51,7 +50,6 @@
 	<!--public List<YhMessage> find()  -->
 	<select id="find"   resultMap="yhMessage"   parameterType="YhMessage">
 		select  *  from  k_yhb1  
-		
 	</select>
 	
 	
@@ -145,14 +143,18 @@
 	<select id="findYhCellNOByBuild" resultMap="yhMessage"><!-- 不写传参类型parameterType的话，前面传递的多个参数默认封装成map，顺序取就行了#{0} 代表第一个参数。 -->
 		select  distinct dyh from k_yhb1 where xqm=#{1} and ldh=#{0} 
 	</select>
+	
 	<select id="findYf" resultType="Integer" >
 	select distinct yf from k_yhb1 where yhbh=#{yhbh}
 	</select>
+	
 	<insert id="updateYf" parameterType="YhMessage">
 	update k_yhb1 set yf=#{yf} 
 	</insert>
+	
 	<select id="findyf" resultType="Integer" >
 	select distinct yf from k_yhb1
 	</select>
+	
 </mapper>
 

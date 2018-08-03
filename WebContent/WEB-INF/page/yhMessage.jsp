@@ -55,8 +55,8 @@
 			{ width: 80, align: 'center' },
 			{ width: 80, align: 'center' },
 			
-			{ width: 80, align: 'center' },
-			{ width: 80, align: 'center' },
+			{ width: 100, align: 'center' },
+			{ width: 100, align: 'center' },
 			{ width: 80, align: 'center' }
 			],
 			sort: true

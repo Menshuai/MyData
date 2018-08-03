@@ -81,7 +81,7 @@
 		
 	<!--查询所有 public int sum(Repair repair,@Param("kffl")int kffl); -->
 	<select id="sum" resultType="int" parameterType="Repair">
-		select count(*) from k_WX   
+		select count(*) from k_WX  
 		<!--  where 1=1 and lx='故障申报'  
 		<if test="kffl==0">
 			and lx='故障申报'

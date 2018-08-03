@@ -364,20 +364,19 @@ function SFs() {
 		$('#fixed_hdr2').fxdHdrCol({
 			fixedCols : 0,
 			width : "100%",
-			height :600,
+			height :640,
 			colModal : [ 
 			    {
 				width : 40,
 				align : 'center'
 			}, {
-				width : 80,
-				align : 'center'
-			},{
-				width : 80,
+				width : 110,
 				align : 'center'
 			},{
 				width : 120,
-				width : 145,
+				align : 'center'
+			},{
+				width : 100,
 				align : 'center'
 			},{
 				width : 60,

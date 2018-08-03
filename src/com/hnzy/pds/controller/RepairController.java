@@ -25,7 +25,6 @@ import com.alibaba.fastjson.JSONObject;
  
 import com.hnzy.pds.pojo.Repair;
 import com.hnzy.pds.pojo.Rz;
-import com.hnzy.pds.pojo.YhInfo;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.RepairService;
  
@@ -45,7 +44,6 @@ public class RepairController {
 	private UserService userService;
 	
 	private List<Rz> rzs;
-	private List<YhInfo> yhInfoList;
 	private List<Repair> repairs;
 	private List<Repair> hes;
 	

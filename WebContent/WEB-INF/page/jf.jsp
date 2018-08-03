@@ -45,12 +45,12 @@
 			height: 700,
 			colModal: [
 			{ width: 50, align: 'center' },
-			{ width: 70, align: 'center' },
+			{ width: 120, align: 'center' },
 			{ width: 120, align: 'center' },
 			{ width: 65, align: 'center' },
 			{ width: 65, align: 'center' },
 			
-			{ width: 55, align: 'center' },
+			{ width: 65, align: 'center' },
 			{ width: 90, align: 'center' },
 			{ width: 100, align: 'center' },
 			{ width: 80, align: 'center' },
@@ -58,7 +58,7 @@
 			{ width: 70, align: 'center' },
 			{ width: 70, align: 'center' },
 			{ width: 70, align: 'center' },
-			{ width: 150, align: 'center' }
+			{ width: 160, align: 'center' }
 			
 			],
 			sort: true

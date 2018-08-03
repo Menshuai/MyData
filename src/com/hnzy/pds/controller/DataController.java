@@ -153,7 +153,6 @@ public class DataController {
 			@ResponseBody
 			public JSONObject searchInfo(HttpServletRequest request,ModelMap map,@Param("xqm")String xqm,@Param("ldh")int ldh,
 							@Param("dyh")int dyh,@Param("hh")Integer hh) throws UnsupportedEncodingException{
-<<<<<<< HEAD
 				JSONObject jsonObject=new JSONObject();
 				//hh为null查询实时表，否则查询历史表
 				if(hh==null){
@@ -167,21 +166,12 @@ public class DataController {
 				}
 					return jsonObject;		
 				}
-	@RequestMapping("/DataMe")
-	public String SkqMe(){
-		return "/DataMen";
-	}
-	
-	@RequestMapping("/SbglMe")
-	public String DataMe(){
-		return "/SbglMen";
-	}
+ 
 	String fpdz;
 	String idString;
-=======
 			JSONObject jsonObject=new JSONObject();
 			//hh为null查询实时表，否则查询历史表
-			if(hh==null){
+	/*		if(hh==null){
 				hh=0;
 				YhList= dataService.searchInfo(xqm, ldh, dyh, hh, "", "");
 				jsonObject.put("findXqInfoHistory",YhList);
@@ -190,7 +180,7 @@ public class DataController {
 				jsonObject.put("findXqInfoHistory",YhList );
 			}
 				return jsonObject;		
-			}
+			}*/
 			
 			@RequestMapping("/DataMe")
 			public String SkqMe(){
@@ -202,7 +192,6 @@ public class DataController {
 				return "/SbglMen";
 			}
 				 
->>>>>>> 6663d06acdc8a01730243b2451b4e3b0acf19e43
 	//查询状态------对某一户--------------查询状态-----------------
 	@ResponseBody
 	@RequestMapping("CxState")

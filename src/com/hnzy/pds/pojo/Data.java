@@ -6,7 +6,7 @@ import java.util.Date;
 public class Data implements Serializable {
 
 	/**
-	 * 事实数据表10
+	 * 实时数据表10
 	 */
 	private static final long serialVersionUID = 1L;
 

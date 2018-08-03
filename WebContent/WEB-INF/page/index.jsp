@@ -82,8 +82,8 @@ function tc(){ //安全退出
 					<li><a target="Conframel" href="<%=basePath%>YhMessageCon/HomeMe.action">数据报表</a></li>
 					<li><a href="#">客服管理<i class="tip-up"></i></a>
 						<ul class="kidc">							
-							<li><a target="Conframel" href="<%=basePath%>Repair/RepairMe.action.action">报修登记</a></li>
-							<li><a target="Conframel" href="<%=basePath%>Repair/SqazMe.action.action">申请安装</a></li>
+							<li><a target="Conframel" href="<%=basePath%>Repair/RepairMe.action">报修登记</a></li>
+							<li><a target="Conframel" href="<%=basePath%>Repair/SqazMe.action">申请安装</a></li>
 						</ul>  
 					</li>  
 					<li><a target="Conframel" href="<%=basePath%>RzController/RzMe.action">操作日志</a></li>

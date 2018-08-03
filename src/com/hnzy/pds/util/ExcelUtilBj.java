@@ -64,103 +64,102 @@ public class ExcelUtilBj {
 			
 			HSSFCell c3=row.createCell(2);
 			c3.setCellValue(yhInfosList.get(j).getYhMessage().getXqm());
-<<<<<<< HEAD:src/com/hnzy/pds/util/ExcelUtilZykt.java
-			HSSFCell c4=row.createCell(3);
-			c4.setCellValue(yhInfosList.get(j).getYhMessage().getLdh());
-			HSSFCell c5=row.createCell(4);
-			c5.setCellValue(yhInfosList.get(j).getYhMessage().getDyh());
-			HSSFCell c6=row.createCell(5);
-			c6.setCellValue(yhInfosList.get(j).getYhMessage().getHh());
-			HSSFCell c7=row.createCell(6);
-			c7.setCellValue(yhInfosList.get(j).getYydl());
-			HSSFCell c8=row.createCell(7);
-			c8.setCellValue(yhInfosList.get(j).getFpbh());
-			HSSFCell c9=row.createCell(8);
-			if(yhInfosList.get(j).getMs().equals("00")){
-				c9.setCellValue("制冷");
-			}
-			if(yhInfosList.get(j).getMs().equals("01")){
-				c9.setCellValue("制热");
-			}
-			if(yhInfosList.get(j).getMs().equals("02")){
-				c9.setCellValue("通风");
-			}
-			HSSFCell c10=row.createCell(9);
-			if(yhInfosList.get(j).getDw().equals("00")){
-				c10.setCellValue("停止");
-			}
-			if(yhInfosList.get(j).getDw().equals("01")){
-				c10.setCellValue("低档");
-			}
-			if(yhInfosList.get(j).getDw().equals("02")){
-				c10.setCellValue("中档");
-			}
-			if(yhInfosList.get(j).getDw().equals("03")){
-				c10.setCellValue("高档");
-			}
-//			c9.setCellValue(yhInfosList.get(j).getDw());
-			HSSFCell c11=row.createCell(10);
-			c11.setCellValue(yhInfosList.get(j).getGdtime());
-			HSSFCell c12=row.createCell(11);
-			c12.setCellValue(yhInfosList.get(j).getZdtime());
-			HSSFCell c13=row.createCell(12);
-			c13.setCellValue(yhInfosList.get(j).getDgdtime());
-			HSSFCell c14=row.createCell(13);
-			c14.setCellValue(yhInfosList.get(j).getDzdtime());
-			HSSFCell c15=row.createCell(14);
-			c15.setCellValue(yhInfosList.get(j).getDddtime());
-			
-			HSSFCell c16=row.createCell(15);
-			if(yhInfosList.get(j).getJf().equals("00")){
-				c16.setCellValue("禁止计费");
-			}
-			if(yhInfosList.get(j).getJf().equals("01")){
-				c16.setCellValue("允许计费");
-			}
-//			c15.setCellValue(yhInfosList.get(j).getJf());
-			HSSFCell c17=row.createCell(16);
-			c17.setCellValue(yhInfosList.get(j).getSdwd());
-			HSSFCell c18=row.createCell(17);
-			c18.setCellValue(yhInfosList.get(j).getSnwd());
-			HSSFCell c19=row.createCell(18);
-			if(yhInfosList.get(j).getKg().equals("00")){
-				c19.setCellValue("强制关");
-			}
-			if(yhInfosList.get(j).getKg().equals("01")){
-				c19.setCellValue("自动运行");
-			}
-//			c18.setCellValue(yhInfosList.get(j).getKg());
-			HSSFCell c20=row.createCell(19);
-			c20.setCellValue(yhInfosList.get(j).getBj());
-			HSSFCell c21=row.createCell(20);
-			if(yhInfosList.get(j).getBj().equals("00")){
-				c21.setCellValue("正常");
-			}
-			if(yhInfosList.get(j).getBj().equals("01")){
-				c21.setCellValue("开盖");
-			}
-			if(yhInfosList.get(j).getBj().equals("03")){
-				c21.setCellValue("盗热嫌疑");
-			}
-			HSSFCell c22=row.createCell(21);
-			if(yhInfosList.get(j).getJj().equals("00")){
-				c22.setCellValue("夏季");
-			}
-			if(yhInfosList.get(j).getJj().equals("01")){
-				c22.setCellValue("冬季");
-			}
-//			c21.setCellValue(yhInfosList.get(j).getJj());
-//			c20.setCellValue(yhInfosList.get(j).getJj());
-			HSSFCell c23=row.createCell(22);
-			c23.setCellValue(newdate.format(yhInfosList.get(j).getTime()));
-			HSSFCell c24=row.createCell(23);
-			c24.setCellValue(yhInfosList.get(j).getMs());
-			HSSFCell c25=row.createCell(24);
-			c25.setCellValue(yhInfosList.get(j).getYhMessage().getMj());
-			HSSFCell c26=row.createCell(25);
-			c26.setCellValue(yhInfosList.get(j).getYhMessage().getLxdh());
-			
-=======
+//			HSSFCell c4=row.createCell(3);
+//			c4.setCellValue(yhInfosList.get(j).getYhMessage().getLdh());
+//			HSSFCell c5=row.createCell(4);
+//			c5.setCellValue(yhInfosList.get(j).getYhMessage().getDyh());
+//			HSSFCell c6=row.createCell(5);
+//			c6.setCellValue(yhInfosList.get(j).getYhMessage().getHh());
+//			HSSFCell c7=row.createCell(6);
+//			c7.setCellValue(yhInfosList.get(j).getYydl());
+//			HSSFCell c8=row.createCell(7);
+//			c8.setCellValue(yhInfosList.get(j).getFpbh());
+//			HSSFCell c9=row.createCell(8);
+//			if(yhInfosList.get(j).getMs().equals("00")){
+//				c9.setCellValue("制冷");
+//			}
+//			if(yhInfosList.get(j).getMs().equals("01")){
+//				c9.setCellValue("制热");
+//			}
+//			if(yhInfosList.get(j).getMs().equals("02")){
+//				c9.setCellValue("通风");
+//			}
+//			HSSFCell c10=row.createCell(9);
+//			if(yhInfosList.get(j).getDw().equals("00")){
+//				c10.setCellValue("停止");
+//			}
+//			if(yhInfosList.get(j).getDw().equals("01")){
+//				c10.setCellValue("低档");
+//			}
+//			if(yhInfosList.get(j).getDw().equals("02")){
+//				c10.setCellValue("中档");
+//			}
+//			if(yhInfosList.get(j).getDw().equals("03")){
+//				c10.setCellValue("高档");
+//			}
+////			c9.setCellValue(yhInfosList.get(j).getDw());
+//			HSSFCell c11=row.createCell(10);
+//			c11.setCellValue(yhInfosList.get(j).getGdtime());
+//			HSSFCell c12=row.createCell(11);
+//			c12.setCellValue(yhInfosList.get(j).getZdtime());
+//			HSSFCell c13=row.createCell(12);
+//			c13.setCellValue(yhInfosList.get(j).getDgdtime());
+//			HSSFCell c14=row.createCell(13);
+//			c14.setCellValue(yhInfosList.get(j).getDzdtime());
+//			HSSFCell c15=row.createCell(14);
+//			c15.setCellValue(yhInfosList.get(j).getDddtime());
+//			
+//			HSSFCell c16=row.createCell(15);
+//			if(yhInfosList.get(j).getJf().equals("00")){
+//				c16.setCellValue("禁止计费");
+//			}
+//			if(yhInfosList.get(j).getJf().equals("01")){
+//				c16.setCellValue("允许计费");
+//			}
+////			c15.setCellValue(yhInfosList.get(j).getJf());
+//			HSSFCell c17=row.createCell(16);
+//			c17.setCellValue(yhInfosList.get(j).getSdwd());
+//			HSSFCell c18=row.createCell(17);
+//			c18.setCellValue(yhInfosList.get(j).getSnwd());
+//			HSSFCell c19=row.createCell(18);
+//			if(yhInfosList.get(j).getKg().equals("00")){
+//				c19.setCellValue("强制关");
+//			}
+//			if(yhInfosList.get(j).getKg().equals("01")){
+//				c19.setCellValue("自动运行");
+//			}
+////			c18.setCellValue(yhInfosList.get(j).getKg());
+//			HSSFCell c20=row.createCell(19);
+//			c20.setCellValue(yhInfosList.get(j).getBj());
+//			HSSFCell c21=row.createCell(20);
+//			if(yhInfosList.get(j).getBj().equals("00")){
+//				c21.setCellValue("正常");
+//			}
+//			if(yhInfosList.get(j).getBj().equals("01")){
+//				c21.setCellValue("开盖");
+//			}
+//			if(yhInfosList.get(j).getBj().equals("03")){
+//				c21.setCellValue("盗热嫌疑");
+//			}
+//			HSSFCell c22=row.createCell(21);
+//			if(yhInfosList.get(j).getJj().equals("00")){
+//				c22.setCellValue("夏季");
+//			}
+//			if(yhInfosList.get(j).getJj().equals("01")){
+//				c22.setCellValue("冬季");
+//			}
+////			c21.setCellValue(yhInfosList.get(j).getJj());
+////			c20.setCellValue(yhInfosList.get(j).getJj());
+//			HSSFCell c23=row.createCell(22);
+//			c23.setCellValue(newdate.format(yhInfosList.get(j).getTime()));
+//			HSSFCell c24=row.createCell(23);
+//			c24.setCellValue(yhInfosList.get(j).getMs());
+//			HSSFCell c25=row.createCell(24);
+//			c25.setCellValue(yhInfosList.get(j).getYhMessage().getMj());
+//			HSSFCell c26=row.createCell(25);
+//			c26.setCellValue(yhInfosList.get(j).getYhMessage().getLxdh());
+//			
+//=======
 			
 			HSSFCell c4=row.createCell(3);
 			c4.setCellValue(yhInfosList.get(j).getYhMessage().getLdh());
@@ -175,7 +174,7 @@ public class ExcelUtilBj {
 			c7.setCellValue(yhInfosList.get(j).getYhMessage().getfpdz());
 			
 			HSSFCell c8=row.createCell(7);//已用当量
-			c8.setCellValue(yhInfosList.get(j).getJs());
+			c8.setCellValue(yhInfosList.get(j).getYydl());
 			
 			HSSFCell c9=row.createCell(8);
 			c9.setCellValue(yhInfosList.get(j).getFpbh());
@@ -278,11 +277,10 @@ public class ExcelUtilBj {
 			c26.setCellValue(yhInfosList.get(j).getYhMessage().getLxdh());
 			
 			 
->>>>>>> 6663d06acdc8a01730243b2451b4e3b0acf19e43:src/com/hnzy/pds/util/ExcelUtilBj.java
+//			HSSFCell c27=row.createCell(26);
+//			c27.setCellValue(yhInfosList.get(j).getYhMessage().getfpdz());
 			HSSFCell c27=row.createCell(26);
-			c27.setCellValue(yhInfosList.get(j).getYhMessage().getfpdz());
-			HSSFCell c28=row.createCell(27);
-			c28.setCellValue(yhInfosList.get(j).getYhMessage().getBz());
+			c27.setCellValue(yhInfosList.get(j).getYhMessage().getBz());
 
 			}
 		}

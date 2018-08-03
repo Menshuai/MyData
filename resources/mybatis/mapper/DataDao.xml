@@ -128,8 +128,7 @@
 		 	k_yhb1  yh, 
 		 	k_fpb2 fp,  
 		 	k_glb6  gl 
-	   <!--  where 
-		 	  fp.yhbh=yh.yhbh  and   da.fpbh=fp.fpbh  -->  
+	   
 	   where 
 		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
 		 and  da.fpbh=fp.fpbh 
@@ -174,8 +173,7 @@
 		 	k_yhb1  yh, 
 		 	k_fpb2 fp,  
 		 	k_glb6  gl 
-	   <!--  where 
-		 	  fp.yhbh=yh.yhbh  and   da.fpbh=fp.fpbh  -->  
+	   
 	   where 
 		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
 		    and  da.fpbh=fp.fpbh 
@@ -230,10 +228,8 @@
 	 	 bj=#{bj},
 	 	 jj=#{jj},
 	 	 time=#{time},
-	 	 
 	 where 
 	 	fpbh=#{fpbh}
-	 	
 	 </update>
 	 
 	 <update id="updateYhbhF" parameterType="Data">
@@ -255,7 +251,6 @@
 	 	 bj=#{bj},
 	 	 jj=#{jj},
 	 	 time=#{time}
-	 	 
 	 where 
 	 	yhbh=#{yhbh} and fpdz=#{fpdz}
 	 </update>
@@ -283,24 +278,22 @@
     	select distinct top 500
 			 	yh.id,
 			 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
-			 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  js,
+			 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  yydl,
 			 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
 			 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
 			 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
 			 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
-				
 		 		yh.mj
 		from 
 		 		k_data10  da, 
 		 		k_yhb1  yh, 
 		 		k_fpb2 fp,  
 		 		k_glb6  gl 
- 
 	   where 
 		 	  	yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
 			 and  da.fpbh=fp.fpbh 
 			 and fp.xh=gl.xh 
-			  <if test="bj!=null and bj!=''" >
+			<if test="bj!=null and bj!=''" >
 			and da.bj=#{bj}
 			</if>  
 	</select>

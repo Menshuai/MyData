@@ -55,7 +55,7 @@
 	 select ID,UserName,PassWord from T_Userlogin where ID=#{ID}
 	</select>
 	
-		<select id="addCheck" resultType="int" parameterType="User">
+	<select id="addCheck" resultType="int" parameterType="User">
 		select count(*) from T_UserLogin where userName =#{userName}
 	</select>
 	
@@ -72,8 +72,12 @@
 	</resultMap>
 	
 	<select id="findJSName" resultMap="user">
-	select u.ID,u.UserName from T_UserLogin u,user_role urs
-	where u.ID=urs.user_id and urs.role_id=1002
+	select 
+		u.ID,u.UserName 
+	from 
+		T_UserLogin u,user_role urs
+	where
+		 u.ID=urs.user_id and urs.role_id=1002
 	</select>
 	
 	 

@@ -25,26 +25,23 @@ public interface DataService {
 	//插入历史数据
 	public void InsertYh(Data data);
 		
-	//搜索------
+	//搜索
 	public List<Data> searchInfo(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
 						@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
 				
 	//历史数据
 	public List<Data> searchHistory(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
-						@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
-<<<<<<< HEAD
-				public Data findData(@Param("yhbh")String yhbh,@Param("fpdz")Integer fpdz);
-				//获取计算用户当量，金额
-				public Data findYh(@Param("yhbh")String yhbh,@Param("fpdz")Integer fpdz);
-				//更新用户费用信息
-				public void updateJf(Data datajf);
-				//插入实时表
-				public void InsertYhSSb(Data data);
-=======
-	public Data findData(@Param("yhbh")String yhbh,@Param("fpdz")String fpdz);
+				@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
+	public Data findData(@Param("yhbh")String yhbh,@Param("fpdz")Integer fpdz);
+	//获取计算用户当量，金额
+	public Data findYh(@Param("yhbh")String yhbh,@Param("fpdz")Integer fpdz);
+	//更新用户费用信息
+	public void updateJf(Data datajf);
+	//插入实时表
+	public void InsertYhSSb(Data data);
+	//	public Data findData(@Param("yhbh")String yhbh,@Param("fpdz")String fpdz);
 	
 	//异常查询 搜索
 	public List<Data> Search(@Param("bj") String bj);
 	
->>>>>>> 6663d06acdc8a01730243b2451b4e3b0acf19e43
 }
