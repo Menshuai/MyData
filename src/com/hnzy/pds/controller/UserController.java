@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hnzy.pds.pojo.Menu;
 import com.hnzy.pds.pojo.Role;
 import com.hnzy.pds.pojo.Rz;
 import com.hnzy.pds.pojo.User;
+import com.hnzy.pds.service.MenuService;
 import com.hnzy.pds.service.RoleService;
 import com.hnzy.pds.service.RzService;
 import com.hnzy.pds.service.UserService;
@@ -37,7 +39,8 @@ public class UserController {
 	private RzService rzService;
 	@Autowired
 	private RoleService roleService;
-	
+	@Autowired
+	private MenuService menuService;
 	private final static Logger logger = Logger.getLogger(UserController.class);
 	
 	private String msg;
@@ -140,7 +143,9 @@ public class UserController {
 					rz.setCz("登录成功");            
 					rz.setCzsj(new Date());        
 					rzService.insert(rz);
-					
+					//根据用户查询用户的菜单及url
+					List<Menu> menuList=menuService.findMenuByUserName(username);
+					request.setAttribute("menuList", menuList);
 					return "index";
 					
 				}else{

@@ -192,6 +192,30 @@ public class DataController {
 				return "/SbglMen";
 			}
 				 
+ 
+//			JSONObject jsonObject=new JSONObject();
+//			//hh为null查询实时表，否则查询历史表
+//			if(hh==null){
+//				hh=0;
+//				YhList= dataService.searchInfo(xqm, ldh, dyh, hh, "", "");
+//				jsonObject.put("findXqInfoHistory",YhList);
+//			}else{
+//				YhList= dataService.searchHistory(xqm, ldh, dyh, hh,"","");
+//				jsonObject.put("findXqInfoHistory",YhList );
+//			}
+//				return jsonObject;		
+//			}
+//			
+//			@RequestMapping("/DataMe")
+//			public String SkqMe(){
+//				return "/DataMen";
+//			}
+//			
+//			@RequestMapping("/SbglMe")
+//			public String DataMe(){
+//				return "/SbglMen";
+//			}
+//				 
 	//查询状态------对某一户--------------查询状态-----------------
 	@ResponseBody
 	@RequestMapping("CxState")

@@ -69,7 +69,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var ldh = d[i].yhMessage.ldh;
 					var dyh = d[i].yhMessage.dyh;
 					var hh = d[i].yhMessage.hh;
+<<<<<<< HEAD
 					var js = d[i].yydl;
+=======
+					var yydl = d[i].yydl;
+>>>>>>> 8cb3ade479aa661d14adeb77d38fb6cfb78c0d61
 					var fpbh = d[i].fpbh;
 					var ms = d[i].ms;
 					var  dw= d[i].dw;
@@ -98,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					html += "<td class='text-center'>" + dyh + "</td>";
 					html += "<td class='text-center'>" + hh + "</td>";
 					html += "<td class='text-center'>" + fpdz+ "</td>";
-					html += "<td class='text-center'>" + js + "</td>";
+					html += "<td class='text-center'>" + yydl + "</td>";
 					html += "<td class='text-center'>" + fpbh + "</td>";
 					if(ms=="00"){
 						html += "<td class='text-center'>制冷</td>";

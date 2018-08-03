@@ -90,7 +90,6 @@ public interface YhMessageService {
 	//查找月份
 	public int  findYf(String yhbhS);
 	public int findyf();
-//	public int  findYf();
 	
 	//更新当前月份
 	public void updateYf(int yf);

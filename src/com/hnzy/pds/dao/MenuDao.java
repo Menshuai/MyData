@@ -20,4 +20,8 @@ public interface MenuDao extends BaseDao<Menu>{
 	
 	//查询所有的菜单
     public List<Menu>find();
+    
+    //根据用户姓名查找用户菜单
+    
+    public List<Menu>findMenuByUserName(String userName);
 }

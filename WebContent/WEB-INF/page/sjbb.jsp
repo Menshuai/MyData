@@ -258,7 +258,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				width : 80,
 				align : 'center'
 			},{
+<<<<<<< HEAD
 				width : 120,
+=======
+				width : 110,
+>>>>>>> 8cb3ade479aa661d14adeb77d38fb6cfb78c0d61
 				align : 'center'
 			},{
 				width : 120,
