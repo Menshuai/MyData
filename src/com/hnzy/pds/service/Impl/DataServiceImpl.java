@@ -65,7 +65,6 @@ public class DataServiceImpl implements DataService{
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Data findYh(String yhbh, Integer fpdz)
 	{
 		return dataDao.findYh(yhbh, fpdz);
@@ -82,10 +81,7 @@ public class DataServiceImpl implements DataService{
 	{
 		dataDao.InsertYhSSb(data);
 	}
-=======
 	public List<Data> Search(String bj) {
 		return dataDao.Search(bj);
 	}
-
->>>>>>> 6663d06acdc8a01730243b2451b4e3b0acf19e43
 }

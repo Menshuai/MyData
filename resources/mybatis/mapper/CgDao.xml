@@ -28,7 +28,6 @@
 		
 	</resultMap>
 
-<<<<<<< HEAD
 	<select id="find" resultMap="cg">
 	select distinct cg.azdz,cg.bz,cg.cgbh,cg.jzqnet from k_yhb1 yh ,k_cgb3 cg where yh.cgbh=yh.cgbh
 		<!-- select distinct

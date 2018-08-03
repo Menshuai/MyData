@@ -45,7 +45,7 @@
 			height: 700,
 			colModal: [
 			{ width: 50, align: 'center' },
-			{ width: 70, align: 'center' },
+			{ width: 100, align: 'center' },
 			{ width: 120, align: 'center' },
 			{ width: 65, align: 'center' },
 			{ width: 65, align: 'center' },
@@ -424,13 +424,13 @@ function FormatDate(strTime) {
 			
 		<label for="ldhId">楼栋号</label>
 			<select   name="ldh" id="ldhId">
-				<option value=0>--选择楼栋号--</option>
+				<option value="">--选择楼栋号--</option>
 			</select> 
 			&nbsp;&nbsp;&nbsp; 
 			
 		<label for="dyhId">单元号</label>
 			<select  name="dyh" id="dyhId">
-				<option value=0>--选择单元号--</option>
+				<option value="">--选择单元号--</option>
 			</select> 
 		&nbsp;&nbsp;&nbsp;
 		

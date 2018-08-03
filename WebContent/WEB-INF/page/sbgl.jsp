@@ -370,10 +370,10 @@ function SFs() {
 				width : 40,
 				align : 'center'
 			}, {
-				width : 80,
+				width : 100,
 				align : 'center'
 			},{
-				width : 80,
+				width : 100,
 				align : 'center'
 			},{
 				width : 120,

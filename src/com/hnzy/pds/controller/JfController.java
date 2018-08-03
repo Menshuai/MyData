@@ -128,6 +128,12 @@ public class JfController {
 	public JSONObject Search(String xqm,String ldh,String dyh,String hh) throws UnsupportedEncodingException{
 		xqm=new String(xqm.getBytes("ISO-8859-1"),"utf-8")+"";
 		JSONObject jsonObject=new JSONObject();
+		if(ldh.length()==1){
+			ldh="0"+ldh;
+		}
+		if(dyh.length()==1){
+			dyh="0"+dyh;
+		}
 		jfs=jfService.Sear(xqm, ldh, dyh, hh);
 		jsonObject.put("jfs",jfs);
 		return jsonObject;

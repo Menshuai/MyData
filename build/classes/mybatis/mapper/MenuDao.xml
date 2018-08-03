@@ -93,4 +93,10 @@
 	WHERE
 		m1.pid =-1
 	</select>
+	
+		<!-- 查找用户下的菜单 -->
+	<select id="findMenuByUserName" resultMap="menu">
+	select distinct menu.NAME,menu.pid,menu.url from T_UserLogin us , user_role ur,k_role r ,k_menu menu,role_menu rmenu 
+    where us.ID=ur.user_id and  r.id=ur.role_id and menu.id=rmenu.menu_id and rmenu.role_id= ur.role_id and us.UserName=#{userName}
+	</select>
 </mapper>

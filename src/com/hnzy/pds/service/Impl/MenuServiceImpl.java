@@ -35,6 +35,11 @@ public class MenuServiceImpl implements MenuService{
 	public List<Menu> find() {
 		return menuDao.find();
 	}
+	@Override
+	public List<Menu> findMenuByUserName(String userName)
+	{
+		return menuDao.findMenuByUserName(userName);
+	}
 
 	
 	

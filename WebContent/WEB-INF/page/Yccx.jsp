@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var ldh = d[i].yhMessage.ldh;
 					var dyh = d[i].yhMessage.dyh;
 					var hh = d[i].yhMessage.hh;
-					var js = d[i].js;
+					var yydl = d[i].yydl;
 					var fpbh = d[i].fpbh;
 					var ms = d[i].ms;
 					var  dw= d[i].dw;
@@ -137,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					html += "<td class='text-center'>" + dyh + "</td>";
 					html += "<td class='text-center'>" + hh + "</td>";
 					html += "<td class='text-center'>" + fpdz+ "</td>";
-					html += "<td class='text-center'>" + js + "</td>";
+					html += "<td class='text-center'>" + yydl + "</td>";
 					html += "<td class='text-center'>" + fpbh + "</td>";
 					if(ms=="00"){
 						html += "<td class='text-center'>制冷</td>";
@@ -398,7 +398,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td>${yh.yhMessage.dyh}</td>	
 		<td>${yh.yhMessage.hh}</td>	
 		<td>${yh.yhMessage.fpdz}</td>
-		<td>${yh.js}</td>
+		<td>${yh.yydl}</td>
 		<td>${yh.fpbh}</td>
 		<c:if test="${yh.ms =='00'}">
    		<td>制冷</td>

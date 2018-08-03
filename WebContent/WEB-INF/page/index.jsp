@@ -74,7 +74,12 @@ function tc(){ //安全退出
 		<div class="top_c">
 			<div class="top-menu">
 				<ul class="top-menu-nav"> 
-					<li><a target="Conframel" href="<%=basePath%>DataController/DataMe.action">首页</a></li>
+				<li><a target="Conframel" href="<%=basePath%>DataController/DataMe.action">首页</a></li>
+				<c:forEach  var="menu" items="${menuList}" varStatus="status">
+					<li><a target="Conframel" href="${menu.url}">${menu.name}</a></li>
+				</c:forEach>
+				
+					<%-- <li><a target="Conframel" href="<%=basePath%>DataController/DataMe.action">首页</a></li>
 				 	<li><a target="Conframel" href="<%=basePath%>Jzq/JzqMe.action">信息管理</a></li>
 					<li><a target="Conframel" href="<%=basePath%>JfController/JfMe.action">缴费管理</a></li>
 					<li><a target="Conframel" href="<%=basePath%>DataController/SbglMe.action">设备管理</a></li>
@@ -88,7 +93,7 @@ function tc(){ //安全退出
 					</li>  
 					<li><a target="Conframel" href="<%=basePath%>RzController/RzMe.action">操作日志</a></li>
 					<li><a target="Conframel" href="<%=basePath%>DataController/YccxMe.action">异常查询</a></li>
-					<li><a target="Conframel" href="<%=basePath%>Home/XtszMe.action">系统设置</a></li>
+					<li><a target="Conframel" href="<%=basePath%>Home/XtszMe.action">系统设置</a></li> --%>
 				</ul>
 			</div>
 			<div class="bottom_c1 ">
@@ -130,7 +135,7 @@ function tc(){ //安全退出
 			版权所有
 		</div>
 		<!--底部结束-->
-	 
+	 </div>
 </body>
 <script type="text/javascript" src="../js/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="../js/static/h-ui.admin/js/H-ui.admin.js"></script>

@@ -75,6 +75,6 @@
 	select u.ID,u.UserName from T_UserLogin u,user_role urs
 	where u.ID=urs.user_id and urs.role_id=1002
 	</select>
-	
+
 	 
 </mapper>

@@ -271,7 +271,6 @@
 <script type="text/javascript">
 //分配权限
 function openEditMenuPage(){
-	debugger;
 	var ckbs=$("#users input[type=checkbox]:checked");
 	if(ckbs.length==0){
 		layer.alert('请选择要修改分配权限的信息', {

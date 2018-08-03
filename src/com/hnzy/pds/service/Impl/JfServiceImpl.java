@@ -6,16 +6,13 @@ import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hnzy.pds.dao.JfDao;
-import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.Jf;
 import com.hnzy.pds.service.JfService;
 import com.hnzy.pds.util.ExcelUtilJf;
-import com.hnzy.pds.util.ExcelUtilZykt;
 
 @Service
 public class JfServiceImpl  implements JfService{

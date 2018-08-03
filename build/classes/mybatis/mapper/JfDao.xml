@@ -63,10 +63,10 @@
 	  <if test="xqm!='--选择小区名称--'">
 			and y.xqm=#{xqm}
 		</if>
-		<if test="ldh!=0">
+		<if test="ldh!=''">
 			and y.ldh=#{ldh}
 		</if>
-		<if test="dyh!=0">
+		<if test="dyh!=''">
 			and y.dyh=#{dyh}
 		</if>
 		<if test="hh!=null and hh!=''">
