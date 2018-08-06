@@ -148,8 +148,18 @@ public class ServerHandler2  extends IoHandlerAdapter{
 		DatabaseUtil dbUtil = DatabaseUtil.getInstance(); 
 		Connection connc = dbUtil.getConnection(); 
 		byte[] base = (byte[]) message;
-		String stringMR = Utils.bytesToHexString(base);
+		String stringMRS = Utils.bytesToHexString(base);
 		String md = null;
+		
+		int star=stringMRS.indexOf("f0");
+		String tart=stringMRS.substring(star);
+		int ed=tart.indexOf("ff")+2;
+		String stringMR=tart.substring(0,ed);
+		logs.info("-------截取后数据-----stringMR--"+stringMR);
+		System.out.println("-------截取后数据-----stringMR--"+stringMR);
+		
+		
+		
 		System.out.println("------stringMR--接收数据----"+stringMR); 
 		// 接收数据不能为空并且长度大于15
 		if (stringMR != null && stringMR.length() > 15)
