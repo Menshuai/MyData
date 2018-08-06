@@ -69,14 +69,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var ldh = d[i].yhMessage.ldh;
 					var dyh = d[i].yhMessage.dyh;
 					var hh = d[i].yhMessage.hh;
-<<<<<<< HEAD
-					var js = d[i].yydl;
-=======
 					var yydl = d[i].yydl;
->>>>>>> 8cb3ade479aa661d14adeb77d38fb6cfb78c0d61
 					var fpbh = d[i].fpbh;
 					var ms = d[i].ms;
-					var  dw= d[i].dw;
+					var dw= d[i].dw;
 					var gdtime = d[i].gdtime;
 					var zdtime = d[i].zdtime;
 					var ddtime = d[i].ddtime;
@@ -188,9 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	//导出
 	function doExportExcel() {
-		/* var xqm = $('#xqmId').val();
-		var ldh = $('#ldhId').val();
-		var dyh = $('#dyhId').val(); */
+		 
 		var bj = $('#bjId').val();
 		 window.open("YhInfodoExportExcel.action?bj=" + bj );  
 	}
@@ -201,7 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#fixed_hdr2').fxdHdrCol({
 			fixedCols : 0,
 			width : "100%",
-			height :640,
+			height :680,
 			colModal : [ 
 			 {
 				width : 100,
@@ -303,7 +297,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div>
 <!-- style="width:65%; height: 60%; position: absolute; overflow: auto;text-align: center" -->
- <h3>异常查询</h3> &nbsp;&nbsp;&nbsp;
+ 
+ <h3>异常查询</h3>  
  <div></div>
  <div class="panel panel-success">
  

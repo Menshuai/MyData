@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>数据报表</title>
 </head>
 
-	<script src="https://code.jquery.com/jquery.min.js" type="text/javascript"></script><!-- 用到JQUERY的地方，jquery一定是在JS前面加载 -->
+<script src="https://code.jquery.com/jquery.min.js" type="text/javascript"></script><!-- 用到JQUERY的地方，jquery一定是在JS前面加载 -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="../js/biao.js"></script>
 <link href="../css/main.css" rel="stylesheet" type="text/css" />
@@ -258,11 +258,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				width : 80,
 				align : 'center'
 			},{
-<<<<<<< HEAD
 				width : 120,
-=======
 				width : 110,
->>>>>>> 8cb3ade479aa661d14adeb77d38fb6cfb78c0d61
 				align : 'center'
 			},{
 				width : 120,

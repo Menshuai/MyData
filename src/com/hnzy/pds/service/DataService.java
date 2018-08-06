@@ -11,11 +11,7 @@ public interface DataService {
 	public List<Data> find();
 	
 	public Data  findf(String fpbh);
-/*
-	  void updateS(String ms,String dw,String gdtime,String zdtime,
-			String ddtime,String dgdtime,String dzdtime,String dddtime,String jf,
-			String sdwd,String snwd,String kg,String bj,String jj,String time);*/
-
+ 
 	public void updateS(String ms, String dw, double gdg, double zdS, double gdd, double dgdg, double dzdS, double dgdd,
 			String jf, int sdw, int sw, String kg, int bj, String jj, String time);
 	
@@ -39,17 +35,7 @@ public interface DataService {
 	public void updateJf(Data datajf);
 //	//插入实时表
 	public void InsertYhSSb(Data data);
-//		public Data findData(@Param("yhbh")String yhbh,@Param("fpdz")String fpdz);
-//						@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
-//				public Data findData(@Param("yhbh")String yhbh,@Param("fpdz")Integer fpdz);
-				//获取计算用户当量，金额
-//				public Data findYh(@Param("yhbh")String yhbh,@Param("fpdz")Integer fpdz);
-				//更新用户费用信息
-//				public void updateJf(Data datajf);
-				//插入实时表
-//				public void InsertYhSSb(Data data);
-//	public Data findData(@Param("yhbh")String yhbh,@Param("fpdz")String fpdz);
-	
+ 
 	//异常查询 搜索
 	public List<Data> Search(@Param("bj") String bj);
 	

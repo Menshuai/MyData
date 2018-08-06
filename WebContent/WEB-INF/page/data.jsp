@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#fixed_hdr2').fxdHdrCol({
 			fixedCols : 0,
 			width : "100%",
-			height :640,
+			height :700,
 			colModal : [ 
 			    {
 				width : 40,
@@ -159,7 +159,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- style="width:65%; height: 60%; position: absolute; overflow: auto;text-align: center" -->
  <div class="panel panel-success">
   <div class="panel-heading">首页信息</div>
- &nbsp;&nbsp;&nbsp;
 	<table id="fixed_hdr2"  >
 		<thead >
 	<tr height="35px" style="background: url(../img/secai.png);" >
