@@ -51,7 +51,7 @@ public  interface UserService {
 		 
 		/**
 		 * @author Administrator
-		 *����id��ѯ
+		 *
 		 */
 		public User findUserById(int id);
 		

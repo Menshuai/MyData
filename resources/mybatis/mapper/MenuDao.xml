@@ -64,11 +64,11 @@
 			AND xr.id = #{id}) a
 		LEFT JOIN 
 			(SELECT
-				xm.*
+					xm.*
 				FROM
-				k_role xr,
-				role_menu xrm,
-				k_menu xm
+					k_role xr,
+					role_menu xrm,
+					k_menu xm
 		WHERE
 			xr.id = xrm.role_id
 			AND xm.id = xrm.menu_id
@@ -79,24 +79,51 @@
 	
 	<!-- 查询所有菜单 -->
 	<select id="find" resultMap="findAllResult">
-	SELECT
-		m1.id fid,
-		m1. NAME fname,
-		m1.url furl,
-
-		m2.id cid,
-		m2. NAME cname,
-		m2.url curl
-	FROM
-		k_menu m1
-	LEFT JOIN k_menu m2 ON m1.id = m2.pid
-	WHERE
-		m1.pid =-1
+		SELECT
+			m1.id fid,
+			m1. NAME fname,
+			m1.url furl,
+	
+			m2.id cid,
+			m2. NAME cname,
+			m2.url curl
+		FROM
+			k_menu m1
+		LEFT JOIN k_menu m2 ON m1.id = m2.pid
+		WHERE
+			m1.pid =-1
 	</select>
 	
 		<!-- 查找用户下的菜单 -->
 	<select id="findMenuByUserName" resultMap="menu">
-	select distinct menu.NAME,menu.pid,menu.url from T_UserLogin us , user_role ur,k_role r ,k_menu menu,role_menu rmenu 
-    where us.ID=ur.user_id and  r.id=ur.role_id and menu.id=rmenu.menu_id and rmenu.role_id= ur.role_id and us.UserName=#{userName}
+		select 
+			distinct menu.NAME,menu.pid,menu.url 
+		from 
+			T_UserLogin us , user_role ur,k_role r ,k_menu menu,role_menu rmenu 
+	    where 
+	    	us.ID=ur.user_id 
+	    	and  r.id=ur.role_id 
+	    	and menu.id=rmenu.menu_id 
+	    	and rmenu.role_id= ur.role_id 
+	    	and us.UserName=#{userName}
 	</select>
+	
+	
+	
+	
+	
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+

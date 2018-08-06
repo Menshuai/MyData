@@ -370,17 +370,13 @@ function SFs() {
 				width : 40,
 				align : 'center'
 			}, {
-<<<<<<< HEAD
-				width : 110,
-				align : 'center'
-			},{
-				width : 120,
-=======
 				width : 100,
 				align : 'center'
 			},{
 				width : 100,
->>>>>>> 8cb3ade479aa661d14adeb77d38fb6cfb78c0d61
+				align : 'center'
+			},{
+				width : 100,
 				align : 'center'
 			},{
 				width : 100,
@@ -444,14 +440,10 @@ function SFs() {
 				width : 80,
 				align : 'center'
 			}, {
-				width : 90,
-				align : 'center'
-						
-			} ,{
 				width : 120,
 				align : 'center'
-				
-			} ,{
+						
+			} , {
 				width : 80,
 				align : 'center'
 			},{
