@@ -20,10 +20,10 @@
 	</script>
   <script type="text/javascript">
 	  
-	  function yhgl(){// 异常查询
+	  function yhgl(){// 用户管理
 		    window.open("/Data/DataController/dataSbgl.action","Conframe");
 		} 
-	  function cggl(){// 异常查询
+	  function cggl(){// 层管管理
 		    window.open("/Data/Cg/CgfindList.action","Conframe");
 		} 
 	 </script>

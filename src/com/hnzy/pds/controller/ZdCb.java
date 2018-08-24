@@ -3,10 +3,14 @@ package com.hnzy.pds.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.catalina.tribes.util.Logs;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.hnzy.hot.socket.server.ServerHandler2;
 import com.hnzy.hot.socket.server.ServerSessionMap;
 import com.hnzy.hot.socket.util.CzUtil;
 import com.hnzy.pds.pojo.YhMessage;
@@ -14,33 +18,44 @@ import com.hnzy.pds.service.YhMessageService;
 @Controller
 public class ZdCb
 {
+	
 	@Autowired
 	private YhMessageService yhMessageService;
 	public List<YhMessage> yhMessages;
+	private static Log logs = LogFactory.getLog(ZdCb.class);
 	public void print(){
 		yhMessages=yhMessageService.find();
 		for(int i=0;i<yhMessages.size();i++){
 			String yhbh=yhMessages.get(i).getYhbh();
-			System.out.println("====----------yhbh--"+yhbh);
 			String yhbhS = Integer.toHexString(Integer.valueOf(yhbh));//16进制     
 			String cgbh=yhMessages.get(i).getCgbh();
 			String cg=cgbh.substring(cgbh.length()-2);
 			String zgb=cgbh.substring(0,cgbh.length()-2);
-			Integer ld=yhMessages.get(i).getLdh();
-			Integer dyh=yhMessages.get(i).getDyh();
+			String ld=yhMessages.get(i).getLdh();
+			String dyh=yhMessages.get(i).getDyh();
 			String fpdz=yhMessages.get(i).getfpdz().toString();
 			Integer fp=yhMessages.get(i).getfpdz();
 			if(fp>9){
 				fpdz=Integer.toHexString(fp);
 			}
-			String zl=zgb+"F010B5"+cg+yhbhS+"0"+fpdz+"0"+ld+"0"+dyh+"FFFFFFFF";
+			System.out.println("zgb-----"+zgb);
+			System.out.println("cg-----"+cg);
+			System.out.println("yhbhS-----"+yhbhS);
+			System.out.println("fpdz-----"+fpdz);
+			System.out.println("ld------"+ld);
+			System.out.println("dyh------"+dyh);
+			String zl=zgb+"F010B5"+cg+yhbhS+"0"+fpdz+ld+dyh+"FFFFFFFF";
 			System.out.println("zl------"+zl);
 			YhMessage yhmess=yhMessageService.findJzq(yhbh);
 			String ip =yhmess.getCg().getJzq().getJzqip();
 			String port=yhmess.getCg().getJzq().getJzqport();
+			 try {
+		 		 	Thread.sleep(3000);
+		 		 } catch (InterruptedException e) {
+		 		 	e.printStackTrace();
+		 		 }
 			// IP地址和端口号
 			String pt = "/" + ip + ":" + port; 
-			System.out.println("pt-------------"+pt);
 			boolean sessionmap = cz(zl, pt);
 		}
 		}
@@ -87,7 +102,7 @@ public class ZdCb
 						}
 						String[] keys = new String[] { pt };
 						String mString =ja+je+"FF";
-						System.out.println("自动抄表发送数据----------"+mString);
+						logs.info("自动抄表发送数据----------"+mString);
 						// 解码
 						byte[] b = CzUtil.jm(mString);
 						ServerSessionMap sessionMap = ServerSessionMap.getInstance();

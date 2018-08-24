@@ -20,6 +20,23 @@
 	href="../js/static/h-ui/css/H-ui.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="../js/static/h-ui.admin/css/H-ui.admin.css" />
+<!-- 	<script type="text/javascript">
+	function JcUser(){
+		var username = $('#username').val();
+			$.ajax({
+				url : "/Data/DataController/SCxZx.action",
+				async : false,
+				dataType : "json",
+				data : {
+					"username" : username,
+				},
+				success : function(data) {
+					msg = data.js
+				}
+
+			});
+	}
+	</script> -->
 </head>
 <body>
 	<div class="page-container">

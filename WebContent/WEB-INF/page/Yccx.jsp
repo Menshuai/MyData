@@ -152,6 +152,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(bj=="03"){
 						html += "<td class='text-center'>盗热嫌疑</td>";
 					}
+					if(bj=="04"){
+						html += "<td class='text-center'>通讯异常</td>";
+					}
 					if(jj=="00"){
 						html += "<td class='text-center'>夏季</td>";
 					}
@@ -256,7 +259,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}, {
 				width : 80,
 				align : 'center'
-					//---------------20-----	
 			}, {
 				width : 80,
 				align : 'center'
@@ -297,16 +299,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div>
 <!-- style="width:65%; height: 60%; position: absolute; overflow: auto;text-align: center" -->
- 
- <h3>异常查询</h3>  
- <div></div>
+
  <div class="panel panel-success">
- 
- 报警信息：
+  <div class="panel-heading">异常查询</div>
+  报警信息：
  <select id="bjId" name="bj"  style="width:100px" >
- 	<option  value=00>--正常--</option>
-  	<option  value=01>--开盖--</option>
-   	<option  value=03>--盗热嫌疑--</option>
+ 	<option  value=01>--开盖--</option>
+ 	<option  value=03>--盗热嫌疑--</option>
+ 	<option  value=04>--通讯异常--</option>
  </select>
  
 <%-- 报警信息：<input type="text" name="bj" id="bjId" value="${BjList}" size=10px />  --%>
@@ -337,7 +337,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <th>制热低档t</th>
             <th>计费状态</th>
             <th>设定温度</th>
-            <th>室内温度</th>
+            <th>出风温度</th>
             <th>远程状态</th>
             <th>报警信息</th>
             <th>季节</th>
@@ -347,7 +347,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <th>备注</th>
 	</tr>                    
 	</thead>                      
- 
+
 <tbody id="yhInfo">
 	<c:forEach  var="yh" items="${YhList}" varStatus="status">
 	   <tr>	  
@@ -411,6 +411,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:if>
 		<c:if test="${yh.bj =='03'}">
    		<td>盗热嫌疑</td>
+		</c:if>
+		<c:if test="${yh.bj =='04'}">
+   		<td>通讯异常</td>
 		</c:if>
 		<c:if test="${yh.jj =='00'}">
    		<td>夏季</td>

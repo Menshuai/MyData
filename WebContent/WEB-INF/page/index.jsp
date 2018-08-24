@@ -24,37 +24,35 @@
 <script type="text/javascript" src="../js/index.js"></script>
 <style type="text/css">
 *{margin:0;padding:0;list-style-type:none; }
-        #zhu{font-size: 16px;width:30px;height:140px; position: fixed;right:2px; overflow:hidden;z-index:9999; top:180px; background-color: #24CAB6;}
-        #zhu ul{padding-left:30px;}
+        #zhu{font-size: 16px;width:15px;height:100px; position: fixed;right:2px; overflow:hidden;z-index:9999; top:180px; background-color: #24CAB6;}
+        #zhu ul{padding-left:10px;}
         #zhu p{border-bottom:1px solid #D4B4CE;font-size:20px;height:35px;line-height:40px ; width:1000px;background:#24CAB6;color:#fbfbfb; }
         #zhu li{height:35px;line-height:35px;font-size:14px;border-bottom:1px #D4B4CE dotted;right: 0px;position:inherit;background-color: #24CAB6;}
         #zhu li a{text-decoration:none;color:#fbfbfb;}
         #zhu .zu {background-color: #24CAB6;border:0px solid #D4B4CE;width:20px;height:270px;line-height:20px ;font-size:15px;position:absolute;text-align: center;top:10px}
         #zhu .zu a{color:#fbfbfb;text-decoration:none;}
 </style>
-
-
 </head>
 <script type="text/javascript">
 
 $(document).ready(function(){
     $("#zhu").mouseover(function(){
         $(this).stop();
-        $(this).animate({width:180},400);
+        $(this).animate({width:150},400);
     })
     $("#zhu").mouseout(function(){
         $(this).stop();
-        $(this).animate({width:30},300);
+        $(this).animate({width:20},300);
     });
 });
 $(document).ready(function(){
     $("#zhu").mouseover(function(){
         $(this).stop();
-        $(this).animate({width:180},400);
+        $(this).animate({width:150},400);
     })
     $("#zhu").mouseout(function(){
         $(this).stop();
-        $(this).animate({width:30},300);
+        $(this).animate({width:20},300);
     });
 });
 
@@ -67,6 +65,21 @@ function tc(){ //安全退出
 	window.location='<%=basePath%>user/toLogin.action';
 }
 
+$(function(){	 
+	$.ajax({
+		url :"/Data/DataController/findYcNum.action",
+		type : "post",
+		dataType : "json",
+		success : function(data) {
+			var txyc = data.txyc;
+			var dryc=data.dryc;
+			var kgyc=data.kgyc;
+	        $("#Yc").append("<li>开盖异常："+kgyc+"</li>");
+	        $("#Yc").append("<li>盗热异常："+dryc+"</li>");
+	        $("#Yc").append("<li>通讯异常:"+txyc+"</li>");
+		}
+	});		
+});
 </script>
 <body>
 	<div class="warp">
@@ -136,6 +149,12 @@ function tc(){ //安全退出
 		</div>
 		<!--底部结束-->
 	 </div>
+	 
+	 <div id="zhu">
+   <div class="zu" ><a href="" > 异常数目</a></div> 
+    <ul id="Yc">
+    </ul>
+   </div>
 </body>
 <script type="text/javascript" src="../js/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="../js/static/h-ui.admin/js/H-ui.admin.js"></script>

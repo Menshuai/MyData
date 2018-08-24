@@ -18,13 +18,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="../js/biao.js"></script>
 <link href="../css/main.css" rel="stylesheet" type="text/css" />
 <link href="../css/bootstrap.css" rel="stylesheet">
-	
-	<script type="text/javascript" src="../js/jquery-1.4.4.min.js"></script>
-	<link href="../css/fixed_table_rc.css" type="text/css" rel="stylesheet" media="all" />
-	<link href="../css/bootstrap.css" type="text/css" rel="stylesheet"	/>
-	<script src="https://code.jquery.com/jquery.min.js" type="text/javascript"></script>
-	<script src="../js/fixed_table_rc.js" type="text/javascript"></script>
-	<script src="../js/sortable_table.js" type="text/javascript"></script>
+<link href="../js/layer/2.4/skin/layer.css" rel="stylesheet" type="text/css" />
+<link href="../js/layui/css/layui.css" rel="stylesheet" type="text/css" />
+<script src="../js/layer/2.4/layer.js" type="text/javascript"></script>
+<script src="../js/layui/layui.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/jquery-1.4.4.min.js"></script>
+<link href="../css/fixed_table_rc.css" type="text/css" rel="stylesheet" media="all" />
+<link href="../css/bootstrap.css" type="text/css" rel="stylesheet"	/>
+<script src="https://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+<script src="../js/fixed_table_rc.js" type="text/javascript"></script>
+<script src="../js/sortable_table.js" type="text/javascript"></script>
+
 	<style>
 		html, body {
 			font-family: Arial,​​sans-serif;
@@ -44,23 +48,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			background: url(../img/secai.png);
 		}
 	</style>
- 
 
 <script>
 	$(function() {
 		$('#fixed_hdr2').fxdHdrCol({
 			fixedCols : 0,
 			width : "100%",
-			height :700,
+			height :720,
 			colModal : [ 
-			    {
-				width : 40,
-				align : 'center'
-			},{
+			  {
 				width : 100,
 				align : 'center'
+				
 			},{
-				width : 100,
+				width : 120,
 				align : 'center'
 			},{
 				width : 120,
@@ -151,10 +152,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	});
 	</script>
-	
+
+	<script type="text/javascript">
+	/**
+		首页广告位展示，页面加载就执行.
+	*/
+	$(function(){
+		  var local = layui.data('layui');
+		  layer.open({
+		    type: 1
+		    ,title: '通讯异常数据显示'
+		  //  ,closeBtn: true
+		    ,area: ['250px', '100px']
+		    ,shade: false
+		    ,offset: 'rb'
+		   // ,id: 'LAY_Notice' //设定一个id，防止重复弹出
+		  //  ,btn: ['前往围观', '朕不想看']
+		   //,btnAlign: 'c'
+		    ,moveType: 0 //拖拽模式，0或者1
+		    ,resize: false
+		    ,content:$("#dv").html()
+		  });
+		});
+		
+	</script>
 <body > 
-
-
+<!-- <div id="dv" style = "display : none">sdsd</div> -->
+<div id="dv"  style = "display : none"><font color="red">开盖异常：${kgyc},盗热异常：${dryc},通讯异常:${txyc}</font></div>
 <div>
 <!-- style="width:65%; height: 60%; position: absolute; overflow: auto;text-align: center" -->
  <div class="panel panel-success">
@@ -162,7 +186,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table id="fixed_hdr2"  >
 		<thead >
 	<tr height="35px" style="background: url(../img/secai.png);" >
-			<th></th>         
 			<th>用户编号</th>
 			<th>用户姓名</th>
 			<th>小区名称</th>
@@ -172,7 +195,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<th>户号</th>
 			<th>已用当量</th>
 			<th>风盘编号</th>
-		<!--  ----------------10 -->		
 			<th>模式</th>
             <th>档位</th>
             <th>制冷高档t</th>
@@ -184,8 +206,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <th>制热低档t</th>
             
             <th>计费状态</th>
-            <th>设定温度</th>
-     <!-- --------------------20 -->        
+            <th>出风温度</th>
             <th>室内温度</th>
             <th>远程状态</th>
             <th>报警信息</th>
@@ -201,10 +222,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <tbody id="yhInfo">
 	<c:forEach  var="yh" items="${YhList}" varStatus="status">
-	   <tr <c:if test="${status.index%2==1 }">style="background-color:#eef3fa"</c:if>>	  
-		<td><input type="checkbox" value="${yh.id}" /></td>  
-		<%-- <td>${yh.yhMessage.id}</td>	 --%>
-		<td>${yh.yhMessage.yhbh}</td>	
+	   <tr <c:if test="${status.index%2==1 }">style="background-color:#eef3fa"</c:if>>	 
+	   	<c:choose>
+	  <c:when test="${yh.bj =='01'}"> 
+	    <td><font color="red">${yh.yhMessage.yhbh}</font></td>	
+	  </c:when>
+	   <c:when test="${yh.bj =='03'}"> 
+	     <td><font color="red">${yh.yhMessage.yhbh}</font></td>	
+	  </c:when>
+	  <c:otherwise>
+	  <td>${yh.yhMessage.yhbh}</td>	
+	  </c:otherwise>
+	  </c:choose>
 		<td>${yh.yhMessage.yhxm}</td>	
 		<td>${yh.yhMessage.xqm}</td>	
 		<td>${yh.yhMessage.ldh}</td>
@@ -212,7 +241,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td>${yh.yhMessage.hh}</td>	
 		<td>${yh.yydl}</td>
 		<td>${yh.fpbh}</td>
-	<!-- -----------------------------10----->
 		<c:if test="${yh.ms =='00'}">
    		<td>制冷</td>
 		</c:if>
@@ -265,19 +293,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<c:if test="${yh.bj =='03'}">
    		<td>盗热嫌疑</td>
 		</c:if>
-		<!-- ---------------------------20 -->
 		<c:if test="${yh.jj =='00'}">
    		<td>夏季</td>
 		</c:if>
 		<c:if test="${yh.jj=='01'}">
    		<td>冬季</td>
 		</c:if>
-		
 		<td>${yh.time}</td>
 		<td>${yh.yhMessage.mj}</td>
 		<td>${yh.yhMessage.lxdh}</td>
 		<td>${yh.yhMessage.fpdz}</td>
 		<td>${yh.yhMessage.bz}</td>
+	
 	 </tr>
 	</c:forEach>
   </tbody>

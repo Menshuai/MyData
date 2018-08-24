@@ -83,5 +83,28 @@ public class DataServiceImpl implements DataService{
 		return dataDao.Search(bj);
 	}
 
+	@Override
+	public void update(String bj,String yhbh,String fpdz)
+	{
+		dataDao.update(bj,yhbh, fpdz);
+	}
+
+	@Override
+	public List<Data> SearchHistoryYc( String xqm, String ldh, String dyh, Integer hh,String bj)
+	{
+		return dataDao.SearchHistoryYc( xqm, ldh, dyh, hh,bj);
+	}
+
+	@Override
+	public int TxycNum(String time)
+	{
+		return dataDao.TxycNum(time);
+	}
+
+	@Override
+	public int DrycNum(String bj)
+	{
+		return dataDao.DrycNum(bj);
+	}
  }
 

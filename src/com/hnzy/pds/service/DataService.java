@@ -38,5 +38,12 @@ public interface DataService {
  
 	//异常查询 搜索
 	public List<Data> Search(@Param("bj") String bj);
-	
+	//更新通讯异常报警
+	public  void update(@Param("bj")String  bj, @Param("yhbh")String yhbh,@Param("fpdz")String fpdz );
+	//异常查询历史搜索
+	public List<Data> SearchHistoryYc(@Param("xqm")String xqm,@Param("ldh")String ldh,@Param("dyh")String dyh,@Param("hh")Integer hh,@Param("bj") String bj);
+	//通讯异常的数目
+		public int TxycNum(String time);
+		//盗热异常的数目,开盖异常的数目
+		public int DrycNum(String bj);
 }

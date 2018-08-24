@@ -44,7 +44,8 @@ public class ReplyTask extends TimerTask {
 		
 		//执行的方法，实时更新数据库
 		
-//			doSomething();
+			doSomething();
+			System.out.println("定时执行------------");
 	}	
 
 	private void doSomething()  {

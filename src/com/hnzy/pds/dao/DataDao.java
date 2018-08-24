@@ -31,14 +31,16 @@ public interface DataDao {
 				@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
 		//获取计算用户当量，金额
 		public Data findYh(@Param("yhbh")String yhbh,@Param("fpdz")Integer fpdz);
-		
 		//更新用户费用信息
 		public void updateJf(Data data);
-		
-	
-	
-	
 	//异常查询 搜索
-	public List<Data> Search(@Param("bj") String bj);
-	
+	public List<Data> Search(@Param("bj") String bj );
+	//异常查询历史搜索
+	public List<Data> SearchHistoryYc(@Param("xqm")String xqm,@Param("ldh")String ldh,@Param("dyh")String dyh,@Param("hh")Integer hh,@Param("bj") String bj);
+	//更新通讯异常报警
+	public  void update(@Param("bj")String bj,@Param("yhbh")String yhbh,@Param("fpdz")String fpdz );
+	//通讯异常的数目
+	public int TxycNum(String time);
+	//盗热异常的数目,开盖异常的数目
+	public int DrycNum(String bj);
 }

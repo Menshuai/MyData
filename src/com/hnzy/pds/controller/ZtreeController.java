@@ -48,7 +48,7 @@ public class ZtreeController {
 			List<YhMessage> lcList = this.yhMessageService.findBOByXQ(villageLD);
 			//楼栋
 			for (int j = 0; j < lcList.size(); j++) {
-				Integer ldhNo = lcList.get(j).getLdh();
+				String ldhNo = lcList.get(j).getLdh();
 				String ldhNoNo=null;
 				ldhNoNo=String.valueOf(ldhNo);
 				VillageTreeNodes nodesLC = new VillageTreeNodes();
@@ -73,7 +73,7 @@ public class ZtreeController {
 				List<YhMessage> dyhNoList = this.yhMessageService.findCOByXQAndBO(villageLC);
 				//单元
 				for (int k = 0; k < dyhNoList.size(); k++) {
-					Integer dyhNo = dyhNoList.get(k).getDyh();
+					String dyhNo = dyhNoList.get(k).getDyh();
 					String ZHM = dyhNoList.get(k).getYhxm();
 					VillageTreeNodes nodesdyhNo = new VillageTreeNodes();
 					if (i > 0) {

@@ -26,22 +26,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="../js/fixed_table_rc.js" type="text/javascript"></script>
 	<script src="../js/sortable_table.js" type="text/javascript"></script>
 	<style>
-		html, body {
+  		html, body {
 			font-family: Arial,​​sans-serif;
 			font-size: 14px;
 			margin: 0;
 			padding: 0;
 			background-color: #f2f2f2;
 		}
-		
+		#Trcolor {
+			background: url(../img/secai.png);
+		}
 		div.container {
 			padding: 5px 10px;
 			width: 2330px;
 			margin: 10px auto;
-		}
-		
-		#Trcolor {
-			background: url(../img/secai.png);
 		}
 	</style>
 	 <script type="text/javascript">
@@ -133,9 +131,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var lxdh = d[i].yhMessage.lxdh;
 					var fpdz = d[i].yhMessage.fpdz;
 					var bz = d[i].yhMessage.bz;
-					html += "<tr>";
+					html += "<tr <c:if test='${status.index%2==1 }'>style='background-color:#eef3fa'</c:if>>";
 					html += "<td class='text-center'><input  type='checkbox' value='"+yhbh+""+fpdz+"'/></td>";
-					html += "<td class='text-center'>" + yhbh + "</td>";
+					  if(bj=="01"){
+						  html += "<td class='text-center'><font color='red'>" + yhbh + "-"+fpdz+"</font></td>";
+					  }else if(bj=="03"){
+						  html += "<td class='text-center'><font color='red'>" + yhbh + "-"+fpdz+"</font></td>";
+					  }else{
+						  html += "<td class='text-center'>" + yhbh + "-"+fpdz+"</td>";
+					  }
+				/* 	html += "<td class='text-center'>" + yhbh + "</td>"; */
 					html += "<td class='text-center'>" + yhxm + "</td>";
 					html += "<td class='text-center'>" + xqm + "</td>";
 					html += "<td class='text-center'>" + ldh + "</td>";
@@ -196,12 +201,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(bj=="03"){
 						html += "<td class='text-center'>盗热嫌疑</td>";
 					}
-					html += "<td class='text-center'>" + jj+ "</td>";
+					if(bj=="04"){
+						html += "<td class='text-center'>通讯异常</td>";
+					}
+					if(jj=="00"){
+						html += "<td class='text-center'>夏季</td>";
+					}
+					if(jj=="01"){
+						html += "<td class='text-center'>冬季</td>";
+					}
 					html += "<td class='text-center' title='"+time+"'>" + time+ "</td>";
 					html += "<td class='text-center'>" + mj+ "</td>";
 					html += "<td class='text-center'>" + lxdh+ "</td>";
-				
 					html += "<td class='text-center'>" + bz+ "</td>";
+					
+					
 					html += "</tr>";
 				}
 				$("#yhInfo").append(html);
@@ -373,10 +387,10 @@ function SFs() {
 				width : 100,
 				align : 'center'
 			},{
-				width : 100,
+				width : 120,
 				align : 'center'
 			},{
-				width : 100,
+				width : 110,
 				align : 'center'
 			},{
 				width : 100,
@@ -467,7 +481,6 @@ function SFs() {
 <!-- style="width:65%; height: 60%; position: absolute; overflow: auto;text-align: center" -->
  <div class="panel panel-success">
  <div class="panel-heading">设备管理</div>
- <div></div>
  	<label for="xqNameId">选择小区</label> 
  			<select id="xqmId" name="xqm">
 					<option value="--选择小区名称--">--选择小区名称--</option>
@@ -530,7 +543,7 @@ function SFs() {
 		<thead >
 	<tr id="Trcolor" height="35px">
 			<th></th>         
-			<th>用户编号</th>
+			<th>风盘地址</th>
 			<th>用户姓名</th>
 			<th>小区名称</th>
 			<th>楼栋</th>
@@ -549,13 +562,12 @@ function SFs() {
             <th>制热低档t</th>
             <th>计费状态</th>
             <th>设定温度</th>
-            <th>室内温度</th>
+            <th>出风温度</th>
             <th>远程状态</th>
             <th>报警信息</th>
             <th>季节</th>
             <th>采集时间</th>
             <th>用户面积</th>
-            
             <th>用户电话</th>
 
             <th>备注</th>
@@ -566,8 +578,18 @@ function SFs() {
 	<c:forEach  var="yh" items="${YhList}" varStatus="status">
 	   <tr <c:if test="${status.index%2==1 }">style="background-color:#eef3fa"</c:if>>	  
 		<td align="center"><input type="checkbox" value="${yh.yhMessage.yhbh}${yh.yhMessage.fpdz}" /></td>  
-		<td>${yh.yhMessage.yhbh}</td>	
-		<td>${yh.yhMessage.yhxm}</td>	
+		<c:choose>
+	  <c:when test="${yh.bj =='01'}">
+	  <td><font color="red">${yh.yhMessage.yhbh}-${yh.yhMessage.fpdz}</font></td>
+	  </c:when>
+	   <c:when test="${yh.bj =='03'}">
+	   <td><font color="red">${yh.yhMessage.yhbh}-${yh.yhMessage.fpdz}</font></td>
+	  </c:when>
+	  <c:otherwise>
+	  <td>${yh.yhMessage.yhbh}-${yh.yhMessage.fpdz}</td>
+	  </c:otherwise>
+	  </c:choose>
+	  	<td>${yh.yhMessage.yhxm}</td>	
 		<td>${yh.yhMessage.xqm}</td>	
 		<td>${yh.yhMessage.ldh}</td>
 		<td>${yh.yhMessage.dyh}</td>	
@@ -637,6 +659,7 @@ function SFs() {
 		<td>${yh.yhMessage.mj}</td>
 		<td>${yh.yhMessage.lxdh}</td>
 		<td>${yh.yhMessage.bz}</td>
+	  
 	 </tr>
 	</c:forEach>
   </tbody>

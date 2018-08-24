@@ -24,15 +24,16 @@
 	  function yccx(){// 异常查询
 		    window.open("/Data/DataController/Yccx.action","Conframe");
 		} 
-	   
+	  function yccxHistory(){// 历史异常查询
+		    window.open("/Data/DataController/YccxHistory.action","Conframe");
+		} 
 	 </script>
 <body>
 <br>
  <button  onclick="yccx()"  type="button" class="btn btn-success btn-block" 
  			style="background-image: url('../img/secai.png');border:1px" type="button" >异常查询</button>
- 				
-  
- 		 	
+<button  onclick="yccxHistory()"  type="button" class="btn btn-success btn-block" 
+ 			style="background-image: url('../img/secai.png');border:1px" type="button" >异常历史查询</button> 
 </body>
 	<body>
 	</body>

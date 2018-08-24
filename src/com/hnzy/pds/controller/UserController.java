@@ -50,7 +50,7 @@ public class UserController {
 	//注册
 		@RequestMapping("/toLogin")
 		public String tologin(){
-			List<User> user=userService.find();
+//			List<User> user=userService.find();
 			return"login";
 		}
 		

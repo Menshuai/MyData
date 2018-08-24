@@ -131,8 +131,8 @@
 	   
 	   where 
 		 	  yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
-		 and  da.fpbh=fp.fpbh 
-			and fp.xh=gl.xh   
+		      and  da.fpbh=fp.fpbh 
+			  and fp.xh=gl.xh   
 		<if test="xqm!='--选择小区名称--'">
 			and yh.xqm=#{xqm}
 		</if>
@@ -151,7 +151,7 @@
 		<if test="time2!=null and time2!=''">
 			and da.time &lt;= #{time2}
 		</if>   
-		order by da.time desc  
+		order by yh.yhbh asc
 	</select>
 	
 	
@@ -278,8 +278,7 @@
     	select distinct top 500
 			 	yh.id,
 			 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
-			 	da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw  yydl,
-			 	da.dgdtime*gl.dgkw,da.dzdtime*gl.dzkw,da.dddtime*gl.ddkw  dyydl,
+			 	da.yydl,
 			 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
 			 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
 			 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
@@ -293,8 +292,66 @@
 		 	  	yh.yhbh=da.yhbh and yh.fpdz=da.fpdz  
 			 and  da.fpbh=fp.fpbh 
 			 and fp.xh=gl.xh 
+		
 			<if test="bj!=null and bj!=''" >
 			and da.bj=#{bj}
-			</if>  
+			</if> 
+			order by da.time desc  
+	</select>
+	<!-- 异常查询 历史数据搜索 -->
+	 <select id="SearchHistoryYc" resultMap="data"   parameterType="Data">
+    	select distinct top 500
+			 	yh.id,
+			 	yh.yhbh,yh.yhxm,yh.xqm,yh.ldh,yh.dyh,yh.hh,
+			    da.yydl,
+			 	da.fpbh,da.ms,yh.fpdz,yh.lxdh,yh.bz,
+			 	da.dw,da.gdtime,da.zdtime,da.ddtime,da.dgdtime,da.dzdtime,da.dddtime,
+			 	da.jf,da.sdwd,da.snwd,da.kg,da.bj,da.jj,da.time,
+		 		yh.mj
+		from 
+		 		k_lssjb11  da, 
+		 		k_yhb1  yh, 
+		 		k_fpb2 fp,  
+		 		k_glb6  gl 
+	    where 
+		 	 yh.yhbh=da.yhbh
+		 	 and yh.fpdz=da.fpdz  
+			 and da.fpbh=fp.fpbh 
+			 and fp.xh=gl.xh 
+		<if test="xqm!='--选择小区名称--'">
+			and yh.xqm=#{xqm}
+		</if>
+		<if test="ldh!=0">
+			and yh.ldh=#{ldh}
+		</if>
+		<if test="dyh!=0">
+			and yh.dyh=#{dyh}
+		</if>
+		<if test="hh!=0">
+			and yh.hh=#{hh}
+		</if>
+		and da.bj=#{bj}
+		
+	 order by da.time desc 
+			 
+	</select>
+	
+	<update id="update"  parameterType="Data">
+	update k_data10 set bj=#{bj} where yhbh=#{yhbh} and fpdz=#{fpdz}
+	</update>
+	<select id="TxycNum" resultType="int" parameterType="Data">
+	select count(*)
+		from 
+		 	k_data10
+	   where 
+	 	time &lt;= #{time}
+
+	</select>
+	<select id="DrycNum" resultType="int" parameterType="Data">
+	select count(*)
+		from 
+		 	k_data10
+	    where 
+	   	bj=#{bj}
 	</select>
 </mapper>

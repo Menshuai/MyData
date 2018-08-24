@@ -44,16 +44,12 @@
 			width: "100%",
 			height: 700,
 			colModal: [
-			{ width: 50, align: 'center' },
-<<<<<<< HEAD
+			{ width: 30, align: 'center' },
 			{ width: 120, align: 'center' },
-=======
-			{ width: 100, align: 'center' },
->>>>>>> 8cb3ade479aa661d14adeb77d38fb6cfb78c0d61
 			{ width: 120, align: 'center' },
+			{ width: 70, align: 'center' },
 			{ width: 65, align: 'center' },
 			{ width: 65, align: 'center' },
-			
 			{ width: 65, align: 'center' },
 			{ width: 90, align: 'center' },
 			{ width: 100, align: 'center' },
@@ -61,9 +57,7 @@
 			{ width: 70, align: 'center' },
 			{ width: 70, align: 'center' },
 			{ width: 70, align: 'center' },
-			{ width: 70, align: 'center' },
-			{ width: 160, align: 'center' }
-			
+			{ width: 200, align: 'center' },
 			],
 			sort: true
 		});

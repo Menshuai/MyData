@@ -37,8 +37,6 @@ public class CgController {
 	private List<Cg> cgs;
 	@Autowired
 	private RzService rzService;
-	@Autowired
-	private YhMessageService yhMessageService;
 	private static Log log = LogFactory.getLog(CgController.class);
 	//列表页面
 	@RequestMapping("/CgfindList")
@@ -79,46 +77,31 @@ public class CgController {
 	 	public JSONObject FsLd(HttpSession session,HttpServletRequest request, String ids,String kg,String jf,String jj){
 	   		MapUtilsDf.getMapUtils().add("dg", null);
 	   		Cg cgxx=cgService.findLdDyByCg(ids);
-	   		
-	   		
-	   		
-//	   		YhMessage  dyh=yhMessageService.findyh(ids);//楼栋  
-	 		Integer ldhS=cgxx.getYhMessage().getLdh();
+	 		String ldhS=cgxx.getYhMessage().getLdh();
 	 		String ld=String.valueOf(ldhS);
 	 		if(ld.length()==1){
 	 			ld=0+ld;
 	 		}
 	 		System.out.println("楼栋号"+ld); 
-//	 		YhMessage dyh=yhMessageService.findyh(ids);//单元
-	 		Integer dyhS=cgxx.getYhMessage().getDyh();
+	 		String dyhS=cgxx.getYhMessage().getDyh();
 	 		String dy=String.valueOf(dyhS);
 	 		if(dy.length()==1){
 	 			dy=0+dy;
 	 		}
-	 		System.out.println("单元号"+dy);
+	 		 System.out.println("单元号"+dy);
 	 		 String cgbh=cgxx.getCgbh();
 			 System.out.println("cgbh"+cgbh);
 			 
 			 String cg=cgbh.substring(4);
 			 System.out.println("cg--------"+cg);
-	 		
-	   		// 把FmID转换为int类型      ids为用户编码   
 	 		 int ids1 = Integer.valueOf(ids.trim());
 	 		 String idsS = Integer.toHexString(ids1);//转换为十六进制  用户编码
 	 		 System.out.println("idsS---------"+idsS);
-//	 		 YhMessage yhmess=yhMessageService.findJzq(ids);
-	 		 
-	 		Cg Cgjzq=cgService.findJzqByCg(cgbh);
-//	 		 String ip =yhmess.getCg().getJzq().getJzqip();
-	 		String ip =Cgjzq.getJzq().getJzqip();
+	 		 Cg Cgjzq=cgService.findJzqByCg(cgbh);
+	 		 String ip =Cgjzq.getJzq().getJzqip();
 	 		 System.out.println("jzqip----------"+ip);
-	 		 
-//	 		 String port=yhmess.getCg().getJzq().getJzqport();
 	 		 String port=Cgjzq.getJzq().getJzqport();
-	 		 
-//	 		 String ip =yhmess.getCg().getJzq().getJzqip();
 	 		 System.out.println("jzqip----------"+ip);
-//	 		 String port=yhmess.getCg().getJzq().getJzqport();
 	 		 System.out.println("jzqport----------"+port);
 	 		 
 	 		 if(kg.equals("02")){
@@ -133,7 +116,7 @@ public class CgController {
 	 		 
 	 		 //发送数据
 	 		 String ja =ld+dy+"F010B1FFF0F0F0FF"+""+kg+""+jf+""+jj+ld+dy+"FF";
-	 		 log.info("对某栋楼 所有风盘开关计费季节操作发送指令 ："+ja);
+	 		 log.info("对"+ld+"栋楼 所有风盘开关计费季节操作发送指令 ："+ja);
 	 		 System.out.println("ja----"+ja);
 	 		 if(kg.equals("00")){
 				 kgString="强关";
@@ -153,7 +136,7 @@ public class CgController {
 				 jjString="冬季";
 			 }
 				Rz rz=new Rz();
-				rz.setCz("发送对某栋楼所有风盘开关计费季节操作："+kgString+","+jfString+","+jjString);
+				rz.setCz("发送对"+ld+"栋楼所有风盘开关计费季节操作："+kgString+","+jfString+","+jjString);
 				rz.setCzr((String)session.getAttribute("UserName"));
 				rz.setCzsj(new Date());;
 				rzService.insert(rz);
@@ -162,7 +145,7 @@ public class CgController {
 	 		 boolean sessionmap = cz(ja, pt);
 	 		 System.out.println("ja-------------"+ja);
 	 		 try {
-	 		 	Thread.sleep(3000);
+	 		 	Thread.sleep(4000);
 	 		 } catch (InterruptedException e) {
 	 		 	e.printStackTrace();
 	 		 }
@@ -187,19 +170,17 @@ public class CgController {
 	 	@ResponseBody
 	 	public JSONObject SCxZx(HttpSession session,HttpServletRequest request, String ids,String kg,String jf,String jj){
 	   		MapUtilsDf.getMapUtils().add("dg", null);
-//	   		YhMessage  ldh=yhMessageService.findyh(ids);//楼栋  
 	   		Cg cgxx=cgService.findLdDyByCg(ids);
 	   		
-	 		Integer ldhS=cgxx.getYhMessage().getLdh();
-	 		String ld=String.valueOf(ldhS);
+	   		String ld=cgxx.getYhMessage().getLdh();
+//	 		String ld=String.valueOf(ldhS);
 	 		if(ld.length()==1){
 	 			ld=0+ld;
 	 		}
 	 		System.out.println("楼栋号"+ld); 
 	 		
-//	 		YhMessage dyh=yhMessageService.findyh(ids);//单元
-	 		Integer dyhS=cgxx.getYhMessage().getDyh();
-	 		String dy=String.valueOf(dyhS);
+	 		String dy=cgxx.getYhMessage().getDyh();
+//	 		String dy=String.valueOf(dyhS);
 	 		if(dy.length()==1){
 	 			dy=0+dy;
 	 		}
@@ -209,24 +190,14 @@ public class CgController {
 			 
 			 String cg=cgbh.substring(4);
 			 System.out.println("cg--------"+cg);
-	 		
 	   		// 把FmID转换为int类型      ids为用户编码   
 	 		 int ids1 = Integer.valueOf(ids.trim());
 	 		 String idsS = Integer.toHexString(ids1);//转换为十六进制  用户编码
 	 		 System.out.println("idsS---------"+idsS);
 	 		 
-	 		/* Fp fp=fpService.findfpdz(ids.trim());
-	 		 String fpdzs=fp.getFpbh();
-	 		 System.out.println("fpdzs---------"+fpdzs);//风盘地址
-	 		 */
-//	 		 YhMessage yhmess=yhMessageService.findJzq(ids);
-	 		 
 	 		Cg Cgjzq=cgService.findJzqByCg(cgbh);
-//	 		 String ip =yhmess.getCg().getJzq().getJzqip();
 	 		String ip =Cgjzq.getJzq().getJzqip();
 	 		 System.out.println("jzqip----------"+ip);
-	 		 
-//	 		 String port=yhmess.getCg().getJzq().getJzqport();
 	 		 String port=Cgjzq.getJzq().getJzqport();
 	 		 System.out.println("jzqport----------"+port);
 	 		 
@@ -243,7 +214,7 @@ public class CgController {
 	 		 //发送数据
 	 		 String ja =ld+dy+"F010B1"+cg+"F0F0F0FF"+""+kg+""+jf+""+jj+ld+dy+"FF";
 	 		 System.out.println("ja----"+ja);
-	 		 log.info("对某层 所有风盘开关计费季节操作发送指令：层管编号："+cg+"，指令---"+ja);
+	 		 log.info("对"+cg+"层 所有风盘开关计费季节操作发送指令：层管编号："+cg+"，指令---"+ja);
 	 		 System.out.println("ja----"+ja);
 	 		 if(kg.equals("00")){
 				 kgString="强关";
@@ -263,7 +234,7 @@ public class CgController {
 				 jjString="冬季";
 			 }
 				Rz rz=new Rz();
-				rz.setCz("发送对某层所有风盘开关计费季节操作,层管编号："+kgString+","+jfString+","+jjString);
+				rz.setCz("发送对"+cg+"层所有风盘开关计费季节操作,层管编号："+kgString+","+jfString+","+jjString);
 				rz.setCzr((String)session.getAttribute("UserName"));
 				rz.setCzsj(new Date());;
 				rzService.insert(rz);
@@ -273,7 +244,7 @@ public class CgController {
 	 		 boolean sessionmap = cz(ja, pt);
 	 		 System.out.println("ja-------------"+ja);
 	 		 try {
-	 		 	Thread.sleep(3000);
+	 		 	Thread.sleep(4000);
 	 		 } catch (InterruptedException e) {
 	 		 	e.printStackTrace();
 	 		 }

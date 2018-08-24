@@ -97,7 +97,7 @@
 		<!-- 查找用户下的菜单 -->
 	<select id="findMenuByUserName" resultMap="menu">
 		select 
-			distinct menu.NAME,menu.pid,menu.url 
+			distinct menu.NAME,menu.pid,menu.url ,menu.id
 		from 
 			T_UserLogin us , user_role ur,k_role r ,k_menu menu,role_menu rmenu 
 	    where 
@@ -106,14 +106,8 @@
 	    	and menu.id=rmenu.menu_id 
 	    	and rmenu.role_id= ur.role_id 
 	    	and us.UserName=#{userName}
-	</select>
-	
-	
-	
-	
-	
-	
-	
+	    	order by menu.id asc
+	</select>	
 </mapper>
 
 

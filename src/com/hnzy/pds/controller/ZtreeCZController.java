@@ -49,7 +49,7 @@ public class ZtreeCZController {
 			villageLD.setXqm(xqname);;
 			List<YhMessage> lcList = this.yhMessageService.findBOByXQ(villageLD);
 			for (int j = 0; j < lcList.size(); j++) {
-				Integer ldh = lcList.get(j).getLdh();
+				String ldh = lcList.get(j).getLdh();
 				String ldhNo=null;
 				ldhNo=String.valueOf(ldh);
 				VillageTreeNodes nodesLC = new VillageTreeNodes();
@@ -72,7 +72,7 @@ public class ZtreeCZController {
 				villageLC.setLdh(ldh);
 				List<YhMessage> dyhList = this.yhMessageService.findCOByXQAndBO(villageLC);
 				for (int k = 0; k < dyhList.size(); k++) {
-					Integer dyhNO = dyhList.get(k).getDyh();
+					String dyhNO = dyhList.get(k).getDyh();
 					String ZHM = dyhList.get(k).getYhxm();
 					VillageTreeNodes nodesdyh = new VillageTreeNodes();
 					if (i > 0) {

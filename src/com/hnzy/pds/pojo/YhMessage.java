@@ -13,9 +13,9 @@ public class YhMessage implements Serializable{
 	private String  yhbh  ;  //用户编号
 	private String  cgbh  ;   //层管编号
 	private String  xqm  ;   //小区
-	private Integer ldh  ;  //楼栋
+	private String ldh  ;  //楼栋
 	
-	private Integer dyh  ;  //单元
+	private String dyh  ;  //单元
 	private Integer hh  ;  //户号
 	private Integer fpdz ;  //风盘个数
 	private Double  mj   ;  //面积
@@ -89,16 +89,21 @@ public class YhMessage implements Serializable{
 	public void setXqm(String xqm) {
 		this.xqm = xqm;
 	}
-	public Integer getLdh() {
+
+	public String getLdh()
+	{
 		return ldh;
 	}
-	public void setLdh(Integer ldh) {
+	public void setLdh(String ldh)
+	{
 		this.ldh = ldh;
 	}
-	public Integer getDyh() {
+	public String getDyh()
+	{
 		return dyh;
 	}
-	public void setDyh(Integer dyh) {
+	public void setDyh(String dyh)
+	{
 		this.dyh = dyh;
 	}
 	public Integer getHh() {
