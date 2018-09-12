@@ -37,11 +37,11 @@ public class FpServiceImpl implements  FpService{
 		fpDao.update(fp);
 	}
 
-	@Override
-	public Fp findfpbh(String yhbh) {
-		// TODO Auto-generated method stub
-		return fpDao.findfpbh(yhbh);
-	}
+//	@Override
+//	public Fp findfpbh(String yhbh) {
+//		// TODO Auto-generated method stub
+//		return fpDao.findfpbh(yhbh);
+//	}
 
 	@Override
 	public List<Fp> findfp()

@@ -54,7 +54,7 @@
 			height: 800,
 			colModal: [
 			{ width: 130, align: 'center' },
-			{ width: 500, align: 'center' },
+			{ width: 560, align: 'center' },
 			{ width: 200, align: 'center' }
 			],
 			sort: true

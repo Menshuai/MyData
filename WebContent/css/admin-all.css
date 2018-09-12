@@ -36,13 +36,13 @@ html, body {
 	padding-left: 52px;
 }
 
-.top-menu .top-menu-nav {
+   .top-menu .top-menu-nav {
 	white-space: nowrap;
 	height: 52px;
 	background: url(../img/top-menu-con.gif) repeat-x;
 	margin: 0;
 	padding: 0;
-}
+}    
 
 .top-menu .top-menu-nav li {
 	white-space: nowrap;

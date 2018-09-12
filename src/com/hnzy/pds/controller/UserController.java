@@ -50,9 +50,20 @@ public class UserController {
 	//注册
 		@RequestMapping("/toLogin")
 		public String tologin(){
+			
 //			List<User> user=userService.find();
-			return"login";
+		//	return"login";
+			return "SY";// 第一次打开首先进入该页面，未登录情况下先登录，跳转到Dl路径
 		}
+		
+		
+		//登录
+		@RequestMapping("/DL")
+		public String toLogin(){
+			
+			return "login";
+		}
+		
 		
 		@RequestMapping("/toMen")
 		public String toMen(){
@@ -64,6 +75,50 @@ public class UserController {
 		public String index(){
 			return"index";
 		}
+		
+		
+		//信息管理
+		@RequestMapping("/xxgl")
+		public String xxgl(){
+			return "/xxgl2";
+		}
+				
+		//缴费管理
+		@RequestMapping("/jfgl")
+		public String jfgl(){
+			return "/jfgl2";
+		}
+				
+		//设备管理
+		@RequestMapping("/sbgl")
+		public String sbgl(){
+			return "/sbgl2";
+		}
+				
+		//数据报表
+		@RequestMapping("/sjbb")
+		public String sjbb(){
+			return "/sjbb2";
+		}
+		
+		//操作日志
+		@RequestMapping("/czrz")
+		public String czrz(){
+			return "/czrz2";
+		}
+				
+		//异常查询
+		@RequestMapping("/yccx")
+		public String yccx(){
+			return "/yccx2";
+		}
+		
+		//系统设置
+		@RequestMapping("/xtsz")
+		public String xtsz(){
+			return "/xtsz2";
+		}
+				
 		
 		//用户列表
 		@RequestMapping("/findYh")
@@ -146,7 +201,8 @@ public class UserController {
 					//根据用户查询用户的菜单及url
 					List<Menu> menuList=menuService.findMenuByUserName(username);
 					request.setAttribute("menuList", menuList);
-					return "index";
+//					return "index";//首次登录页面
+				  return "SY";//首次登录页面
 					
 				}else{
 					 msg = PropertyUtil.Informationerror;	

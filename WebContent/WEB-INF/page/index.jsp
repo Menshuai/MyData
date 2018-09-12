@@ -22,16 +22,6 @@
 <script type="text/javascript"
 	src="../js/jquery-ui-1.8.22.custom.min.js"></script>
 <script type="text/javascript" src="../js/index.js"></script>
-<style type="text/css">
-*{margin:0;padding:0;list-style-type:none; }
-        #zhu{font-size: 16px;width:15px;height:100px; position: fixed;right:2px; overflow:hidden;z-index:9999; top:180px; background-color: #24CAB6;}
-        #zhu ul{padding-left:10px;}
-        #zhu p{border-bottom:1px solid #D4B4CE;font-size:20px;height:35px;line-height:40px ; width:1000px;background:#24CAB6;color:#fbfbfb; }
-        #zhu li{height:35px;line-height:35px;font-size:14px;border-bottom:1px #D4B4CE dotted;right: 0px;position:inherit;background-color: #24CAB6;}
-        #zhu li a{text-decoration:none;color:#fbfbfb;}
-        #zhu .zu {background-color: #24CAB6;border:0px solid #D4B4CE;width:20px;height:270px;line-height:20px ;font-size:15px;position:absolute;text-align: center;top:10px}
-        #zhu .zu a{color:#fbfbfb;text-decoration:none;}
-</style>
 </head>
 <script type="text/javascript">
 
@@ -64,22 +54,6 @@ function add(title, url, w, h){
 function tc(){ //安全退出
 	window.location='<%=basePath%>user/toLogin.action';
 }
-
-$(function(){	 
-	$.ajax({
-		url :"/Data/DataController/findYcNum.action",
-		type : "post",
-		dataType : "json",
-		success : function(data) {
-			var txyc = data.txyc;
-			var dryc=data.dryc;
-			var kgyc=data.kgyc;
-	        $("#Yc").append("<li>开盖异常："+kgyc+"</li>");
-	        $("#Yc").append("<li>盗热异常："+dryc+"</li>");
-	        $("#Yc").append("<li>通讯异常:"+txyc+"</li>");
-		}
-	});		
-});
 </script>
 <body>
 	<div class="warp">
@@ -87,39 +61,42 @@ $(function(){
 		<div class="top_c">
 			<div class="top-menu">
 				<ul class="top-menu-nav"> 
-				<li><a target="Conframel" href="<%=basePath%>DataController/DataMe.action">首页</a></li>
+				  <li><a target="Conframel" href="<%=basePath%>DataController/DataMe.action">首页</a></li>  
 				<c:forEach  var="menu" items="${menuList}" varStatus="status">
 					<li><a target="Conframel" href="${menu.url}">${menu.name}</a></li>
 				</c:forEach>
 				
-					<%-- <li><a target="Conframel" href="<%=basePath%>DataController/DataMe.action">首页</a></li>
-				 	<li><a target="Conframel" href="<%=basePath%>Jzq/JzqMe.action">信息管理</a></li>
+			  	    <li><a target="Conframel" href="<%=basePath%>DataController/DataMe.action">首页</a></li>   
+				 	    <li><a target="Conframel" href="<%=basePath%>Jzq/JzqMe.action">信息管理</a></li>
 					<li><a target="Conframel" href="<%=basePath%>JfController/JfMe.action">缴费管理</a></li>
 					<li><a target="Conframel" href="<%=basePath%>DataController/SbglMe.action">设备管理</a></li>
 					 
-					<li><a target="Conframel" href="<%=basePath%>YhMessageCon/HomeMe.action">数据报表</a></li>
+					<li><a target="Conframel" href="<%=basePath%>YhMessageCon/HomeMe.action">数据报表</a></li>  
 					<li><a href="#">客服管理<i class="tip-up"></i></a>
 						<ul class="kidc">							
 							<li><a target="Conframel" href="<%=basePath%>Repair/RepairMe.action">报修登记</a></li>
 							<li><a target="Conframel" href="<%=basePath%>Repair/SqazMe.action">申请安装</a></li>
 						</ul>  
 					</li>  
-					<li><a target="Conframel" href="<%=basePath%>RzController/RzMe.action">操作日志</a></li>
+					
+					   <li><a target="Conframel" href="<%=basePath%>RzController/RzMe.action">操作日志</a></li>
 					<li><a target="Conframel" href="<%=basePath%>DataController/YccxMe.action">异常查询</a></li>
-					<li><a target="Conframel" href="<%=basePath%>Home/XtszMe.action">系统设置</a></li> --%>
+					<li><a target="Conframel" href="<%=basePath%>Home/XtszMe.action">系统设置</a></li>       
+					<%-- <li><a target="Conframel" href="<%=basePath%>Home/XtszMe.action">系统设置</a></li> --%>
 				</ul>
 			</div>
 			<div class="bottom_c1 ">
 			
 			</div>
-			<div class="top-nav">
 			
-										
-				&nbsp;&nbsp;&nbsp;
+			 <div class="top-nav">
+				<%-- &nbsp;&nbsp;&nbsp;
 			
 				 欢迎您！ ${UserName} &nbsp;&nbsp;&nbsp;&nbsp;<a onclick="add('修改密码','<%=basePath%>user/xgmm.action','600','400')">修改密码</a>| 
-				 <a target="Conframe" onclick="add('用户注册','<%=basePath%>user/yhzc.action','600','300')">用户注册</a>| <a href="#" onclick="tc()" style="color: white;">安全退出</a>
-			</div>
+				 <a target="Conframe" onclick="add('用户注册','<%=basePath%>user/yhzc.action','600','300')">用户注册</a>|  --%>
+				 <a href="#" onclick="tc()" style="color: white;">返回首页>></a>
+			</div> 
+			
 		</div>
 		 
 		<!--左边框架开始-->
@@ -149,12 +126,6 @@ $(function(){
 		</div>
 		<!--底部结束-->
 	 </div>
-	 
-	 <div id="zhu">
-   <div class="zu" ><a href="" > 异常数目</a></div> 
-    <ul id="Yc">
-    </ul>
-   </div>
 </body>
 <script type="text/javascript" src="../js/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="../js/static/h-ui.admin/js/H-ui.admin.js"></script>

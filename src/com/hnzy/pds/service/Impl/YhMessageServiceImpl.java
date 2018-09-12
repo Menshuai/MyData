@@ -1,16 +1,18 @@
 package com.hnzy.pds.service.Impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
- 
 import com.hnzy.pds.dao.YhMessageDao;
 import com.hnzy.pds.pojo.Data;
+import com.hnzy.pds.pojo.Jf;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.YhMessageService;
 import com.hnzy.pds.util.ExcelUtilBj;
@@ -116,22 +118,49 @@ public class YhMessageServiceImpl implements YhMessageService{
 		return yhMessageDao.findXqName();
 	}
 
-	@Override
-	public int findYf(String yhbhS)
-	{
-		//获取月份
-		return yhMessageDao.findYf(yhbhS);
-	}
+
 
 	@Override
-	public void updateYf(int yf)
+	public void updateYf(int yf,String yzbh)
 	{
-		yhMessageDao.updateYf(yf);
+		yhMessageDao.updateYf(yf,yzbh);
 	}
 
 	@Override
 	public int findyf()
 	{
 		return yhMessageDao.findyf();
-	} 	
+	}
+
+	@Override
+	public List<YhMessage> findType(int type)
+	{
+		return yhMessageDao.findType(type);
+	}
+
+	@Transactional
+	@Override
+	public void updateyh(YhMessage yhMessage) {//新增和更新和删除，要加事物，@Transactional
+		 yhMessageDao.updateyh(yhMessage);
+	}
+	
+	
+	/**
+	 *  根据用户编号查询用户所在小区-楼栋-单元-门牌号
+	 * @param yhbh
+	 * @return ymparm
+	 * @author ms
+	 */
+	@Override
+	public List<YhMessage> findXqByYhbh(YhMessage ymparm) {
+		//链接数据库要tar catch，捕获链接数据库连不上或者查询出错的异常。
+		List<YhMessage> yhList=new ArrayList<>();
+		try {
+			yhList=yhMessageDao.findXqByYhbh(ymparm);
+		} catch (Exception e) {
+			//如果有日志打印日志，
+			System.out.println("根据用户编号查询用户所在小区-楼栋-单元-门牌号出错啦！");
+		}
+		 return yhList;
+	}
 }

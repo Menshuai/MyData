@@ -1,5 +1,9 @@
 package com.hnzy.pds.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -38,14 +42,7 @@ public class ZdCb
 			if(fp>9){
 				fpdz=Integer.toHexString(fp);
 			}
-			System.out.println("zgb-----"+zgb);
-			System.out.println("cg-----"+cg);
-			System.out.println("yhbhS-----"+yhbhS);
-			System.out.println("fpdz-----"+fpdz);
-			System.out.println("ld------"+ld);
-			System.out.println("dyh------"+dyh);
 			String zl=zgb+"F010B5"+cg+yhbhS+"0"+fpdz+ld+dyh+"FFFFFFFF";
-			System.out.println("zl------"+zl);
 			YhMessage yhmess=yhMessageService.findJzq(yhbh);
 			String ip =yhmess.getCg().getJzq().getJzqip();
 			String port=yhmess.getCg().getJzq().getJzqport();
@@ -63,7 +60,12 @@ public class ZdCb
 	
 	public void XgYf(){
 		//从数据库用户表查询当前月份 默认第一个月为零以后每月加一
-		int yf=yhMessageService.findyf();
+//		int yf=yhMessageService.findyf();
+		//获取按流量收费的所有用户
+		List<YhMessage> yfType=yhMessageService.findType(1);
+		for(int i=0;i<yfType.size();i++){
+		int yf=yfType.get(i).getYf();
+		String yzbh=yfType.get(i).getYzbh();
 		 Date date=new Date();
 		int month=date.getMonth()+1;
 		if(month==6&&yf!=0){
@@ -85,8 +87,53 @@ public class ZdCb
 		}else if(month==3){
 			yf=yf+1;
 		}
-	   //更新用户表当前月份
-		yhMessageService.updateYf(yf);
+		 //更新用户表当前月份
+		yhMessageService.updateYf(yf,yzbh);
+		}
+	
+	}
+	
+	//包月的用户先在时间大于结束时间发送关阀指令
+	
+	public void Gf() throws ParseException{
+	//类型包月小于现在时间关阀门
+	List<YhMessage> yfType=yhMessageService.findType(1);
+	 DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+	for(int i=0;i<yfType.size();i++){
+		String endTime=yfType.get(i).getJf().getEndTime();
+		String xzTime=df.format(new Date());
+          Date dt2 = df.parse(xzTime);
+          Date end = df.parse(endTime);
+		if(dt2.getTime()>end.getTime()){
+			String fpdz=yfType.get(i).getfpdz().toString();
+			String yhbh=yfType.get(i).getYhbh();
+			YhMessage  ldh=yhMessageService.finldh(yhbh,fpdz);//楼栋  
+	  		String ld=ldh.getLdh();
+			if(ld.length()==1){
+				ld=0+ld;
+			}
+			System.out.println("楼栋号"+ld); 
+			String cgbh=ldh.getCgbh();
+			String cg=cgbh.substring(4);
+			System.out.println("cg---"+cg);
+			String dy=ldh.getDyh();
+			if(dy.length()==1){
+				dy=0+dy;
+			}
+			System.out.println("单元号"+dy);
+			 String idsS = Integer.toHexString(Integer.valueOf(yhbh));//转换为十六进制  用户编码
+			 YhMessage yhmess=yhMessageService.findJzq(yhbh);
+			 String ip =yhmess.getCg().getJzq().getJzqip();
+			 String port=yhmess.getCg().getJzq().getJzqport();
+			 //空调状态
+			 String ja =ld+dy+"F010B1"+cg+""+idsS+fpdz+"0000FF"+ld+dy+"FF";
+			 System.out.println("ja----"+ja);
+			 // IP地址和端口号
+			 String pt = "/" + ip + ":" + port;
+			 boolean sessionmap = cz(ja, pt);	
+			
+		}
+	}	
 	}
 		
 		// 抽取相同部分

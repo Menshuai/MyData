@@ -327,7 +327,7 @@ function add(){
 		$("#edit form").submit();
 	} 
 
-//修改
+//修改按钮
 function openEditUserPage(){
 	var ckbs=$("#jzqinfo input[type=checkbox]:checked");
 	if(ckbs.length==0){

@@ -160,6 +160,8 @@ function edit(){
 	$("#add").modal({keyboard:false});
 	
 }  
+  
+  
 function openEditUserPage(){
 	var ckbs=$("#users input[type=checkbox]:checked");
 	if(ckbs.length==0){

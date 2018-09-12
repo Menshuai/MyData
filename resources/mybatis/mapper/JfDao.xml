@@ -9,57 +9,94 @@
 	    <result property="syje" column="syje"/> 
 		<result property="time" column="time"/>
 		<result property="yyje" column="yyje"/> 
+		<result property="yzbh" column="yzbh"/> 
 		<result property="getime" column="getime"/> 
-		<result property="userName" column="userName"/>
+		<result property="type" column="type"/>
+		<result property="typeBz" column="typeBz"/>
+		<result property="startTime" column="startTime"/>
+		<result property="endTime" column="endTime"/>
 		<result property="yhMessage.xqm" column="xqm" />
 		<result property="yhMessage.yhxm" column="yhxm"/>
 		<result property="yhMessage.ldh" column="ldh"/>
 		<result property="yhMessage.dyh" column="dyh"/>
 		<result property="yhMessage.hh" column="hh"/>
 		<result property="yhMessage.lxdh" column="lxdh" />
+		<result property="yhMessage.yzbh" column="yzbh" />
+		<result property="yhMessage.mj" column="mj" />
+		<result property="yydl" column="yydl"/>
 	</resultMap>
+	
+	
+	<!-- 今日查询缴费笔数  public Jf findJfbs( ) -->
+	<select id="findJfbs"  resultType="int"  >
+	  SELECT COUNT(jfje) FROM k_jfb12 WHERE datediff(DD,time,getdate())=0
+	</select>
+	
+	<!-- 今日查询缴费总金额   public Jf findJfzje( ) -->
+  	<select id="findJfzje"  resultType="int" >
+	 SELECT sum(jfje) FROM k_jfb12 WHERE datediff(DD,time,getdate())=0
+	</select>  
+	
+	<!-- 本周查询缴费笔数  	public int findBzJfbs( ); -->
+  	<select id="findBzJfbs" resultType="int"  >
+	  SELECT COUNT(jfje) FROM k_jfb12 WHERE datediff(week,time,getdate())=0
+	</select> 
+	
+	<!-- 本周查询缴费总金额   public int findBzJfzje( ); -->
+	  <select id="findBzJfzje"  resultType="int" >
+	 SELECT sum(jfje) FROM k_jfb12 WHERE datediff(week,time,getdate())=0
+	</select> 
+	 
+	
+	
+<!-- 	<select id="findHjje" parameterType="Jf" resultMap="jf">
+	</select> -->
 	<!-- 更新用户费用 -->
 	<update id="updateJf" parameterType="Jf">
-	update k_jfb12 set syje=#{syje} ,yyje=#{yyje} ,getime=#{getime} where yhbh=#{yhbh} 
+	update k_jfb12 set syje=#{syje} ,yyje=#{yyje} ,getime=#{getime} where yzbh=#{yzbh} 
 	</update>
+	
 	<!-- 根据用户编码查找用户合计金额 -->
 	<select id="findzje" resultMap="jf">
-	select hjje from k_jfb12 where yhbh=#{yhbh} 
+	select hjje from k_jfb12 where yzbh=#{yzbh} 
 	</select>
+	
 	<select id="find" resultMap="jf">
-		select distinct j.id,
-			y.yhxm,y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,j.userName,
-			j.yhbh,j.jfje,j.hjje,j.time,j.yyje,j.syje
-		 from 
-		 	k_jfb12 j,k_yhb1 y
-		 	 	where j.yhbh=y.yhbh order by hh asc
+		select distinct top 600 sum(yydl) yydl, y.yhxm, 
+			y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,j.userName,
+			j.yzbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,y.mj,j.type,j.endTime,j.startTime
+		from k_data10 da,k_yhb1 y ,k_jfb12 j where da.yhbh=y.yhbh and j.yzbh=y.yzbh group by j.yzbh, y.yhxm, 
+			y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,j.userName,
+			j.yzbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,y.mj,j.type,j.endTime,j.startTime
 	</select>
 
 	<insert id="Insert" parameterType="Jf">
 		insert into k_jfb12
-		(yhbh,jfje,hjje,time,yyje,syje,userName,getime)
-		values(#{yhbh},#{jfje},#{hjje},#{time},#{yyje},#{syje},#{userName},#{getime})
+		(yzbh,jfje,hjje,time,yyje,syje,userName,getime)
+		values(#{yzbh},#{jfje},#{hjje},#{time},#{yyje},#{syje},#{userName},#{getime})
 	</insert>
 
 	<delete id="delete" parameterType="Jf">
 		delete from k_jfb12
-		where id=#{id}
+		where yzbh=#{id}
 	</delete>
 	
 	<update id="updateJfHjje" parameterType="Jf">
 		update k_jfb12 set
-		jfje=#{jfje},hjje=#{hjje},time=#{time},userName=#{userName}
-		where yhbh=#{yhbh}
+		jfje=#{jfje},hjje=#{hjje},time=#{time},userName=#{userName},type=#{type},typeBz=#{typeBz},startTime=#{startTime},endTime=#{endTime}
+		where yzbh=#{yzbh}
 	</update>
+	
     <insert id="InsertJfHistory" parameterType="Jf">
-    insert into k_jfbHistory (yhbh,jfje,hjje,syje,yyje,time,userName)
-     values (#{yhbh},#{jfje},#{hjje},#{syje},#{yyje},#{time},#{userName})
+    insert into k_jfbHistory (yzbh,jfje,hjje,time,userName,type,startTime,endTime)
+     values (#{yzbh},#{jfje},#{hjje},#{time},#{userName},#{type},#{startTime},#{endTime})
     </insert>
+    
     <select id="Sear" parameterType="Jf" resultMap="jf">
-    select distinct top 500 y.yhxm,y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,
-			j.yhbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,j.userName
-	 from k_jfb12 j,k_yhb1 y
-	  where j.yhbh=y.yhbh 
+ 	 select distinct top 600 sum(yydl) yydl, y.yhxm, 
+			y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,j.userName,
+			j.yzbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,y.mj,j.type,j.endTime,j.startTime
+		from k_data10 da,k_yhb1 y ,k_jfb12 j where da.yhbh=y.yhbh and j.yzbh=y.yzbh 
 	  <if test="xqm!='--选择小区名称--'">
 			and y.xqm=#{xqm}
 		</if>
@@ -72,20 +109,28 @@
 		<if test="hh!=null and hh!=''">
 			and y.hh=#{hh}
 		</if>
+		<if test="type!=2">
+			and j.type=#{type}
+		</if>
+		group by j.yzbh, y.yhxm, 
+		y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,j.userName,
+		j.yzbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,y.mj,j.type,j.endTime,j.startTime
     </select>
+    
     <select id="JffindHistory" resultMap="jf">
-    	select distinct
+    	select distinct top 600
 			y.yhxm,y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,j.userName,
-			j.yhbh,j.jfje,j.hjje,j.time,j.yyje,j.syje
+			j.yzbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,y.mj,j.type,j.endTime,j.startTime
 		 from 
 		 	k_jfbHistory j,k_yhb1 y
-		 	 	where j.yhbh=y.yhbh
+		 	 	where j.yzbh=y.yzbh  order by j.time desc  
     </select>
+    
     <select id="JffindHistorySear" resultMap="jf" parameterType="Jf">
-     select distinct  top 500 y.yhxm,y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,
-			j.yhbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,j.userName
+     select distinct  top 600 y.yhxm,y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,j.time,
+			j.yzbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,j.userName,y.mj,y.mj,j.type,j.endTime,j.startTime
 	 from k_jfbHistory j,k_yhb1 y
-	  where j.yhbh=y.yhbh 
+	  where j.yzbh=y.yzbh 
 	  <if test="xqm!='--选择小区名称--'">
 			and y.xqm=#{xqm}
 		</if>
@@ -104,6 +149,23 @@
 		<if test="time2!=null and time2!=''">
 			and j.time &lt;= #{time2}
 		</if> 
+		<if test="type!=2">
+			and j.type=#{type}
+		</if>
 		    order by j.time desc  
     </select>
+    
+    	<select id="findYfS" resultType="jf"  parameterType="Jf">
+	select distinct yh.yf,jf.type,jf.typeBz,
+	jf.startTime,jf.endTime from k_yhb1 yh ,k_jfb12 jf where yh.yzbh=jf.yzbh and yh.yhbh=#{yhbh}
+	</select>
+	
+		<!--根据业主编号查询缴费信息 -->
+	<select id="findjfByYhbh" parameterType="Jf" resultMap="jf">
+		select * from k_jfb12  where 1=1
+		<if test="yzbh !=null and yzbh != ''">
+		and yzbh=#{yzbh}
+		</if>
+	</select>
+	
 </mapper>

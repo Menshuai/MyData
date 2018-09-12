@@ -21,13 +21,17 @@
 		
 	</script>
     <script type="text/javascript">
-	  function Jf(){//操作日志
+	  function Jf(){//
 		    window.open("/Data/JfController/JFfindList.action","Conframe");
 		} 
 	  
-	  function JfHistory(){//操作日志
+	  function JfHistory(){//
 		    window.open("/Data/JfController/JFfindHistList.action","Conframe");
 		} 
+	  
+	  function sj(){//
+		    window.open("/Data/JfController/RL.action","Conframe");
+		}    
 	 </script>
 <body><!-- 左边框架小区信息列表 -->
  <!--  <iframe scrolling="no" width="100%"   name="Conframel" id="Conframel" src="/Data/zz/ztree.action" 
@@ -38,6 +42,9 @@
  			style="background-image: url('../img/secai.png');border:1px" type="button" >缴费信息</button>
  	<button  onclick="JfHistory()"  type="button" class="btn btn-success btn-block" 
  			style="background-image: url('../img/secai.png');border:1px" type="button" >缴费历史信息</button>
-</body>
+ 			
+ 			   <button  onclick="sj()"  type="button" class="btn btn-success btn-block" 
+ 			style="background-image: url('../img/secai.png');border:1px" type="button" >日历</button>
+ </body>
 	
 </html>

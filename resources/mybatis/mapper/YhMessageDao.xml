@@ -18,7 +18,12 @@
 		<result property="yhxm" column="yhxm" />
 		<result property="lxdh" column="lxdh" />  
 		<result property="bz" column="bz" />
-		
+		<result property="yzbh" column="yzbh"/>
+		<result property="jf.yzbh" column="yzbh"/>
+		<result property="jf.type" column="type"/>
+		<result property="jf.typeBz" column="typeBz "/>
+		<result property="jf.startTime" column="startTime"/>
+		<result property="jf.endTime" column="endTime "/>
 		<result property="cg.cgbh" column="cgbh" />
 		<result property="cg.jzqnet" column="jzqnet" />
 		<result property="cg.azdz" column="azdz" />
@@ -31,6 +36,17 @@
 		<result property="cg.azdz" column="azdz" />  
 		 
 	</resultMap>
+	
+	
+	<!--public void updateyh(YhMessage yhMessage);  -->
+	<update   id="updateyh" parameterType="YhMessage">
+	update k_yhb1 
+		set
+		yhxm=#{yhxm},xqm=#{xqm},ldh=#{ldh},dyh=#{dyh},hh=#{hh},
+		yzbh=#{yzbh},lxdh=#{lxdh},mj=#{mj}
+		where id=#{id}
+	</update>
+	
 	
 	<!--查找小区名 public List<YhMessage> findXQN(); -->
 	<select id="findXQN"  resultMap="yhMessage"  parameterType="YhMessage">
@@ -134,6 +150,14 @@
 		select  distinct xqm from k_yhb1 
 	</select>
 	
+	<!--根据员工编号查询所在小区 List<YhMessage> findXqName(); -->
+	<select id="findXqByYhbh" parameterType="YhMessage"   resultMap="yhMessage">
+		select * from k_yhb1 where 1=1
+		<if test="yhbh !=null and yhbh != ''">
+		and yzbh=#{yhbh}
+		</if>
+	</select>
+	
 	<!--通过小区 获取楼栋  public List<YhMessage> findYhBuildNObyXqm(String xqm); -->
 	<select id="findYhBuildNObyXqm" resultMap="yhMessage" parameterType="YhMessage">
 		select distinct ldh from k_yhb1 where xqm=#{xqm}
@@ -144,17 +168,17 @@
 		select  distinct dyh from k_yhb1 where xqm=#{1} and ldh=#{0} 
 	</select>
 	
-	<select id="findYf" resultType="Integer" >
-	select distinct yf from k_yhb1 where yhbh=#{yhbh}
-	</select>
+
 	
 	<insert id="updateYf" parameterType="YhMessage">
-	update k_yhb1 set yf=#{yf} 
+	update k_yhb1 set yf=#{yf} where yzbh=#{yzbh}
 	</insert>
 	
 	<select id="findyf" resultType="Integer" >
 	select distinct yf from k_yhb1
 	</select>
-	
+	<select id="findType" resultType="yhMessage"  >
+	select distinct  yh.yzbh,yh.yf,jf.endTime,yh.ldh,yh.dyh,yh.fpdz,yh.yhbh  from k_jfb12 jf,k_yhb1 yh where jf.yzbh=yh.yzbh and jf.type=#{type}
+	</select>
 </mapper>
 
