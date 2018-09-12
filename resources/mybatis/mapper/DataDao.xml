@@ -48,6 +48,7 @@
 		<result property="yhMessage.bz" column="bz" />
 		<result property="yhMessage.yhlx" column="yhlx" />
 		<result property="yhMessage.lxdh" column="lxdh" />
+		<result property="yhMessage.yzbh" column="yzbh" />
 		
 		<result property="gl.id" column="id" />
 		<result property="gl.xh" column="xh" />
@@ -69,12 +70,7 @@
   		select distinct
  	         da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw
             +da.dgdtime*gl.dgkw+ da.dzdtime*gl.dzkw +da.dddtime*gl.ddkw as yydlS,
-		 	(da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw
-            +da.dgdtime*gl.dgkw+ da.dzdtime*gl.dzkw +da.dddtime*gl.ddkw)* dj.nldj +
-	        yh.yf*yh.mj*dj.mjdj  as yyjeS,
-	        (da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw
-            +da.dgdtime*gl.dgkw+ da.dzdtime*gl.dzkw +da.dddtime*gl.ddkw)* dj.nldj as nlfS,
-		 	yh.yf*yh.mj*dj.mjdj  as jbfS,yh.yf
+		 	yh.yf,yh.yzbh
 		from 
 		 	k_data10  da, 
 		 	k_yhb1  yh, 
@@ -90,7 +86,7 @@
    
    <update id="updateJf" parameterType="Data">
        update k_data10 
-       set yydl=#{yydl} , syje=#{syje} , yyje=#{yyje} , jbf=#{jbf} , nlf=#{nlf} 
+       set yydl=#{yydl}
        where yhbh=#{yhbh} and fpdz=#{fpdz}
    </update>
 	<!-- public List<Data> find()-->
@@ -258,10 +254,10 @@
 	 <insert id="InsertYh" parameterType="Data">
 	 <!-- socket更插入历史热表信息 -->
      insert into k_lssjb11 (fpbh,yhbh,fpdz,ms,dw,gdtime,zdtime,ddtime,dgdtime,dzdtime,dddtime,jf,sdwd,snwd,kg,bj,jj,time,
-     yydl,syje,yyje,jbf ,nlf
+     yydl,yf
      )values (
       #{fpbh},#{yhbh},#{fpdz},#{ms},#{dw},#{gdtime},#{zdtime},#{ddtime},#{dgdtime},#{dzdtime},#{dddtime},#{jf},#{sdwd},#{snwd},
-      #{kg},#{bj},#{jj},#{time},#{yydl} ,#{syje} ,#{yyje} ,#{jbf} , #{nlf} )
+      #{kg},#{bj},#{jj},#{time},#{yydl} ,#{yf})
 	 </insert>
 
 	 <insert id="InsertYhSSb" parameterType="Data">

@@ -36,7 +36,7 @@ public interface FpService {
 	 * @param yhbh
 	 * @return
 	 */
-	public Fp findfpbh(String yhbh);
+//	public Fp findfpbh(String yhbh);
 	
 	//查找风盘所有的型号
 		public List<Fp> findfp();

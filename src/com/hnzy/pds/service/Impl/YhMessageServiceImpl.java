@@ -116,22 +116,23 @@ public class YhMessageServiceImpl implements YhMessageService{
 		return yhMessageDao.findXqName();
 	}
 
-	@Override
-	public int findYf(String yhbhS)
-	{
-		//获取月份
-		return yhMessageDao.findYf(yhbhS);
-	}
+
 
 	@Override
-	public void updateYf(int yf)
+	public void updateYf(int yf,String yzbh)
 	{
-		yhMessageDao.updateYf(yf);
+		yhMessageDao.updateYf(yf,yzbh);
 	}
 
 	@Override
 	public int findyf()
 	{
 		return yhMessageDao.findyf();
+	}
+
+	@Override
+	public List<YhMessage> findType(int type)
+	{
+		return yhMessageDao.findType(type);
 	} 	
 }

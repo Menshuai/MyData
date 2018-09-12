@@ -7,9 +7,11 @@ import javax.servlet.ServletOutputStream;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.alibaba.fastjson.asm.Type;
 import com.hnzy.hot.base.BaseDao;
 import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.YhMessage;
+import com.hnzy.pds.service.YhMessageService;
  
 
 public interface YhMessageDao  extends BaseDao<YhMessage>{
@@ -85,10 +87,11 @@ public interface YhMessageDao  extends BaseDao<YhMessage>{
 	//历史数据
 //	public List<YhMessage> searchHistory(@Param("xqm")String xqm,@Param("ldh")int ldh,@Param("dyh")int dyh,
 //			@Param("hh")int hh,@Param("time1") String time1,@Param("time2") String time2);
-	//查找月份
-	public int  findYf(String yhbhS);
+	
 	public int findyf();
 	//更新当前月份
-	public void updateYf(int yf);
+	public void updateYf(@Param("yf")int yf,@Param("yzbh")String yzbh);
+	//查找按流量收费的用户月份
+	public List<YhMessage> findType(int type);
 	
 }

@@ -14,6 +14,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.aspectj.weaver.ast.Var;
 
 import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.Jf;
@@ -44,7 +45,7 @@ public class ExcelUtilJf {
 		//创建题行，并设置头标题
 		HSSFRow row2 = sheet.createRow(1);
 		String[] titles =
-		{ "用户名", "小区名称", "楼栋号", "单元号", "户号","用户编号" , "联系方式","缴费金额","已用金额","剩余金额", "合计金额", "缴费人", "缴费时间"};
+		{ "用户名", "小区名称", "楼栋号", "单元号", "户号","业主编号" , "联系方式","用户面积","已用当量","缴费金额", "合计金额", "缴费人","缴费类型","开始时间","结束时间", "缴费时间"};
 		for (int i = 0; i < titles.length; i++)
 		{
 			HSSFCell cell2 = row2.createCell(i);
@@ -52,6 +53,7 @@ public class ExcelUtilJf {
 			cell2.setCellStyle(style1);
 			cell2.setCellValue(titles[i]);
 		}
+		String type;
 		//操作单元格，将用户写Execl
 		if(jfList!=null){
 			for(int j=0;j<jfList.size();j++){
@@ -67,21 +69,53 @@ public class ExcelUtilJf {
 			HSSFCell c5=row.createCell(4);
 			c5.setCellValue(jfList.get(j).getYhMessage().getHh());
 			HSSFCell c6=row.createCell(5);
-			c6.setCellValue(jfList.get(j).getYhbh());
+			c6.setCellValue(jfList.get(j).getYzbh());
 			HSSFCell c7=row.createCell(6);
 			c7.setCellValue(jfList.get(j).getYhMessage().getLxdh());
 			HSSFCell c8=row.createCell(7);
-			c8.setCellValue(jfList.get(j).getJfje());
+			c8.setCellValue(jfList.get(j).getYhMessage().getMj());
 			HSSFCell c9=row.createCell(8);
-			c9.setCellValue(jfList.get(j).getYyje());
+			c9.setCellValue(jfList.get(j).getYydl());
 			HSSFCell c10=row.createCell(9);
-			c10.setCellValue(jfList.get(j).getSyje());
+			c10.setCellValue(jfList.get(j).getJfje());
 			HSSFCell c11=row.createCell(10);
 			c11.setCellValue(jfList.get(j).getHjje());
 			HSSFCell c12=row.createCell(11);
 			c12.setCellValue(jfList.get(j).getUserName());
 			HSSFCell c13=row.createCell(12);
-			c13.setCellValue(newdate.format(jfList.get(j).getTime()));
+			if(jfList.get(j).getType()==null){
+				c13.setCellValue("");
+			}else {
+			if(jfList.get(j).getType()==0){
+				c13.setCellValue("包月");
+			}else if(jfList.get(j).getType()==1){
+				c13.setCellValue("按量");
+			}else if(jfList.get(j).getType()==3){
+				c13.setCellValue("包季");
+			}else if(jfList.get(j).getType()==4){
+				c13.setCellValue("包年");
+			}else{
+				c13.setCellValue("");
+			}
+			}
+			HSSFCell c14=row.createCell(13);
+			if(jfList.get(j).getStartTime()==null){
+				c14.setCellValue("");
+			}else{
+				c14.setCellValue(newdate.format(jfList.get(j).getStartTime()));
+			}
+			HSSFCell c15=row.createCell(14);
+			if(jfList.get(j).getEndTime()==null){
+				c15.setCellValue("");
+			}else{
+				c15.setCellValue(newdate.format(jfList.get(j).getEndTime()));
+			}
+			HSSFCell c16=row.createCell(15);
+			if(jfList.get(j).getEndTime()==null){
+				c16.setCellValue("");
+			}else{
+				c16.setCellValue(newdate.format(jfList.get(j).getTime()));
+			}
 			}
 		}
 		workbook.write(outputStream);

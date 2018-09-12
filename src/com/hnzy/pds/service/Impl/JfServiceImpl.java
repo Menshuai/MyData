@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,34 +44,34 @@ public class JfServiceImpl  implements JfService{
 //	}
 
 	@Override
-	public Jf findzje(String yhbh)
+	public Jf findzje(String yzbh)
 	{
-		return jfDao.findzje(yhbh);
+		return jfDao.findzje(yzbh);
+	}
+
+//	@Override
+//	public void updateJf(Jf jf)
+//	{
+//		jfDao.updateJf(jf);
+//	}
+
+	@Override
+	public void updateJfHjje(String yzbh, Integer jfje, Double hjje, Date time,String userName,Integer type,String typeBz,String startTime,String endTime)
+	{
+		jfDao.updateJfHjje(yzbh, jfje, hjje, time,userName,type,typeBz,startTime,endTime);
 	}
 
 	@Override
-	public void updateJf(Jf jf)
+	public void InsertJfHistory(String yzbh, Integer jfje, Double hjje, Date time,
+			String userName,Integer type,String startTime,String endTime)
 	{
-		jfDao.updateJf(jf);
+		jfDao.InsertJfHistory(yzbh, jfje, hjje, time, userName,type,startTime,endTime);
 	}
 
 	@Override
-	public void updateJfHjje(String yhbh, Double jfje, Double hjje, Date time,String userName)
+	public List<Jf> Sear(String xqm, String ldh, String dyh, String hh,Integer type)
 	{
-		jfDao.updateJfHjje(yhbh, jfje, hjje, time,userName);
-	}
-
-	@Override
-	public void InsertJfHistory(String yhbh, Double yyje, Double syje, Double jfje, Double hjje, Date time,
-			String userName)
-	{
-		jfDao.InsertJfHistory(yhbh, yyje, syje, jfje, hjje, time, userName);
-	}
-
-	@Override
-	public List<Jf> Sear(String xqm, String ldh, String dyh, String hh)
-	{
-		return jfDao.Sear(xqm, ldh, dyh, hh);
+		return jfDao.Sear(xqm, ldh, dyh, hh,type);
 	}
 
 	@Override
@@ -86,9 +87,9 @@ public class JfServiceImpl  implements JfService{
 	}
 
 	@Override
-	public List<Jf> JffindHistorySear(String xqm, String ldh, String dyh, String hh, String time1, String time2)
+	public List<Jf> JffindHistorySear(String xqm, String ldh, String dyh, String hh, String time1, String time2,Integer type)
 	{
-		return jfDao.JffindHistorySear(xqm, ldh, dyh, hh, time1, time2);
+		return jfDao.JffindHistorySear(xqm, ldh, dyh, hh, time1, time2,type);
 	}
 
 	@Override
@@ -96,4 +97,17 @@ public class JfServiceImpl  implements JfService{
 	{
 		ExcelUtilJf.exportExcel(jfList, outputStream);
 	}
+
+	@Override
+	public Jf findYf(String yhbhS)
+	{
+		// TODO Auto-generated method stub
+		return jfDao.findYfS(yhbhS);
+	}
+
+//	@Override
+//	public Jf findHjje(String yhbh, String yzbh)
+//	{
+//		return jfDao.findHjje(yhbh, yzbh);
+//	}
 }

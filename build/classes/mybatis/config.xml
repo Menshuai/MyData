@@ -8,7 +8,7 @@
 		<typeAlias type="com.hnzy.pds.pojo.Fp" alias="Fp" />
 		<typeAlias type="com.hnzy.pds.pojo.SbSuc" alias="SbSuc" />
 		<typeAlias type="com.hnzy.pds.pojo.Role" alias="Role" />
-		
+		<typeAlias type="com.hnzy.pds.pojo.Price" alias="Price" />
 	<!-- <typeAlias type="com.hnzy.pds.pojo.Rz" alias="Rz" />
 		<typeAlias type="com.hnzy.pds.pojo.KfInfo" alias="KfInfo" />
 		<typeAlias type="com.hnzy.pds.pojo.Fm" alias="Fm" />

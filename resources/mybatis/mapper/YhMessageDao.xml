@@ -18,7 +18,12 @@
 		<result property="yhxm" column="yhxm" />
 		<result property="lxdh" column="lxdh" />  
 		<result property="bz" column="bz" />
-		
+		<result property="yzbh" column="yzbh"/>
+		<result property="jf.yzbh" column="yzbh"/>
+		<result property="jf.type" column="type"/>
+		<result property="jf.typeBz" column="typeBz "/>
+		<result property="jf.startTime" column="startTime"/>
+		<result property="jf.endTime" column="endTime "/>
 		<result property="cg.cgbh" column="cgbh" />
 		<result property="cg.jzqnet" column="jzqnet" />
 		<result property="cg.azdz" column="azdz" />
@@ -144,17 +149,17 @@
 		select  distinct dyh from k_yhb1 where xqm=#{1} and ldh=#{0} 
 	</select>
 	
-	<select id="findYf" resultType="Integer" >
-	select distinct yf from k_yhb1 where yhbh=#{yhbh}
-	</select>
+
 	
 	<insert id="updateYf" parameterType="YhMessage">
-	update k_yhb1 set yf=#{yf} 
+	update k_yhb1 set yf=#{yf} where yzbh=#{yzbh}
 	</insert>
 	
 	<select id="findyf" resultType="Integer" >
 	select distinct yf from k_yhb1
 	</select>
-	
+	<select id="findType" resultType="yhMessage"  >
+	select distinct  yh.yzbh,yh.yf,jf.endTime,yh.ldh,yh.dyh,yh.fpdz,yh.yhbh  from k_jfb12 jf,k_yhb1 yh where jf.yzbh=yh.yzbh and jf.type=#{type}
+	</select>
 </mapper>
 

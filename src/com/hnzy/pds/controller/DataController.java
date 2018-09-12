@@ -396,7 +396,7 @@ public class DataController {
 			dy=0+dy;
 		}
 		System.out.println("单元号"+dy);
-  		// 把FmID转换为int类型      ids为用户编码   
+  		//     ids为用户编码   
 		 int ids1 = Integer.valueOf(idString);
 		 String idsS = Integer.toHexString(ids1);//转换为十六进制  用户编码
 		 YhMessage yhmess=yhMessageService.findJzq(idString);

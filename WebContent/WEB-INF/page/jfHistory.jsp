@@ -42,10 +42,10 @@
 		$('#fixed_hdr2').fxdHdrCol({
 			fixedCols: 0,
 			width: "100%",
-			height: 550,
+			height: 700,
 			colModal: [
 			{ width: 50, align: 'center' },
-			{ width: 70, align: 'center' },
+			{ width: 130, align: 'center' },
 			{ width: 120, align: 'center' },
 			{ width: 65, align: 'center' },
 			{ width: 65, align: 'center' },
@@ -57,7 +57,8 @@
 			{ width: 70, align: 'center' },
 			{ width: 70, align: 'center' },
 			{ width: 70, align: 'center' },
-			{ width: 70, align: 'center' },
+			{ width: 150, align: 'center' },
+			{ width: 150, align: 'center' },
 			{ width: 150, align: 'center' }
 			
 			],
@@ -71,217 +72,6 @@
 <script type="text/javascript" src="../js/bootstrap.js">
 </script>
 <script src="../js/main.js"></script>
-<script type="text/javascript">
-
-//数据不允许为空
-
-function add(){
-	debugger;
-	var yhm=$("#add input[name=yhm]");
-	var xqm=$("#add select[name=xqm]");
-	var ldh=$("#add select[name=ldh]");
-	var dyh=$("#add select[name=dyh]");
-	var hh=$("#add input[name=hh]");
-	var hh=$("#add input[name=hh]");	
-	if(yhm.val()==null||yhm.val()==""||xqm.val()==null||xqm.val()==""||ldh.val()==null||ldh.val()==""||dyh.val()==null||dyh.val()==""||hh.val()==null||hh.val()==""){
-		 sAlert('信息不能为空，请填写完整!');
-		return false;
-	}
-	var hh=document.getElementById("hh").value;
-	var yhbh=document.getElementById("yhbh").value;
-	var jfje=document.getElementById("jfje").value;
-	var hjje=document.getElementById("hjje").value;
-	 if(isNaN(hh)){
-			
-			 sAlert('户号必须是数字！');
-			document.getElementById("hh").value="";
-			return;
-	 }
-	 if(isNaN(jfje)){
-			
-		 sAlert('缴费金额必须是数字！');
-		document.getElementById("hh").value="";
-		return;
-     }
-	 if(isNaN(hjje)){
-			
-		 sAlert('合计金额必须是数字！');
-		document.getElementById("jfje").value="";
-		return;
-     }
-	 if(isNaN(yhbh)){
-			
-		sAlert('用户编号必须是数字！并且为八位数');
-		document.getElementById("hjje").value="";
-		return;
-    }
-	if(yhbh.length!=8){
-		sAlert('用户编号必须是数字！并且为八位数');
-		document.getElementById("hjje").value="";
-		return;
-	}
-	$("#add form").submit();
-}
-
-//修改时数据不能为空
-function edit(){
-	var yhName=$("#edit input[name=yhName]");
-	var xqName=$("#edit input[name=xqName]");
-	var buildNo=$("#edit input[name=buildNo]");
-	var cellNo=$("#edit input[name=cellNo]");
-	var houseNo=$("#edit input[name=houseNo]");
-	var jfje=$("#edit input[name=jfje]");
-	if(jfje.val()==null){
-		 sAlert('信息不能为空，请填写完整!');
-		return false;
-	}
-	var jfje=document.getElementById("jfje").value;
-/* 	var n="^\+?[1-9][0-9]*$";
-	if(!n.test(jfje)){
-       alert('请输入正整数')
-     document.getElementById("edit_houseNo").value="";
-	} */
-	
-	  if(isNaN(jfje)){
-			
-			 sAlert('户号必须是数字！');
-			document.getElementById("edit_houseNo").value="";
-			return;
-	 }
-	$("#edit form").submit();
-}
-
-
-function openaddUserPage(){
-	$.ajax({
-		type:"post",
-		url:"findYhNameList.action",//获取json数据
-		dataType:"json",
-		success:function(data){
-			var dd=data;
-			var d=dd.xqlist;
-			$("#xqmId option:gt(0)").remove();
-			for(var i=0;i<d.length;i++){
-				debugger;
-				var xqm=d[i].xqm;
-				var opt="<option value='"+xqm+"'>"+xqm+"</option>";
-				$("#xqmIdS").append(opt);
-				
-			}
-		},
-	})
-	
-     $("#xqmIdS").change(
-						function() {
-							$.get("findYhldhbyxqm.action?xqm="
-									+ $("#xqmIdS").val(), function(data) {
-								var dd = data;
-								var d = dd.xqlist;
-							 	$("#ldhId option:gt(0)").remove();
-								$("#dyhId option:gt(0)").remove();
-								for (var i = 0; i < d.length; i++) {
-									var ldh = d[i].ldh;
-									var opt = "<option value='"+ldh+"'>"
-											+ ldh + "</option>"
-									$("#ldhIdS").append(opt);
-								}
-							});
-						});
-
-				$("#ldhIdS").change(//根据小区楼栋号获取  单元号
-						function() {
-							$.get("findYhdyhByBuild.action?ldh="
-									+ $("#ldhIdS").val() + "&xqm="
-									+ $("#xqmIdS").val(), function(data) {
-								var dd = data;
-								var d = dd.dyhList;
-								$("#dyhId option:gt(0)").remove();
-								for (var i = 0; i < d.length; i++) {
-									var dyh = d[i].dyh;
-									var opt = "<option value='"+dyh+"'>"
-											+ dyh + "</option>"
-									$("#dyhIdS").append(opt);
-								}
-							});
-						});
-	$("#add").modal({keyboard:false});
-	
-}
-function openEditUserPage(){
-	var ckbs=$("#users input[type=checkbox]:checked");
-	if(ckbs.length==0){
-		sAlert("请选择要缴费的用户");
-		return false;
-	}
-	if(ckbs.length>1){
-		sAlert("对不起一次只能选择一个用户，您选择了"+ckbs.length+"个用户");
-		return false;
-	}
-	var id=ckbs.val();
-	var yhName=ckbs.parent().next().text();
-	var xqName=ckbs.parent().next().next().text();
-	var buildNo=ckbs.parent().next().next().next().text();
-	var cellNo=ckbs.parent().next().next().next().next().text();
-	var houseNo=ckbs.parent().next().next().next().next().next().text();
-	var yhbh=ckbs.parent().next().next().next().next().next().next().text();
-	var lxdz=ckbs.parent().next().next().next().next().next().next().next().text();
-	var yyje=ckbs.parent().next().next().next().next().next().next().next().next().next().text();
-	var syje=ckbs.parent().next().next().next().next().next().next().next().next().next().next().text();
-	var hjje=ckbs.parent().next().next().next().next().next().next().next().next().next().next().next().text();
-	$("#edit_yhName").val(yhName);
-	$("#edit_xqName").val(xqName);
-	$("#edit_buildNo").val(buildNo);
-	$("#edit_cellNo").val(cellNo);
-	$("#edit_houseNo").val(houseNo);
-	$("#edit_yhbh").val(yhbh);
-	$("#edit_lxdz").val(lxdz);
-	$("#edit_hjje").val(hjje);
-	$("#edit_yyje").val(yyje);
-	$("#edit_syje").val(syje);
-	$("#edit").modal({keyboard:false});
-}
-//删除
-function openDeletePage(){
-		var ckbs=$("#users input[type=checkbox]:checked");
-		if(ckbs.length==0){
-			sAlert("请选择要删除的用户");
-			return false;
-		}
-		if(ckbs.length>1){
-			 sAlert('对不起一次只能删除一个');
-			return false;
-		}
-		var id=[];
-		$.each(ckbs,function(index,data){
-			id[index]=$(data).val();
-		});
-		var names=ckbs.parent().next();
-		var deleteUserNames=[];
-		$("#deleteUser .modal-body .col-sm-7").empty();
-		$("#deleteUser .modal-body .col-sm-7").append("<h4><span class='text-danger'>你确定要删除下面这"+ckbs.length+"个用户吗？<br/>"+"</span></h4>");
-		$.each(names,function(index,data){
-			deleteUserNames[index]=$(data).text();
-			$("#deleteUser .modal-body h4").append("<span class='small  '>"+"&nbsp;&nbsp;["+$(data).text()+"]&nbsp;&nbsp;"+"</span>");
-		});
-		$("#deleteUser .modal-body .col-sm-7").append("<div><button type='button' id='btn_delete_user' class='btn btn-sm btn-primary'>确定</button>&nbsp;<button id='closeDeleteUserPage' class='btn btn-sm btn-primary' type='button'>取消</button></div>");
-		$("#closeDeleteUserPage").click(function(){
-			$("#deleteUser").modal("hide");
-		});
-		$("#btn_delete_user").click(function(){	
-			$.ajax({
-				url :"delete.action?id="+id,
-				type : "post",
-				success : function() {
-					$("#deleteUser").modal("hide");
-					window.location.href="findYhInfo.action";
-				}
-			});		
-		});
-		
-		$("#deleteUser").modal({keyboard:false});
-	}
-</script>
-
  <script type="text/javascript">
 	/*页面加载就开始执行js*/
 	$(document).ready(//根据小区获取  楼栋号
@@ -329,6 +119,7 @@ function searchInfo() {
 	var hh = $('#hhId').val();
 	var time1 = $('#time1').val();
 	var time2 = $('#time2').val();
+	var type=$('#type').val();
 	var html = "";
 	$.ajax({
 		url : "SearchHistory.action",
@@ -341,10 +132,10 @@ function searchInfo() {
 			"hh" : hh,
 			"time1" : time1,
 			"time2" : time2,
+			"type":type,
 		},
 		success : function(data) {
 			$("#users").empty();
-			debugger;
 			var d = data.jfs;
 			for (var i = 0; i < d.length; i++) {
 				var id=d[i].id;
@@ -353,14 +144,34 @@ function searchInfo() {
 				var ldh = d[i].yhMessage.ldh;
 				var dyh = d[i].yhMessage.dyh;
 				var hh = d[i].yhMessage.hh;
-				var yhbh = d[i].yhbh;
+				var yzbh = d[i].yzbh;
 				var lxdh = d[i].yhMessage.lxdh;
 				var jfje = d[i].jfje;
-				var yyje = d[i].yyje;
-				var syje = d[i].syje;
 				var hjje = d[i].hjje;
 				var userName = d[i].userName;
 				var time = FormatDate(d[i].time);
+				var type=d[i].type;
+				if(type==0){
+					type="包月";
+				}else if(type==1){
+					type="按量";
+				}else if(type==3){
+					type="包季"
+				}else if(type==4){
+					type="包年"
+				}else if(type==undefined){
+					type="";
+				}else{
+					type="";
+				}
+				var startTime=d[i].startTime;
+				var endTime=d[i].endTime;
+				if(startTime==undefined){
+					startTime="";
+				}
+				if(endTime==undefined){
+					endTime="";
+				}
 				html += "<tr>";
 				html+="<td class='text-center'><input type='checkbox'  value='"+id+"'/></td>";
 				html += "<td class='text-center'>" + yhxm + "</td>";
@@ -368,13 +179,14 @@ function searchInfo() {
 				html += "<td class='text-center'>" + ldh + "</td>";
 				html += "<td class='text-center'>" + dyh + "</td>";
 				html += "<td class='text-center'>" + hh+ "</td>";
-				html += "<td class='text-center'>" + yhbh + "</td>";
+				html += "<td class='text-center'>" + yzbh + "</td>";
 				html += "<td class='text-center'>" + lxdh + "</td>";
 				html += "<td class='text-center'>" + jfje + "</td>";
-				html += "<td class='text-center'>" + yyje + "</td>";
-				html += "<td class='text-center'>" + syje + "</td>";
 				html += "<td class='text-center'>" + hjje + "</td>";
 				html += "<td class='text-center'>" + userName + "</td>";
+				html += "<td class='text-center'>" + type+ "</td>";
+				html += "<td class='text-center'>" + startTime+ "</td>";
+				html += "<td class='text-center'>" + endTime+ "</td>";
 				html += "<td class='text-center'>" + time + "</td>";
 				html += "</tr>";
 			}
@@ -394,6 +206,7 @@ function FormatDate(strTime) {
 <script type="text/javascript">
 	//导出
 	function doExportExcel() {
+		var type=$('#type').val();
 		var xqm = $('#xqmId').val();
 		var ldh = $('#ldhId').val();
 		var dyh = $('#dyhId').val();
@@ -402,7 +215,7 @@ function FormatDate(strTime) {
 		var time2 = $('#time2').val();
 		window.open("JfHistoryExportExcel.action?xqm=" + xqm + "&ldh="
 				+ ldh + "&dyh=" + dyh + "&hh=" + hh
-				+"&time1="+ time1+"&time2="+ time2);
+				+"&time1="+ time1+"&time2="+ time2+"&type="+type);
 	}
 </script>
 </head>
@@ -432,6 +245,14 @@ function FormatDate(strTime) {
 		&nbsp;&nbsp;&nbsp;
 		
 		户号：<input type="text" name="hh" id="hhId" value="${hh}" size=10px/> 
+		 &nbsp;&nbsp;&nbsp; 
+				缴费类型<select id="type">
+				<option value="2">-选择缴费类型-</option>
+				 <option value="1">按量</option>
+				 <option value="0">包月</option>
+				 <option value="3">包季</option>
+				 <option value="4">包年</option>
+				   </select>	
 		<label for="readMTime">选择时间:</label>
 		<input type="text" id="time1" name="time1" class="Wdate" onfocus="WdatePicker();" />
 			- -<input type="text" id="time2"  name="time2"  class="Wdate" onfocus="WdatePicker();" />	
@@ -448,13 +269,14 @@ function FormatDate(strTime) {
 						<th>楼栋号</th>
 						<th>单元号</th>
 						<th>户号</th>
-						<th>用户编号</th>
+						<th>业主编号</th>
 						<th>联系方式</th>
 						<th>缴费金额</th>
-						<th>已用金额</th>
-						<th>剩余金额</th>
 						<th>合计金额</th>
 						<th>缴费人</th>
+						<th>缴费类型</th>
+						<th>开始时间</th>
+						<th>结束时间</th>
 						<th>缴费时间</th>
 	           </tr>
 				</thead>
@@ -467,18 +289,36 @@ function FormatDate(strTime) {
                                     <td>${jf.yhMessage.ldh}</td>
                                     <td>${jf.yhMessage.dyh}</td>
                                     <td>${jf.yhMessage.hh}</td>
-                                    <td>${jf.yhbh}</td>
+                                    <td>${jf.yzbh}</td>
                                     <td>${jf.yhMessage.lxdh}</td>
                                     <td>${jf.jfje}</td>
-                                    <td>${jf.yyje}</td>
-                                    <td>${jf.syje}</td>
                                     <td>${jf.hjje}</td>
                                     <td>${jf.userName}</td>
-                                    <td>${jf.time}</td>
+                                    <c:choose>
+									<c:when test="${jf.type==0}">
+									  <td>包月</td>
+									</c:when>
+									<c:when test="${jf.type==1}">
+									<td>按量</td>
+									</c:when>
+									<c:when test="${jf.type==3}">
+									<td>包季</td>
+									</c:when>
+									<c:when test="${jf.type==4}">
+									<td>包年</td>
+									</c:when>
+									<c:otherwise>
+									<td></td>
+									</c:otherwise>
+									</c:choose>
+									<td>${jf.startTime}</td>
+									<td>${jf.endTime}</td>
+									<td>${jf.time}</td>
 					</c:forEach>
 				</tbody>
 			</table>
 			</div>
+</div>
 </div>
 </div>
 </body>

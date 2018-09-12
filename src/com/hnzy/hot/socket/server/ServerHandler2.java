@@ -377,55 +377,29 @@ public class ServerHandler2 extends IoHandlerAdapter
 			data.setYhbh(yhbhS);
 			data.setFpdz(fpdz);
 			dataService.updateYhbhF(data);// 更新实时表
-			// 根据用户编号和风盘地址更新，实时表计算，已用当量，基本费，能量费，已用金额
-			Data find = dataService.findYh(yhbhS, fpdz);
-			// 更具用户编号，查找用户的合计金额
-			Jf findzje = jfServce.findzje(yhbhS);
-			// 已用金额
-			Double yyje = find.getYyjeS();
-			// 能量费
-			double nlf = find.getNlfS();
-			// 基本费
-			double jbf = find.getJbfS();
+			Data find =null ;
+			Jf jf = jfServce.findYf(yhbhS);
+			Integer type=jf.getType(); //业主类型
+			
+			if(type.equals("1")){//按流量计算
+			// 根据用户编号和风盘地址更新，实时表计算，已用当量
+			find = dataService.findYh(yhbhS, fpdz);
 			// 已用当量
 			double yydl = find.getYydlS();
-			// 缴费表中总金额
-			double hjje = findzje.getHjje();
-			// 剩余金额
-			// double syje=hjje-yyje;
-			double syje = sub(hjje, yyje);
+
 			// 更新实时表缴费信息
 			Data datajf = new Data();
-			datajf.setYyje(yyje);
-			datajf.setNlf(nlf);
-			datajf.setSyje(syje);
-			datajf.setJbf(jbf);
 			datajf.setYydl(yydl);
 			datajf.setYhbh(yhbhS);
 			datajf.setFpdz(fpdz);
-
-			// 根据用户编号和风盘地址，更新用户缴费信息
+			// 根据用户编号和风盘地址，更新实时表用户缴费信息
 			dataService.updateJf(datajf);
-			// 更新缴费表缴费信息
-			Jf jfJs = new Jf();
-			jfJs.setYhbh(yhbhS);// 根据用户编号更新缴费表信息
-			jfJs.setYyje(yyje);// 更新缴费表已用金额
-			jfJs.setSyje(syje);// 剩余金额
-			jfJs.setGetime(time);// 缴费信息更新时间
-
-			jfServce.updateJf(jfJs);
-
-			Fp fp = fpService.findfpbh(yhbhS);
-			data.setFpbh(fp.getFpbh());
-
 			// 根据实时表查找月份
-			int yf = yhMessageService.findYf(yhbhS);
+		    int yf=find.getYf();
 			data.setYydl(yydl);
-			data.setYyje(yyje);
-			data.setSyje(syje);
-			data.setNlf(nlf);
-			data.setJbf(jbf);
 			data.setYf(yf);
+			dataService.InsertYh(data);// 插入历史表
+			}
 			dataService.InsertYh(data);// 插入历史表
 		} else if (stringHandler.length() > 82)
 		{
@@ -815,84 +789,31 @@ public class ServerHandler2 extends IoHandlerAdapter
 			data.setFpdz(fpdz);
 			dataService.updateYhbhF(data);// 更新实时表
 
-			// 根据用户编号和风盘地址更新，实时表计算，已用当量，基本费，能量费，已用金额
-			Data find = dataService.findYh(yhbhS, fpdz);
+			Data find =null ;
+			Jf jf = jfServce.findYf(yhbhS);
+			Integer type=jf.getType(); //业主类型
 			
-			
-			
-			//根据用户编码超找用户的业主编码
-			
-			
-			// 根据用户编号，查找用户的合计金额,根据业主编号超找
-			Jf findzje = jfServce.findzje(yhbhS);
-			
-			
-			// 已用金额
-			Double yyje = find.getYyjeS();
-			// 能量费
-			double nlf = find.getNlfS();
-			// 基本费
-			double jbf = find.getJbfS();
+			if(type==1){//按流量计算
+			// 根据用户编号和风盘地址更新，实时表计算，已用当量
+			find = dataService.findYh(yhbhS, fpdz);
 			// 已用当量
 			double yydl = find.getYydlS();
-			// 缴费表中总金额
-			double hjje = findzje.getHjje();
-			// 剩余金额
-			// double syje=hjje-yyje;
-			double syje = sub(hjje, yyje);
-			
-			
-			
-			
+
 			// 更新实时表缴费信息
 			Data datajf = new Data();
-			datajf.setYyje(yyje);
-			datajf.setNlf(nlf);
-			datajf.setSyje(syje);
-			datajf.setJbf(jbf);
 			datajf.setYydl(yydl);
 			datajf.setYhbh(yhbhS);
 			datajf.setFpdz(fpdz);
 			// 根据用户编号和风盘地址，更新实时表用户缴费信息
 			dataService.updateJf(datajf);
-			
-			
-			
-			
-			
-			
-			
-			// 更新缴费表缴费信息根据业主编码更新缴费信息
-			Jf jfJs = new Jf();
-			jfJs.setYhbh(yhbhS);// 根据用户编号更新缴费表信息
-			jfJs.setYyje(yyje);// 更新缴费表已用金额
-			jfJs.setSyje(syje);// 剩余金额
-			jfJs.setGetime(time);// 缴费信息更新时间
-			jfServce.updateJf(jfJs);
-
-			
-			
-			
-			
-			
-			
-			
-			Fp fp = fpService.findfpbh(yhbhS);
-			data.setFpbh(fp.getFpbh());
-
 			// 根据实时表查找月份
-			int yf = yhMessageService.findYf(yhbhS);
+		    int yf=find.getYf();
 			data.setYydl(yydl);
-			data.setYyje(yyje);
-			data.setSyje(syje);
-			data.setNlf(nlf);
-			data.setJbf(jbf);
 			data.setYf(yf);
 			dataService.InsertYh(data);// 插入历史表
-//			SbSuc sbSuc = new SbSuc();
-//			sbSuc.setSbSuc(yhbhS);
-//			sbSucService.update(sbSuc);
-			
+			}else{
+			dataService.InsertYh(data);// 插入历史表
+			}
 			if(bjs.equals("00")){
 				MapUtilsDf.getMapUtils().add("kt", yhbhS);
 			}
@@ -1094,56 +1015,57 @@ public class ServerHandler2 extends IoHandlerAdapter
 			data.setYhbh(yhbhS);
 			data.setFpdz(fpdz);
 			dataService.updateYhbhF(data);// 更新实时表
-
-			// 根据用户编号和风盘地址更新，实时表计算，已用当量，基本费，能量费，已用金额
-			Data find = dataService.findYh(yhbhS, fpdz);
-			// 更具用户编号，查找用户的合计金额
-			Jf findzje = jfServce.findzje(yhbhS);
-			// 已用金额
-			Double yyje = find.getYyjeS();
-			// 能量费
-			double nlf = find.getNlfS();
-			// 基本费
-			double jbf = find.getJbfS();
-			// 已用当量
-			double yydl = find.getYydlS();
-			// 缴费表中总金额
-			double hjje = findzje.getHjje();
-			// 剩余金额
-			// double syje=hjje-yyje;
-			double syje = sub(hjje, yyje);
-			// 更新实时表缴费信息
-			Data datajf = new Data();
-			datajf.setYyje(yyje);
-			datajf.setNlf(nlf);
-			datajf.setSyje(syje);
-			datajf.setJbf(jbf);
-			datajf.setYydl(yydl);
-			datajf.setYhbh(yhbhS);
-			datajf.setFpdz(fpdz);
-
-			// 根据用户编号和风盘地址，更新用户缴费信息
-			dataService.updateJf(datajf);
-			// 更新缴费表缴费信息
-			Jf jfJs = new Jf();
-			jfJs.setYhbh(yhbhS);// 根据用户编号更新缴费表信息
-			jfJs.setYyje(yyje);// 更新缴费表已用金额
-			jfJs.setSyje(syje);// 剩余金额
-			jfJs.setGetime(time);// 缴费信息更新时间
-
-			jfServce.updateJf(jfJs);
-
-			Fp fp = fpService.findfpbh(yhbhS);
-			data.setFpbh(fp.getFpbh());
-
-			// 根据实时表查找月份
-			int yf = yhMessageService.findYf(yhbhS);
-			data.setYydl(yydl);
-			data.setYyje(yyje);
-			data.setSyje(syje);
-			data.setNlf(nlf);
-			data.setJbf(jbf);
-			data.setYf(yf);
+//
+//			// 根据用户编号和风盘地址更新，实时表计算，已用当量，基本费，能量费，已用金额
+//			Data find = dataService.findYh(yhbhS, fpdz);
+//			// 更具用户编号，查找用户的合计金额
+//			Jf findzje = jfServce.findzje(yhbhS);
+//			// 已用金额
+//			Double yyje = find.getYyjeS();
+//			// 能量费
+//			double nlf = find.getNlfS();
+//			// 基本费
+//			double jbf = find.getJbfS();
+//			// 已用当量
+//			double yydl = find.getYydlS();
+//			// 缴费表中总金额
+//			double hjje = findzje.getHjje();
+//			// 剩余金额
+//			// double syje=hjje-yyje;
+//			double syje = sub(hjje, yyje);
+//			// 更新实时表缴费信息
+//			Data datajf = new Data();
+//			datajf.setYyje(yyje);
+//			datajf.setNlf(nlf);
+//			datajf.setSyje(syje);
+//			datajf.setJbf(jbf);
+//			datajf.setYydl(yydl);
+//			datajf.setYhbh(yhbhS);
+//			datajf.setFpdz(fpdz);
+//
+//			// 根据用户编号和风盘地址，更新用户缴费信息
+//			dataService.updateJf(datajf);
+//			// 更新缴费表缴费信息
+//			Jf jfJs = new Jf();
+//			jfJs.setYhbh(yhbhS);// 根据用户编号更新缴费表信息
+//			jfJs.setYyje(yyje);// 更新缴费表已用金额
+//			jfJs.setSyje(syje);// 剩余金额
+//			jfJs.setGetime(time);// 缴费信息更新时间
+//
+//			jfServce.updateJf(jfJs);
+//
+//			Fp fp = fpService.findfpbh(yhbhS);
+//			data.setFpbh(fp.getFpbh());
+//
+//			// 根据实时表查找月份
+//			YhMessage yhMessage = yhMessageService.findYf(yhbhS);
+//			int yf=yhMessage.getYf();
+//			data.setYydl(yydl);
+//			data.setYyje(yyje);
+//			data.setSyje(syje);
+//			data.setNlf(nlf);
+//			data.setJbf(jbf);
+//			data.setYf(yf);
 			dataService.InsertYh(data);// 插入历史表
 //			SbSuc sbSuc = new SbSuc();
 //			sbSuc.setSbSuc(yhbhS);
