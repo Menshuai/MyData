@@ -13,6 +13,18 @@ import com.hnzy.pds.pojo.Jf;
 import com.hnzy.pds.pojo.YhMessage;
 
 public interface JfService {
+	
+	//根据 缴费时间查询缴费笔数
+		public int findJfbs( );
+		
+		//根据 缴费时间查询缴费总金额
+		public int findJfzje( );
+		
+		//根据 缴费时间查询缴费笔数
+		public int findBzJfbs( );
+		
+		//根据 缴费时间查询缴费总金额
+		public int findBzJfzje( );
 
 	/**
 	 * 查找信息
@@ -55,4 +67,15 @@ public interface JfService {
 //  	public Jf findHjje(String yhbh,String yzbh);
   //查找月份
   	public Jf  findYf(String yhbhS);
+<<<<<<< HEAD
+=======
+
+	/**
+	 *  根据用户编号查询用户所在小区-楼栋-单元-门牌号
+	 * @param yhbh
+	 * @return ymparm
+	 * @author ms
+	 */
+	public List<com.hnzy.pds.pojo.Jf> findjfByYhbh(com.hnzy.pds.pojo.Jf jfparm);
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 }

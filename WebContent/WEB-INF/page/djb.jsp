@@ -73,7 +73,6 @@ function add(){
 	var mjdj=$("#add input[name=mjdj]");
 	var yhlb=$("#add input[name=yhlb]");
 	var bz=$("#add input[name=bz]");
-	 
 	if(nldj.val()==null||nldj.val()==""||mjdj.val()==null||mjdj.val()==""||yhlb.val()==null||yhlb.val()==""||bz.val()==null||bz.val()==""){
 			 alert('信息不能为空，请填写完整!');
 			return false;

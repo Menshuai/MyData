@@ -66,10 +66,10 @@ public class DataController {
 		
 		List<Data> YhList=dataService.find();
 		
-		
 		request.setAttribute("YhList", YhList);
 		return "/data";  //数据表data.jsp
 	}
+	
 	
 	//设备管理
 	@RequestMapping("/dataSbgl")

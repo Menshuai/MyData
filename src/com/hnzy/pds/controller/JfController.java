@@ -20,19 +20,30 @@ import org.apache.catalina.deploy.LoginConfig;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
+<<<<<<< HEAD
+=======
+import org.springframework.http.HttpRequest;
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hnzy.pds.pojo.Jf;
+<<<<<<< HEAD
+=======
+import com.hnzy.pds.pojo.Jzq;
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 import com.hnzy.pds.pojo.Price;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.JfService;
 import com.hnzy.pds.service.PriceService;
 import com.hnzy.pds.service.YhMessageService;
+import com.hnzy.pds.util.DateUtil;
+import com.hnzy.pds.util.MountUtil;
 
 @Controller
 @RequestMapping("JfController")
@@ -45,7 +56,29 @@ public class JfController {
 	@Autowired
 	private PriceService priceService;
 	private List<YhMessage> yhInfoList;
-	 private List<Jf> jfs;
+	private List<Jf> jfs;
+	
+	
+ /* //今日缴费笔数
+	@RequestMapping("/jfbs")
+	public String findJfbs(HttpServletRequest request){
+	
+		return "jf";
+	}
+	
+	//今日缴费总金额
+	@RequestMapping("/jfzje")
+	public String findJfzje(HttpServletRequest request ){
+	
+		return "jf";
+	}  */
+	 
+//	更新 修改0----------------------------
+	@RequestMapping("/updateYhMessage")
+	public String update(YhMessage yhMessage){
+		yhMessageService.update(yhMessage);
+		return  "redirect:yhfindList.action";
+	}
 
 	 @RequestMapping("/yfCheck")
 	 @ResponseBody
@@ -248,9 +281,19 @@ public class JfController {
 		    calendar.setTime(new Date());
 		    return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 	 }
+<<<<<<< HEAD
+=======
+	 
+	 
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 	//实时列表页面
 	@RequestMapping("/JFfindList")
 	public String findList(HttpServletRequest request ){
+		request.setAttribute("jfbs", jfService.findJfbs());
+		request.setAttribute("jfzje",jfService.findJfzje());
+		
+		request.setAttribute("jfBzbs", jfService.findBzJfbs());
+		request.setAttribute("jfBzjfje", jfService.findBzJfzje());
 		
 		yhInfoList=yhMessageService.findXqName();
 		request.setAttribute("XqNameList", yhInfoList);
@@ -258,6 +301,19 @@ public class JfController {
 		request.setAttribute("jf", jfs);
 		return "jf";
 	}
+	
+	//实时列表页面
+		@RequestMapping("/JFfindListxx")
+		public String findListxx(HttpServletRequest request ){
+			
+			yhInfoList=yhMessageService.findXqName();
+			request.setAttribute("XqNameList", yhInfoList);
+			jfs=jfService.find();
+			request.setAttribute("jf", jfs);
+			return "jfxxbj";
+		}
+	
+	
 	//历史数据列表
 	@RequestMapping("/JFfindHistList")
 	public String JFfindHistList(HttpServletRequest request ){
@@ -266,12 +322,93 @@ public class JfController {
 		jfs=jfService.JffindHistory();
 		request.setAttribute("jf", jfs);
 		return "jfHistory";
-		
 	}
 	
+	 //打印发票
+	 @RequestMapping("/findFap")
+	 public String findFp(HttpServletRequest req){
+		 //接收参数
+		 String yhbh=req.getParameter("yhbh");
+		 YhMessage ymparm=new YhMessage();
+		 ymparm.setYhbh(yhbh);//用户编号
+		 //根据用户编号查询用户所在小区-楼栋-单元-户号
+		 yhInfoList=yhMessageService.findXqByYhbh(ymparm);
+		 
+		 Jf jfparm=new Jf();
+		 jfparm.setYzbh(yhbh);//业主编号、
+		 //根据用户编号查询用户所在小区-楼栋-单元-户号
+		 jfs=jfService.findjfByYhbh(jfparm);
+		 
+		 if(yhInfoList != null && yhInfoList.size() > 0 && jfs != null && jfs.size() > 0){
+			 ymparm=yhInfoList.get(0);
+			 //日期需要根据yzbh查询数据库
+			 req.getSession().setAttribute("xqm",ymparm.getXqm());//小区名称
+			 req.getSession().setAttribute("ldh",ymparm.getLdh());//楼栋号
+			 req.getSession().setAttribute("dyh",ymparm.getDyh());//单元号
+			 req.getSession().setAttribute("hh",ymparm.getHh());//房间号
+			 req.getSession().setAttribute("name",ymparm.getYhxm());//用户姓名
+			 Jf jfBean=new Jf();//缴费实体。
+			 jfBean=jfs.get(0);
+			 ymparm=yhInfoList.get(0);
+			 req.getSession().setAttribute("rmbD",MountUtil.change(jfBean.getJfje()));//人民币大写
+			 req.getSession().setAttribute("rmbX",jfBean.getJfje());//人民币小写
+			 String jfType=getJfType(jfBean.getType());
+			 //日期需要转换成  ----年--月--日
+			 req.getSession().setAttribute("model", jfType);
+			 req.getSession().setAttribute("startTime",DateUtil.strToStr(jfBean.getStartTime()));
+			 req.getSession().setAttribute("endTime",DateUtil.strToStr(jfBean.getEndTime()));
+		 }else{
+			 req.getSession().setAttribute("xqm", "未获取到数据！");//小区名称
+			 req.getSession().setAttribute("ldh","未获取到数据！");//楼栋号
+			 req.getSession().setAttribute("dyh","未获取到数据！");//单元号
+			 req.getSession().setAttribute("hh","未获取到数据！");//房间号
+			 req.getSession().setAttribute("name","未获取到数据！ ");//用户姓名
+			 req.getSession().setAttribute("rmbD","未获取到数据！");//人民币大写
+			 req.getSession().setAttribute("rmbX","未获取到数据！");//人民币小写
+			 req.getSession().setAttribute("model","未获取到数据！");//收费模式
+			 req.getSession().setAttribute("startTime", "未获取到数据！");
+			 req.getSession().setAttribute("endTime", "未获取到数据！");
+		 }
+		 
+		return "FaP";// 发票打印页面
+	 }
+	 
+	 /**
+	  * 根据缴费表缴费模式返回相应文字
+	  * @param typeString
+	  * @return
+	  */
+	 private String getJfType(Integer typeString) {
+		String type="";
+		 switch (typeString) { 
+			case 1:
+				type="流量";
+				break;
+			case 2:
+				type="包月";
+				break;
+			case 3:
+				type="包季";
+				break;
+			case 4:
+				type="包年";
+				break;
+			 default :
+				type="包月";
+				 break;
+			}
+		 return type;
+	}
+
 	@RequestMapping("/JfMe")
 	public String Jf(){
 		return "JfMen";
+	}
+	
+	
+	@RequestMapping("/RL")
+	public String RL(){
+		return "日历222";
 	}
 	
 	//根据小区获取 小区名称
@@ -318,11 +455,27 @@ public class JfController {
 		}
 		return jsonObject;
 	}
+	 
+	
+	
+	//修改 
+		@RequestMapping(value="/updateYH")
+		public String updateYH(YhMessage yhMessage){
+			yhMessageService.updateyh(yhMessage);
+			return  "redirect:JFfindListxx.action";
+		}
+		
+		
 	//更新缴费及合计金额
 	@RequestMapping("update")
 	@ResponseBody
 	public JSONObject update(HttpSession session,String yzbh,Integer jfje,Double hjje,String yf,Integer jf,String time){
+<<<<<<< HEAD
 		String userName=(String)session.getAttribute("UserName");
+=======
+		//String userName=(String)session.getAttribute("UserName");
+		String userName="uuu";
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 		System.out.println("time-----------"+time);
 		String[] jfTime=time.split("至");
 		String startTime=jfTime[0];

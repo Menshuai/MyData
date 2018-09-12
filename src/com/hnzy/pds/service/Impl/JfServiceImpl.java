@@ -1,6 +1,7 @@
 package com.hnzy.pds.service.Impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.hnzy.pds.dao.JfDao;
 import com.hnzy.pds.pojo.Jf;
+import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.JfService;
 import com.hnzy.pds.util.ExcelUtilJf;
  
@@ -104,6 +106,49 @@ public class JfServiceImpl  implements JfService{
 		// TODO Auto-generated method stub
 		return jfDao.findYfS(yhbhS);
 	}
+<<<<<<< HEAD
+=======
+	/**
+	 * 根据yhbh查询缴费表用户信息。
+	 * @param yhbh
+	 * @return ymparm
+	 * @author ms
+	 */
+	@Override
+	public List<Jf> findjfByYhbh(Jf jfparm) {
+		//链接数据库要tar catch，捕获链接数据库连不上或者查询出错的异常。
+		List<Jf> jfList=new ArrayList<>();
+				try {
+					jfList=jfDao.findjfByYhbh(jfparm);
+				} catch (Exception e) {
+					//如果有日志打印日志，
+					System.out.println("根据用户编号查询用户所在小区-楼栋-单元-门牌号出错啦！");
+				}
+				 return jfList;
+	}
+
+	@Override
+	public int findJfbs( ) {
+		return jfDao.findJfbs();
+	}
+
+	@Override
+	public int findJfzje( ) {
+		return jfDao.findJfzje();
+	}
+
+	@Override
+	public int findBzJfbs() {
+		return jfDao.findBzJfbs();
+	}
+
+	@Override
+	public int findBzJfzje() {
+		return jfDao.findBzJfzje();
+	}
+
+	 
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 
 //	@Override
 //	public Jf findHjje(String yhbh, String yzbh)

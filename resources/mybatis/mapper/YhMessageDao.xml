@@ -37,6 +37,17 @@
 		 
 	</resultMap>
 	
+	
+	<!--public void updateyh(YhMessage yhMessage);  -->
+	<update   id="updateyh" parameterType="YhMessage">
+	update k_yhb1 
+		set
+		yhxm=#{yhxm},xqm=#{xqm},ldh=#{ldh},dyh=#{dyh},hh=#{hh},
+		yzbh=#{yzbh},lxdh=#{lxdh},mj=#{mj}
+		where id=#{id}
+	</update>
+	
+	
 	<!--查找小区名 public List<YhMessage> findXQN(); -->
 	<select id="findXQN"  resultMap="yhMessage"  parameterType="YhMessage">
 	select distinct xqm from k_yhb1 
@@ -137,6 +148,14 @@
 	<!--查找小区名字 public List<YhMessage> findXqName(); -->
 	<select id="findXqName" parameterType="YhMessage"   resultMap="yhMessage">
 		select  distinct xqm from k_yhb1 
+	</select>
+	
+	<!--根据员工编号查询所在小区 List<YhMessage> findXqName(); -->
+	<select id="findXqByYhbh" parameterType="YhMessage"   resultMap="yhMessage">
+		select * from k_yhb1 where 1=1
+		<if test="yhbh !=null and yhbh != ''">
+		and yzbh=#{yhbh}
+		</if>
 	</select>
 	
 	<!--通过小区 获取楼栋  public List<YhMessage> findYhBuildNObyXqm(String xqm); -->

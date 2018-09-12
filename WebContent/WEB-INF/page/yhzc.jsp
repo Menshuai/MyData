@@ -62,6 +62,17 @@
 				<div id="v3" style="float: left; margin-left: 20px;"></div>
 			</div>
 			
+			 <div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"> 
+				<span class="c-red">*</span>所属公司:
+		 
+				</label>
+				<div style="float: left;" class="formControls col-5">
+					<input type="text" class="input-text" id="password" name="所属公司" />
+				</div>
+				<div id="v3" style="float: left; margin-left: 20px;"></div>
+			</div>  
+			
 			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3"> <span
 					class="c-red">*</span>权限：
@@ -72,6 +83,7 @@
 					<input type="radio" value="2" id="roleId"	name="root" >财务人员
 				</div>
 			</div>
+			
 			
 			<div class="row cl">
 				<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">

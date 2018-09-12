@@ -1,6 +1,7 @@
 package com.hnzy.pds.service;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -8,11 +9,16 @@ import javax.servlet.ServletOutputStream;
 import org.apache.ibatis.annotations.Param;
 
 import com.hnzy.pds.pojo.Data;
+import com.hnzy.pds.pojo.Jf;
 import com.hnzy.pds.pojo.Jzq;
 import com.hnzy.pds.pojo.Repair;
 import com.hnzy.pds.pojo.YhMessage;
 
 public interface YhMessageService {
+	
+	
+	
+	public void updateyh(YhMessage yhMessage);
 	
 	public List<YhMessage> find();
 	
@@ -94,6 +100,17 @@ public interface YhMessageService {
 	public void updateYf(int yf,String yzbh);
 	//查找按流量收费的用户月份
 	public List<YhMessage> findType(int type);
+<<<<<<< HEAD
 	
+=======
+
+	/**
+	 *  根据用户编号查询用户所在小区-楼栋-单元-门牌号
+	 * @param yhbh
+	 * @return ymparm
+	 * @author ms
+	 */
+	public List<YhMessage> findXqByYhbh(YhMessage ymparm);
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 	
 }

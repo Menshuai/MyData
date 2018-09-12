@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<<<<<<< HEAD
+=======
+	<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
 <head>
@@ -9,8 +17,22 @@
 <title>用户缴费</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="../js/biao.js"></script>
+<<<<<<< HEAD
 <link href="../css/main.css" rel="stylesheet" type="text/css" />
 <link href="../css/bootstrap.css" rel="stylesheet">
+=======
+
+<link href="../css/theme.min.css" type="text/css" rel="stylesheet" />
+<link href="../css/style.css" type="text/css" rel="stylesheet" />
+<!-- <link href="../css/bootstrap.css" rel="stylesheet"> -->
+ <!--  <link href="../css/thene.min.css" type="text/css" rel="stylesheet" />
+<link href="../css/style.css" type="text/css" rel="stylesheet" />   -->
+
+<link href="../js/layer/2.4/skin/layer.css" rel="stylesheet" type="text/css" />
+<link href="../js/layui/css/layui.css" rel="stylesheet" type="text/css" />
+<script src="../js/layer/2.4/layer.js" type="text/javascript"></script>
+<script src="../js/layui/layui.js" type="text/javascript"></script>
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 <script type="text/javascript" src="../js/jquery-1.4.4.min.js"></script>
 <link href="../css/fixed_table_rc.css" type="text/css" rel="stylesheet"
 	media="all" />
@@ -22,6 +44,18 @@
 <script src="../js/fixed_table_rc.js" type="text/javascript"></script>
 <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
 <style>
+<<<<<<< HEAD
+=======
+.touyou {
+	width: 100px;
+	height: 80px;
+	background-color: #3CF;
+	text-align: center
+}
+.touyou img {
+	margin: 22px auto;
+}
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 html, body {
 	font-family: Arial, ​​sans-serif;
 	font-size: 13px;
@@ -39,6 +73,50 @@ div.container {
 .ft_container table tr th {
 	background: url(../images/secai.jpg);
 }
+<<<<<<< HEAD
+=======
+.tou{
+	 display: flex;
+
+	}
+.div1{
+	width:300px;
+	height:100px;
+	font-size:20px;
+	line-height:90px;
+	background-color:#4BC9D3;
+	}	
+.div2{
+	width:300px;
+	height:100px;
+	font-size:20px;
+	line-height:90px;
+	background-color:#4BC9D3;
+	margin-left:20px;
+	}
+.div3{
+	width:300px;
+	height:100px;
+	font-size:20px;
+	line-height:90px;
+	background-color:#FFFF00;
+	margin-top:10px;
+	
+	}
+.div4{
+	width:300px;
+	height:100px;
+	font-size:20px;
+	line-height:90px;
+	background-color:#FFFF00;
+	margin-left:400px;
+	margin-top:40px;
+	}	
+.div5{
+	background-color:#4BC9D3;
+	margin-left:100px;
+	}
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 </style>
 <script>
 	$(function() {
@@ -84,6 +162,17 @@ div.container {
 				width : 70,
 				align : 'center'
 			},
+<<<<<<< HEAD
+=======
+			
+			{
+				width : 80,
+				align : 'center'
+			}, {
+				width : 80,
+				align : 'center'
+			},
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 			 {
 				width : 70,
 				align : 'center'
@@ -106,14 +195,20 @@ div.container {
 
 	});
 </script>
+<<<<<<< HEAD
 <link href="../css/main.css" rel="stylesheet" type="text/css" />
+=======
+
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 <link href="../css/bootstrap.css" rel="stylesheet">
 <script type="text/javascript" src="../js/bootstrap.js">
 	
 </script>
 <script src="../js/main.js"></script>
+<!-- <script src="../js/wljf/wljf-jf.js"></script> -->
 <script type="text/javascript">
 	//数据不允许为空
+<<<<<<< HEAD
 
 	function add() {
 		var yhm = $("#add input[name=yhm]");
@@ -134,11 +229,33 @@ div.container {
 		var hjje = document.getElementById("hjje").value;
 		if (isNaN(hh)) {
 
+=======
+	function add() {
+		var yhm = $("#add input[name=yhm]");
+		var xqm = $("#add select[name=xqm]");
+		var ldh = $("#add select[name=ldh]");
+		var dyh = $("#add select[name=dyh]");
+		var hh = $("#add input[name=hh]");
+		if (yhm.val() == null || yhm.val() == "" || xqm.val() == null
+				|| xqm.val() == "" || ldh.val() == null || ldh.val() == ""
+				|| dyh.val() == null || dyh.val() == "" || hh.val() == null
+				|| hh.val() == "") {
+			sAlert('信息不能为空，请填写完整!');
+			return false;
+		}
+		var hh = document.getElementById("hh").value;
+		var yzbh = document.getElementById("yzbh").value;
+		var jfje = document.getElementById("jfje").value;
+		var hjje = document.getElementById("hjje").value;
+		if (isNaN(hh)) {
+
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 			sAlert('户号必须是数字！');
 			document.getElementById("hh").value = "";
 			return;
 		}
 		if (isNaN(jfje)) {
+<<<<<<< HEAD
 
 			sAlert('缴费金额必须是数字！');
 			document.getElementById("hh").value = "";
@@ -226,6 +343,110 @@ div.container {
 					var opt = "<option value='"+xqm+"'>" + xqm + "</option>";
 					$("#xqmIdS").append(opt);
 
+=======
+
+			sAlert('缴费金额必须是数字！');
+			document.getElementById("hh").value = "";
+			return;
+		}
+		if (isNaN(hjje)) {
+
+			sAlert('合计金额必须是数字！');
+			document.getElementById("jfje").value = "";
+			return;
+		}
+		if (isNaN(yzbh)) {
+
+			sAlert('业主编号必须是数字！并且为八位数');
+			document.getElementById("hjje").value = "";
+			return;
+		}
+		if (yhbh.length != 8) {
+			sAlert('用户编号必须是数字！并且为八位数');
+			document.getElementById("hjje").value = "";
+			return;
+		}
+		$("#add form").submit();
+	}
+
+	//修改时数据不能为空
+	function edit() {
+		var yzbh = document.getElementById("edit_yzbh").value;//业主编号
+		var jfje = document.getElementById("jfjeId").value;//缴费金额
+		var hjje = document.getElementById("edit_hjje").value;
+		var syje="";
+		var yf = document.getElementById("yf").value;
+		var jf = $("input[name='jf']:checked").val();
+		var time=document.getElementById("time").innerText;
+		if(jf==undefined){
+			jf=0;
+		}
+		if ( jfje == "") {
+			sAlert('信息不能为空，请填写完整!');
+			return false;
+		}
+		if (isNaN(jfje)) {
+
+			sAlert('缴费金额必须是数字！');
+			document.getElementById("edit_houseNo").value = "";
+			return;
+		}
+		$.ajax({
+			type : "post",
+			url : "update.action",//获取json数据
+			dataType : "json",
+			data : {
+				"yzbh" : yzbh,
+				"jfje" : jfje,
+				"hjje" : hjje,
+				"syje" : syje,
+				"yf" : yf,
+				"jf" : jf,
+				"time":time,
+			},
+			success : function(data) {
+				var d = data.js;
+				if (d == "success") {
+					//询问框
+					layer.confirm('缴费成功,你要打印凭证吗?', {
+					  skin: 'layui-layer-molv', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+					  btn: ['前往','不要'] //按钮
+					}, function(){
+						  layer.msg('跳转成功', {icon: 1});
+						  //跳转到 缴费页面 FaP页面
+						   window.location="/Data/JfController/findFap.action?yhbh="+yzbh;
+						}, function(){
+						  searchInfo();//刷新页面，应该是在点击取消后刷新 
+						  layer.msg('欢迎下次再来', {
+						    time:3000, //30s后自动关闭
+						  });
+					});
+					
+				}else{
+					alert("缴费失败！");
+				}
+				
+			},
+		})
+		$("#edit").modal("hide");
+		/* $("#edit form").submit(); */
+	}
+
+	function openaddUserPage() {
+		$.ajax({
+			type : "post",
+			url : "findYhNameList.action",//获取json数据
+			dataType : "json",
+			success : function(data) {
+				var dd = data;
+				var d = dd.xqlist;
+				$("#xqmId option:gt(0)").remove();
+				for (var i = 0; i < d.length; i++) {
+					var xqm = d[i].xqm;
+					var opt = "<option value='"+xqm+"'>" + xqm + "</option>";
+					$("#xqmIdS").append(opt);
+
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 				}
 			},
 		})
@@ -557,8 +778,94 @@ function onJe(){
 </script>
 </head>
 <body>
+<<<<<<< HEAD
 	<div class="panel panel-success">
 		<div class="panel-heading">业主缴费信息</div>
+=======
+<table width="1300" height="200" border="0"   >
+  <tr >
+     <td width="252"><div style="width:250px; height:80px; border:1px solid #999; display:flex;">
+        <div  class="touyou" > <img src="../img/i.png" width="40" height="40" /> </div>
+        <div align="center" style=" width:250px;height:150px; margin-top:25px;">
+          <div style="font-size: 20px ;color: red;">${jfbs}</div>
+          <div style="margin-top:5px;">今日缴费笔数</div>
+        </div>
+      </div>
+      </td>
+      
+     <td width="252"><div style="width:250px; height:80px; border:1px solid #999; display:flex;">
+        <div  class="touyou" > <img src="../img/i.png" width="40" height="40" /> </div>
+        <div align="center" style=" width:250px;height:150px; margin-top:25px;">
+          <div style="font-size: 20px ;color: red;">${jfzje}</div>
+          <div style="margin-top:5px;">今日缴费总金额</div>
+        </div>
+      </div>
+      </td>
+      
+   <td width="291"><td width="4"><td width="4"><td width="5"><td width="6"><td width="9"><td width="15"><td width="10"><td width="606" rowspan="2">
+<!--         
+<div class="aboluo-w-700">
+	<div class="aboluo-leftdiv">
+		<div class="aboluo-tools">
+			<div class="aboluo-calendar-select-year"></div>
+			<div class="aboluo-calendar-month">
+				<a class="aboluo-month-a-perv" href="javascript:;">&lt; </a>
+				<a class="aboluo-month-a-next" href="javascript:;"> &gt;</a>
+			</div>
+			<input type="button" class="aboluo-toToday" value="返回今天" />
+		</div>
+		<div class="aboluo-rilidiv">
+			<table class="aboluo-rilitable" cellspacing="0" cellpadding="0" >
+				<thead class="aboluo-rilithead">
+					<tr>
+						<th>一</td>
+						<th>二</td>
+						<th>三</td>
+						<th>四</td>
+						<th>五</td>
+						<th style="color:red;">六</td>
+						<th style="color:red;">日</td>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+    	   <div class="aboluo-rightdiv">
+		  <p class="aboluo-xssj"><p>  
+	  	  <p class="aboluo-currday">.</p>  黄色背景哪一天  
+	   </div>      
+</div> -->
+<script type="text/javascript" src="css/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="css/script.js"></script>
+<td width="93"></td>
+</tr>
+
+  <tr>
+     <td width="565"><div style="width:250px; height:80px; border:1px solid #999; display:flex;">
+        <div  class="touyou" > <img src="../img/i.png" width="40" height="40" /> </div>
+        <div align="center" style=" width:250px;height:150px; margin-top:25px;">
+          <div style="font-size: 20px;color: red;">${jfBzbs}</div>
+          <div style="margin-top:5px;">本周缴费笔数</div>
+        </div>
+      </div></td>
+     <td width="252"><div style="width:250px; height:80px; border:1px solid #999; display:flex;">
+        <div  class="touyou" > <img src="../img/i.png" width="40" height="40" /> </div>
+        <div align="center" style=" width:250px;height:150px; margin-top:25px;">
+          <div style="font-size: 20px;color: red;">${jfBzjfje}</div>
+          <div style="margin-top:5px;">本周缴费总金额</div>
+        </div>
+      </div></td>
+
+  </tr>
+  <tr>
+  </tr>
+</table>
+ <!-- 日历页面-->
+  	<%--   <c:import url="日历222.jsp"></c:import>   --%>
+  	
+<script type="text/javascript" src="../js/script.js"></script>
+<!-- <div class="panel-heading">业主缴费信息</div> -->
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 		<div class="panel-body">
 			<div id="top">
 				<label for="xqmId">选择小区</label> <select id="xqmId" name="xqm">
@@ -587,20 +894,36 @@ function onJe(){
 			- -<input type="text" id="time2"  name="time2"  class="Wdate" onfocus="WdatePicker();" /> -->
 				<input type="button" onclick="searchInfo()" value="搜索"
 					class="btn btn-success" style="background: url(../img/secai.png);" />
+<<<<<<< HEAD
 				<button type="button" class="btn btn-success"
 					onClick="openaddUserPage()"
 					style="background: url(../img/secai.png);">添加</button>
+=======
+			<!-- 	<button type="button" class="btn btn-success"
+					onClick="openaddUserPage()"
+					style="background: url(../img/secai.png);">添加</button> -->
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 				&nbsp;&nbsp;
 				<button type="button" class="btn btn-success"
 					onClick="openEditUserPage()"
 					style="background: url(../img/secai.png);">缴费</button>
 				&nbsp;&nbsp;
+<<<<<<< HEAD
 				<button type="button" class="btn btn-success"
 					onClick="openDeletePage()"
 					style="background: url(../img/secai.png);">删除</button>
 				<input type="button" value="导出" class="btn btn-success"
 					onclick="doExportExcel()"
 					style="background: url(../img/secai.png);" /> &nbsp;&nbsp;&nbsp;
+=======
+				<!-- <button type="button" class="btn btn-success"
+					onClick="openDeletePage()"
+					style="background: url(../img/secai.png);">删除</button> -->
+				<input type="button" value="导出" class="btn btn-success"
+					onclick="doExportExcel()"
+					style="background: url(../img/secai.png);" /> &nbsp;&nbsp;&nbsp;
+					
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 				<div class="dwrapper">
 					<table id="fixed_hdr2">
 						<thead>
@@ -618,6 +941,13 @@ function onJe(){
 								<th>已用当量</th>
 								<th>缴费金额</th>
 								<th>合计金额</th>
+<<<<<<< HEAD
+=======
+								
+								<th>剩余金额</th>
+								<th>已用金额</th>
+								
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 								<th>缴费人</th>
 								<th>缴费类型</th>
 								<th>开始时间</th>
@@ -641,6 +971,13 @@ function onJe(){
 									<td>${jf.yydl}</td>
 									<td>${jf.jfje}</td>
 									<td>${jf.hjje}</td>
+<<<<<<< HEAD
+=======
+									
+									<td>${jf.syje}</td>
+									<td>${jf.yyje}</td>
+									
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 									<td>${jf.userName}</td>
 									<c:choose>
 									<c:when test="${jf.type==0}">
@@ -774,6 +1111,10 @@ function onJe(){
 						<form class="form form-horizontal" action="update.action"
 							method="post">
 							<input type="hidden" id="edit_id" name="id" />
+<<<<<<< HEAD
+=======
+							<input type="hidden" id="edit_yhbh" name="yhbh" />
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 
 							<div class="form-group">
 								<label for="edit_yhName"

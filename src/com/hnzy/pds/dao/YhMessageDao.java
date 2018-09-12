@@ -10,12 +10,15 @@ import org.apache.ibatis.annotations.Param;
 import com.alibaba.fastjson.asm.Type;
 import com.hnzy.hot.base.BaseDao;
 import com.hnzy.pds.pojo.Data;
+import com.hnzy.pds.pojo.Jf;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.YhMessageService;
  
 
 public interface YhMessageDao  extends BaseDao<YhMessage>{
-
+	
+	public void  updateyh(YhMessage yhMessage);
+	
 	public List<YhMessage> find();
  
 	public List<YhMessage> findXQ();
@@ -32,8 +35,7 @@ public interface YhMessageDao  extends BaseDao<YhMessage>{
 	public List<YhMessage> findLDH(@Param("xqm")String xqm);
 	//查找单元号	
 	public List<YhMessage> findDYH(@Param("xqm")String xqm,@Param("ldh")String ldh); 
-	/*	
-	*//**
+	 /*
 	 * 插入信息
 	 * @paramYhMessage
 	 *//*
@@ -93,5 +95,24 @@ public interface YhMessageDao  extends BaseDao<YhMessage>{
 	public void updateYf(@Param("yf")int yf,@Param("yzbh")String yzbh);
 	//查找按流量收费的用户月份
 	public List<YhMessage> findType(int type);
+<<<<<<< HEAD
+=======
+	
+	/**
+	 *  根据用户编号查询用户所在小区-楼栋-单元-门牌号
+	 * @param yhbh
+	 * @return ymparm
+	 * @author ms
+	 */
+	public List<YhMessage> findXqByYhbh(YhMessage ymparm);
+	
+	/**
+	 * 根据yhbh查询缴费表用户信息。
+	 * @param yhbh
+	 * @return ymparm
+	 * @author ms
+	 */
+	public List<Jf> findjfByYhbh(YhMessage ymparm);
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 	
 }

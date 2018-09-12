@@ -12,6 +12,19 @@ import com.hnzy.pds.pojo.Jf;
 import com.hnzy.pds.pojo.YhMessage;
 
 public interface JfDao  extends  BaseDao<Jf>{
+	
+	
+	//根据 缴费时间查询缴费笔数
+	public int findJfbs( );
+	
+	//根据 缴费时间查询缴费总金额
+	public int findJfzje( );
+	
+	//根据 缴费时间查询缴费笔数2
+	public int findBzJfbs( );
+	//根据 缴费时间查询缴费总金额
+	public int findBzJfzje( );
+	
 
 	//根据用户编码查找用户总金额
 	public Jf findzje(String yzbh);
@@ -30,5 +43,16 @@ public interface JfDao  extends  BaseDao<Jf>{
 	//查找合计金额
 //	public Jf findHjje(String yhbh,String yzbh);
 	//查找月份
+<<<<<<< HEAD
 		public Jf  findYfS(String yhbh);
+=======
+	public Jf  findYfS(String yhbh);
+	/**
+	 * 根据yhbh查询缴费表用户信息。
+	 * @param yhbh	
+	 * @return ymparm
+	 * @author ms
+	 */
+	public List<Jf> findjfByYhbh(Jf jfparm);
+>>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 }
