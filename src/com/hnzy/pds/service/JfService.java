@@ -18,7 +18,7 @@ public interface JfService {
 		public int findJfbs( );
 		
 		//根据 缴费时间查询缴费总金额
-		public int findJfzje( );
+		public Integer findJfzje( );
 		
 		//根据 缴费时间查询缴费笔数
 		public int findBzJfbs( );

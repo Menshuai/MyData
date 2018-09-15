@@ -74,6 +74,7 @@ function tc(){ //安全退出
 					<li><a target="Conframe" href="<%=basePath%>Jzq/JzqfindList.action">集中器信息</a></li>
 					<li><a target="Conframe" href="<%=basePath%>Gl/GlfindList.action">功率表信息</a></li>
 					<li><a target="Conframe" href="<%=basePath%>Djb/DjbfindList.action">单价信息</a></li>  
+					<li><a target="Conframe" href="<%=basePath%>Price/pricefindList.action">缴费价格信息</a></li>  
 					
 					<%-- <li><a href="#">客服管理<i class="tip-up"></i></a>
 						<ul class="kidc">							

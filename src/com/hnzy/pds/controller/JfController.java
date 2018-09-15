@@ -282,6 +282,12 @@ public class JfController {
 	public String findList(HttpServletRequest request ){
 		request.setAttribute("jfbs", jfService.findJfbs());
 		request.setAttribute("jfzje",jfService.findJfzje());
+		System.out.println(jfService.findJfzje());
+		 if(jfService.findJfzje()==null){
+			request.setAttribute("jfzje",0);
+		}else{
+			request.setAttribute("jfzje",jfService.findJfzje());
+		} 
 		
 		request.setAttribute("jfBzbs", jfService.findBzJfbs());
 		request.setAttribute("jfBzjfje", jfService.findBzJfzje());

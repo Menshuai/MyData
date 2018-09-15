@@ -15,24 +15,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="../js/biao.js"></script>
 
-<link href="../css/theme.min.css" type="text/css" rel="stylesheet" />
-<link href="../css/style.css" type="text/css" rel="stylesheet" />
+<!-- <link href="../css/theme.min.css" type="text/css" rel="stylesheet" /> -->
+<!-- <link href="../css/style.css" type="text/css" rel="stylesheet" /> -->
 <!-- <link href="../css/bootstrap.css" rel="stylesheet"> -->
  <!--  <link href="../css/thene.min.css" type="text/css" rel="stylesheet" />
 <link href="../css/style.css" type="text/css" rel="stylesheet" />   -->
-
+<script type="text/javascript" src="css/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="css/script.js"></script>
 <link href="../js/layer/2.4/skin/layer.css" rel="stylesheet" type="text/css" />
 <link href="../js/layui/css/layui.css" rel="stylesheet" type="text/css" />
 <script src="../js/layer/2.4/layer.js" type="text/javascript"></script>
 <script src="../js/layui/layui.js" type="text/javascript"></script>
 <script type="text/javascript" src="../js/jquery-1.4.4.min.js"></script>
-<link href="../css/fixed_table_rc.css" type="text/css" rel="stylesheet"
-	media="all" />
-<script src="https://code.jquery.com/jquery.min.js"
-	type="text/javascript"></script>
-<script
-	src="https://meetselva.github.io/fixed-table-rows-cols/js/sortable_table.js"
-	type="text/javascript"></script>
+<link href="../css/fixed_table_rc.css" type="text/css" rel="stylesheet" media="all" />
+<script src="https://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+<script src="https://meetselva.github.io/fixed-table-rows-cols/js/sortable_table.js" type="text/javascript"></script>
 <script src="../js/fixed_table_rc.js" type="text/javascript"></script>
 <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
 <style>
@@ -216,7 +213,7 @@ div.container {
 			document.getElementById("hh").value = "";
 			return;
 		}
-		if (isNaN(hjje)) {
+		if (isNaN(hjje)) { 
 
 			sAlert('合计金额必须是数字！');
 			document.getElementById("jfje").value = "";
@@ -644,8 +641,7 @@ function onJe(){
 </script>
 </head>
 <body>
-<table width="1300" height="200" border="0"   >
-  <tr >
+<table width="1300" height="100" border="0"   >
      <td width="252"><div style="width:250px; height:80px; border:1px solid #999; display:flex;">
         <div  class="touyou" > <img src="../img/i.png" width="40" height="40" /> </div>
         <div align="center" style=" width:250px;height:150px; margin-top:25px;">
@@ -655,6 +651,8 @@ function onJe(){
       </div>
       </td>
       
+   <td width="150" rowspan="2">
+    
      <td width="252"><div style="width:250px; height:80px; border:1px solid #999; display:flex;">
         <div  class="touyou" > <img src="../img/i.png" width="40" height="40" /> </div>
         <div align="center" style=" width:250px;height:150px; margin-top:25px;">
@@ -664,69 +662,31 @@ function onJe(){
       </div>
       </td>
       
-   <td width="291"><td width="4"><td width="4"><td width="5"><td width="6"><td width="9"><td width="15"><td width="10"><td width="606" rowspan="2">
-<!--         
-<div class="aboluo-w-700">
-	<div class="aboluo-leftdiv">
-		<div class="aboluo-tools">
-			<div class="aboluo-calendar-select-year"></div>
-			<div class="aboluo-calendar-month">
-				<a class="aboluo-month-a-perv" href="javascript:;">&lt; </a>
-				<a class="aboluo-month-a-next" href="javascript:;"> &gt;</a>
-			</div>
-			<input type="button" class="aboluo-toToday" value="返回今天" />
-		</div>
-		<div class="aboluo-rilidiv">
-			<table class="aboluo-rilitable" cellspacing="0" cellpadding="0" >
-				<thead class="aboluo-rilithead">
-					<tr>
-						<th>一</td>
-						<th>二</td>
-						<th>三</td>
-						<th>四</td>
-						<th>五</td>
-						<th style="color:red;">六</td>
-						<th style="color:red;">日</td>
-					</tr>
-				</thead>
-			</table>
-		</div>
-	</div>
-    	   <div class="aboluo-rightdiv">
-		  <p class="aboluo-xssj"><p>  
-	  	  <p class="aboluo-currday">.</p>  黄色背景哪一天  
-	   </div>      
-</div> -->
-<script type="text/javascript" src="css/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="css/script.js"></script>
-<td width="93"></td>
-</tr>
-
-  <tr>
-     <td width="565"><div style="width:250px; height:80px; border:1px solid #999; display:flex;">
+   <td width="150" rowspan="2">
+ 
+ <td width="252"><div style="width:250px; height:80px; border:1px solid #999; display:flex;">
         <div  class="touyou" > <img src="../img/i.png" width="40" height="40" /> </div>
         <div align="center" style=" width:250px;height:150px; margin-top:25px;">
-          <div style="font-size: 20px;color: red;">${jfBzbs}</div>
+          <div style="font-size: 20px ;color: red;">${jfBzbs}</div>
           <div style="margin-top:5px;">本周缴费笔数</div>
         </div>
-      </div></td>
+      </div>
+      </td>
+      
+   <td width="150" rowspan="2">
+    
      <td width="252"><div style="width:250px; height:80px; border:1px solid #999; display:flex;">
         <div  class="touyou" > <img src="../img/i.png" width="40" height="40" /> </div>
         <div align="center" style=" width:250px;height:150px; margin-top:25px;">
-          <div style="font-size: 20px;color: red;">${jfBzjfje}</div>
+          <div style="font-size: 20px ;color: red;">${jfBzjfje}</div>
           <div style="margin-top:5px;">本周缴费总金额</div>
         </div>
-      </div></td>
-
-  </tr>
-  <tr>
-  </tr>
+      </div>
+      </td>
 </table>
- <!-- 日历页面-->
-  	<%--   <c:import url="日历222.jsp"></c:import>   --%>
-  	
-<script type="text/javascript" src="../js/script.js"></script>
-<!-- <div class="panel-heading">业主缴费信息</div> -->
+ 
+
+<!--   <div class="panel-heading">业主缴费信息</div>   -->
 		<div class="panel-body">
 			<div id="top">
 				<label for="xqmId">选择小区</label> <select id="xqmId" name="xqm">

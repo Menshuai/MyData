@@ -27,23 +27,23 @@
 	</resultMap>
 	
 	
-	<!-- 今日查询缴费笔数  public Jf findJfbs( ) -->
-	<select id="findJfbs"  resultType="int"  >
+	<!-- 今日查询缴费笔数  public int findJfbs( ) -->
+	<select id="findJfbs"  resultType="int"    >
 	  SELECT COUNT(jfje) FROM k_jfb12 WHERE datediff(DD,time,getdate())=0
 	</select>
 	
-	<!-- 今日查询缴费总金额   public Jf findJfzje( ) -->
-  	<select id="findJfzje"  resultType="int" >
+	<!-- 今日查询缴费总金额   public Integer findJfzje( ) -->
+  	<select id="findJfzje"     resultType="Integer"  parameterType="Jf" >
 	 SELECT sum(jfje) FROM k_jfb12 WHERE datediff(DD,time,getdate())=0
 	</select>  
 	
 	<!-- 本周查询缴费笔数  	public int findBzJfbs( ); -->
-  	<select id="findBzJfbs" resultType="int"  >
+  	<select id="findBzJfbs" resultType="int"   >
 	  SELECT COUNT(jfje) FROM k_jfb12 WHERE datediff(week,time,getdate())=0
 	</select> 
 	
 	<!-- 本周查询缴费总金额   public int findBzJfzje( ); -->
-	  <select id="findBzJfzje"  resultType="int" >
+	  <select id="findBzJfzje"  resultType="int"  parameterType="Jf">
 	 SELECT sum(jfje) FROM k_jfb12 WHERE datediff(week,time,getdate())=0
 	</select> 
 	 
