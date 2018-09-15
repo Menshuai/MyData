@@ -43,9 +43,6 @@ public interface JfDao  extends  BaseDao<Jf>{
 	//查找合计金额
 //	public Jf findHjje(String yhbh,String yzbh);
 	//查找月份
-<<<<<<< HEAD
-		public Jf  findYfS(String yhbh);
-=======
 	public Jf  findYfS(String yhbh);
 	/**
 	 * 根据yhbh查询缴费表用户信息。
@@ -54,5 +51,5 @@ public interface JfDao  extends  BaseDao<Jf>{
 	 * @author ms
 	 */
 	public List<Jf> findjfByYhbh(Jf jfparm);
->>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
+	
 }

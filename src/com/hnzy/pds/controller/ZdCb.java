@@ -93,11 +93,11 @@ public class ZdCb
 	
 	}
 	
-	//包月的用户先在时间大于结束时间发送关阀指令
+	//包月的用户现在时间大于结束时间发送关阀指令
 	
 	public void Gf() throws ParseException{
 	//类型包月小于现在时间关阀门
-	List<YhMessage> yfType=yhMessageService.findType(1);
+	List<YhMessage> yfType=yhMessageService.findType(4);
 	 DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 	for(int i=0;i<yfType.size();i++){
 		String endTime=yfType.get(i).getJf().getEndTime();

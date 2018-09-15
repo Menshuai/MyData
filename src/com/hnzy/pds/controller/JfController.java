@@ -16,27 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.deploy.LoginConfig;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableLoadTimeWeaving;
-<<<<<<< HEAD
-=======
-import org.springframework.http.HttpRequest;
->>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hnzy.pds.pojo.Jf;
-<<<<<<< HEAD
-=======
-import com.hnzy.pds.pojo.Jzq;
->>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 import com.hnzy.pds.pojo.Price;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.JfService;
@@ -148,20 +135,15 @@ public class JfController {
 		 JSONObject jsonObject=new JSONObject();
 		 if(jf.equals("1")){
 			    long day=daysBj();//一季度的天数
-			    System.out.println("按流量----------"+day);
-			    Price price=  priceService.byPrice(1);
+			    Price price=  priceService.byPrice(6);
 				double Ll=price.getPrice();
 				double qs= day*Ll*mj;
-//				BigDecimal b = new BigDecimal(qs); 
 				double je = Math.round(qs);
 				jsonObject.put("je",je);
 				String time=daysTime();
 				jsonObject.put("time",time );
-				System.out.println("按流量开始时间和结束时间---------"+time);
-		 }
-		 else if(jf.equals("3")){ //包季
+		 }else if(jf.equals("3")){ //包季
 			    long day=daysBj();//一季度的天数
-			    System.out.println("包季天数----------"+day);
 			    Price price=  priceService.byPrice(3);
 				double bj=price.getPrice();
 				double qs= day*bj*mj;
@@ -169,18 +151,14 @@ public class JfController {
 				jsonObject.put("je",je);
 				String time=daysTime();
 				jsonObject.put("time",time );
-				System.out.println("包季开始时间和结束时间---------"+time);
-		 }
-		 else if(jf.equals("4")){ //包年
+		 } else if(jf.equals("4")){ //包年
 			    long day=daysBn(); //一年的天数
-			    System.out.println("包年天数----------"+day);
 			    Price price=  priceService.byPrice(4);
 				double bn=price.getPrice();
 				double qs= day*bn*mj;
 				double je = Math.round(qs);
 				jsonObject.put("je",je);
 				String time=BnTime();
-				System.out.println("包年开始时间和结束时间---------"+time);
 				jsonObject.put("time",time );
 		 }
 		return jsonObject;
@@ -281,11 +259,6 @@ public class JfController {
 		    calendar.setTime(new Date());
 		    return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 	 }
-<<<<<<< HEAD
-=======
-	 
-	 
->>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 	//实时列表页面
 	@RequestMapping("/JFfindList")
 	public String findList(HttpServletRequest request ){
@@ -470,12 +443,8 @@ public class JfController {
 	@RequestMapping("update")
 	@ResponseBody
 	public JSONObject update(HttpSession session,String yzbh,Integer jfje,Double hjje,String yf,Integer jf,String time){
-<<<<<<< HEAD
 		String userName=(String)session.getAttribute("UserName");
-=======
 		//String userName=(String)session.getAttribute("UserName");
-		String userName="uuu";
->>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 		System.out.println("time-----------"+time);
 		String[] jfTime=time.split("至");
 		String startTime=jfTime[0];

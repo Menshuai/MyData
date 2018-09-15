@@ -43,4 +43,7 @@ public interface DataDao {
 	public int TxycNum(String time);
 	//盗热异常的数目,开盖异常的数目
 	public int DrycNum(String bj);
+	//根据业主编号查找用户的总已用当量
+	public Double findZyydl(String yzbh);
+	
 }

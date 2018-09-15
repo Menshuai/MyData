@@ -136,9 +136,6 @@ public class YhMessageServiceImpl implements YhMessageService{
 	public List<YhMessage> findType(int type)
 	{
 		return yhMessageDao.findType(type);
-<<<<<<< HEAD
-	} 	
-=======
 	}
 
 	@Transactional
@@ -166,5 +163,4 @@ public class YhMessageServiceImpl implements YhMessageService{
 		}
 		 return yhList;
 	}
->>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 }

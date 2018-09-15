@@ -12,9 +12,9 @@ public class PriceServiceImpl implements PriceService
 	@Autowired
    private PriceDao priceDao;
 	@Override
-	public Price byPrice(int id)
+	public Price byPrice(int msid)
 	{
-		return priceDao.byPrice(id);
+		return priceDao.byPrice(msid);
 	}
 
 }

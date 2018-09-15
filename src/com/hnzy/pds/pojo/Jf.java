@@ -29,17 +29,16 @@ public class Jf  implements Serializable{
 	private String typeBz;
 	private String startTime; //开始时间
 	private String endTime;//结束时间
-	private String yydl;
+	private Double yydl;
 	
 
 
-
-	public String getYydl()
+	public Double getYydl()
 	{
 		return yydl;
 	}
 
-	public void setYydl(String yydl)
+	public void setYydl(Double yydl)
 	{
 		this.yydl = yydl;
 	}

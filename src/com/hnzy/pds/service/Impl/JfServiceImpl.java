@@ -51,11 +51,11 @@ public class JfServiceImpl  implements JfService{
 		return jfDao.findzje(yzbh);
 	}
 
-//	@Override
-//	public void updateJf(Jf jf)
-//	{
-//		jfDao.updateJf(jf);
-//	}
+	@Override
+	public void updateJf(Jf jf)
+	{
+		jfDao.updateJf(jf);
+	}
 
 	@Override
 	public void updateJfHjje(String yzbh, Integer jfje, Double hjje, Date time,String userName,Integer type,String typeBz,String startTime,String endTime)
@@ -106,8 +106,6 @@ public class JfServiceImpl  implements JfService{
 		// TODO Auto-generated method stub
 		return jfDao.findYfS(yhbhS);
 	}
-<<<<<<< HEAD
-=======
 	/**
 	 * 根据yhbh查询缴费表用户信息。
 	 * @param yhbh
@@ -148,7 +146,6 @@ public class JfServiceImpl  implements JfService{
 	}
 
 	 
->>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 
 //	@Override
 //	public Jf findHjje(String yhbh, String yzbh)

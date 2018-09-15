@@ -95,8 +95,6 @@ public interface YhMessageDao  extends BaseDao<YhMessage>{
 	public void updateYf(@Param("yf")int yf,@Param("yzbh")String yzbh);
 	//查找按流量收费的用户月份
 	public List<YhMessage> findType(int type);
-<<<<<<< HEAD
-=======
 	
 	/**
 	 *  根据用户编号查询用户所在小区-楼栋-单元-门牌号
@@ -113,6 +111,5 @@ public interface YhMessageDao  extends BaseDao<YhMessage>{
 	 * @author ms
 	 */
 	public List<Jf> findjfByYhbh(YhMessage ymparm);
->>>>>>> 85104ee4f3f826c11827ddb074ec2c9748154c00
 	
 }

@@ -4,6 +4,16 @@ public class Price
 {
 	private int id;
 	private Double price;
+	private int msid;
+	
+	public int getMsid()
+	{
+		return msid;
+	}
+	public void setMsid(int msid)
+	{
+		this.msid = msid;
+	}
 	public int getId()
 	{
 		return id;
