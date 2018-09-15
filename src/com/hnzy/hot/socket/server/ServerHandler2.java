@@ -1275,7 +1275,7 @@ public class ServerHandler2 extends IoHandlerAdapter
 	 */
 	@Override
 	public void sessionClosed(IoSession session) throws Exception
-	{
+	{ 
 
 		@SuppressWarnings("deprecation")
 		CloseFuture closeFuture = session.close(true);
