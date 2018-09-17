@@ -4,10 +4,34 @@
 	<resultMap type="Price" id="price">
 		<id property="id" column="id"/>
 		<result property="price" column="price"/>
-		<result property="msid" column="msid"/>
 	</resultMap>
+	
+	 <select id="byPrice" resultMap="price" parameterType="Price">
+	select id ,price from k_price where id=#{id}
+	</select>
+	
+	<select id="find" resultMap="price">
+		select * from  k_price 
+	</select>
+
+	<insert id="Insert" parameterType="Price">
+		insert into k_price
+		values(#{price})
+	</insert>
+
+	<delete id="delete" parameterType="Price">
+		delete from k_price
+		where id=#{id}
+	</delete>
+	
+	<update id="update" parameterType="Price">
+		update k_price set
+		price=#{price} 
+		where id=#{id}
+	</update> 
+	
 <select id="byPrice" resultMap="price" parameterType="Price">
-select id ,price,msid from k_price where msid=#{msid}
+select id ,price from k_price where id=#{id}
 </select>
 	
 </mapper>
