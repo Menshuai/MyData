@@ -6,11 +6,10 @@
 		<result property="price" column="price"/>
 	</resultMap>
 	
-	<!-- <select id="byPrice" resultMap="price" parameterType="Price">
+	 <select id="byPrice" resultMap="price" parameterType="Price">
 	select id ,price from k_price where id=#{id}
 	</select>
 	
-	public List<Price> find();
 	<select id="find" resultMap="price">
 		select * from  k_price 
 	</select>
@@ -29,9 +28,8 @@
 		update k_price set
 		price=#{price} 
 		where id=#{id}
-	</update> -->
-<select id="byPrice" resultMap="price" parameterType="Price">
-select id ,price from k_price where id=#{id}
-</select>
+	</update> 
+	
+ 
 	
 </mapper>
