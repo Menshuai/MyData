@@ -47,7 +47,7 @@ public interface JfService {
 	//根据用户编码查找用户总金额
 	public Jf findzje(String yzbh);
 //	//根据用户编号更新缴费信息
-//	public void updateJf(Jf jf);
+	public void updateJf(Jf jf);
 	//更新缴费金额和缴费合计金额
 	public void updateJfHjje(@Param("yzbh")String yzbh,@Param("jfje")Integer jfje,@Param("hjje")Double hjje,@Param("time") Date time,@Param("userName")String userName,@Param("jf")Integer jf,@Param("yf")String yf,@Param("startTime")String startTime,@Param("endTime")String endTime);
 	//缴费信息插入历史表
@@ -74,5 +74,5 @@ public interface JfService {
 	 * @return ymparm
 	 * @author ms
 	 */
-	public List<com.hnzy.pds.pojo.Jf> findjfByYhbh(com.hnzy.pds.pojo.Jf jfparm);
+	public List<Jf> findjfByYhbh(Jf jfparm);
 }

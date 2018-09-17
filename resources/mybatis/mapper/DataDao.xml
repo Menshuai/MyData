@@ -49,6 +49,7 @@
 		<result property="yhMessage.yhlx" column="yhlx" />
 		<result property="yhMessage.lxdh" column="lxdh" />
 		<result property="yhMessage.yzbh" column="yzbh" />
+		<result property="yhMessage.cgbh" column="cgbh" />
 		
 		<result property="gl.id" column="id" />
 		<result property="gl.xh" column="xh" />
@@ -70,7 +71,7 @@
   		select distinct
  	         da.gdtime*gl.xgkw+da.zdtime*gl.xzkw+da.ddtime*gl.xdkw
             +da.dgdtime*gl.dgkw+ da.dzdtime*gl.dzkw +da.dddtime*gl.ddkw as yydlS,
-		 	yh.yf,yh.yzbh
+		 	yh.yf,yh.yzbh,yh.ldh,yh.dyh,yh.cgbh
 		from 
 		 	k_data10  da, 
 		 	k_yhb1  yh, 
@@ -349,5 +350,8 @@
 		 	k_data10
 	    where 
 	   	bj=#{bj}
+	</select>
+	<select id="findZyydl" resultType="Double"  parameterType="Data">
+	 select sum(distinct yydl) from k_data10 da ,k_yhb1 yh where da.yhbh=yh.yhbh and yh.yzbh=#{yzbh}
 	</select>
 </mapper>

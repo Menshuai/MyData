@@ -23,9 +23,9 @@
 		<result property="yhMessage.lxdh" column="lxdh" />
 		<result property="yhMessage.yzbh" column="yzbh" />
 		<result property="yhMessage.mj" column="mj" />
+		<result property="yhMessage.cgbh" column="cgbh" />
 		<result property="yydl" column="yydl"/>
 	</resultMap>
-	
 	
 	<!-- 今日查询缴费笔数  public Jf findJfbs( ) -->
 	<select id="findJfbs"  resultType="int"  >
@@ -46,14 +46,10 @@
 	  <select id="findBzJfzje"  resultType="int" >
 	 SELECT sum(jfje) FROM k_jfb12 WHERE datediff(week,time,getdate())=0
 	</select> 
-	 
-	
-	
-<!-- 	<select id="findHjje" parameterType="Jf" resultMap="jf">
-	</select> -->
+
 	<!-- 更新用户费用 -->
 	<update id="updateJf" parameterType="Jf">
-	update k_jfb12 set syje=#{syje} ,yyje=#{yyje} ,getime=#{getime} where yzbh=#{yzbh} 
+	update k_jfb12 set syje=#{syje} ,yyje=#{yyje} ,getime=#{getime},yydl=#{yydl} where yzbh=#{yzbh} 
 	</update>
 	
 	<!-- 根据用户编码查找用户合计金额 -->
@@ -62,10 +58,10 @@
 	</select>
 	
 	<select id="find" resultMap="jf">
-		select distinct top 600 sum(yydl) yydl, y.yhxm, 
+		select distinct top 600 j. yydl, y.yhxm, 
 			y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,j.userName,
 			j.yzbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,y.mj,j.type,j.endTime,j.startTime
-		from k_data10 da,k_yhb1 y ,k_jfb12 j where da.yhbh=y.yhbh and j.yzbh=y.yzbh group by j.yzbh, y.yhxm, 
+		from k_data10 da,k_yhb1 y ,k_jfb12 j where da.yhbh=y.yhbh and j.yzbh=y.yzbh group by j.yzbh, y.yhxm,j.yydl,
 			y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,j.userName,
 			j.yzbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,y.mj,j.type,j.endTime,j.startTime
 	</select>
@@ -93,7 +89,7 @@
     </insert>
     
     <select id="Sear" parameterType="Jf" resultMap="jf">
- 	 select distinct top 600 sum(yydl) yydl, y.yhxm, 
+  select distinct top 600 sum(yydl) yydl, y.yhxm, 
 			y.xqm,y.ldh,y.dyh,y.hh,y.lxdh,j.userName,
 			j.yzbh,j.jfje,j.hjje,j.time,j.yyje,j.syje,y.mj,j.type,j.endTime,j.startTime
 		from k_data10 da,k_yhb1 y ,k_jfb12 j where da.yhbh=y.yhbh and j.yzbh=y.yzbh 
@@ -156,7 +152,7 @@
     </select>
     
     	<select id="findYfS" resultType="jf"  parameterType="Jf">
-	select distinct yh.yf,jf.type,jf.typeBz,
+	select distinct yh.yf,jf.type,jf.typeBz,jf.yzbh,
 	jf.startTime,jf.endTime from k_yhb1 yh ,k_jfb12 jf where yh.yzbh=jf.yzbh and yh.yhbh=#{yhbh}
 	</select>
 	
@@ -167,5 +163,4 @@
 		and yzbh=#{yzbh}
 		</if>
 	</select>
-	
 </mapper>

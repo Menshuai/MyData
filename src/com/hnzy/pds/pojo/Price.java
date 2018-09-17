@@ -12,6 +12,7 @@ public class Price implements Serializable
 	private Double price;
 	private int msid;
 	
+<<<<<<< HEAD
 	public int getMsid() {
 		return msid;
 	}
@@ -21,6 +22,16 @@ public class Price implements Serializable
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+=======
+	public int getMsid()
+	{
+		return msid;
+	}
+	public void setMsid(int msid)
+	{
+		this.msid = msid;
+	}
+>>>>>>> b1958f309e0ea700dde7916e40dcc6e41934b4bc
 	public int getId()
 	{
 		return id;

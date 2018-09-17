@@ -51,11 +51,11 @@ public class JfServiceImpl  implements JfService{
 		return jfDao.findzje(yzbh);
 	}
 
-//	@Override
-//	public void updateJf(Jf jf)
-//	{
-//		jfDao.updateJf(jf);
-//	}
+	@Override
+	public void updateJf(Jf jf)
+	{
+		jfDao.updateJf(jf);
+	}
 
 	@Override
 	public void updateJfHjje(String yzbh, Integer jfje, Double hjje, Date time,String userName,Integer type,String typeBz,String startTime,String endTime)

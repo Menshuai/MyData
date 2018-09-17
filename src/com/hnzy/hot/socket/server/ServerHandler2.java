@@ -27,11 +27,13 @@ import com.hnzy.pds.pojo.Data;
 import com.hnzy.pds.pojo.Fp;
 import com.hnzy.pds.pojo.Jf;
 import com.hnzy.pds.pojo.Jzq;
+import com.hnzy.pds.pojo.Price;
 import com.hnzy.pds.pojo.YhMessage;
 import com.hnzy.pds.service.DataService;
 import com.hnzy.pds.service.FpService;
 import com.hnzy.pds.service.JfService;
 import com.hnzy.pds.service.JzqService;
+import com.hnzy.pds.service.PriceService;
 import com.hnzy.pds.service.YhMessageService;
 
 public class ServerHandler2 extends IoHandlerAdapter
@@ -52,6 +54,8 @@ public class ServerHandler2 extends IoHandlerAdapter
 	String param;
 	@Autowired
 	private FpService fpService;
+	@Autowired
+	private PriceService priceService;
 	// 日志文件
 	private static Log logs = LogFactory.getLog(ServerHandler2.class);
 	ServerSessionMap sessionMap = ServerSessionMap.getInstance();
@@ -168,7 +172,7 @@ public class ServerHandler2 extends IoHandlerAdapter
 				SocketAddress remoteAddress = (SocketAddress) session.getRemoteAddress();
 				String clientIp = remoteAddress.toString();
 				// 中央空调
-				sbfs(base, connc,clientIp);
+				sbfs(base, connc,clientIp,session);
 			} else if (md.equals("0a"))
 			{// 对某一户的所有风盘返回
 				SF(base, connc);
@@ -179,7 +183,7 @@ public class ServerHandler2 extends IoHandlerAdapter
 			{
 				SocketAddress remoteAddress = (SocketAddress) session.getRemoteAddress();
 				String clientIp = remoteAddress.toString();
-				wxfh(base, connc,clientIp);// 微信接收数据
+				wxfh(base, connc,clientIp, session);// 微信接收数据
 			}
 		}
 		try
@@ -191,7 +195,7 @@ public class ServerHandler2 extends IoHandlerAdapter
 		}
 	}
 
-	private void wxfh(byte[] base, Connection connc,String clientIp)
+	private void wxfh(byte[] base, Connection connc,String clientIp,IoSession session)
 	{
 		logs.info("中央空调微信接收数据：" + Utils.bytesToHexString(base));
 		String[] ipPortString = clientIp.split(":");
@@ -381,24 +385,73 @@ public class ServerHandler2 extends IoHandlerAdapter
 			Jf jf = jfServce.findYf(yhbhS);
 			Integer type=jf.getType(); //业主类型
 			
-			if(type.equals("1")){//按流量计算
+			//按流量计算
+			if(type.equals("1")){
+				
+			String yzbh=jf.getYzbh();//业主编号
 			// 根据用户编号和风盘地址更新，实时表计算，已用当量
 			find = dataService.findYh(yhbhS, fpdz);
 			// 已用当量
 			double yydl = find.getYydlS();
 
-			// 更新实时表缴费信息
+			// 更新实时表已用当量
 			Data datajf = new Data();
 			datajf.setYydl(yydl);
 			datajf.setYhbh(yhbhS);
 			datajf.setFpdz(fpdz);
-			// 根据用户编号和风盘地址，更新实时表用户缴费信息
 			dataService.updateJf(datajf);
 			// 根据实时表查找月份
 		    int yf=find.getYf();
 			data.setYydl(yydl);
 			data.setYf(yf);
 			dataService.InsertYh(data);// 插入历史表
+			//根据用户编号查找用户的总已用当量
+		   Double zyydl=dataService.findZyydl(yzbh);
+		   //用户面积
+		   //double mj = find.getYhMessage().getMj();st
+		   //计算价格
+			 Price price=  priceService.byPrice(5);
+			double dlPrice=price.getPrice();
+			 //用户已用金额
+			 double yyje= zyydl*dlPrice;
+			 //总金额
+			 double jfzje=jfServce.findzje(yzbh).getHjje();
+			 //剩余金额
+			 double syje=jfzje-yyje;
+			 //根据业主编号更新缴费信息
+			 Jf jfs=new Jf();
+			 jfs.setYyje(yyje);
+			 jfs.setSyje(syje);
+			 jfs.setGetime(time);
+			 jfServce.updateJf(jfs); 
+			 //如果剩余金额为负数则进行关
+			 if(syje<0){
+				 String ld =find.getYhMessage().getLdh();
+				 String dy=find.getYhMessage().getDyh();
+				 String cgbh =find.getYhMessage().getCgbh();
+				
+				 if(ld.length()==1){
+						ld=0+ld;
+					}
+					if(dy.length()==1){
+						dy=0+dy;
+					}
+				String cg=cgbh.substring(4);
+			    String ja =ld+dy+"F010B1"+cg+""+yhbh+fpidS+"00FFFF"+ld+dy+"FF";
+				 // 解码
+				boolean sessionmap = cz(ja, clientIp);
+				
+				try
+				{
+					Thread.sleep(2000);
+				} catch (InterruptedException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 // 解码
+				boolean sessionmap1 = cz(ja, clientIp);
+			 }
 			}
 			dataService.InsertYh(data);// 插入历史表
 		} else if (stringHandler.length() > 82)
@@ -409,7 +462,7 @@ public class ServerHandler2 extends IoHandlerAdapter
 				String iString = "F029A1" + str[i];
 				if (iString.length() == 82)
 				{
-					Cb(iString, Ip, port);
+					Cb(iString, Ip, port, clientIp, session);
 				}
 
 			}
@@ -528,7 +581,7 @@ public class ServerHandler2 extends IoHandlerAdapter
 			}
 			String[] keys = new String[] { pt };
 			String mString =ja+je+"FF";
-			logs.info("微信读最新数据---------------"+mString);
+			logs.info("用户欠费发送关阀指令---------------"+mString);
 			// 解码
 			byte[] b = CzUtil.jm(mString);
 			ServerSessionMap sessionMap = ServerSessionMap.getInstance();
@@ -599,7 +652,7 @@ public class ServerHandler2 extends IoHandlerAdapter
 	 * @param base
 	 * @param connc
 	 */
-	private void sbfs(byte[] base, Connection connc, String clientIp)
+	private void sbfs(byte[] base, Connection connc, String clientIp,IoSession session)
 	{
 		
 		logs.info("中央空调接收数据：" + Utils.bytesToHexString(base));
@@ -793,27 +846,77 @@ public class ServerHandler2 extends IoHandlerAdapter
 			Jf jf = jfServce.findYf(yhbhS);
 			Integer type=jf.getType(); //业主类型
 			
-			if(type==1){//按流量计算
+			//按流量计算
+			if(type==1){
+				
+			String yzbh=jf.getYzbh();//业主编号
 			// 根据用户编号和风盘地址更新，实时表计算，已用当量
 			find = dataService.findYh(yhbhS, fpdz);
 			// 已用当量
 			double yydl = find.getYydlS();
 
-			// 更新实时表缴费信息
+			// 更新实时表已用当量
 			Data datajf = new Data();
 			datajf.setYydl(yydl);
 			datajf.setYhbh(yhbhS);
 			datajf.setFpdz(fpdz);
-			// 根据用户编号和风盘地址，更新实时表用户缴费信息
 			dataService.updateJf(datajf);
 			// 根据实时表查找月份
 		    int yf=find.getYf();
 			data.setYydl(yydl);
 			data.setYf(yf);
 			dataService.InsertYh(data);// 插入历史表
-			}else{
-			dataService.InsertYh(data);// 插入历史表
+			//根据用户编号查找用户的总已用当量
+		   Double zyydl=dataService.findZyydl(yzbh);
+		   //用户面积
+		   //double mj = find.getYhMessage().getMj();st
+		   //计算价格
+			 Price price=  priceService.byPrice(5);
+			double dlPrice=price.getPrice();
+			 //用户已用金额
+			 double yyje= zyydl*dlPrice;
+			 //总金额
+			 double jfzje=jfServce.findzje(yzbh).getHjje();
+			 //剩余金额
+			 double syje=jfzje-yyje;
+			 //根据业主编号更新缴费信息
+			 Jf jfs=new Jf();
+			 jfs.setYyje(yyje);
+			 jfs.setSyje(syje);
+			 jfs.setGetime(time);
+			 jfs.setYydl(zyydl);
+			 jfs.setYzbh(yzbh);
+			 jfServce.updateJf(jfs); 
+			 
+			 if(syje<0){
+				 String ld =find.getYhMessage().getLdh();
+				 String dy=find.getYhMessage().getDyh();
+				 String cgbh =find.getYhMessage().getCgbh();
+				
+				 if(ld.length()==1){
+						ld=0+ld;
+					}
+					if(dy.length()==1){
+						dy=0+dy;
+					}
+				String cg=cgbh.substring(4);
+			    String ja =ld+dy+"F010B1"+cg+""+yhbh+fpidS+"00FFFF"+ld+dy+"FF";
+				 // 解码
+				boolean sessionmap = cz(ja, clientIp);
+				try
+				{
+					Thread.sleep(2000);
+				} catch (InterruptedException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 // 解码
+				boolean sessionmap1 = cz(ja, clientIp);
+			 }
+			 
 			}
+			dataService.InsertYh(data);// 插入历史表
 			if(bjs.equals("00")){
 				MapUtilsDf.getMapUtils().add("kt", yhbhS);
 			}
@@ -827,7 +930,7 @@ public class ServerHandler2 extends IoHandlerAdapter
 				String iString = "F029A1" + str[i];
 				if (iString.length() == 82)
 				{
-					Cb(iString,Ip,port);
+					Cb(iString,Ip,port, clientIp, session);
 				}
 
 			}
@@ -838,7 +941,7 @@ public class ServerHandler2 extends IoHandlerAdapter
 		}
 	}
 
-	public void Cb(String stringHandler,String Ip,Integer port)
+	public void Cb(String stringHandler,String Ip,Integer port, String clientIp,IoSession session)
 	{
 
 		// 截取效验数据
@@ -1015,57 +1118,81 @@ public class ServerHandler2 extends IoHandlerAdapter
 			data.setYhbh(yhbhS);
 			data.setFpdz(fpdz);
 			dataService.updateYhbhF(data);// 更新实时表
-//
-//			// 根据用户编号和风盘地址更新，实时表计算，已用当量，基本费，能量费，已用金额
-//			Data find = dataService.findYh(yhbhS, fpdz);
-//			// 更具用户编号，查找用户的合计金额
-//			Jf findzje = jfServce.findzje(yhbhS);
-//			// 已用金额
-//			Double yyje = find.getYyjeS();
-//			// 能量费
-//			double nlf = find.getNlfS();
-//			// 基本费
-//			double jbf = find.getJbfS();
-//			// 已用当量
-//			double yydl = find.getYydlS();
-//			// 缴费表中总金额
-//			double hjje = findzje.getHjje();
-//			// 剩余金额
-//			// double syje=hjje-yyje;
-//			double syje = sub(hjje, yyje);
-//			// 更新实时表缴费信息
-//			Data datajf = new Data();
-//			datajf.setYyje(yyje);
-//			datajf.setNlf(nlf);
-//			datajf.setSyje(syje);
-//			datajf.setJbf(jbf);
-//			datajf.setYydl(yydl);
-//			datajf.setYhbh(yhbhS);
-//			datajf.setFpdz(fpdz);
-//
-//			// 根据用户编号和风盘地址，更新用户缴费信息
-//			dataService.updateJf(datajf);
-//			// 更新缴费表缴费信息
-//			Jf jfJs = new Jf();
-//			jfJs.setYhbh(yhbhS);// 根据用户编号更新缴费表信息
-//			jfJs.setYyje(yyje);// 更新缴费表已用金额
-//			jfJs.setSyje(syje);// 剩余金额
-//			jfJs.setGetime(time);// 缴费信息更新时间
-//
-//			jfServce.updateJf(jfJs);
-//
-//			Fp fp = fpService.findfpbh(yhbhS);
-//			data.setFpbh(fp.getFpbh());
-//
-//			// 根据实时表查找月份
-//			YhMessage yhMessage = yhMessageService.findYf(yhbhS);
-//			int yf=yhMessage.getYf();
-//			data.setYydl(yydl);
-//			data.setYyje(yyje);
-//			data.setSyje(syje);
-//			data.setNlf(nlf);
-//			data.setJbf(jbf);
-//			data.setYf(yf);
+
+			Data find =null ;
+			Jf jf = jfServce.findYf(yhbhS);
+			Integer type=jf.getType(); //业主类型
+			
+			//按流量计算
+			if(type==1){
+				
+			String yzbh=jf.getYzbh();//业主编号
+			// 根据用户编号和风盘地址更新，实时表计算，已用当量
+			find = dataService.findYh(yhbhS, fpdz);
+			// 已用当量
+			double yydl = find.getYydlS();
+
+			// 更新实时表已用当量
+			Data datajf = new Data();
+			datajf.setYydl(yydl);
+			datajf.setYhbh(yhbhS);
+			datajf.setFpdz(fpdz);
+			dataService.updateJf(datajf);
+			// 根据实时表查找月份
+		    int yf=find.getYf();
+			data.setYydl(yydl);
+			data.setYf(yf);
+			dataService.InsertYh(data);// 插入历史表
+			//根据用户编号查找用户的总已用当量
+		   Double zyydl=dataService.findZyydl(yzbh);
+		   //用户面积
+		   //double mj = find.getYhMessage().getMj();st
+		   //计算价格
+			 Price price=  priceService.byPrice(5);
+			double dlPrice=price.getPrice();
+			 //用户已用金额
+			 double yyje= zyydl*dlPrice;
+			 //总金额
+			 double jfzje=jfServce.findzje(yzbh).getHjje();
+			 //剩余金额
+			 double syje=jfzje-yyje;
+			 //根据业主编号更新缴费信息
+			 Jf jfs=new Jf();
+			 jfs.setYyje(yyje);
+			 jfs.setSyje(syje);
+			 jfs.setGetime(time);
+			 jfs.setYydl(zyydl);
+			 jfs.setYzbh(yzbh);
+			 jfServce.updateJf(jfs); 
+			 
+			 if(syje<0){
+				 String ld =find.getYhMessage().getLdh();
+				 String dy=find.getYhMessage().getDyh();
+				 String cgbh =find.getYhMessage().getCgbh();
+				
+				 if(ld.length()==1){
+						ld=0+ld;
+					}
+					if(dy.length()==1){
+						dy=0+dy;
+					}
+				String cg=cgbh.substring(4);
+			    String ja =ld+dy+"F010B1"+cg+""+yhbh+fpidS+"00FFFF"+ld+dy+"FF";
+				 // 解码
+				boolean sessionmap = cz(ja, clientIp);
+				try
+				{
+					Thread.sleep(2000);
+				} catch (InterruptedException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 // 解码
+				boolean sessionmap1 = cz(ja, clientIp);
+			 }
+			 
+			}
 			dataService.InsertYh(data);// 插入历史表
 //			SbSuc sbSuc = new SbSuc();
 //			sbSuc.setSbSuc(yhbhS);
@@ -1148,7 +1275,7 @@ public class ServerHandler2 extends IoHandlerAdapter
 	 */
 	@Override
 	public void sessionClosed(IoSession session) throws Exception
-	{
+	{ 
 
 		@SuppressWarnings("deprecation")
 		CloseFuture closeFuture = session.close(true);

@@ -106,5 +106,11 @@ public class DataServiceImpl implements DataService{
 	{
 		return dataDao.DrycNum(bj);
 	}
+
+	@Override
+	public Double findZyydl(String yzbh)
+	{
+		return dataDao.findZyydl(yzbh);
+	}
  }
 

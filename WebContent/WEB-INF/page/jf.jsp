@@ -15,8 +15,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="../js/biao.js"></script>
 
-<link href="../css/theme.min.css" type="text/css" rel="stylesheet" />
-<link href="../css/style.css" type="text/css" rel="stylesheet" />
+<!-- <link href="../css/theme.min.css" type="text/css" rel="stylesheet" /> -->
+<!-- <link href="../css/style.css" type="text/css" rel="stylesheet" /> -->
 <!-- <link href="../css/bootstrap.css" rel="stylesheet"> -->
  <!--  <link href="../css/thene.min.css" type="text/css" rel="stylesheet" />
 <link href="../css/style.css" type="text/css" rel="stylesheet" />   -->
@@ -26,13 +26,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="../js/layer/2.4/layer.js" type="text/javascript"></script>
 <script src="../js/layui/layui.js" type="text/javascript"></script>
 <script type="text/javascript" src="../js/jquery-1.4.4.min.js"></script>
-<link href="../css/fixed_table_rc.css" type="text/css" rel="stylesheet"
-	media="all" />
-<script src="https://code.jquery.com/jquery.min.js"
-	type="text/javascript"></script>
-<script
-	src="https://meetselva.github.io/fixed-table-rows-cols/js/sortable_table.js"
-	type="text/javascript"></script>
+<link href="../css/fixed_table_rc.css" type="text/css" rel="stylesheet" media="all" />
+<script src="https://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+<script src="https://meetselva.github.io/fixed-table-rows-cols/js/sortable_table.js" type="text/javascript"></script>
 <script src="../js/fixed_table_rc.js" type="text/javascript"></script>
 <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
 <style>
@@ -216,7 +212,7 @@ div.container {
 			document.getElementById("hh").value = "";
 			return;
 		}
-		if (isNaN(hjje)) {
+		if (isNaN(hjje)) { 
 
 			sAlert('合计金额必须是数字！');
 			document.getElementById("jfje").value = "";
@@ -716,7 +712,8 @@ function onJe(){
           <div style="font-size: 20px;color: red;">${jfBzjfje}</div>
           <div style="margin-top:5px;">本周缴费总金额</div>
         </div>
-      </div></td>
+      </div>
+      </td>
 
   </tr>
   <tr>

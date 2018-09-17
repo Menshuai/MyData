@@ -24,7 +24,6 @@ public class YhMessage implements Serializable{
 	
 	private String  yhxm  ;  //用户姓名
 	private String  bz    ;     //备注
-	
 	private String  lxdh  ;  //联系电话
 	private Cg cg;
 	private int yf;

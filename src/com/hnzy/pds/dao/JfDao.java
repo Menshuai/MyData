@@ -51,4 +51,5 @@ public interface JfDao  extends  BaseDao<Jf>{
 	 * @author ms
 	 */
 	public List<Jf> findjfByYhbh(Jf jfparm);
+	
 }

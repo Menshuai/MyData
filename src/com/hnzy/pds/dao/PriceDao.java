@@ -5,5 +5,5 @@ import com.hnzy.pds.pojo.Price;
 
 public interface PriceDao extends BaseDao<Price>
 {
-	public Price byPrice(int id);
+	public Price byPrice(int msid);
 }
