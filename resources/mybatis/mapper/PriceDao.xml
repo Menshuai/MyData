@@ -10,7 +10,7 @@
 	 <select id="byPrice" resultMap="price" parameterType="Price">
 	select id ,price from k_price where id=#{id}
 	</select>
-<!-- 	
+	
 	<select id="find" resultMap="price">
 		select * from  k_price 
 	</select>
@@ -30,7 +30,7 @@
 		price=#{price} 
 		where id=#{id}
 	</update> 
-	 -->
+
  
 	
 </mapper>
