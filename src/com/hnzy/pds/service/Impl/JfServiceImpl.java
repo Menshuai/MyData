@@ -103,6 +103,7 @@ public class JfServiceImpl  implements JfService{
 	@Override
 	public Jf findYf(String yhbhS)
 	{
+		// TODO Auto-generated method stub
 		return jfDao.findYfS(yhbhS);
 	}
 	/**
@@ -130,7 +131,7 @@ public class JfServiceImpl  implements JfService{
 	}
 
 	@Override
-	public Integer findJfzje( ) {
+	public int findJfzje( ) {
 		return jfDao.findJfzje();
 	}
 

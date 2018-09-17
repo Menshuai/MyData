@@ -18,7 +18,7 @@ public interface JfDao  extends  BaseDao<Jf>{
 	public int findJfbs( );
 	
 	//根据 缴费时间查询缴费总金额
-	public Integer findJfzje( );
+	public int findJfzje( );
 	
 	//根据 缴费时间查询缴费笔数2
 	public int findBzJfbs( );
