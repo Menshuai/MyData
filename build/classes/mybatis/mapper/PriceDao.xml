@@ -4,8 +4,8 @@
 	<resultMap type="Price" id="price">
 		<id property="id" column="id"/>
 		<result property="price" column="price"/>
+		<result property="msid" column="msid"/>
 	</resultMap>
-	
 	 <select id="byPrice" resultMap="price" parameterType="Price">
 	select id ,price from k_price where id=#{id}
 	</select>
@@ -29,9 +29,4 @@
 		price=#{price} 
 		where id=#{id}
 	</update> 
-	
-<select id="byPrice" resultMap="price" parameterType="Price">
-select id ,price from k_price where id=#{id}
-</select>
-	
 </mapper>

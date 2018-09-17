@@ -9,8 +9,6 @@ import com.hnzy.pds.pojo.Price;
 @Service
 public interface PriceService
 {
-<<<<<<< HEAD
-  public Price	byPrice(int id);
   /**
 	 * 查找信息
 	 * @return
@@ -37,7 +35,5 @@ public interface PriceService
   
   
   
-=======
   public Price	byPrice(int msid);
->>>>>>> b1958f309e0ea700dde7916e40dcc6e41934b4bc
 }

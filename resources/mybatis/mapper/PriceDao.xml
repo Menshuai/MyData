@@ -6,7 +6,6 @@
 		<result property="price" column="price"/>
 		<result property="msid" column="msid"/>
 	</resultMap>
-	
 	 <select id="byPrice" resultMap="price" parameterType="Price">
 	select id ,price from k_price where id=#{id}
 	</select>
@@ -30,14 +29,4 @@
 		price=#{price} 
 		where id=#{id}
 	</update> 
-<<<<<<< HEAD
-
- 
-=======
-	
-<select id="byPrice" resultMap="price" parameterType="Price">
-select id ,price from k_price where id=#{id}
-</select>
->>>>>>> b1958f309e0ea700dde7916e40dcc6e41934b4bc
-	
 </mapper>
