@@ -4,6 +4,7 @@
 	<resultMap type="Price" id="price">
 		<id property="id" column="id"/>
 		<result property="price" column="price"/>
+		<result property="msid" column="msid"/>
 	</resultMap>
 	
 	 <select id="byPrice" resultMap="price" parameterType="Price">
