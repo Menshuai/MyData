@@ -2,9 +2,11 @@ package com.hnzy.pds.service;
 
 import java.util.List;
 
-import com.hnzy.pds.pojo.Djb;
+import org.springframework.stereotype.Service;
+
 import com.hnzy.pds.pojo.Price;
 
+@Service
 public interface PriceService
 {
   public Price	byPrice(int id);
