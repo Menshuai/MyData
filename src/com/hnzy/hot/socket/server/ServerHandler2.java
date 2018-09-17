@@ -414,6 +414,7 @@ public class ServerHandler2 extends IoHandlerAdapter
 			double dlPrice=price.getPrice();
 			 //用户已用金额
 			 double yyje= zyydl*dlPrice;
+			 
 			 //总金额
 			 double jfzje=jfServce.findzje(yzbh).getHjje();
 			 //剩余金额
